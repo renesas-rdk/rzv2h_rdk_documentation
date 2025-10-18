@@ -13,7 +13,7 @@ create-pages:
     - make SPHINXOPTS="-W" html
     - make SPHINXOPTS="-W" latexpdf
     - mv build/html/* public
-    - mv build/latex/*.pdf public
+    - cp build/latex/*.pdf public
 
     # --- Commit PDF back to repo ---
     - echo "Committing generated PDF back to repository..."
