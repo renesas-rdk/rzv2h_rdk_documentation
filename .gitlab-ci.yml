@@ -7,6 +7,9 @@ create-pages:
     # Run only for default branch otherwise
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   script:
+    # Get ENV variables
+    - source /etc/environment
+
     # --- Build docs and check spelling ---
     - mkdir -p public
     - make spelling
@@ -26,12 +29,13 @@ create-pages:
 
     # Add and commit if there are changes
     - git add docs/pdf/*.pdf
+    - echo "Deploy user is $DEPLOY_USER"
     - |
       if ! git diff --cached --quiet; then
         COMMIT_HASH=$(echo "$CI_COMMIT_SHA" | cut -c1-8)
         COMMIT_MSG="ci: update generated PDF from commit ${COMMIT_HASH}"
         git commit -m "${COMMIT_MSG}"
-        git push "https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:$CI_DEFAULT_BRANCH
+        git push "https://${DEPLOY_USER}:${DEPLOY_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:$CI_DEFAULT_BRANCH
       else
         echo "No changes in PDF; skipping commit."
       fi
