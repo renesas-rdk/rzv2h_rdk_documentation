@@ -7,6 +7,9 @@ create-pages:
     # Run only for default branch otherwise
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   script:
+    # Source the ENV variables
+    - source /etc/environment
+
     # --- Build docs and check spelling ---
     - mkdir -p public
     - make spelling
@@ -32,7 +35,7 @@ create-pages:
         COMMIT_HASH=$(echo "$CI_COMMIT_SHA" | cut -c1-8)
         COMMIT_MSG="ci: update generated PDF from commit ${COMMIT_HASH}"
         git commit -m "${COMMIT_MSG}"
-        git push origin HEAD:$CI_DEFAULT_BRANCH
+        git push "https://gitlab-ci-token:${DEPLOY_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:$CI_DEFAULT_BRANCH
       else
         echo "No changes in PDF; skipping commit."
       fi
