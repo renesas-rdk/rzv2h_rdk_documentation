@@ -1,0 +1,34 @@
+# 1. Please keep this list in alphabetical order, otherwise the developer will get angry with you.
+# 2. Useful command: sort spelling_wordlist.txt -o spelling_wordlist.txt
+# 3. Skip those words when checking the spelling
+Balena
+bootable
+bootloaders
+bp
+coldboot
+eMMC
+Etcher
+filesystem
+fip
+gz
+lxde
+macOS
+microSD
+msec
+rdk
+RDK
+Reconfigurable
+Renesas
+rzv
+RZ/V2H
+RZV2H
+spi
+srec
+Styhead
+ubuntu
+Ubuntu
+ubuntu-lxde
+unmount
+wic
+xSPI
+Yocto

@@ -1,0 +1,17 @@
+codespell
+doc8
+docutils
+pip
+pytest
+pyenchant
+myst-parser
+sphinx
+sphinx-copybutton
+sphinx-lint
+sphinx-multiversion
+sphinx-rtd-theme
+sphinx-tabs
+sphinx-tamer
+sphinxcontrib-googleanalytics
+sphinxcontrib-mermaid
+sphinxcontrib-spelling
