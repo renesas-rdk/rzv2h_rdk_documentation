@@ -3,9 +3,11 @@ create-pages:
     publish: public
   rules:
     # Skip if the commit message is from the auto PDF update
-    - if: '$CI_COMMIT_MESSAGE =~ /ci: update generated PDF from commit/'
+    - if: '$CI_COMMIT_AUTHOR =~ /<ci-runner@gitlab\.com>$/'
+      when: never
     # Run only for default branch otherwise
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: on_success
   script:
     # Source the ENV variables
     - source /etc/environment
