@@ -20,10 +20,6 @@ create-pages:
     - git config --global user.name "GitLab CI"
     - git config --global user.email "ci-runner@gitlab.com"
 
-    # Ensure we are on the default branch, not detached HEAD
-    - git fetch origin $CI_DEFAULT_BRANCH
-    - git checkout $CI_DEFAULT_BRANCH
-
     # Copy PDF to tracked path
     - mkdir -p docs/pdf
     - cp build/latex/*.pdf "docs/pdf/"
