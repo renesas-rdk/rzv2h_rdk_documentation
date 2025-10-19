@@ -328,6 +328,25 @@ Copy the bootloaders file to your Windows PC.
 First Time Boot Setup
 ---------------------
 
+The default user credentials for the provided Ubuntu images are as follows:
+
+.. list-table:: Default Login Information
+   :header-rows: 1
+   :widths: 35 25 25 15
+
+   * - **Image Type**
+     - **Username**
+     - **Password**
+     - **Root Password**
+   * - Ubuntu 24.04 (Headless)
+     - rz
+     - *(none)*
+     - *(none)*
+   * - Ubuntu 24.04 (with GUI LXDE)
+     - rz
+     - 1
+     - *(none)*
+
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
 
 .. note::
