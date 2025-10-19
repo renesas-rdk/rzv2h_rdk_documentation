@@ -85,7 +85,7 @@ The result will be located at: `build/html/index.html`
 5. A browser window will open showing your documentation.
 Any changes you make and rebuild (make html) will be visible after the `make html` command is executed.
 
-*Tip:* If auto-refresh does not work, rebuild the HTML and manually refresh the browser tab.
+*Tip:* If auto-refresh does not work, clean the build folder (`make clean`), rebuild the HTML and manually refresh the browser tab.
 
 ### Build the PDF
 
