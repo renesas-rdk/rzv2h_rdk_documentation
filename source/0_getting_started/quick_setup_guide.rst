@@ -215,7 +215,7 @@ Follow the instructions below to set up the board.
    .. note::
       If already installed, skip this step.
 
-   - **Terminal Emulator:** `Tera Term <https://ttssh2.osdn.jp/index.html.en>`_
+   - **Terminal Emulator:** `Tera Term <https://teratermproject.github.io/index-en.html>`_
    - **Operating Environment:** Windows
 
 2. **Install the Serial Port Driver**
