@@ -77,16 +77,16 @@ For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Deve
 The following image shows the top/bottom view of the RZ/V2H Robotics Development Kit (RDK) board,
 highlighting its main connectors and interfaces.
 
-.. figure:: images/board_top_view.png
+.. figure:: images/RDK_Top.png
    :alt: RZ/V2H RDK Board Top View
    :width: 500px
    :align: center
 
-   RZ/V2H RDK Board Top View (TODO: replace with actual image from China team)
+   RZ/V2H RDK Board Top View
 
-.. figure:: images/board_top_view.png
+.. figure:: images/RDK_Bottom.png
    :alt: RZ/V2H RDK Board Top View
    :width: 500px
    :align: center
 
-   RZ/V2H RDK Board Bottom View (TODO: replace with actual image from China team)
+   RZ/V2H RDK Board Bottom View
