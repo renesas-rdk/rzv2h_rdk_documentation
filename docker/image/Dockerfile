@@ -24,6 +24,8 @@ RUN apt-get update && \
         python3-pip \
         curl \
         sudo \
+        openssh-server \
+        vim \
         ca-certificates \
         curl \
         gnupg \
