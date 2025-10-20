@@ -6,3 +6,4 @@ Welcome to RZ/V2H RDK Documentation!
    :caption: Contents
 
    Getting Started <0_getting_started/index>
+   System Configuration <1_system_configuration/index>
