@@ -14,7 +14,7 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser', 'sphinxcontrib.spelling']
+extensions = ['myst_parser', 'sphinxcontrib.spelling', 'sphinx_copybutton']
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -43,3 +43,9 @@ latex_documents = [
 # Spell checker configuration
 spelling_lang = 'en_US'
 spelling_word_list_filename = '../spelling_wordlist.txt'
+
+# Copybutton configuration
+copybutton_prompt_text = r'^(?:[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+:[^$#]*[#$]\s|[#$]\s)'
+copybutton_prompt_is_regexp = True
+copybutton_only_copy_prompt_lines = False
+copybutton_remove_prompts = True
