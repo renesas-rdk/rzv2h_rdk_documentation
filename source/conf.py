@@ -31,7 +31,13 @@ html_favicon = '../renesas_favicon.png'
 # -- Options for LaTeX output --------------------------------------------------
 
 latex_elements = {
-    'figure_align': 'H',  # Force all figures to stay in place (no floating)
+    # Force figures and code blocks to stay in place
+    'figure_align': 'H',
+    # Add fvextra for better code formatting
+    'preamble': r'''
+\usepackage{fvextra}
+\fvset{breaklines=false, breakanywhere=false}
+'''
 }
 
 latex_documents = [
