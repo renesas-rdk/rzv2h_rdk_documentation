@@ -100,6 +100,8 @@ There are two possible methods to add kernel configuration for linux-yocto:
 
         SRC_URI:append = " file://myconfig.cfg"
 
+.. _modify_dts:
+
 4. Modify the DTS file:
 
    .. code-block:: bash
@@ -132,7 +134,7 @@ After making changes in the workspace, use devtool build to compile the recipe.
 
    Otherwise, the generated artifacts may **not be compatible** with the Ubuntu image.
 
-1. Collect the Built Kernel Artifacts
+6. Collect the Built Kernel Artifacts
 
 Once the build is complete, collect the built kernel artifacts for deployment to the target hardware.
 
@@ -147,4 +149,4 @@ Please copy those files to the appropriate boot media (e.g., SD card) as per you
 
    .. code-block:: bash
 
-      sudo depmod -a
+      $ sudo depmod -a

@@ -61,11 +61,20 @@ Obtain all files from the Prerequisites section, and following the step below to
 
        renesas@builder-pc:~$ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/x_compilation_docker.git
 
-2. Copy both **Yocto SDK** installers to the Docker build context directory. Please replace the paths below with your actual file locations.
+2. Copy the **Yocto SDK** installer to the Docker build context directory. Please replace the paths below with your actual file locations.
 
     .. code-block:: bash
 
         renesas@builder-pc:~$ cp poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-5.1.4.sh ~/x_compilation_docker/
+
+    .. hint::
+
+        *Why copy the Yocto SDK installer into the Docker build context directory?*
+
+        This step is required to prepare the cross-compilation environment for cross-compiling the ROS2 applications
+        targeting the RZ/V2H platform.
+
+        The setup of this cross-compilation workflow will be introduced in a later section.
 
 3. Build the Docker Container
 
@@ -83,7 +92,7 @@ After complete this step, the Docker image (name: rzv2h_ros_xbuild:latest) and c
 
 **What does this script do?**
 
-- Copying the tool-chain scripts into the build directory lets the Dockerfile install the Yocto SDK inside the image.
+- Copying the Yocto SDK tool-chain scripts into the build directory lets the Dockerfile install the Yocto SDK inside the image.
 - The setup script usually runs docker build (to produce the image) and docker run (to create/start a container) with proper mounts, environment variables and volumes.
 - Inside the container the image will have the cross compilers, sysroot and a configured environment (CMake toolchain file, sourced toolchain setup) so colcon/CMake can cross-compile ROS2 for the target.
 
@@ -159,7 +168,9 @@ If the installation is successful, the following messages will appear in the ter
     environment setup script e.g.
     $ . /home/renesas/poky_sdk/5.1.4/environment-setup-cortexa55-poky-linux
 
-2. Set up cross-compile environment. The following command assumes that you installed the SDK in `~/poky_sdk/5.1.4`
+2. Set up cross-compile environment.
+
+The following command assumes that you installed the SDK in `~/poky_sdk/5.1.4`
 
 .. code-block:: bash
 

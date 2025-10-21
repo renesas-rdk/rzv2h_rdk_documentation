@@ -3,19 +3,19 @@ Ubuntu System with RZ/V2H RDK
 
 This section provides usage information about the interfaces available on the RZ/V2H RDK when running the Ubuntu system.
 
-For more details about specification of each interface, refer to the `RZ/V2H Group User's Manual: Hardware <https://www.renesas.com/en/document/mah/rzv2h-group-users-manual-hardware?r=25471761>`_.
+For more details about specification of each interface, refer to the `RZ/V2H Group User's Manual: Hardware <https://www.renesas.com/en/document/mah/rzv2h-group-users-manual-hardware>`_.
 
 Overview
 --------------------------------
 The RZ/V2H RDK supports multiple peripheral interfaces that allow users to connect and control external devices for various robotic and industrial applications.
 These interfaces include:
 
-.. figure:: images/rzv2h_rdk_front_view.png
+.. figure:: images/RDK_hw_interface.png
    :alt: RZ/V2H Robotic Development Kit Front View
    :align: center
    :width: 500px
 
-   RZ/V2H Robotic Development Kit Interfaces (TODO: Update image)
+   RZ/V2H Robotic Development Kit Interfaces
 
 Main Interfaces
 --------------------------------
@@ -52,7 +52,7 @@ The main interfaces available on the RZ/V2H Robotic Development Kit are listed b
    * - 5
      - CAN-FD ×2
      - Controller Area Network Flexible Data-Rate communication ports.
-   * - 9
+   * - 6
      - RasPi GPIO 40-pin Header (I2C, SPI, UART, GPIO, PCM)
      - General purpose I/O interface compatible with Raspberry Pi pin layout.
 
@@ -63,13 +63,13 @@ The main interfaces available on the RZ/V2H Robotic Development Kit are listed b
    * - No
      - Interface Name
      - Description
-   * - 6
+   * - 7
      - Mini-HDMI
      - Video output interface for external display.
-   * - 7
+   * - 8
      - USB-UART
      - Serial console interface for debugging.
-   * - 8
+   * - 9
      - JTAG 10-pin
      - JTAG interface for debugging and programming.
 
