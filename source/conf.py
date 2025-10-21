@@ -44,8 +44,8 @@ latex_documents = [
 spelling_lang = 'en_US'
 spelling_word_list_filename = '../spelling_wordlist.txt'
 
-# Copybutton configuration
-copybutton_prompt_text = r'^(?:[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+:[^$#]*[#$]\s|[#$]\s)'
+# Copybutton configuration (keep comment lines, remove $/# prompts)
+copybutton_prompt_text = r'^(?:[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+:[^$]*\$ |\$ )'
 copybutton_prompt_is_regexp = True
 copybutton_only_copy_prompt_lines = False
 copybutton_remove_prompts = True
