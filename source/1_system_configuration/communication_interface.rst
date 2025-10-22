@@ -14,7 +14,7 @@ The RZ/V2H RDK is equipped with two CAN-FD (Controller Area Network Flexible Dat
 
    We recommend using the: **Bus Cable, 1 Female Connector, 3 Contacts, 1.0 mm Pitch, 10 cm Length**.
 
-   Also, the RZ/V2H RDK has the CAN transceiver built-in (TCAN1046VDMTRQ1), so you do not need to add an external CAN transceiver circuit.
+   The RZ/V2H RDK is equipped with an onboard CAN transceiver (**TCAN1046VDMTRQ1**) and an integrated **120 Ω termination resistor**, eliminating the need for any external CAN transceiver circuitry.
 
 Connect the CAN-FD ports to your CAN network using appropriate connectors and cables. CAN-H and CAN-L lines should be connected accordingly.
 
@@ -87,15 +87,15 @@ Support the following communication protocols:
 - GPIO (General Purpose Input/Output)
 - PCM (Pulse Code Modulation)
 
-Block Diagram
+Pin Out Diagram
 """"""""""""""
 
 .. figure:: images/GPIO_block.png
-   :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Block Diagram
+   :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
    :align: center
-   :width: 600px
+   :width: 500px
 
-   RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Block Diagram
+   RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
 
 I2C (Inter-Integrated Circuit)
 """""""""""""""""""""""""""""""""""""
