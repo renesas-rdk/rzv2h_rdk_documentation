@@ -109,6 +109,8 @@ For example, to use the OV5645 camera module, create and run the following scrip
 
 This script detects the connected camera module and sets the desired resolution.
 
+For other camera modules, please modify the script accordingly.
+
 Usage example with v4l2-ctl
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

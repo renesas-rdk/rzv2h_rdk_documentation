@@ -88,7 +88,7 @@ Support the following communication protocols:
 - PCM (Pulse Code Modulation)
 
 Pin Out Diagram
-""""""""""""""
+""""""""""""""""""
 
 .. figure:: images/GPIO_block.png
    :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
