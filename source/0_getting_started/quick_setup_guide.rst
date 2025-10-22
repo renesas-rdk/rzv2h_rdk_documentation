@@ -358,7 +358,7 @@ Connect an Ethernet cable to the board and run:
 
    # Check network
    ping 8.8.8.8 -c 3
-   ping google.com -c 3
+   ping bing.com -c 3
 
 1. Perform apt update and resize the SD card:
 
