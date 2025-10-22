@@ -14,7 +14,7 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser', 'sphinxcontrib.spelling', 'sphinx_copybutton']
+extensions = ['myst_parser', 'sphinxcontrib.spelling', 'sphinx_copybutton', 'sphinx.ext.autodoc']
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -29,21 +29,39 @@ html_static_path = ['_static']
 html_favicon = '../renesas_favicon.png'
 
 # -- Options for LaTeX output --------------------------------------------------
+latex_engine = 'lualatex'
 
 latex_elements = {
-    # Force figures and code blocks to stay in place
-    'figure_align': 'H',
-    # Add fvextra for better code formatting
+    'passoptionstopackages': r'''
+\PassOptionsToPackage{svgnames}{xcolor}
+''',
+    'fontpkg': r'''
+\setmainfont{TeX Gyre Termes}      % Times-like
+\setsansfont{TeX Gyre Heros}       % Helvetica-like
+\setmonofont[Scale=MatchLowercase]{TeX Gyre Cursor} % Courier-like
+''',
     'preamble': r'''
-\usepackage{fvextra}
-\fvset{breaklines=false, breakanywhere=false}
-'''
+\usepackage[titles]{tocloft}
+\cftsetpnumwidth {1.25cm}\cftsetrmarg{1.5cm}
+\setlength{\cftchapnumwidth}{0.75cm}
+\setlength{\cftsecindent}{\cftchapnumwidth}
+\setlength{\cftsecnumwidth}{1.25cm}
+''',
+    "sphinxsetup": r"""
+        verbatimwrapslines=true,     % keep wrapping long lines
+        verbatimcontinued=,          % hide the wrap marker
+        verbatimvisiblespace=,       % also hide the little visible-space glyph before breaks
+    """,
+'fncychap': r'\usepackage[Bjornstrup]{fncychap}',
+'printindex': r'\footnotesize\raggedright\printindex',
 }
 
 latex_documents = [
-    ('index', 'WS125_Robotic_Development_Kit_User_Manual.tex',
-     'RZ/V2H Robotic Development Kit\\\\User Manual',
-     'Renesas Electronics Corporation', 'manual'),
+    ('index',
+     'WS125_Robotic_Development_Kit_User_Manual.tex',
+     r'RZ/V2H Robotic Development Kit\\User Manual',
+     'Renesas Electronics Corporation',
+     'manual'),
 ]
 
 # Spell checker configuration
