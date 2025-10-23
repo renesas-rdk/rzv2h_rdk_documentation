@@ -162,7 +162,7 @@ The board supports multiple boot options, including:
    Early boot messages might not appear automatically in the terminal (including U-Boot console and SCIF terminal).
    To view them, manually reset the board by connecting **JTAG QRESN (PIN10)** to **GND**, as shown below.
 
-.. figure:: images/JTAG_Reset.jpg
+.. figure:: images/JTAG_Reset.png
    :alt: JTAG Reset Pin Example
    :width: 500px
    :align: center
@@ -177,7 +177,7 @@ For **SD card boot mode**, the IPLs are already written to the SD card when flas
 On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
 
 
-.. figure:: images/DSW1_SD.jpg
+.. figure:: images/DSW1_SD.png
    :alt: DSW1 SD Card Boot Mode
    :width: 500px
    :align: center
@@ -250,7 +250,7 @@ Copy the bootloaders file to your Windows PC.
 - Connect the **Windows PC** and **Board** using a **Serial-to-MicroUSB** cable.
 - Change the **DSW1** setting to **Boot Mode 3 (SCIF download)**.
 
-  .. figure:: images/DSW1_SCIF.jpg
+  .. figure:: images/DSW1_SCIF.png
      :alt: DSW1 SCIF Download Mode
      :width: 500px
      :align: center
@@ -302,7 +302,7 @@ Copy the bootloaders file to your Windows PC.
   1. Insert the microSD card to the board.
   2. Change DSW1 to **Boot mode 2 (xSPI boot)**:
 
-    .. figure:: images/DSW1_xSPI.jpg
+    .. figure:: images/DSW1_xSPI.png
         :alt: DSW1 xSPI Boot
         :width: 500px
         :align: center
