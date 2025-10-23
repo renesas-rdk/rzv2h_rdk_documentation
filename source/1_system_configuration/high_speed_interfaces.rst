@@ -155,7 +155,7 @@ To test network connectivity reach an external server, use the ping command:
 
 .. code-block:: bash
 
-    $ ping -c 4 google.com
+    $ ping -c 4 bing.com
     $ ping -c 4 8.8.8.8
 
 Set a static IP address
