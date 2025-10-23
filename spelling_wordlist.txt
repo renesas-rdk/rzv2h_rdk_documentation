@@ -1,6 +1,7 @@
 # 1. Please keep this list in alphabetical order, otherwise the developer will get angry with you.
 # 2. Useful command: sort spelling_wordlist.txt -o spelling_wordlist.txt
 # 3. Skip those words when checking the spelling
+adaptiveThreshold
 Balena
 bbappend
 bootable
@@ -8,16 +9,20 @@ bootloaders
 bp
 cfg
 CMake
+Codec
 colcon
 coldboot
 config
 configs
 cortexa
 ctl
+cvtColor
+cvtColorTwoPlane
 defconfig
 dev
 devtool
 Dockerfile
+Downsampling
 dts
 eMMC
 esdk
@@ -27,20 +32,26 @@ filesystem
 fip
 gpiochip
 gpiod
+grayscale
+GStreamer
 gz
 kbps
 linux
 lxde
 macOS
+matchTemplate
 Mbps
 microSD
 minicom
+morphologyEX
 msec
 Netplan
 pinout
 pokylinux
 preconfigured
 Preconfigured
+pyrDown
+pyrUp
 rdk
 RDK
 Reconfigurable
@@ -52,6 +63,7 @@ rzv
 RZ/V2H
 RZV2H
 SDK
+Sobel
 spi
 srec
 Styhead
@@ -62,9 +74,12 @@ ubuntu
 Ubuntu
 ubuntu-lxde
 unmount
+Upsampling
 utils
 weston
 wic
+wrapAffine
+wrapPerspective
 xbuild
 xSPI
 yocto
