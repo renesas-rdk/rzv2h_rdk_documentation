@@ -26,6 +26,10 @@ exclude_patterns = []
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+# Relative to html_static_path
+html_css_files = ['custom.css']
+
 html_favicon = '../renesas_favicon.png'
 
 # -- Options for LaTeX output --------------------------------------------------
