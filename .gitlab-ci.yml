@@ -14,7 +14,7 @@ create-pages:
 
     # --- Build docs and check spelling ---
     - mkdir -p public
-    - make spelling
+    - make SPHINXOPTS="-W" spelling
     - make SPHINXOPTS="-W" html
     - make SPHINXOPTS="-W" latexpdf
     - mv build/html/* public
