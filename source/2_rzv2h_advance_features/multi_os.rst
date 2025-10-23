@@ -1,8 +1,8 @@
 RZ/V Multi-OS
------------------
+============================
 
 Overview
-^^^^^^^^^^^^^^^^
+-------------------
 
 The RZ/V Multi-OS feature allows the RZ/V2H platform to run multiple operating systems concurrently.
 

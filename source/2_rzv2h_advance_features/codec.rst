@@ -1,5 +1,5 @@
 Video Codec Library
------------------------------
+============================
 
 The RZ/V2H Video Codec Library provides hardware-accelerated (combined with :ref:`DRP IP <drp_concepts>`) video encoding and decoding capabilities.
 

@@ -1,8 +1,8 @@
 OpenCV Accelerator
------------------------------
+============================
 
 Overview
-^^^^^^^^^^^^^^^^
+-------------------
 
 The RZ/V2H OpenCV Accelerator (OpenCVA) leverages the OpenCV library to provide optimized computer vision functionalities on the RZ/V2H platform by using the :ref:`DRP IP <drp_concepts>`.
 
@@ -13,7 +13,7 @@ Based on the `OpenCV version 4.10.0 <https://github.com/opencv/opencv/releases/t
    For more detail information about OpenCVA, refer to the `RZ/V2H OpenCV Accelerator <https://github.com/renesas-rz/rzv2h_opencv_accelerator?tab=readme-ov-file#22-how-to-use>`_.
 
 How to use OpenCVA
-^^^^^^^^^^^^^^^^^^^^
+-------------------
 
 OpenCVA leverages the DRP's processing capability to enhance specific functions of the OpenCV library .You can use OpenCVA same as OpenCV as usual and you do not need to consider of OpenCVA architecture.
 
