@@ -8,3 +8,5 @@ This section provides an overview of the DRP-AI (Dynamically Reconfigurable Proc
 
     what_is_drp_ai
     byom_drp_ai
+    rzv_model
+    drp_ai_with_rzv_model_tutorials

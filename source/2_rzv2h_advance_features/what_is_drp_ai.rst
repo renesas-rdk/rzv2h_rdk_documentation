@@ -7,10 +7,6 @@ This driver facilitates efficient execution of AI inference tasks by offloading 
 
 The DRP-AI device driver provides an interface to easily handle the AI inference execution function of DRP-AI. So that there is no hardware knowledge required for the user.
 
-.. seealso::
-
-   For more detail information about the DRP-AI Driver, refer to the `RZ/V2H DRP-AI Driver <https://github.com/renesas-rz/rzv2h_drp-ai_driver/tree/main>`_.
-
 Concepts
 -------------------
 
@@ -61,3 +57,26 @@ By combine the DRP and AI-MAC (AI Matrix Arithmetic Circuit) to accelerate AI in
    :width: 500px
 
    DRP-AI Driver Architecture
+
+**DRP-AI Driver Execution Flow**:
+
+.. figure:: images/DRP-AI_Driver_Flow.png
+   :alt: DRP-AI Driver Execution Flow
+   :align: center
+   :width: 600px
+
+   DRP-AI Driver Execution Flow
+
+The DRP-AI Driver handles the following tasks to execute AI inference on the DRP-AI:
+
+1. Pre-processing: Prepares input data for DRP-AI processing, including format conversion, crop the image, normalization, etc...
+
+2. Inference execution: Manages the execution of the AI model on the DRP-AI hardware.
+
+3. Post-processing: Processes the output data from DRP-AI to obtain the final inference results.
+
+.. seealso::
+
+   For more detail information about the DRP-AI Driver, refer to the `RZ/V2H DRP-AI Driver <https://github.com/renesas-rz/rzv2h_drp-ai_driver/tree/main>`_.
+
+   It provide API functions to help you get started with DRP-AI Driver development on the RZ/V2H platform.
