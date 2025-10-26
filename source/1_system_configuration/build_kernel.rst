@@ -45,7 +45,7 @@ Procedure, applying patches to the kernel linux-yocto source
 
 .. code-block:: bash
 
-   renesas@docker-pc:~$ cd ~/poky_sdk/workspace/sources/linux-yocto/
+   renesas@docker-pc:~$ cd ~/poky_sdk/workspace/sources/linux-yocto/.kernel-meta
    renesas@docker-pc:~/poky_sdk/workspace/sources/linux-yocto$ git am $(cat patch.queue)
 
 This applies the patch series defined in .kernel-meta/patches/ to the kernel workspace.
