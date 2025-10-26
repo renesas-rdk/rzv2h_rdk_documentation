@@ -40,9 +40,9 @@ latex_elements = {
 \PassOptionsToPackage{svgnames}{xcolor}
 ''',
     'fontpkg': r'''
-\setmainfont{TeX Gyre Termes}      % Times-like
-\setsansfont{TeX Gyre Heros}       % Helvetica-like
-\setmonofont[Scale=MatchLowercase]{TeX Gyre Cursor} % Courier-like
+\setsansfont{DejaVuSans}
+\setromanfont{DejaVuSerif}
+\setmonofont{DejaVuSansMono}
 ''',
     'preamble': r'''
 \usepackage[titles]{tocloft}

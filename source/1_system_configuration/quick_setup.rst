@@ -47,6 +47,8 @@ Before proceeding, ensure that the following prerequisites are in place:
 Quick set up guide
 --------------------------------
 
+.. _docker_sdk_setup:
+
 Common docker environment setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To streamline the development process, it is recommended to use a Docker container that has been preconfigured for cross-compiling applications as well as eSDK development for the RZ/V2H RDK board.

@@ -1,3 +1,5 @@
+.. _build_kernel:
+
 Custom Linux Kernel and Device Tree
 ------------------------------------
 
