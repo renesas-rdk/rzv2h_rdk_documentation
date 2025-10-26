@@ -23,6 +23,7 @@ cvtColorTwoPlane
 defconfig
 dev
 devtool
+Distro
 Dockerfile
 Downsampling
 dts
@@ -32,6 +33,7 @@ eSDK
 Etcher
 filesystem
 fip
+FoxGlove
 gpiochip
 gpiod
 grayscale
@@ -52,6 +54,7 @@ middleware
 minicom
 morphologyEX
 msec
+Mujico
 Nano
 Netplan
 opset
@@ -86,6 +89,7 @@ srec
 Styhead
 sudo
 sysroot
+Teleoperation
 toolchain
 ttySC
 ubuntu
