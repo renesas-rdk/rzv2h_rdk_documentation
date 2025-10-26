@@ -1,4 +1,33 @@
+stages:
+  - validate
+  - deploy
+
+# For PRs, build for validation only
+validate-docs:
+  stage: validate
+  rules:
+    # Run when a PR is created or updated
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    # Skip if the commit message is from the auto PDF update
+    - if: '$CI_COMMIT_AUTHOR =~ /<ci-runner@gitlab\.com>$/'
+      when: never
+  script:
+    - source /etc/environment
+    - echo "Running documentation validation for MR..."
+    - make SPHINXOPTS="-W" spelling
+    - make SPHINXOPTS="-W" html
+    - make SPHINXOPTS="-W" latexpdf
+  artifacts:
+    paths:
+      - build/html/
+      - build/latex/*.pdf
+    expire_in: 1 week
+  tags:
+    - sphinx
+
 create-pages:
+  stage: deploy
   pages:
     publish: public
   rules:
