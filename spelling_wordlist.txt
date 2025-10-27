@@ -62,7 +62,7 @@ minicom
 morphologyEX
 msec
 msgs
-Mujico
+Mujoco
 Nano
 Netplan
 opset
