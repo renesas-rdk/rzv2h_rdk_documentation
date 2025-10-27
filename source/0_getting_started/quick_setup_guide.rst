@@ -1,3 +1,5 @@
+.. _quick_setup_rdk_guide:
+
 Quick setup guide
 ============================================
 
