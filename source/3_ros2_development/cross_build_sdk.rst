@@ -123,3 +123,24 @@ Deployment
 After successfully cross-building the ROS2 applications, deploy the built packages to the RZ/V2H RDK target device.
 
 Refer to the :ref:`ROS2 Deployment <ros2_deployment>` section for detailed instructions on deploying the applications to the target device.
+
+Know issue
+~~~~~~~~~~~~~~~~~~~~~~~
+
+During cross-build, you will see:
+
+.. code-block:: console
+
+   WARNING:colcon.colcon_ros.prefix_path.ament:The path '/opt/poky/5.1.4/sysroots/cortexa55-poky-linux/opt/ros/jazzy' in the environment variable AMENT_PREFIX_PATH doesn't contain any 'local_setup.*' files.
+
+The warning message during cross-build is expected and does not indicate a problem with your setup. It results from intentionally removing ROS2 setup files from the SDK sysroot to prevent hardcoded paths that would break execution on the target board.
+
+As long as your application runs correctly on the RZ/V2H device, you can safely ignore this warning.
+
+Without this, this error will be occur on the target board:
+
+.. code-block:: console
+
+   rz@localhost:/home/rz# source install/setup.bash
+   not found: "/opt/poky/5.1.4/sysroots/cortexa55-poky-linux/opt/ros/jazzy/local_setup.bash"
+   rz@localhost:/home/rz#
