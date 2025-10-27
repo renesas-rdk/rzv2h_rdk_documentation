@@ -77,11 +77,11 @@ Requirements
 
 Before cross-building ROS 2 applications, ensure that the ROS 2 workspace is fully set up with all necessary dependency packages.
 
-Refer to the :ref:`Common ROS2 Workspace structure <common_ros2_workspace_structure>` to gain some típ for setting up the ROS2 workspace for your development.
+Refer to the :ref:`Common ROS2 Workspace structure <common_ros2_workspace_structure>` to gain some tips for setting up the ROS2 workspace for your development.
 
 Make sure to include all required ROS2 packages in the ``src/`` directory of your workspace.
 
-The worksapce structre:
+The workspace structure:
 
 .. code-block:: text
 

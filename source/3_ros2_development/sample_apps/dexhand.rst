@@ -1,4 +1,4 @@
-Vison Based Dexterous Hand
+Vision Based Dexterous Hand
 ----------------------------
 
 .. note::
@@ -33,18 +33,18 @@ RZ/V ROS2 Packages Used
 - inspire_rh56_urdf
 - inspire_rh56_dexhand
 
-**Option 2:** Using Ruiyand RH2 hand
+**Option 2:** Using Ruiyan RH2 hand
 
 - ruiyan_rh2_controller
-- ruiyand_rh2_urdf
+- ruiyan_rh2_urdf
 - ruiyan_rh2_dexhand
 
 Application Details
 ^^^^^^^^^^^^^^^^^^^^^
 
-For more details about the Vison Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <.https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_ section.
+For more details about the Vision Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <.https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_ section.
 
 CHANGELOG
 """""""""""""
 
-- v1.0.0 (2025-31-10): Initial release of the Vison Based Dexterous Hand sample application.
+- v1.0.0 (2025-31-10): Initial release of the Vision Based Dexterous Hand sample application.

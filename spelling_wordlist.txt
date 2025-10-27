@@ -8,7 +8,9 @@ Blinky
 bootable
 bootloaders
 bp
+Buildx
 cfg
+cmake
 CMake
 Codec
 colcon
@@ -17,12 +19,14 @@ conda
 config
 configs
 cortexa
+cpp
 ctl
 cvtColor
 cvtColorTwoPlane
 defconfig
 dev
 devtool
+dexhand
 Distro
 Dockerfile
 Downsampling
@@ -39,8 +43,10 @@ gpiod
 grayscale
 GStreamer
 gz
+Insprire
 kbps
 Keras
+keypoint
 libmicroros
 linux
 lxde
@@ -54,6 +60,7 @@ middleware
 minicom
 morphologyEX
 msec
+msgs
 Mujico
 Nano
 Netplan
@@ -73,9 +80,12 @@ Reconfigurable
 Remoteproc
 renesas
 Renesas
+rh
 roboflow
 ros
 RTOS
+ruiyan
+Ruiyan
 rz
 rzv
 RZ/V2H
@@ -90,6 +100,7 @@ Styhead
 sudo
 sysroot
 Teleoperation
+tf
 toolchain
 ttySC
 ubuntu
@@ -97,7 +108,9 @@ Ubuntu
 ubuntu-lxde
 Ultralytics
 unmount
+Unsets
 Upsampling
+urdf
 uROS
 utils
 weston
@@ -106,5 +119,6 @@ wrapAffine
 wrapPerspective
 xbuild
 xSPI
+yaml
 yocto
 Yocto
