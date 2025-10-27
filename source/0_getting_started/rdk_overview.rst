@@ -18,7 +18,7 @@ Software Environment
    * - **Category**
      - **Description**
    * - **OS Support**
-     - Yocto 5.1 (Styhead) and Ubuntu 24.04 (available in headless and LXDE versions).
+     - Yocto 5.1 (Styhead) and Ubuntu 24.04 (available in headless).
    * - **ROS 2 Distribution**
      - ROS 2 Jazzy
 

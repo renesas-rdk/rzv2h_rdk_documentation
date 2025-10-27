@@ -26,8 +26,8 @@ Requirements
      * - **File name**
        - **Target OS**
        - **Host platform support**
-     * - ubuntu-lxde-image.wic.gz
-       - Ubuntu 24.04 with GUI LXDE support
+     * - renesas-core-image-weston.wic.gz
+       - Yocto Linux based Weston Image
        - Windows / macOS / Linux
      * - ubuntu-core-image.wic.gz
        - Ubuntu 24.04 headless
@@ -54,7 +54,7 @@ It provides a simple and safe method.
 
         Balena Etcher Application
 
-   - **Select Image:** Click “Flash from file” and choose your image file (e.g., ubuntu-lxde-image.wic.gz)
+   - **Select Image:** Click “Flash from file” and choose your image file (e.g., ubuntu-core-image.wic.gz)
    - **Select Target:** Insert your SD card into the host machine and choose the correct device.
 
      .. note::
@@ -341,10 +341,6 @@ The default user credentials for the provided Ubuntu images are as follows:
    * - Ubuntu 24.04 (Headless)
      - rz
      - *(none)*
-     - *(none)*
-   * - Ubuntu 24.04 (with GUI LXDE)
-     - rz
-     - 1
      - *(none)*
 
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
