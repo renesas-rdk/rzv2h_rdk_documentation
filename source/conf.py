@@ -36,6 +36,7 @@ html_favicon = '../renesas_favicon.png'
 latex_engine = 'lualatex'
 
 latex_elements = {
+    'figure_align': 'H',  # Force all figures to stay in place (no floating)
     'passoptionstopackages': r'''
 \PassOptionsToPackage{svgnames}{xcolor}
 ''',
