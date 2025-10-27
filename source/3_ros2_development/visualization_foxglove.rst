@@ -7,8 +7,7 @@ Foxglove Visualization
 
 It provides a web-based visualization client and a desktop app on both Window and Ubuntu machine.
 
-Foxglove Setup
-""""""""""""""""""""
+**Foxglove Setup**
 
 Use the following steps to visualize a ROS application in Foxglove.
 

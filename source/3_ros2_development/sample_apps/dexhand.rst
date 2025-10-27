@@ -42,7 +42,7 @@ RZ/V ROS2 Packages Used
 Application Details
 ^^^^^^^^^^^^^^^^^^^^^
 
-For more details about the Vision Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <.https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_ section.
+For more details about the Vision Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_ section.
 
 CHANGELOG
 """""""""""""

@@ -38,6 +38,7 @@ Etcher
 filesystem
 fip
 FoxGlove
+gdbserver
 gpiochip
 gpiod
 grayscale
@@ -83,6 +84,7 @@ Renesas
 rh
 roboflow
 ros
+rsync
 RTOS
 ruiyan
 Ruiyan
