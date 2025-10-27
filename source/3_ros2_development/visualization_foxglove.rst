@@ -31,6 +31,14 @@ Use the following steps to visualize a ROS application in Foxglove.
 
     Make sure that the RZ/V2H RDK board is running a ROS2 application with the Foxglove WebSocket server node active, and your machine can reach the board over the network.
 
+    .. tip::
+
+        By default, the `Foxglove Bridge <https://docs.foxglove.dev/docs/visualization/ros-foxglove-bridge>`_ runs on the RZ/V2H RDK.
+
+        It can also be deployed to any `ROS2 device on the same network <https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Domain-ID.html>`_. For example a laptop or another embedded device.
+
+        Keep in mind that running the Foxglove Bridge consumes some CPU resources on the device, so it is recommended to monitor system load when enabling it alongside other ROS2 nodes.
+
 5. Click on the "Open" button to establish the connection.
 
 6. Once connected, you can add various visualization panels to display data from your ROS2 application.
@@ -40,7 +48,6 @@ Use the following steps to visualize a ROS application in Foxglove.
 .. hint::
 
     Some tutorials also provide a pre-configured Foxglove layout in the form of a JSON file, which is typically located under ``package_name/config/foxglove``.
-
 
     To use those make sure you have the repository containing the tutorial cloned on your visualization machine.
 
