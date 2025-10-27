@@ -41,9 +41,11 @@ latex_elements = {
 \PassOptionsToPackage{svgnames}{xcolor}
 ''',
     'fontpkg': r'''
-\setsansfont{DejaVuSans}
-\setromanfont{DejaVuSerif}
-\setmonofont{DejaVuSansMono}
+\usepackage{fontspec}
+\setsansfont{Carlito}
+\setromanfont{Caladea}
+\setmonofont{DejaVu Sans Mono}
+\renewcommand{\familydefault}{\sfdefault}
 ''',
     'preamble': r'''
 \usepackage[titles]{tocloft}
