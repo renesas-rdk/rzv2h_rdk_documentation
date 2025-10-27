@@ -117,3 +117,15 @@ Deployment
 ~~~~~~~~~~~~~~~~~~
 
 After successfully cross-building the ROS2 applications, deploy the built packages to the RZ/V2H RDK target device by copying the contents of the ``install/`` directory to the target.
+
+
+.. code-block:: bash
+
+   $ scp -r <path/to>/ros2_ws/install/* rz@<RZ/V2H-RDK-IP-address>:/path/to/deployment/directory/
+
+Install any additional dependencies on the target device using:
+
+.. code-block:: bash
+
+   $ souce /opt/ros/jazzy/setup.bash
+   $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src

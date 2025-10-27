@@ -207,6 +207,20 @@ When using this configuration, it will mimic the following commands on the targe
 
    ros2 launch <LAUNCH_PACKAGE_NAME> <LAUNCH_FILE_NAME>
 
+Start Deployment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Run the **ROS2: Deploy to Target** task in VS Code to deploy the ``install`` folder to the target board.
+
+After deployment, please install any additional dependencies on the target device using:
+
+.. code-block:: bash
+
+    $ source /opt/ros/jazzy/setup.bash
+    $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src
+
+Please replace ``<path/to>install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
+
 Start Running / Remote Debugging
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
