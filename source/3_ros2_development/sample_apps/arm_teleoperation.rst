@@ -36,7 +36,7 @@ RZ/V ROS2 Packages Used
 
 **Optional**: With Inspire RH56 hand support
 
-- inspire_rh56_urdf
+- inspire_rh56_description
 - inspire_rh56_dexhand
 - inspire_rh56_hand_bringup
 - inspire_rh56_hand_utils
