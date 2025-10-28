@@ -3,7 +3,7 @@ Vision Based Robotic Arm Teleoperation
 
 .. note::
 
-   Available for :ref:`FoxGlove <foxglove_visualization>` and :ref:`MuJoCo <mujoco_visualization>` simulation environment without real robotic hardware!
+   Available for :ref:`FoxGlove <foxglove_visualization>` and :ref:`MuJoCo Visualization <mujoco_visualization>` simulation environment without real robotic hardware!
 
 Key features
 ^^^^^^^^^^^^^

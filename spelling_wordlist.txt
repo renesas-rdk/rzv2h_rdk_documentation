@@ -2,12 +2,15 @@
 # 2. Useful command: sort spelling_wordlist.txt -o spelling_wordlist.txt
 # 3. Skip those words when checking the spelling
 adaptiveThreshold
+agilex
+AglieX
 Balena
 bbappend
 Blinky
 bootable
 bootloaders
 bp
+bringup
 Buildx
 cfg
 cmake
