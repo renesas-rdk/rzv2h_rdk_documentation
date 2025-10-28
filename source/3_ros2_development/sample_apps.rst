@@ -9,3 +9,4 @@ This section introduces sample ROS2 applications developed for the Renesas RZ/V2
    sample_apps/arm_teleoperation
    sample_apps/dexhand
    sample_apps/rock_paper_scissors
+   sample_apps/static_object_detection
