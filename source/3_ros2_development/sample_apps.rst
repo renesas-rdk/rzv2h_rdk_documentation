@@ -6,4 +6,5 @@ This section introduces sample ROS2 applications developed for the Renesas RZ/V2
 .. toctree::
    :maxdepth: 1
 
+   sample_apps/arm_teleoperation
    sample_apps/dexhand
