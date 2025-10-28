@@ -107,15 +107,16 @@ You can pass any additional arguments supported by ``colcon build`` directly to 
 
 .. code-block:: bash
 
+   $ cd <path-to-your-ROS2-workspace>
    $ cross-colcon-build --packages-select rzv_demo_dexhand
 
 This command ensures that all necessary environment variables and toolchain settings are correctly applied for cross-compiling your ROS 2 packages for the **RZ/V2H** platform.
 
 .. note::
 
-   For more details, refer to the ``env.conf`` file.
+   For more details, refer to the ``env.conf`` file to understand exactly what ``cross-colcon-build`` is doing under the hood.
 
-   To obtain the default ``cross.cmake`` file, copy it from the ``$TOOLCHAIN_WS`` directory.
+   Make sure your ``ros2_ws`` contain the ``cross.cmake`` file. To obtain the default ``cross.cmake`` file, copy it from the ``$TOOLCHAIN_WS`` directory.
 
 Deployment
 ~~~~~~~~~~~~~~~~~~

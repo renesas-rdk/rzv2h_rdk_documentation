@@ -238,7 +238,7 @@ Start Running / Remote Debugging
 Example: Workflow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Debugging ``foxglove_keypoint_publisher_node`` in ``demo_physical_hand.launch.py`` from the RZ/V ROS Package
+Debugging ``foxglove_keypoint_publisher_node`` in ``demo_virtual_inspire_rh56_hands.launch.py`` from the RZ/V ROS Package
 
 - In :file:`settings.json`, set the following variables:
 
@@ -248,7 +248,7 @@ Debugging ``foxglove_keypoint_publisher_node`` in ``demo_physical_hand.launch.py
        "NODE_PACKAGE_NAME": "foxglove_keypoint_publisher",
        "NODE_EXECUTABLE_NAME": "foxglove_keypoint_publisher_node",
        "LAUNCH_PACKAGE_NAME": "rzv_demo_dexhand",
-       "LAUNCH_FILE_NAME": "demo_virtual_hand.launch.py"
+       "LAUNCH_FILE_NAME": "demo_virtual_inspire_rh56_hands.launch.py"
      }
 
 - Build the workspace with *Debug* configuration using the VS Code task **ROS2: Build Debug** or the command:
@@ -269,7 +269,7 @@ Debugging ``foxglove_keypoint_publisher_node`` in ``demo_physical_hand.launch.py
 
   .. code-block:: bash
 
-     ros2 launch rzv_demo_dexhand demo_virtual_hand.launch.py video_device:=/dev/video0
+      $ ros2 launch --launch-prefix 'gdbserver localhost:2345' --launch-prefix-filter 'foxglove_keypoint_publisher_node' rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
 
 .. note::
 
@@ -277,3 +277,21 @@ Debugging ``foxglove_keypoint_publisher_node`` in ``demo_physical_hand.launch.py
 
    1. Set ``NODE_PACKAGE_NAME`` to the package containing the target executable.
    2. Set ``NODE_EXECUTABLE_NAME`` to the name of the executable to be debugged.
+
+Troubleshooting
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Can't deploy / remote run / remote debug:
+
+   - Check the target IP, username, and password in the ``settings.json`` file.
+   - Ensure the target board is powered on and connected to the network.
+   - Verify that ``gdbserver`` and ``rsync`` are installed on the target board.
+   - Establish the first SSH connection to the target board using the ``ssh command`` to accept the host key.
+   - Delete the known hosts entry for the target IP in the ``~/.ssh/known_hosts`` file if the target board's host key has changed.
+
+2. Remote debug fails to start or disconnects immediately:
+
+    - Ensure the workspace is built with the *Debug* configuration.
+    - Verify that the correct package and executable names are set in the ``settings.json`` file.
+    - Check network stability between the host and target board.
+    - Make sure the GDB server port is not blocked by a firewall or not used by other process.

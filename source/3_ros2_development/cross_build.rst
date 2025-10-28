@@ -41,6 +41,12 @@ We provide two methods for cross-building ROS2 applications for the RZ/V2H RDK p
 
 Follow the respective sections for detailed instructions on each cross-build method.
 
+.. tip::
+
+   For most use cases, the **Cross-build with Yocto SDK** method is recommended for its speed and efficiency.
+
+   But if you encounter :ref:`ABI mismatch errors <abi_mismatch>`, consider using the **Cross-build with QEMU Docker** method.
+
 .. toctree::
    :maxdepth: 1
 
