@@ -5,8 +5,6 @@ Vision Based Dexterous Hand
 
    Available for :ref:`FoxGlove <foxglove_visualization>` simulation environment without real robotic hardware!
 
-TODO: Add one image showing the dexterous hand manipulation using vision.
-
 Key features
 ^^^^^^^^^^^^^
 
@@ -23,6 +21,8 @@ The RZ/V Demo DexHand package enables:
 
 RZ/V ROS2 Packages Used
 ^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Base package**
 
 - arm_hand_control
 - foxglove_keypoint_publisher
@@ -89,7 +89,11 @@ TODO: Add instructions about setup script to configure serial port permissions a
 
 .. code-block:: bash
 
-   $ ros2 launch rzv_demo_dexhand demo_virtual_hands.launch.py
+   # For Inspire RH56 hand
+   $ ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+
+   # For Ruiyan RH2 hand
+   $ ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
 
 6. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
 
