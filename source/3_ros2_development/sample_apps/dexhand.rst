@@ -5,6 +5,13 @@ Vision Based Dexterous Hand
 
    Available for :ref:`FoxGlove <foxglove_visualization>` simulation environment without real robotic hardware!
 
+.. figure:: ../images/demo_dexhand.jpg
+    :align: center
+    :alt: DexHand Demo
+    :width: 600px
+
+    Dexterous Hand Demo
+
 Key features
 ^^^^^^^^^^^^^
 
@@ -95,7 +102,22 @@ TODO: Add instructions about setup script to configure serial port permissions a
    # For Ruiyan RH2 hand
    $ ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
 
-6. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
+6. Based on your hand gesture shown in front of the camera, the dexterous hand will mimic your hand movements.
+
+.. note::
+
+   The common setup uses a fixed USB camera placed in front of the user and
+   pointing **upward toward the hand**. The camera captures the palm from below,
+   so that the **hand appears from bottom to top** in the image, the **wrist is
+   at the bottom**, and the **fingers point upward**.
+
+   When your hand is positioned correctly within the camera view, the **robot hand
+   will mimic your gestures accurately**. The robot hand only interprets motion
+   along the **vertical (bottom-to-top) direction**.
+
+   Refer to the top image for the correct orientation between the camera and the user's hand.
+
+7. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
 
 The input layout file for FoxGlove Studio is located at: ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS2 workspace.
 
