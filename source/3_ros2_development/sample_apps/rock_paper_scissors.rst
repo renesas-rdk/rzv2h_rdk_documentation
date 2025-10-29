@@ -5,6 +5,13 @@ Rock Paper Scissors
 
    Available for :ref:`FoxGlove <foxglove_visualization>` simulation environment without real robotic hardware!
 
+.. figure:: ../images/rps.png
+    :align: center
+    :alt: Rock Paper Scissors Demo
+    :width: 600px
+
+    Rock Paper Scissors Demo
+
 Key features
 ^^^^^^^^^^^^^
 

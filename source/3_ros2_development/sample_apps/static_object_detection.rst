@@ -1,6 +1,13 @@
 Static Object Detection
 ----------------------------
 
+.. figure:: ../images/static_objects.png
+    :align: center
+    :alt: Static Object Detection Demo
+    :width: 600px
+
+    Static Object Detection Demo
+
 Key features
 ^^^^^^^^^^^^^
 

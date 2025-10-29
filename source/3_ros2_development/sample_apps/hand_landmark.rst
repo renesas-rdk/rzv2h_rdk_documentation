@@ -1,6 +1,13 @@
 Static / Camera-based Hand Landmark Estimation
 --------------------------------------------------
 
+.. figure:: ../images/landmark.png
+    :align: center
+    :alt: Hand Landmark Demo
+    :width: 600px
+
+    Hand Landmark Demo
+
 Key features
 ^^^^^^^^^^^^^
 
