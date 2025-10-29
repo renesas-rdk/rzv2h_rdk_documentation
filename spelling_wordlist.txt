@@ -130,3 +130,5 @@ xSPI
 yaml
 yocto
 Yocto
+AgileX
+teleoperation

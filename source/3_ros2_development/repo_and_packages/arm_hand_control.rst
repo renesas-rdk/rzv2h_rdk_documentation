@@ -15,20 +15,14 @@ This package provides nodes for controlling robotic hands, particularly the Insp
 
 For more details about the arm_hand_control package, refer to the `README.md in the arm_hand_control package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/arm_hand_control/-/blob/master/README.md?ref_type=heads>`_.
 
-Dependencies
-""""""""""""""
+RZ/V ROS2 Package Dependencies
+""""""""""""""""""""""""""""""""
 
-- ROS 2
-- sensor_msgs
-- std_msgs
-- geometry_msgs
-- control_msgs
-- trajectory_msgs
-- tf2
-- tf2_geometry_msgs
-- yaml-cpp
-- ament_index_cpp
+This package depends on the following RZ/V ROS2 packages:
 
+- inspire_rh56_dexhand
+
+For other dependencies, refer to the `package.xml file <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/arm_hand_control/-/blob/master/package.xml?ref_type=heads>`_.
 
 License
 """"""""""
