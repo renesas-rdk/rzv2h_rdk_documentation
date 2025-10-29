@@ -108,7 +108,7 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
 .. code-block:: bash
 
-   $ ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=false
+   $ ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=true
 
 - For virtual hand control with MuJoCo (without real arm), use:
 
@@ -119,7 +119,15 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
 Make sure to check the correct CAN interface and serial port parameters in the launch files before running the above commands.
 
-6. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
+6. Visualize the robotic arm and hand movements by following the instructions below:
+
+- Move your hand **up or down**, the Piper arm will move **up or down** accordingly.
+- Move your hand **forward or backward**, the Piper arm will move **forward or backward**.
+- Move your hand **left or right**, the Piper arm will move **left or right**.
+- **Close your thumb**, the robotic hand or gripper will switch to the **grasping position**.
+- If the system **cannot detect your hand** after a certain period, the Piper arm will **reset to its initial position**.
+
+7. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
 
 The input layout file for FoxGlove Studio is located at: ``rzv_playground/config/foxglove/*.json`` inside the ROS2 workspace.
 
