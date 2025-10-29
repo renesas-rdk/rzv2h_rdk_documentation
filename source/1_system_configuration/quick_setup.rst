@@ -92,6 +92,23 @@ Obtain all files from the Prerequisites section, and following the step below to
 
 After complete this step, the Docker image (name: rzv2h_ros_xbuild:latest) and container will be created.
 
+.. tip::
+
+    - In the :ref:`Common docker environment setup <docker_sdk_setup>` section, we can create a new Docker container by replace the ``[name_of_docker_container]`` placeholder with a custom name.
+    - In case you need to rebuild the Docker image (for example, after modifying the SDK), use the following command to rebuild the image:
+
+      .. code-block:: bash
+
+          renesas@builder-pc:~/x_compilation_docker$ ./setup_ros2_cross_env.sh . [name_of_docker_container]
+          Docker image 'rzv2h_ros_xbuild:latest' already exists.
+          Do you want to create the container based on this image or create a new Docker image?
+          1) Use existing image
+          2) Rebuild new image
+          Enter your choice [1 or 2]:
+
+      Enter **2** and provide a tag name to rebuild the image. The script will back up the existing image using the provided tag before rebuilding.
+
+
 **What does this script do?**
 
 - Copying the Yocto SDK tool-chain scripts into the build directory lets the Dockerfile install the Yocto SDK inside the image.
@@ -128,7 +145,7 @@ Please replace the paths below with your actual file locations.
 
    .. code-block:: bash
 
-       renesas@builder-pc:~$ docker cp poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-ext-5.1.4.sh [name_of_docker_container]:~
+       renesas@builder-pc:~$ docker cp poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-ext-5.1.4.sh [name_of_docker_container]:/home/ubuntu
 
 To set up your environment:
 
