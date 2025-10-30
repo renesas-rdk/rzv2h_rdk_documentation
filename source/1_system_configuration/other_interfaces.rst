@@ -30,6 +30,4 @@ The RZ/V2H RDK provides a JTAG 10-pin interface for debugging and programming CM
 
 This interface is essential for low-level debugging and development tasks in Multi-Core applications.
 
-For more information on using the JTAG interface, please refer to the RZ/V2H RDK `Multi-OS Development Section`.
-
-TODO: Add link to Multi-OS Development Section
+For more information on using the JTAG interface, please refer to the RZ/V2H RDK :ref:`Multi-OS Development Section <multi_os>`.

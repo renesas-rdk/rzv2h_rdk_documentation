@@ -1,6 +1,8 @@
 RZ/V Multi-OS
 ============================
 
+.. _multi_os:
+
 The RZ/V2H RDK equipped with the following CPUs:
 
 - Cortex-A55 (4 cores): Runs Linux OS
