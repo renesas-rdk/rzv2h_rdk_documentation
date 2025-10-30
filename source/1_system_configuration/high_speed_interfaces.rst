@@ -139,7 +139,11 @@ List all supported formats for selected camera /dev/video0:
 
     $ v4l2-ctl -d /dev/video0 --list-formats-ext
 
-TODO: Update the command about capturing the image from the camera module.
+To capture an image from the camera using **Renesas Core Image Weston**, use the following command:
+
+.. code-block:: bash
+
+    $ gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! waylandsink
 
 3. 1000M RJ45 - Gigabit Ethernet Port
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
