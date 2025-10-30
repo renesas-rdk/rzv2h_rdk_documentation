@@ -49,6 +49,7 @@ RZ/V ROS2 Packages Used
 - inspire_rh56_dexhand
 - inspire_rh56_hand_bringup
 - inspire_rh56_hand_utils
+- inspire_rh56_hand_ros2_control
 - piper_arm_inspire_hand_bringup
 
 RZ/V ROS2 Host PC Packages Used
