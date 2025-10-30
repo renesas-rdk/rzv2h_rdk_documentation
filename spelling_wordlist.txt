@@ -55,6 +55,7 @@ kbps
 Keras
 keypoint
 libmicroros
+librealsense
 linux
 lxde
 macOS
@@ -76,6 +77,7 @@ opset
 OSTM
 pciutils
 pinout
+pointcloud
 pokylinux
 pre
 preconfigured
@@ -85,6 +87,7 @@ pyrUp
 RCPU
 rdk
 RDK
+realsense
 Reconfigurable
 Remoteproc
 renesas
@@ -117,6 +120,7 @@ ttySC
 ubuntu
 Ubuntu
 ubuntu-lxde
+udev
 Ultralytics
 unmount
 Unsets
