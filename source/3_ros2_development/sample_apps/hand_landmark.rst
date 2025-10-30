@@ -1,3 +1,5 @@
+.. _hand_landmark:
+
 Static / Camera-based Hand Landmark Estimation
 --------------------------------------------------
 

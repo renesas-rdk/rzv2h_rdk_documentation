@@ -1,3 +1,5 @@
+.. _arm_teleoperation:
+
 Vision Based Robotic Arm Teleoperation
 --------------------------------------------------------
 

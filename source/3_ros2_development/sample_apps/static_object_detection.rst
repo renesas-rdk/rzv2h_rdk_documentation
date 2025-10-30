@@ -1,3 +1,5 @@
+.. _static_object_detection:
+
 Static Object Detection
 ----------------------------
 

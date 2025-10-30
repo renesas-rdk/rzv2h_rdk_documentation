@@ -1,3 +1,5 @@
+.. _dexhand:
+
 Vision Based Dexterous Hand
 ----------------------------
 
