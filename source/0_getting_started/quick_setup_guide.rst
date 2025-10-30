@@ -381,12 +381,63 @@ Connect an Ethernet cable to the board and run:
 
       sudo resize2fs /dev/mmcblk0p2
 
+  For example, this is the sample output after resizing:
+
+  .. code-block:: console
+
+    $ sudo parted /dev/mmcblk0
+    sudo: unable to resolve host localhost.localdomain: Name or service not known
+    GNU Parted 3.6
+    Using /dev/mmcblk0
+    Welcome to GNU Parted! Type 'help' to view a list of commands.
+    (parted) print
+    Model: SD SN64G (sd/mmc)
+    Disk /dev/mmcblk0: 63.9GB
+    Sector size (logical/physical): 512B/512B
+    Partition Table: msdos
+    Disk Flags:
+
+    Number  Start   End     Size    Type     File system  Flags
+    1      1049kB  211MB   210MB   primary               lba
+    2      211MB   4855MB  4644MB  primary  ext4
+
+    (parted) resizepart 2 100%
+    (parted) print
+    Model: SD SN64G (sd/mmc)
+    Disk /dev/mmcblk0: 63.9GB
+    Sector size (logical/physical): 512B/512B
+    Partition Table: msdos
+    Disk Flags:
+
+    Number  Start   End     Size    Type     File system  Flags
+    1      1049kB  211MB   210MB   primary               lba
+    2      211MB   63.9GB  63.7GB  primary  ext4
+
+    (parted) quit
+    Information: You may need to update /etc/fstab.
+
+    $ rz@localhost:~$ sudo resize2fs /dev/mmcblk0p2
+    sudo: unable to resolve host localhost.localdomain: Name or service not known
+    resize2fs 1.47.0 (5-Feb-2023)
+    Filesystem at /dev/mmcblk0p2 is mounted on /; on-line resizing required
+    old_desc_blocks = 1, new_desc_blocks = 8
+    The filesystem on /dev/mmcblk0p2 is now 15540480 (4k) blocks long.
+
 2. Setup **rosdep** for ROS2 package dependency management:
 
    .. code-block:: bash
 
       sudo rosdep init
       rosdep update
+
+3. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
+
+   .. code-block:: bash
+
+      sudo usermod -aG dialout $USER
+      sudo usermod -aG video $USER
+
+  Please log out and log back in for the group changes to take effect.
 
 This completes the **Quick Setup Guide** for the RZ/V2H RDK board.
 
