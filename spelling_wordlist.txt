@@ -84,6 +84,7 @@ preconfigured
 Preconfigured
 pyrDown
 pyrUp
+Ralink
 RCPU
 rdk
 RDK
@@ -116,6 +117,7 @@ teleoperation
 Teleoperation
 tf
 toolchain
+Tp
 ttySC
 ubuntu
 Ubuntu

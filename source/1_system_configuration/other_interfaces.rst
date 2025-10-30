@@ -8,6 +8,8 @@ The RZ/V2H Robotic Development Kit features a Mini-HDMI port for video output to
 
 TODO: Add more information, with Ubuntu Core, there is no display output by default.
 
+.. _usb_uart:
+
 8. USB-UART
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

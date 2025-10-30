@@ -45,6 +45,8 @@ If the script reports any mismatches, you may need to take one of the following 
 - Rebuild the Yocto SDK with the correct versions of ROS2 packages that match those on the target system.
 - Manual update the ROS2 packages on the SDK sysroot to match the target system versions. Refer to the next section for detailed steps.
 
+.. _update_ros2_packages_sdk:
+
 How to update/add the Yocto SDK with the correct ROS2 package versions with eSDK?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

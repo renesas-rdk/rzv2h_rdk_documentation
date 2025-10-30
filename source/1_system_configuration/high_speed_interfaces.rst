@@ -145,6 +145,8 @@ To capture an image from the camera using **Renesas Core Image Weston**, use the
 
     $ gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! waylandsink
 
+.. _high_speed_interfaces_set_static_ip:
+
 3. 1000M RJ45 - Gigabit Ethernet Port
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
