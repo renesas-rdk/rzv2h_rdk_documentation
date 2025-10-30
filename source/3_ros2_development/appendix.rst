@@ -33,10 +33,86 @@ Example output indicating ABI mismatch:
 How to avoid ABI mismatch error?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TODO: Add instructions on how to avoid ABI mismatch error.
+Using the `check_cross_build_versions.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/cross_build/yocto_sdk/check_cross_build_versions.sh?ref_type=heads>`_ script to check for version mismatches between SDK and target.
 
-- Using script to check for version mismatches between SDK and target.
-- Update the SDK sysroot to match the target system libraries.
+.. note::
+
+    Make sure to update the ``PROJECT_ROOT`` variable in the script to point to your ROS2 workspace ``src`` directory before running it.
+
+If the script reports any mismatches, you may need to take one of the following actions:
+
+- Try to run the application on the target system and see if it works despite the version mismatches.
+- Rebuild the Yocto SDK with the correct versions of ROS2 packages that match those on the target system.
+- Manual update the ROS2 packages on the SDK sysroot to match the target system versions. Refer to the next section for detailed steps.
+
+How to update/add the Yocto SDK with the correct ROS2 package versions with eSDK?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The procedure below outlines the steps to update or add ROS2 packages in the Yocto SDK sysroot to resolve ABI mismatch issues or missing packages.
+
+If you plan to update the version of an existing ROS2 package, please follow the steps under the **Optional** section. Otherwise, you can skip to the main steps.
+
+.. note::
+
+    This section assumes that you have already set up the Yocto eSDK for RZ/V2H RDK as per the instructions in the :ref:`RZ/V2H eSDK Setup <esdk_setup>` section.
+
+- Open **a new terminal** and source the Yocto eSDK environment:
+
+  .. code-block:: bash
+
+     $ source ~/poky_sdk/environment-setup-cortexa55-poky-linux
+
+  Please replace the path with the actual path to your eSDK working folder.
+
+- **Optional:** If you want to update version of an existing ROS2 package in the SDK sysroot, please edit the correct recipe file in the ``~/poky_sdk/layers/meta-ros/meta-ros2-jazzy``.
+
+  For example, to update the ``pinocchio`` package:
+
+  1. Find the corresponding recipe file located at: ``~/poky_sdk/layers/meta-ros/meta-ros2-jazzy``
+
+  .. code-block:: bash
+     :emphasize-lines: 1,3,7
+
+      ubuntu@ros-xbuild:~/poky_sdk/layers/meta-ros/meta-ros2-jazzy$ find . -name "*pinocchio*"
+      ./generated-recipes/pinocchio
+      ./generated-recipes/pinocchio/pinocchio_3.6.0-1.bb
+      ./generated-recipes/kinematics-interface-pinocchio
+      ./generated-recipes/kinematics-interface-pinocchio/kinematics-interface-pinocchio_0.0.1-1.bb
+      ./recipes-bbappends/pinocchio
+      ./recipes-bbappends/pinocchio/pinocchio_%.bbappend
+      ubuntu@ros-xbuild:~/poky_sdk/layers/meta-ros/meta-ros2-jazzy$
+
+  2. Edit the recipe file.
+
+  For example, to update to version ``3.7.0``, modify the relevant fields:
+
+  - Find the correct new ``SRCREV`` for newer version available at the package's official repository.
+
+  .. tip::
+
+      You can find the correct ``SRCREV`` by visiting the package's release page which is ``SRC_URI`` combine with ``ROS_BRANCH``.
+
+      The ``SRCREV`` is usually the commit hash or tag corresponding to the desired version.
+
+      For example, for ``pinocchio``, you can check its GitHub releases for ROS2 Jazzy: `Pinocchio Releases Jazzy <https://github.com/ros2-gbp/pinocchio-release/tree/release/jazzy/pinocchio>`_.
+
+  - Update the ``SRCREV`` field in the recipe file - ``pinocchio_3.6.0-1.bb`` accordingly.
+
+  - Rename the recipe file to reflect the new version, e.g., ``pinocchio_3.7.0-1.bb``. Also, update the name of bbappend files if necessary.
+
+- Build the package.
+
+.. code-block:: bash
+
+    $ devtool modify pinocchio
+    $ devtool build pinocchio
+
+- Install the package into the SDK sysroot:
+
+.. code-block:: bash
+
+    $ cd ~/poky_sdk/workspace/sources/pinocchio/oe-workdir/image/opt/ros/jazzy
+    $ sudo cp -r * /opt/poky/5.1.4/sysroots/cortexa55-poky-linux/opt/ros/jazzy/
 
 .. _common_ros2_workspace_structure:
 
