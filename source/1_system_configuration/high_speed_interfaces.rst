@@ -10,9 +10,87 @@ This sections describes the High-Speed Interface unit of this Kit.
 
 The PCIe 3.0 interface on the RZ/V2H RDK allows for high-speed data transfer and connectivity with compatible PCIe devices.
 
+For example, you can connect a PCIe NVMe SSD to enhance storage performance. Following are the steps to set up and use a PCIe NVMe SSD with the RZ/V2H RDK.
+
+- Hardware Requirements (recommended):
+
+  - `PCIe TO M.2 Board (D) <https://www.waveshare.com/wiki/PCIe_TO_M.2_Board_(D)>`_.
+  - M.2 NVMe SSD.
+
+- Hardware Setup:
+
+  1. Power off the RZ/V2H RDK.
+  2. Connect the PCIe TO M.2 Board to the PCIe 3.0 16-pin connector on the RZ/V2H RDK.
+  3. Insert the M.2 NVMe SSD into the PCIe TO M.2 Board.
+  4. Connect 5V power and GND (from GPIO 40 Pins) to the PCIe TO M.2 Board.
+  5. Power on the RZ/V2H RDK.
+
 .. important::
 
-   The PCIe interface is not available in this release.
+   - Ensure that the PCIe TO M.2 Board is properly powered, as the RZ/V2H RDK does not supply power to PCIe devices.
+
+   - Make sure to handle the M.2 NVMe SSD with care to avoid damage from static electricity.
+
+   - Make sure you connect the PCIe TO M.2 Board to the correct PCIe 3.0 16-pin connector on the RZ/V2H RDK.
+
+Usage example with pciutils:
+
+First, install the pciutils package if it is not already installed:
+
+.. code-block:: bash
+
+    $ sudo apt install pciutils
+
+To list all PCIe devices connected to the system, use the following command:
+
+.. code-block:: bash
+
+    $ lspci
+
+Example output:
+
+.. code-block:: console
+
+    root@localhost:~# lspci
+    00:00.0 PCI bridge: Renesas Technology Corp. Device 003b
+    01:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller 980 (DRAM-less)
+    root@localhost:~#
+
+To check the NVMe SSD is recognized by the system, use the following command:
+
+.. code-block:: bash
+
+    $ lsblk
+
+Example output:
+
+.. code-block:: console
+    :emphasize-lines: 10
+
+    root@localhost:~# lsblk
+    NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+    mtdblock0    31:0    0 116.5K  1 disk
+    mtdblock1    31:1    0   1.8M  1 disk
+    mtdblock2    31:2    0   128K  1 disk
+    mtdblock3    31:3    0    14M  0 disk
+    mmcblk0     179:0    0  29.7G  0 disk
+    |-mmcblk0p1 179:1    0   100M  0 part
+    `-mmcblk0p2 179:2    0   2.4G  0 part /
+    nvme0n1     259:0    0 465.8G  0 disk
+
+Mount the NVMe SSD:
+
+.. code-block:: bash
+
+    $ sudo mkdir /mnt/nvme
+    $ sudo mount /dev/nvme0n1 /mnt/nvme
+
+Unmount the NVMe SSD:
+
+.. code-block:: bash
+
+    $ sudo umount /mnt/nvme
+    $ sudo rmdir /mnt/nvme
 
 2. MIPI-CSI 22-pin connector ×2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
