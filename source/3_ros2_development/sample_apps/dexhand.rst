@@ -1,3 +1,5 @@
+.. _dexhand:
+
 Vision Based Dexterous Hand
 ----------------------------
 
@@ -59,6 +61,15 @@ Quick Setup Instructions
 - Cross-compile the ROS2 workspace using :ref:`cross-build the ROS2 Application using Yocto SDK <requirements_ros2_cross_build>`.
 - Deploy the ``install`` directory to the RZ/V2H RDK board using :ref:`Deploying the ROS2 Application <ros2_deployment>` or using the ``scp`` command.
 
+.. note::
+
+    For cross-compilation by using Yocto SDK, please install ``ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so`` to the SDK sysroot using the following command:
+
+    .. code-block:: bash
+
+        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so <path_to_sdk_sysroot>/usr/lib/
+
+
 2. Install the required dependencies on the RZ/V2H RDK board.
 
 .. code-block:: bash
@@ -69,7 +80,9 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
 3. **Optional**: Connect the dexterous hand to the RZ/V2H RDK board if you want to control the real hand.
 
-TODO: Add instructions about setup script to configure serial port permissions as well as CAN port.
+.. note::
+
+    Before using the RuiYan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in the ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in the ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
 
 4. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 

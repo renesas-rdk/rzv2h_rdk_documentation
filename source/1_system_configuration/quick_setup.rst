@@ -33,16 +33,13 @@ Before proceeding, ensure that the following prerequisites are in place:
      - Required for extensible development and rebuilding components.
        Obtain the installer:
        ``poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-ext-5.1.4.sh``
-       *(TODO: Add link to Yocto eSDK package)*
    * - **Yocto SDK for RZ/V2H RDK**
      - Standard SDK tool-chain for building applications.
        Obtain the installer:
        ``poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-5.1.4.sh``
-       *(TODO: Add link to Yocto SDK package)*
    * - **RZ/V2H RDK X Compile Docker**
      - Preconfigured cross-compilation Docker environment.
        Refer to the `RZ/V2H RDK X Compile Docker repository`.
-       *(TODO: Add repository link)*
 
 Quick set up guide
 --------------------------------

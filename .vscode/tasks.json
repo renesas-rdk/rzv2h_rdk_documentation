@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Spelling",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "spelling"
+      ],
+      "options": {
+        "env": {
+          "SPHINXOPTS": "-W"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build HTML",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "html"
+      ],
+      "options": {
+        "env": {
+          "SPHINXOPTS": "-W"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build PDF (LaTeX)",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "latexpdf"
+      ],
+      "options": {
+        "env": {
+          "SPHINXOPTS": "-W"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build All (spelling, html, pdf)",
+      "dependsOn": [
+        "Build Spelling",
+        "Build HTML",
+        "Build PDF (LaTeX)"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}

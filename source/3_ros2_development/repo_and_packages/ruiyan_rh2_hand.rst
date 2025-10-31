@@ -7,6 +7,16 @@ A collection of ROS 2 packages for controlling and interfacing with the Ruiyan R
 - ruiyan_rh2_dexhand: A ROS2 package that converts the ``sensor_msgs/JointState`` to ``rh6_cmd/Rh6Cmd`` as this message is required by the ``rh6_ctrl`` node for controlling the RuiYan RH2 Dexterous Hand.
 - ruiyan_rh2_urdf: URDF package for the Ruiyan RH2 dexterous hand.
 
+.. note::
+
+    For cross-compilation by using Yocto SDK, please install ``ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so`` to the SDK sysroot using the following command:
+
+    .. code-block:: bash
+
+        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so <path_to_sdk_sysroot>/usr/lib/
+
+    Before using the RuiYan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in the ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in the ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
+
 Overview
 """""""""""
 

@@ -3,6 +3,7 @@
 # 3. Skip those words when checking the spelling
 adaptiveThreshold
 agilex
+AgileX
 AglieX
 Balena
 bbappend
@@ -54,6 +55,7 @@ kbps
 Keras
 keypoint
 libmicroros
+librealsense
 linux
 lxde
 macOS
@@ -73,16 +75,20 @@ Nano
 Netplan
 opset
 OSTM
+pciutils
 pinout
+pointcloud
 pokylinux
 pre
 preconfigured
 Preconfigured
 pyrDown
 pyrUp
+Ralink
 RCPU
 rdk
 RDK
+realsense
 Reconfigurable
 Remoteproc
 renesas
@@ -107,13 +113,16 @@ srec
 Styhead
 sudo
 sysroot
+teleoperation
 Teleoperation
 tf
 toolchain
+Tp
 ttySC
 ubuntu
 Ubuntu
 ubuntu-lxde
+udev
 Ultralytics
 unmount
 Unsets
@@ -130,5 +139,3 @@ xSPI
 yaml
 yocto
 Yocto
-AgileX
-teleoperation

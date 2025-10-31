@@ -10,9 +10,87 @@ This sections describes the High-Speed Interface unit of this Kit.
 
 The PCIe 3.0 interface on the RZ/V2H RDK allows for high-speed data transfer and connectivity with compatible PCIe devices.
 
+For example, you can connect a PCIe NVMe SSD to enhance storage performance. Following are the steps to set up and use a PCIe NVMe SSD with the RZ/V2H RDK.
+
+- Hardware Requirements (recommended):
+
+  - `PCIe TO M.2 Board (D) <https://www.waveshare.com/wiki/PCIe_TO_M.2_Board_(D)>`_.
+  - M.2 NVMe SSD.
+
+- Hardware Setup:
+
+  1. Power off the RZ/V2H RDK.
+  2. Connect the PCIe TO M.2 Board to the PCIe 3.0 16-pin connector on the RZ/V2H RDK.
+  3. Insert the M.2 NVMe SSD into the PCIe TO M.2 Board.
+  4. Connect 5V power and GND (from GPIO 40 Pins) to the PCIe TO M.2 Board.
+  5. Power on the RZ/V2H RDK.
+
 .. important::
 
-   The PCIe interface is not available in this release.
+   - Ensure that the PCIe TO M.2 Board is properly powered, as the RZ/V2H RDK does not supply power to PCIe devices.
+
+   - Make sure to handle the M.2 NVMe SSD with care to avoid damage from static electricity.
+
+   - Make sure you connect the PCIe TO M.2 Board to the correct PCIe 3.0 16-pin connector on the RZ/V2H RDK.
+
+Usage example with pciutils:
+
+First, install the pciutils package if it is not already installed:
+
+.. code-block:: bash
+
+    $ sudo apt install pciutils
+
+To list all PCIe devices connected to the system, use the following command:
+
+.. code-block:: bash
+
+    $ lspci
+
+Example output:
+
+.. code-block:: console
+
+    root@localhost:~# lspci
+    00:00.0 PCI bridge: Renesas Technology Corp. Device 003b
+    01:00.0 Non-Volatile memory controller: Samsung Electronics Co Ltd NVMe SSD Controller 980 (DRAM-less)
+    root@localhost:~#
+
+To check the NVMe SSD is recognized by the system, use the following command:
+
+.. code-block:: bash
+
+    $ lsblk
+
+Example output:
+
+.. code-block:: console
+    :emphasize-lines: 10
+
+    root@localhost:~# lsblk
+    NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+    mtdblock0    31:0    0 116.5K  1 disk
+    mtdblock1    31:1    0   1.8M  1 disk
+    mtdblock2    31:2    0   128K  1 disk
+    mtdblock3    31:3    0    14M  0 disk
+    mmcblk0     179:0    0  29.7G  0 disk
+    |-mmcblk0p1 179:1    0   100M  0 part
+    `-mmcblk0p2 179:2    0   2.4G  0 part /
+    nvme0n1     259:0    0 465.8G  0 disk
+
+Mount the NVMe SSD:
+
+.. code-block:: bash
+
+    $ sudo mkdir /mnt/nvme
+    $ sudo mount /dev/nvme0n1 /mnt/nvme
+
+Unmount the NVMe SSD:
+
+.. code-block:: bash
+
+    $ sudo umount /mnt/nvme
+    $ sudo rmdir /mnt/nvme
 
 2. MIPI-CSI 22-pin connector ×2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,78 +112,7 @@ Set up the MIPI-CSI interface
 
 Before using the MIPI-CSI interface, we have to configure the property of the camera first.
 
-For example, to use the OV5645 camera module, create and run the following script in the terminal:
-
-.. code-block:: bash
-
-    #!/bin/bash
-
-    cru=$(cat /sys/class/video4linux/v4l-subdev*/name | grep "cru-ip")
-    csi2=$(cat /sys/class/video4linux/v4l-subdev*/name | grep "csi2")
-    ov=$(cat /sys/class/video4linux/v4l-subdev*/name | grep "ov")
-    default_camera=$(echo "$ov" | awk '{print $1}')
-
-    declare -A camera_default_resolution
-    camera_default_resolution["ov5640"]="1280x720"
-    camera_default_resolution["ov5645"]="1280x960"
-
-    declare -A camera_valid_resolutions
-    camera_valid_resolutions["ov5640"]="720x480 720x576 1024x768 1280x720 1920x1080 2592x1944"
-    camera_valid_resolutions["ov5645"]="1280x960 1920x1080 2592x1944"
-
-    # Usage information function
-    function print_usage {
-        echo "Usage: $0 <resolution>"
-        echo "Detected camera: $default_camera"
-        echo "Available resolutions for $default_camera: ${camera_valid_resolutions[$default_camera]}"
-        echo ""
-        echo "Example: $0 1920x1080"
-        echo "If no resolution is specified, $default_camera will used the default resolution '${camera_default_resolution[$default_camera]}'."
-    }
-
-    # Check if help is requested
-    if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
-        print_usage
-        exit 0
-    fi
-
-    # Check for no input
-    if [ -z "$1" ]; then
-        echo "Detected camera: $default_camera"
-        echo "No resolution specified. Using default resolution: ${camera_default_resolution[$default_camera]}"
-        ov564x_res="${camera_default_resolution[$default_camera]}"
-    else
-        ov564x_res="$1"
-        valid_resolutions=(${camera_valid_resolutions[$default_camera]})
-        # Check if the given resolution is valid
-        if [[ ! " ${valid_resolutions[@]} " =~ " ${ov564x_res} " ]]; then
-            echo "Invalid resolution: $ov564x_res for camera $default_camera"
-            ov564x_res="${camera_default_resolution[$default_camera]}"
-            echo "Input resolution is not available. Using default resolution: ${camera_default_resolution[$default_camera]}"
-        fi
-    fi
-
-    if [ -z "$cru" ]
-    then
-        echo "No CRU video device founds"
-    else
-        media-ctl -d /dev/media0 -r
-        if [ -z "$csi2" ]
-        then
-            echo "No MIPI CSI2 sub video device founds"
-        else
-            media-ctl -d /dev/media0 -V "'$csi2':0 [fmt:UYVY8_1X16/$ov564x_res field:none]"
-            media-ctl -d /dev/media0 -V "'$csi2':1 [fmt:UYVY8_1X16/$ov564x_res field:none]"
-            media-ctl -d /dev/media0 -V "'$ov':0 [fmt:UYVY8_1X16/$ov564x_res field:none]"
-            media-ctl -d /dev/media0 -V "'$cru':0 [fmt:UYVY8_1X16/$ov564x_res field:none]"
-            media-ctl -d /dev/media0 -V "'$cru':1 [fmt:UYVY8_1X16/$ov564x_res field:none]"
-
-            width=${ov564x_res%x*}
-            height=${ov564x_res#*x}
-            v4l2-ctl -d /dev/video0 --set-fmt-video=width=${width},height=${height},pixelformat=UYVY
-            echo "Link CRU/CSI2 to $ov with format UYVY8_1X16 and resolution ${ov564x_res}"
-        fi
-    fi
+For example, to use the OV5645 camera module, create and run the `v4l2_init.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/linux_utils/mipi_camera/v4l2_init.sh?ref_type=heads>`_ script in the terminal:
 
 This script detects the connected camera module and sets the desired resolution.
 
@@ -132,7 +139,13 @@ List all supported formats for selected camera /dev/video0:
 
     $ v4l2-ctl -d /dev/video0 --list-formats-ext
 
-TODO: Update the command about capturing the image from the camera module.
+To capture an image from the camera using **Renesas Core Image Weston**, use the following command:
+
+.. code-block:: bash
+
+    $ gst-launch-1.0 v4l2src device=/dev/video0 ! videoconvert ! waylandsink
+
+.. _high_speed_interfaces_set_static_ip:
 
 3. 1000M RJ45 - Gigabit Ethernet Port
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

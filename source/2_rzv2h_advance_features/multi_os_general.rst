@@ -17,7 +17,12 @@ This capability is particularly useful for applications that require separation 
 
    When using the J-Link debugger, ensure that the SW1-6 switch on the RZ/V2H RDK board is set to the "ON" position to enable JTAG debug functionality.
 
-   TODO: Update the image with the SW1-6 is set to "ON".
+.. figure:: images/jtag_debug_rdk.png
+   :alt: RZ/V2H RDK JTAG Switch 6
+   :align: center
+   :width: 500px
+
+   RZ/V2H RDK JTAG Switch 6 ON
 
 Useful References
 -----------------

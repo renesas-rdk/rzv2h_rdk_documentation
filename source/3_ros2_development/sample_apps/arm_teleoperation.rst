@@ -1,3 +1,5 @@
+.. _arm_teleoperation:
+
 Vision Based Robotic Arm Teleoperation
 --------------------------------------------------------
 
@@ -20,8 +22,8 @@ The RZ/V Demo Arm Teleoperation package enables:
 - Detect hand landmarks via camera input and control the arm and gripper for grasping tasks.
 - Support for running two AI models simultaneously on the DRP-AI IP.
 - Mapping of hand landmarks to robotic arm and hand joint commands.
-- Control of AglieX Piper Arm (6 DOFs) with dexterous robotic hands (Inspire RH56).
-- Simultaneous control of virtual and physical AglieX Piper Arm.
+- Control of AgileX Piper Arm (6 DOFs) with dexterous robotic hands (Inspire RH56).
+- Simultaneous control of virtual and physical AgileX Piper Arm.
 - Visualization through Foxglove Studio and MuJoCo.
 
 .. _required_ros2_packages_teleop_arm:
@@ -47,6 +49,7 @@ RZ/V ROS2 Packages Used
 - inspire_rh56_dexhand
 - inspire_rh56_hand_bringup
 - inspire_rh56_hand_utils
+- inspire_rh56_hand_ros2_control
 - piper_arm_inspire_hand_bringup
 
 RZ/V ROS2 Host PC Packages Used
@@ -82,7 +85,7 @@ Quick Setup Instructions
 
 Please replace ``<path/to>install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
 
-3. **Optional**: Connect the AglieX Piper Arm and Inspire RH56 hand to the RZ/V2H RDK board if you want to control the real arm and hand.
+3. **Optional**: Connect the AgileX Piper Arm and Inspire RH56 hand to the RZ/V2H RDK board if you want to control the real arm and hand.
 
 4. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 

@@ -77,9 +77,9 @@ There are two possible methods to add kernel configuration for linux-yocto:
 
     .. code-block:: bash
 
-        renesas@docker-pc:~$ mkdir -p ~/poky_sdk/workspace/recipes-kernel/linux/linux-yocto/files/
+        renesas@docker-pc:~$ mkdir -p ~/poky_sdk/workspace/appends/linux-yocto/
 
-    - Create a configuration fragment file, e.g., `myconfig.cfg`, inside the `files/` directory. For example:
+    - Create a configuration fragment file, e.g., `myconfig.cfg`, inside the `~/poky_sdk/workspace/appends/linux-yocto/` directory. For example:
 
     .. code-block:: bash
 
@@ -90,11 +90,11 @@ There are two possible methods to add kernel configuration for linux-yocto:
 
        Please include all dependency configs as well.
 
-    - Edit the `linux-yocto_%.bbappend` file in the workspace’s recipe area to include the new configuration fragment:
+    - Edit the `~/poky_sdk/workspace/appends/linux-yocto_6.10.bbappend` file to include the new configuration fragment at the end of file:
 
     .. code-block:: bash
 
-        renesas@docker-pc:~$ vim ~/poky_sdk/workspace/appends/linux-yocto/linux-yocto_6.10.bbappend
+        renesas@docker-pc:~$ vi ~/poky_sdk/workspace/appends/linux-yocto_6.10.bbappend
 
     - Add the following line to the bbappend file:
 
@@ -119,7 +119,7 @@ After making changes in the workspace, use devtool build to compile the recipe.
 
 .. code-block:: bash
 
-    renesas@docker-pc:~$ devtool build -c clean linux-yocto
+    renesas@docker-pc:~$ devtool build -c linux-yocto
     renesas@docker-pc:~$ export DISTRO=ubuntu-tiny
     renesas@docker-pc:~$ devtool build linux-yocto
 
@@ -129,7 +129,7 @@ After making changes in the workspace, use devtool build to compile the recipe.
 
    .. code-block:: bash
 
-      renesas@docker-pc:~$ devtool build -c clean linux-yocto
+      renesas@docker-pc:~$ devtool build -c linux-yocto
 
    Always set the ``DISTRO`` variable to ``ubuntu-tiny`` to ensure compatibility
    with the Ubuntu-based root filesystem.
@@ -146,9 +146,27 @@ Please copy those files to the appropriate boot media (e.g., SD card) as per you
 
 .. tip::
 
-   On the target device, make sure to run the following command to update the module
-   dependencies after deployment:
+   1. Make sure to copy the updated kernel image and device tree blob to the correct locations
+      in the root file system on the SD card.
 
-   .. code-block:: bash
+      For example:
 
-      $ sudo depmod -a
+      .. list-table:: File Mapping Between eSDK Build Output and Target RootFS
+         :header-rows: 1
+         :widths: 45 45
+
+         * - **eSDK Build Output Path**
+           - **Target RootFS Location**
+         * - ``~/poky_sdk/workspace/sources/linux-yocto/oe-workdir/image/boot/Image-6.10.14-yocto-standard``
+           - ``/boot/Image-6.10.14-yocto-standard``
+         * - ``~/poky_sdk/workspace/sources/linux-yocto/oe-workdir/image/boot/dtb/renesas/r9a09g057h4-rdk-ver1.dtb``
+           - ``/boot/dtb/renesas/r9a09g057h4-rdk-ver1.dtb``
+         * - ``~/poky_sdk/workspace/sources/linux-yocto/oe-workdir/image/usr/lib/modules``
+           - ``/usr/lib/modules``
+
+   2. On the target device, run the following command to update the module
+      dependencies after deployment:
+
+      .. code-block:: bash
+
+         $ sudo depmod -a
