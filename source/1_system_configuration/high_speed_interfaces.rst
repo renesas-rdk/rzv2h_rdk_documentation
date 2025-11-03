@@ -258,3 +258,153 @@ Example output:
     /:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci-renesas-hcd/1p, 480M
     /:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci-renesas-hcd/1p, 20000M/x2
     root@localhost:~#
+
+USB-WIFI Adapter Support
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following USB-WIFI adapters have been tested and are compatible with the RZ/V2H RDK:
+
+  - Ralink Technology, Corp. MT7601U Wireless Adapter
+  - AC1300 Tp-Link T3U Nano
+
+Please refer to the :ref:`USB-WIFI Adapter Support <faq_usb_wifi>` section for more detailed instructions on driver and firmware installation for these adapters.
+
+Usage example
+""""""""""""""
+
+- Check USB Devices
+
+    First, connect the USB-WIFI adapter to the RZ/V2H RDK.
+
+    Then, run the following command to list all connected USB devices:
+
+    .. code-block:: bash
+
+        $ lsusb
+
+    Example output:
+
+    .. code-block:: bash
+        :emphasize-lines: 4,6
+
+        Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+        Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+        Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+        Bus 003 Device 003: ID 2357:0138 TP-Link 802.11ac NIC
+        Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+        Bus 005 Device 003: ID 148f:7601 Ralink Technology, Corp. MT7601U Wireless Adapter
+
+
+- Check Interface Name
+
+    .. code-block:: bash
+
+        $ ip a | grep wl
+
+    Example output:
+
+    .. code-block:: bash
+
+        7: wlx98ba5f1918cf: <BROADCAST,MULTICAST,DYNAMIC> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+
+- Check Device Status
+
+    .. code-block:: bash
+
+        $ nmcli dev status
+
+    Example output:
+
+    .. code-block:: bash
+        :emphasize-lines: 4
+
+        DEVICE           TYPE      STATE                   CONNECTION
+        end0             ethernet  connected               Wired connection 1
+        lo               loopback  connected (externally)  lo
+        wlx98ba5f1918cf  wifi      unavailable             --
+        can0             can       unmanaged               --
+        can1             can       unmanaged               --
+        dummy0           dummy     unmanaged               --
+        sit0             iptunnel  unmanaged               --
+
+- Enable the WiFi Interface
+
+    If the WiFi interface is disabled, the STATE will show as "unavailable".
+
+    We have to enable the WiFi interface first:
+
+    .. code-block:: bash
+
+        $ sudo nmcli radio wifi on
+
+- Recheck Device Status
+
+    .. code-block:: bash
+
+        $ nmcli dev status
+
+    Example output:
+
+    .. code-block:: bash
+        :emphasize-lines: 4
+
+        DEVICE           TYPE      STATE                   CONNECTION
+        end0             ethernet  connected               Wired connection 1
+        lo               loopback  connected (externally)  lo
+        wlx98ba5f1918cf  wifi      disconnected            --
+        can0             can       unmanaged               --
+        can1             can       unmanaged               --
+        dummy0           dummy     unmanaged               --
+        sit0             iptunnel  unmanaged               --
+
+- List Available WiFi Connections
+
+    .. code-block:: bash
+
+        $ nmcli dev wifi list
+
+    Example output:
+
+    .. code-block:: bash
+
+        IN-USE  BSSID              SSID             MODE   CHAN  RATE        SIGNAL  BARS  SECURITY
+                C8:7F:54:E1:45:10  MY_SSID         Infra  8     270 Mbit/s  100     ▂▄▆█  WPA2
+
+
+- Connect to WiFi Network
+
+    .. code-block:: bash
+
+        # Replace MY_SSID and yourpassword with the actual WiFi SSID and password.
+        $ sudo nmcli dev wifi connect MY_SSID password "yourpassword"
+
+- Example output:
+
+    .. code-block:: bash
+
+        sudo: unable to resolve host localhost.localdomain: Name or service not known
+        Device 'wlx98ba5f1918cf' successfully activated with '0fde1c53-876d-4752-adba-8b6f758d9c51'.
+
+
+- Test Network Connectivity
+
+    .. code-block:: bash
+
+        $ ping -I wlx98ba5f1918cf bing.com
+
+    Example output:
+
+    .. code-block:: bash
+
+        PING bing.com (150.171.27.10) from 192.168.19.177 wlx98ba5f1918cf: 56(84) bytes of data.
+        64 bytes from 150.171.27.10: icmp_seq=1 ttl=120 time=420 ms
+        64 bytes from 150.171.27.10: icmp_seq=2 ttl=120 time=482 ms
+        --- bing.com ping statistics ---
+        2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+        rtt min/avg/max/mdev = 419.837/451.166/482.495/31.329 ms
+
+- Disconnect from WiFi Network
+
+    .. code-block:: bash
+
+        $ sudo nmcli con down id MY_SSID
