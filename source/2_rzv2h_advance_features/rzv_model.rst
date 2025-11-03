@@ -132,6 +132,37 @@ There might be several subdirectories representing different inference stages (e
 
 The correct file to use is the one with the **largest memory address allocation**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
 
+**How to calculate the memory size used by the model?**
+
+- Open the ``addr_map.txt`` file with a text editor.
+
+This file contains several lines, each representing a memory block with its start address and size. For example:
+
+.. code-block:: console
+
+    data_in 32ec4c0 dc00
+    data 32fa0c0 41040
+    data_out 333b100 12c00
+    work 334dd00 80
+    weight 334dd80 bd80
+    drp_config 3359b00 87480
+    aimac_param_cmd 33e0f80 140
+    aimac_param_desc 33e10c0 50
+    aimac_cmd 33e1140 1300
+    aimac_desc 33e2440 170
+    drp_param 33e2600 350
+    drp_desc 33e2980 380
+
+- Calculate the total memory size used by the model by summing up the sizes of ``drp_desc`` and subtract the ``data_in`` start address. For example:
+
+  - In this example, the ``data_in`` start address is ``32ec4c0`` and the ``drp_desc`` end address is ``33e2d00`` (start address ``33e2980`` + size ``380``).
+
+  - Therefore, the total memory size used by the model is:
+
+    ``33e2d00 - 32ec4c0 = 0x0f8800`` (in hexadecimal) or ``1,028,608 bytes`` (in decimal).
+
+- Do the same for other ``addr_map.txt`` files to get their memory sizes.
+
 Construct the Model configuration files
 """"""""""""""""""""""""""""""""""""""""""
 
