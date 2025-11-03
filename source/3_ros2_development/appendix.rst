@@ -54,6 +54,12 @@ The procedure below outlines the steps to update or add ROS2 packages in the Yoc
 
 If you plan to update the version of an existing ROS2 package, please follow the steps under the **Optional** section. Otherwise, you can skip to the main steps.
 
+.. figure:: images/ros2_sdk_update_package.png
+   :align: center
+   :width: 600px
+
+   Updating/Adding ROS2 packages in Yocto SDK sysroot
+
 .. note::
 
     This section assumes that you have already set up the Yocto eSDK for RZ/V2H RDK as per the instructions in the :ref:`RZ/V2H eSDK Setup <esdk_setup>` section.
@@ -86,21 +92,32 @@ If you plan to update the version of an existing ROS2 package, please follow the
 
   2. Edit the recipe file.
 
-  For example, to update to version ``3.7.0``, modify the relevant fields:
+  For example, to update to version ``3.8.0``, modify the relevant fields:
 
   - Find the correct new ``SRCREV`` for newer version available at the package's official repository.
 
   .. tip::
 
-      You can find the correct ``SRCREV`` by visiting the package's release page which is ``SRC_URI`` combine with ``ROS_BRANCH``.
+      You can find the correct ``SRCREV`` by visiting the package's GitHub repository which is ``SRC_URI`` combine with ``ROS_BRANCH``. Open the ``pinocchio_3.6.0-1.bb`` file and check the following fields:
+
+        .. code-block:: bash
+            :emphasize-lines: 2,3,4
+
+            # matches with: https://github.com/ros2-gbp/pinocchio-release/archive/release/jazzy/pinocchio/3.6.0-1.tar.gz
+            ROS_BRANCH ?= "branch=release/jazzy/pinocchio"
+            SRC_URI = "git://github.com/ros2-gbp/pinocchio-release;${ROS_BRANCH};protocol=https"
+            SRCREV = "38cb5592495c829a7e41c9b796ff9e617c797b27"
+            S = "${WORKDIR}/git"
 
       The ``SRCREV`` is usually the commit hash or tag corresponding to the desired version.
 
       For example, for ``pinocchio``, you can check its GitHub releases for ROS2 Jazzy: `Pinocchio Releases Jazzy <https://github.com/ros2-gbp/pinocchio-release/tree/release/jazzy/pinocchio>`_.
 
+      And the correct ``SRCREV`` for version ``3.8.0`` is ``89e88cb7ac670c41dd86f48e5b4ac4c697579811`` which is the commit hash of the release tag: `release/jazzy/pinocchio/3.8.0-1 <https://github.com/ros2-gbp/pinocchio-release/releases/tag/release%2Fjazzy%2Fpinocchio%2F3.8.0-1>`_.
+
   - Update the ``SRCREV`` field in the recipe file - ``pinocchio_3.6.0-1.bb`` accordingly.
 
-  - Rename the recipe file to reflect the new version, e.g., ``pinocchio_3.7.0-1.bb``. Also, update the name of bbappend files if necessary.
+  - Rename the recipe file to reflect the new version, e.g., ``pinocchio_3.8.0-1.bb``. Also, update the name of bbappend files if necessary.
 
 - Build the package.
 
