@@ -129,3 +129,11 @@ Frequency Asked Questions
     This log indicates that the ``rtw8822b_fw.bin`` firmware file is required at ``/lib/firmware/rtw88/rtw8822b_fw.bin`` for the adapter to function properly.
 
   - Once you have identified the required driver and firmware, follow the steps mentioned above to install them on the RZ/V2H RDK.
+
+**9. Failed opening device /dev/video0 or /dev/tty: Permission denied**
+
+  Please complete the First Time Boot Setup as described in the :ref:`First Time Boot Setup <first_time_boot_setup>` section to add your user to the necessary groups (e.g., `video`, `dialout`) to gain access to these device files.
+
+**10. No space left on device error**
+
+  Please complete the First Time Boot Setup as described in the :ref:`First Time Boot Setup <first_time_boot_setup>` section to expand the root filesystem to utilize the full storage capacity of the RZ/V2H RDK.
