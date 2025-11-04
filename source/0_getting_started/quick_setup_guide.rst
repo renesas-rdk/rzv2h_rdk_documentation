@@ -439,6 +439,13 @@ Connect an Ethernet cable to the board and run:
 
   Please log out and log back in for the group changes to take effect.
 
+4. (Optional) Add ROS2 workspace setup to bashrc:
+
+   .. code-block:: bash
+
+      echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+      source ~/.bashrc
+
 This completes the **Quick Setup Guide** for the RZ/V2H RDK board.
 
 Reference

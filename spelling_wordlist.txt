@@ -6,6 +6,7 @@ agilex
 AgileX
 AglieX
 Balena
+bashrc
 bbappend
 Blinky
 bootable
