@@ -128,9 +128,9 @@ You can find the ``addr_map.txt`` file in the following path:
 
 ``/drp-ai_tvm/tutorials/temp/<date_time>/tvmgen_default_tvmgen_default_mera_drp_main_*/drp_compilation_output/``
 
-There might be several subdirectories representing different inference stages (executed by DRP or CPU) that each contain an ``addr_map.txt`` file.
+There might be several subdirectories representing different inference stages (executed by DRP-AI or CPU) that each contain an ``addr_map.txt`` file.
 
-The correct file to use is the one with the **largest memory address allocation**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
+The correct file to use is the one with the largest memory address allocation, corresponding to the **maximum drp_desc value**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
 
 **How to calculate the memory size used by the model?**
 
@@ -153,15 +153,13 @@ This file contains several lines, each representing a memory block with its star
     drp_param 33e2600 350
     drp_desc 33e2980 380
 
-- Calculate the total memory size used by the model by summing up the sizes of ``drp_desc`` and subtract the ``data_in`` start address. For example:
+- Calculate the total memory size by summing the sizes of all ``drp_desc`` entries:
 
-  - In this example, the ``data_in`` start address is ``32ec4c0`` and the ``drp_desc`` end address is ``33e2d00`` (start address ``33e2980`` + size ``380``).
+  In this example, the description of ``drp_desc`` is: start address ``33e2980`` and size ``380``.
 
-  - Therefore, the total memory size used by the model is:
+  Therefore, the total memory size for ``drp_desc`` is: ``33e2980`` (start address) + ``380`` (size) = ``33e2d00``.
 
-    ``33e2d00 - 32ec4c0 = 0x0f8800`` (in hexadecimal) or ``1,028,608 bytes`` (in decimal).
-
-- Do the same for other ``addr_map.txt`` files to get their memory sizes.
+- Find the correct ``addr_map.txt`` file that contains the largest ``drp_desc`` value, corresponding to the total memory size used by the AI model with the DRP-AI driver.
 
 Construct the Model configuration files
 """"""""""""""""""""""""""""""""""""""""""
