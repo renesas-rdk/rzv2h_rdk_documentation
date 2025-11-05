@@ -125,6 +125,18 @@ After complete this step, the Docker image (name: rzv2h_ros_xbuild:latest) and c
 eSDK Setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The purpose of the Yocto eSDK (Extended Software Development Kit) is as follows:
+
+- **Rebuild the Linux kernel and device tree** to customize or modify system behavior for the RZ/V2H platform.
+- **Add or update kernel configurations** to enable additional hardware drivers or features.
+- **Install missing ROS 2 packages** required for the cross-build workflow to ensure compatibility and completeness of the development environment.
+
+.. note::
+
+   If you do not require any of the purposes listed above, you may **skip the eSDK setup** for now.
+   You can always return and perform the eSDK setup later when kernel rebuilding, driver configuration,
+   or additional ROS 2 package installation becomes necessary.
+
 To get started, extract the eSDK and install the tool-chain.
 
 Please replace the paths below with your actual file locations.

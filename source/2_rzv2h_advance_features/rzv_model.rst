@@ -128,9 +128,38 @@ You can find the ``addr_map.txt`` file in the following path:
 
 ``/drp-ai_tvm/tutorials/temp/<date_time>/tvmgen_default_tvmgen_default_mera_drp_main_*/drp_compilation_output/``
 
-There might be several subdirectories representing different inference stages (executed by DRP or CPU) that each contain an ``addr_map.txt`` file.
+There might be several subdirectories representing different inference stages (executed by DRP-AI or CPU) that each contain an ``addr_map.txt`` file.
 
-The correct file to use is the one with the **largest memory address allocation**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
+The correct file to use is the one with the largest memory address allocation, corresponding to the **maximum drp_desc value**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
+
+**How to calculate the memory size used by the model?**
+
+- Open the ``addr_map.txt`` file with a text editor.
+
+This file contains several lines, each representing a memory block with its start address and size. For example:
+
+.. code-block:: console
+
+    data_in 32ec4c0 dc00
+    data 32fa0c0 41040
+    data_out 333b100 12c00
+    work 334dd00 80
+    weight 334dd80 bd80
+    drp_config 3359b00 87480
+    aimac_param_cmd 33e0f80 140
+    aimac_param_desc 33e10c0 50
+    aimac_cmd 33e1140 1300
+    aimac_desc 33e2440 170
+    drp_param 33e2600 350
+    drp_desc 33e2980 380
+
+- Calculate the total memory size by summing the sizes of all ``drp_desc`` entries:
+
+  In this example, the description of ``drp_desc`` is: start address ``33e2980`` and size ``380``.
+
+  Therefore, the total memory size for ``drp_desc`` is: ``33e2980`` (start address) + ``380`` (size) = ``33e2d00``.
+
+- Find the correct ``addr_map.txt`` file that contains the largest ``drp_desc`` value, corresponding to the total memory size used by the AI model with the DRP-AI driver.
 
 Construct the Model configuration files
 """"""""""""""""""""""""""""""""""""""""""
