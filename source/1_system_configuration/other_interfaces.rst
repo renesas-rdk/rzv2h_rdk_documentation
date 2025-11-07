@@ -6,7 +6,9 @@ Other interfaces
 
 The RZ/V2H Robotic Development Kit features a Mini-HDMI port for video output to an external display. To use this interface, connect a Mini-HDMI cable from the board to a compatible monitor.
 
-TODO: Add more information, with Ubuntu Core, there is no display output by default.
+.. note::
+    
+    The display supports a maximum resolution of 1920x1920.
 
 .. _usb_uart:
 
