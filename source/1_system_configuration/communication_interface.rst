@@ -355,4 +355,6 @@ On the RZ/V2H RDK, the PCM pins are located on the Raspberry Pi GPIO 40-pin head
      - PCM_CLK
      - PCM bit clock signal.
 
-TODO: Add usage examples for PCM interface.
+.. note::
+    
+    This feature is not available for this release.
