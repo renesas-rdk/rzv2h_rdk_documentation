@@ -9,7 +9,7 @@ The documentation is built with [Sphinx](https://www.sphinx-doc.org/en/master/) 
 ## How to use
 Once the GitLab CI/CD pipeline finishes, you can access the published User Manual directly from **GitLab Pages**:
 
-🤖 [RZ/V2H Robotic Development Kit User Manual (Online)](https://pages-gitlab.global.renesas.com/sst_robotics/rzv2h_rdk_documentation/)
+🤖 [RZ/V2H Robotic Development Kit User Manual (Online)](https://pages-gitlab.global.renesas.com:8091/sst_robotics/rzv2h_rdk_documentation/)
 
 For offline use, download the generated PDF after each build at: `docs/pdf/WS125_Robotic_Development_Kit_User_Manual.pdf`
 
