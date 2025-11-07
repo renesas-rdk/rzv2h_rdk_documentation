@@ -64,7 +64,7 @@ The main interfaces available on the RZ/V2H Robotic Development Kit are listed b
      - Interface Name
      - Description
    * - 7
-     - Mini-HDMI
+     - Micro-HDMI
      - Video output interface for external display.
    * - 8
      - USB-UART

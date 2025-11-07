@@ -61,7 +61,7 @@ Hardware Environment
        - DC Jack (12–24V / 2A)
        - JTAG (10-pin)
        - MIPI CSI-2 4-Lane ×2 (22-pin / 0.5mm)
-       - HDMI
+       - Micro-HDMI
        - USB3.2 Type-A ×2
        - USB Micro-B (SCIF)
        - 10/100/1000 Base-T RJ45
