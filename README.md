@@ -106,3 +106,16 @@ make spelling
 ```
 
 This command will generate a list of misspelled words. If you believe a word should be ignored by the spell checker, add it to the [spelling_wordlist.txt](spelling_wordlist.txt) file.
+
+### VSCode Task Configuration
+
+To simplify the build process, you can use the preconfigured VS Code tasks for building HTML, generating PDFs, and performing spell checks.
+
+1. Open the project folder in VSCode.
+2. Open the Command Palette (Ctrl+Shift+P) and type `Run Task`, then select it.
+3. Choose the desired task from the list:
+   - `Build HTML`: Generates the HTML documentation.
+   - `Build PDF (Latex)`: Generates the PDF version of the documentation.
+   - `Build Spelling`: Performs a spell check on the documentation.
+   - `Build All` (HTML + PDF + Spell Check): Executes all the above tasks sequentially.
+4. The selected task will execute, and you can monitor the output in the terminal panel.
