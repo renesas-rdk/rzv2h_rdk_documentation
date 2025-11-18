@@ -67,7 +67,7 @@ Quick Setup Instructions
 
     .. code-block:: bash
 
-        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so <path_to_sdk_sysroot>/usr/lib/
+        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $ROS2_SDK_SYSROOT/usr/lib/
 
 
 2. Install the required dependencies on the RZ/V2H RDK board.

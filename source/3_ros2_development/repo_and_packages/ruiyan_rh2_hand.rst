@@ -13,7 +13,7 @@ A collection of ROS 2 packages for controlling and interfacing with the Ruiyan R
 
     .. code-block:: bash
 
-        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so <path_to_sdk_sysroot>/usr/lib/
+        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $ROS2_SDK_SYSROOT/usr/lib/
 
     Before using the RuiYan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in the ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in the ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
 
