@@ -179,6 +179,16 @@ The board supports multiple boot options, including:
 
     Download and install the Windows version (`.exe`).
 
+.. important::
+
+    The power supply for the RZ/V2H RDK board should satisfy the maximum requirement of 24V / 5A.
+
+    The common DC power adapter specifications are:
+
+    - DC power adapter 12V, 2A.
+
+    - DC power adapter 24V, 1A.
+
 Option 1: SD Card Boot Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -194,7 +204,7 @@ On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
 
    DSW1 SD Card Boot Mode
 
-After that, insert the SD card and connect the power supply (**Max 24V/5A**) to the board.
+After that, insert the SD card and connect the power supply to the board.
 
 Open a terminal emulator (e.g., **Tera Term**) and connect to the **COM** port.
 
@@ -257,7 +267,7 @@ Copy the bootloaders file to your Windows PC.
 
      DSW1 SCIF Download Mode
 
-- Connect the power cable (**Max 24V/5A**).
+- Connect the power cable.
 - Open **Tera Term** and configure:
 
   **Setup → Terminal:**
@@ -320,7 +330,7 @@ Copy the bootloaders file to your Windows PC.
       Please Input : H'00000
       please send ! ('.' & CR stop load)
 
-- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.  
+- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
 
 - If prompted to clear data, enter `y`::
 
@@ -372,7 +382,7 @@ Copy the bootloaders file to your Windows PC.
 - Power off the board and change DSW1 to configure the boot mode.
 
 
-3. **Setup U-Boot Configuration**
+1. **Setup U-Boot Configuration**
 
   1. Insert the microSD card to the board.
   2. Change DSW1 to **Boot mode 2 (xSPI boot)**:
