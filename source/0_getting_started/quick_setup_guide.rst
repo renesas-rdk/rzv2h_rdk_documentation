@@ -171,6 +171,14 @@ The board supports multiple boot options, including:
 
    JTAG Reset Pin Example
 
+.. note::
+
+    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, Tera Term, etc.) installed.
+
+    The serial communication between the Windows PC and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
+
+    Download and install the Windows version (`.exe`).
+
 Option 1: SD Card Boot Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -220,19 +228,9 @@ Follow the instructions below to set up the board.
    - **Terminal Emulator:** `Tera Term <https://teratermproject.github.io/index-en.html>`_
    - **Operating Environment:** Windows
 
-2. **Install the Serial Port Driver**
-
-   .. note::
-      If already installed, skip this step.
-
-   - The serial communication between the Windows PC and **RZ/V2H RDK** requires:
-     `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
-
-     Download and install the Windows version (`.exe`).
-
 .. _write_bootloaders_to_board:
 
-3. **Write Bootloaders to the Board**
+2. **Write Bootloaders to the Board**
 
 Copy the bootloaders file to your Windows PC.
 
@@ -374,7 +372,7 @@ Copy the bootloaders file to your Windows PC.
 - Power off the board and change DSW1 to configure the boot mode.
 
 
-4. **Setup U-Boot Configuration**
+3. **Setup U-Boot Configuration**
 
   1. Insert the microSD card to the board.
   2. Change DSW1 to **Boot mode 2 (xSPI boot)**:
