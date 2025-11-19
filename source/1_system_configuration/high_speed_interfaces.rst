@@ -193,14 +193,18 @@ In Ubuntu, the network is configured with Netplan, if you need to set a static I
     renderer: NetworkManager
     ethernets:
         end0:
-        dhcp4: no
-        dhcp6: no
-        addresses: [169.254.43.99/24]
-        routes:
-          - to: default
-            via: 169.254.43.86
-        nameservers:
-            addresses: [8.8.8.8, 8.8.4.4]
+            dhcp4: no
+            dhcp6: no
+            addresses: [169.254.43.99/24]
+            routes:
+            - to: default
+                via: 169.254.43.86
+            nameservers:
+                addresses: [8.8.8.8, 8.8.4.4]
+
+  .. note::
+
+      Make sure to replace the ``addresses`` and ``routes`` with the appropriate values for your router network.
 
 - Apply the changes with the following command:
 
@@ -232,7 +236,7 @@ In case you want to revert back to DHCP configuration, modify the ``/etc/netplan
 
       $ sudo netplan apply
 
-4. USB 3.0 Type A ×2
+1. USB 3.0 Type A ×2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The RZ/V2H RDK includes two USB 3.0 Type-A ports that support high-speed data transfer for connecting various USB peripherals, such as external storage devices, cameras, and input devices.
