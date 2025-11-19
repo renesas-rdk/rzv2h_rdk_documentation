@@ -294,10 +294,85 @@ Copy the bootloaders file to your Windows PC.
      * - Transmit delay
        - 0 msec/char
 
-- Send files using “File → Send file...”
-  and follow on-screen messages.
+- Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
 
-  (Keep the original command sequences as-is for flashing.)
+  If the following message is displayed, the file transfer was successful::
+
+      Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
+      Product Code : RZ/V2x
+
+- Next, enter the ``XLS2`` command in the terminal::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``8101e00``. The log continues::
+
+      Please Input : H'8101e00
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.  
+
+- If prompted to clear data, enter `y`::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00000000
+      SpiFlashMemory End Address  : H'00036D17
+      ===========================================================
+
+- Enter ``XLS2`` on the terminal again to get the following messages::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``60000``. The log continues::
+
+      Please Input : H'60000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
+
+- If prompted to clear data, enter ``y``::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00060000
+      SpiFlashMemory End Address  : H'0011C2EE
+      ===========================================================
+
+- Power off the board and change DSW1 to configure the boot mode.
+
 
 4. **Setup U-Boot Configuration**
 
