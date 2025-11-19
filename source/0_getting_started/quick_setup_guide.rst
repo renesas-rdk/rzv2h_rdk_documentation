@@ -523,7 +523,9 @@ Connect an Ethernet cable to the board and run:
       sudo usermod -aG dialout $USER
       sudo usermod -aG video $USER
 
-  Please log out and log back in for the group changes to take effect.
+  .. note::
+
+      After executing the above commands, please log out and log back in for the group changes to take effect.
 
 5. (Optional) Add ROS2 workspace setup to bashrc:
 
