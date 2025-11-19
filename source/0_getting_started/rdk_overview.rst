@@ -20,7 +20,7 @@ Software Environment
    * - **OS Support**
      - Yocto 5.1 (Styhead) and **Ubuntu 24.04 (available in headless)**.
    * - **ROS 2 Distribution**
-     - **ROS 2 Jazzy (installed on the target system).**
+     - **ROS 2 Jazzy**
 
 Hardware Environment
 --------------------

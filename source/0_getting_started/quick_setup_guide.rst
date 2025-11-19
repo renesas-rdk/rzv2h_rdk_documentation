@@ -498,14 +498,27 @@ Connect an Ethernet cable to the board and run:
     old_desc_blocks = 1, new_desc_blocks = 8
     The filesystem on /dev/mmcblk0p2 is now 15540480 (4k) blocks long.
 
-2. Setup **rosdep** for ROS2 package dependency management:
+2. Install the ROS2 Jazzy:
+
+  We provide the script called: `common_utils/ros2_utils/apt_install_ros2.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/ros2_utils/apt_install_ros2.sh?ref_type=heads>`_ to install ROS2 Jazzy packages on the target system.
+
+  Please download the script to the target system and run the following commands:
+
+   .. code-block:: bash
+
+      chmod +x apt_install_ros2.sh
+      sudo ./apt_install_ros2.sh
+
+  For more details about the ROS2 Jazzy installation, please refer to the `ROS2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+
+3. Setup **rosdep** for ROS2 package dependency management:
 
    .. code-block:: bash
 
       sudo rosdep init
       rosdep update
 
-3. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
+4. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
 
    .. code-block:: bash
 
@@ -514,7 +527,7 @@ Connect an Ethernet cable to the board and run:
 
   Please log out and log back in for the group changes to take effect.
 
-4. (Optional) Add ROS2 workspace setup to bashrc:
+5. (Optional) Add ROS2 workspace setup to bashrc:
 
    .. code-block:: bash
 
