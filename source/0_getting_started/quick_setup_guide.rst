@@ -173,7 +173,7 @@ The board supports multiple boot options, including:
 
 .. note::
 
-    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, Tera Term, etc.) installed.
+    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, TeraTerm, etc.) installed.
 
     The serial communication between the Windows PC and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
 

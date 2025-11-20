@@ -13,7 +13,7 @@ For more detailed information, please refer to the official `RealSense ROS <http
 
 For more information about building native, please refer to the `Install librealsense2 documentation <https://github.com/IntelRealSense/librealsense/blob/development/doc/installation.md#install-libreal>`_
 
-When perform navtive build, follow the official documentation, starting from the **Install librealsense2** step and skip **3. Build and apply patched kernel modules for**, as we have already applied these patches in the kernel image by do the next step.
+When perform native build, follow the official documentation, starting from the **Install librealsense2** step and skip **3. Build and apply patched kernel modules for**, as we have already applied these patches in the kernel image by do the next step.
 
 Prerequisites
 ^^^^^^^^^^^^^^
