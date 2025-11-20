@@ -43,6 +43,12 @@ In case your workspace does not contain the ``.vscode/`` directory, you can copy
 
     - Your **development machine** can establish an SSH connection to the target board.
 
+    - Please establish the first SSH connection using the ``ssh`` command to accept the host key.
+
+    .. code-block:: bash
+
+        $ ssh rz@<target_ip_address>
+
     - Your **target board** has both gdbserver and rsync installed. If not, you can install it using:
 
     .. code-block:: bash
