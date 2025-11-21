@@ -9,7 +9,7 @@
 project = 'RZ/V2H Robotic Development Kit User Manual'
 copyright = '2025, Renesas Electronics Corporation'
 author = 'Renesas Electronics Corporation'
-release = '0.1'
+release = '1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
