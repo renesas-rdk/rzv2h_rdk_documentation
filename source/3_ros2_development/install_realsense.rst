@@ -28,6 +28,14 @@ Before proceeding:
 
    $ sudo apt-get install -y ccache
 
+.. important::
+
+   - Make sure to use the compatible versions of `librealsense2` and `realsense-ros` and camera firmware version.
+
+   Please refer to the `librealsense release notes <https://github.com/IntelRealSense/librealsense/releases>`_ for compatibility information.
+
+   - In this guide, we will use `librealsense v2.56.5` and the corresponding `realsense-ros v4.56.4`.
+
 Cross-compile and Install librealsense2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -38,7 +46,7 @@ Build the `librealsense2` library inside the cross-compilation Docker container:
 
    .. code-block:: bash
 
-      $ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/intel-realsense-camera/librealsense.git --depth 1 --single-branch -b rzv_ros2
+      $ git clone https://github.com/IntelRealSense/librealsense.git --depth 1 --single-branch -b v2.56.5
 
 3. Navigate to the `librealsense` directory:
 
@@ -103,7 +111,7 @@ Install rules so the device is accessible without root:
 
 .. code-block:: bash
 
-    $ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/intel-realsense-camera/librealsense.git --depth 1 --single-branch -b rzv_ros2
+    $ git clone https://github.com/IntelRealSense/librealsense.git --depth 1 --single-branch -b v2.56.5
 
     $ cd librealsense
 
