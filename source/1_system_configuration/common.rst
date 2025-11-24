@@ -8,4 +8,5 @@ This section describes how to customize and rebuild the Linux system for the RZ/
     quick_setup
     use_esdk
     build_kernel
+    build_rt_kernel
 

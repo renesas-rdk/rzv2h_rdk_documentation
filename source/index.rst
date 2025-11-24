@@ -9,4 +9,4 @@ Welcome to RZ/V2H RDK Documentation!
    System Configuration <1_system_configuration/index>
    RZ/V2H Advance Features <2_rzv2h_advance_features/index>
    ROS2 Application Development <3_ros2_development/index>
-   FAQs <4_faqs/index>
+   FAQs and Known Issues <4_faqs/index>

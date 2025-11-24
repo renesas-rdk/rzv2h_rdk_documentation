@@ -21,6 +21,7 @@ CMake
 Codec
 colcon
 coldboot
+Computermind
 conda
 config
 configs
@@ -51,6 +52,7 @@ gpiod
 grayscale
 GStreamer
 gz
+Ignitarium
 Insprire
 kbps
 Keras
@@ -131,6 +133,7 @@ Upsampling
 urdf
 uROS
 utils
+wayland
 weston
 wic
 wrapAffine

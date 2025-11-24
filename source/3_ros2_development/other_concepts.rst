@@ -8,4 +8,4 @@ High-level overview of important concepts relevant to RZ/V2H RDK ROS2 developmen
 
    visualization_foxglove
    visualization_mujoco
-   install_realsene
+   install_realsense

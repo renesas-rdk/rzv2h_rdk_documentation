@@ -171,6 +171,24 @@ The board supports multiple boot options, including:
 
    JTAG Reset Pin Example
 
+.. note::
+
+    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, TeraTerm, etc.) installed.
+
+    The serial communication between the Windows PC and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
+
+    Download and install the Windows version (`.exe`).
+
+.. important::
+
+    The power supply for the RZ/V2H RDK board should satisfy the maximum requirement of 24V / 5A.
+
+    The common DC power adapter specifications are:
+
+    - DC power adapter 12V, 2A.
+
+    - DC power adapter 24V, 1A.
+
 Option 1: SD Card Boot Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -186,7 +204,7 @@ On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
 
    DSW1 SD Card Boot Mode
 
-After that, insert the SD card and connect the power supply (**Max 24V/5A**) to the board.
+After that, insert the SD card and connect the power supply to the board.
 
 Open a terminal emulator (e.g., **Tera Term**) and connect to the **COM** port.
 
@@ -220,19 +238,9 @@ Follow the instructions below to set up the board.
    - **Terminal Emulator:** `Tera Term <https://teratermproject.github.io/index-en.html>`_
    - **Operating Environment:** Windows
 
-2. **Install the Serial Port Driver**
-
-   .. note::
-      If already installed, skip this step.
-
-   - The serial communication between the Windows PC and **RZ/V2H RDK** requires:
-     `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
-
-     Download and install the Windows version (`.exe`).
-
 .. _write_bootloaders_to_board:
 
-3. **Write Bootloaders to the Board**
+2. **Write Bootloaders to the Board**
 
 Copy the bootloaders file to your Windows PC.
 
@@ -259,7 +267,7 @@ Copy the bootloaders file to your Windows PC.
 
      DSW1 SCIF Download Mode
 
-- Connect the power cable (**Max 24V/5A**).
+- Connect the power cable.
 - Open **Tera Term** and configure:
 
   **Setup → Terminal:**
@@ -294,12 +302,87 @@ Copy the bootloaders file to your Windows PC.
      * - Transmit delay
        - 0 msec/char
 
-- Send files using “File → Send file...”
-  and follow on-screen messages.
+- Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
 
-  (Keep the original command sequences as-is for flashing.)
+  If the following message is displayed, the file transfer was successful::
 
-4. **Setup U-Boot Configuration**
+      Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
+      Product Code : RZ/V2x
+
+- Next, enter the ``XLS2`` command in the terminal::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``8101e00``. The log continues::
+
+      Please Input : H'8101e00
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
+
+- If prompted to clear data, enter `y`::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00000000
+      SpiFlashMemory End Address  : H'00036D17
+      ===========================================================
+
+- Enter ``XLS2`` on the terminal again to get the following messages::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``60000``. The log continues::
+
+      Please Input : H'60000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
+
+- If prompted to clear data, enter ``y``::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00060000
+      SpiFlashMemory End Address  : H'0011C2EE
+      ===========================================================
+
+- Power off the board and change DSW1 to configure the boot mode.
+
+
+1. **Setup U-Boot Configuration**
 
   1. Insert the microSD card to the board.
   2. Change DSW1 to **Boot mode 2 (xSPI boot)**:
@@ -344,11 +427,18 @@ The default user credentials for the provided Ubuntu images are as follows:
      - rz
      - *(none)*
      - *(none)*
+   * - Yocto Linux based Weston Image (renesas core image weston)
+     - root
+     - *(none)*
+     - *(none)*
 
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
 
 .. note::
-   This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
+
+   - This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
+   - For Yocto Linux based Weston images, perform **only Step 1** below. **Do not perform Steps 2 to 5.**
+   - For Ubuntu images, perform **all steps (1 through 5)** below.
 
 Connect an Ethernet cable to the board and run:
 
@@ -423,23 +513,38 @@ Connect an Ethernet cable to the board and run:
     old_desc_blocks = 1, new_desc_blocks = 8
     The filesystem on /dev/mmcblk0p2 is now 15540480 (4k) blocks long.
 
-2. Setup **rosdep** for ROS2 package dependency management:
+2. Install the ROS2 Jazzy:
+
+  We provide the script called: `common_utils/ros2_utils/apt_install_ros2.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/ros2_utils/apt_install_ros2.sh?ref_type=heads>`_ to install ROS2 Jazzy packages on the target system.
+
+  Please download the script to the target system and run the following commands:
+
+   .. code-block:: bash
+
+      chmod +x apt_install_ros2.sh
+      sudo ./apt_install_ros2.sh
+
+  For more details about the ROS2 Jazzy installation, please refer to the `ROS2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+
+3. Setup **rosdep** for ROS2 package dependency management:
 
    .. code-block:: bash
 
       sudo rosdep init
       rosdep update
 
-3. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
+4. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
 
    .. code-block:: bash
 
       sudo usermod -aG dialout $USER
       sudo usermod -aG video $USER
 
-  Please log out and log back in for the group changes to take effect.
+  .. note::
 
-4. (Optional) Add ROS2 workspace setup to bashrc:
+      After executing the above commands, please log out and log back in for the group changes to take effect.
+
+5. (Optional) Add ROS2 workspace setup to bashrc:
 
    .. code-block:: bash
 

@@ -7,8 +7,9 @@ Other interfaces
 The RZ/V2H Robotic Development Kit features a Micro-HDMI port for video output to an external display. To use this interface, connect a Micro-HDMI cable from the board to a compatible monitor.
 
 .. note::
-    
-    The display supports a maximum resolution of 1920x1920.
+
+    - The display supports a maximum resolution of 1920x1920.
+    - Before powering on the board, ensure that the HDMI cable is securely connected to avoid any display issues.
 
 .. _usb_uart:
 

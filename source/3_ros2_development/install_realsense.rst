@@ -13,7 +13,7 @@ For more detailed information, please refer to the official `RealSense ROS <http
 
 For more information about building native, please refer to the `Install librealsense2 documentation <https://github.com/IntelRealSense/librealsense/blob/development/doc/installation.md#install-libreal>`_
 
-Start from the **Install librealsense2** step and skip **3. Build and apply patched kernel modules for**, as we have already applied these patches in the kernel image by do the next step.
+When perform native build, follow the official documentation, starting from the **Install librealsense2** step and skip **3. Build and apply patched kernel modules for**, as we have already applied these patches in the kernel image by do the next step.
 
 Prerequisites
 ^^^^^^^^^^^^^^
@@ -28,32 +28,13 @@ Before proceeding:
 
    $ sudo apt-get install -y ccache
 
-Patch the Kernel for Intel RealSense Support
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. important::
 
-To enable support for Intel RealSense cameras, you need to patch the kernel with the necessary drivers. Follow these steps on the host machine where the Yocto eSDK is set up:
+   - Make sure to use the compatible versions of `librealsense2` and `realsense-ros` and camera firmware version.
 
-1. Download the following RealSense kernel patch files from **Common Utils** repository:
+   Please refer to the `librealsense release notes <https://github.com/IntelRealSense/librealsense/releases>`_ for compatibility information.
 
-   - `0001-media-uvcvideo-Add-support-for-Realsense-camera-form.patch <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/linux_utils/kernel_patches/0001-media-uvcvideo-Add-support-for-Realsense-camera-form.patch?ref_type=heads>`_
-   - `intel_realsense.cfg <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/linux_utils/kernel_cfg/intel_realsense.cfg?ref_type=heads>`_
-
-2. Complete the **Step 1 and 2: Applying Patches for linux-yocto** in the :ref:`Custom Linux Kernel and Device Tree <build_kernel>` section.
-3. Copy the ``intel_realsense.cfg`` and ``0001-media-uvcvideo-Add-support-for-Realsense-camera-form.patch`` files to the `~/poky_sdk/workspace/appends/linux-yocto/` directory.
-4. Edit the `~/poky_sdk/workspace/appends/linux-yocto_6.10.bbappend` file to include the new configuration fragment at the end of file:
-
-   .. code-block:: bash
-
-       renesas@docker-pc:~$ vi ~/poky_sdk/workspace/appends/linux-yocto_6.10.bbappend
-
-   - Add the following line to the bbappend file:
-
-   .. code-block:: bash
-
-        SRC_URI:append = "file://intel_realsense.cfg \
-                    file://0001-media-uvcvideo-Add-support-for-Realsense-camera-form.patch"
-
-5. **Skip step 3 and 4**, continue build the kernel and deploy it by following **Step 5: Build the Modified Kernel** in the :ref:`Custom Linux Kernel and Device Tree <build_kernel>` section.
+   - In this guide, we will use `librealsense v2.56.5` and the corresponding `realsense-ros v4.56.4`.
 
 Cross-compile and Install librealsense2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -65,7 +46,7 @@ Build the `librealsense2` library inside the cross-compilation Docker container:
 
    .. code-block:: bash
 
-      $ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/intel-realsense-camera/librealsense.git --depth 1 --single-branch -b rzv_ros2
+      $ git clone https://github.com/IntelRealSense/librealsense.git --depth 1 --single-branch -b v2.56.5
 
 3. Navigate to the `librealsense` directory:
 
@@ -130,7 +111,7 @@ Install rules so the device is accessible without root:
 
 .. code-block:: bash
 
-    $ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/intel-realsense-camera/librealsense.git --depth 1 --single-branch -b rzv_ros2
+    $ git clone https://github.com/IntelRealSense/librealsense.git --depth 1 --single-branch -b v2.56.5
 
     $ cd librealsense
 

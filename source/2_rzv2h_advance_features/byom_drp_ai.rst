@@ -24,9 +24,11 @@ This package provides the necessary tools and libraries to facilitate the conver
 Install the DRP-AI TVM extension package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To install the DRP-AI TVM extension package, follow the instructions provided in the package's GitHub repository: `Installation <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/SetupV2H.md#installation>`_.
+To install the DRP-AI TVM extension package, follow the instructions provided in the `rzv_ai_toolchain_docker repository <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/ai/rzv_ai_toolchain_docker/-/tree/master?ref_type=heads>`_.
 
-We recommend installing `DRP-AI TVM with Docker <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/SetupV2H.md#installing-drp-ai-tvm1-with-docker-rzv2h-and-rzv2n>`_ for ease of setup and to avoid dependency issues.
+.. important::
+
+   Please use the RZ/V2H SDK environment when installing the DRP-AI TVM extension package. Do not use SDKs provided by other platforms.
 
 BYOM Development Flow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

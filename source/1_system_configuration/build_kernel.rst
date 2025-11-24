@@ -164,6 +164,16 @@ Please copy those files to the appropriate boot media (e.g., SD card) as per you
          * - ``~/poky_sdk/workspace/sources/linux-yocto/oe-workdir/image/usr/lib/modules``
            - ``/usr/lib/modules``
 
+      .. important::
+
+         On the original RZ/V2H RDK image, the kernel image is named ``Image`` which link to the ``Image-6.10.14-yocto-standard`` file.
+
+         The u-boot configuration on the RZ/V2H RDK board loads the kernel image with the name ``Image`` from the ``/boot`` directory.
+
+         Please make sure to maintain this naming convention when copying the new kernel image to the target root filesystem.
+
+         If your new kernel image has a different name, please rename it to ``Image`` after copying it to the target root filesystem.
+
    2. On the target device, run the following command to update the module
       dependencies after deployment:
 
