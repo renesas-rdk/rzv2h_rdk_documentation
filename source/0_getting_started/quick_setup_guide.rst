@@ -427,11 +427,18 @@ The default user credentials for the provided Ubuntu images are as follows:
      - rz
      - *(none)*
      - *(none)*
+   * - Yocto Linux based Weston Image (renesas core image weston)
+     - root
+     - *(none)*
+     - *(none)*
 
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
 
 .. note::
-   This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
+
+   - This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
+   - For Yocto Linux based Weston images, perform **only Step 1** below. **Do not perform Steps 2 to 5.**
+   - For Ubuntu images, perform **all steps (1 through 5)** below.
 
 Connect an Ethernet cable to the board and run:
 
