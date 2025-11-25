@@ -13,7 +13,6 @@ validate-docs:
     - if: '$CI_COMMIT_AUTHOR =~ /<ci-runner@gitlab\.com>$/'
       when: never
   script:
-    - source /etc/environment
     - echo "Running documentation validation for MR..."
     - make SPHINXOPTS="-W" spelling
     - make SPHINXOPTS="-W" html
@@ -37,37 +36,39 @@ create-pages:
     # Run only for default branch otherwise
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
       when: on_success
-  script:
-    # Source the ENV variables
-    - source /etc/environment
+  script: |
+      # --- Build docs and check spelling ---
+      mkdir -p public
+      make SPHINXOPTS="-W" spelling
+      make SPHINXOPTS="-W" html
+      make SPHINXOPTS="-W" latexpdf
+      mv build/html/* public
 
-    # --- Build docs and check spelling ---
-    - mkdir -p public
-    - make SPHINXOPTS="-W" spelling
-    - make SPHINXOPTS="-W" html
-    - make SPHINXOPTS="-W" latexpdf
-    - mv build/html/* public
+      # --- Commit PDF back to repo ---
+      echo "Committing generated PDF back to repository..."
+      git config --global user.name "GitLab CI"
+      git config --global user.email "ci-runner@gitlab.com"
 
-    # --- Commit PDF back to repo ---
-    - echo "Committing generated PDF back to repository..."
-    - git config --global user.name "GitLab CI"
-    - git config --global user.email "ci-runner@gitlab.com"
+      mkdir -p docs/pdf
+      cp build/latex/*.pdf docs/pdf/
 
-    # Copy PDF to tracked path
-    - mkdir -p docs/pdf
-    - cp build/latex/*.pdf "docs/pdf/"
+      PDF_NEW="docs/pdf/$(basename build/latex/*.pdf)"
+      PDF_OLD_HASH=$(git show "HEAD:${PDF_NEW}" 2>/dev/null | sha256sum | awk '{print $1}')
+      PDF_NEW_HASH=$(sha256sum "$PDF_NEW" | awk '{print $1}')
 
-    # Add and commit if there are changes
-    - git add docs/pdf/*.pdf
-    - echo "Deploy user is $DEPLOY_USER"
-    - |
-      if ! git diff --cached --quiet; then
+      echo "Old hash: $PDF_OLD_HASH"
+      echo "New hash: $PDF_NEW_HASH"
+
+      if [ "$PDF_OLD_HASH" = "$PDF_NEW_HASH" ]; then
+        echo "PDF content identical - skipping commit."
+      else
+        echo "PDF content changed - committing…"
+        git add "$PDF_NEW"
         COMMIT_HASH=$(echo "$CI_COMMIT_SHA" | cut -c1-8)
         COMMIT_MSG="ci: update generated PDF from commit ${COMMIT_HASH}"
-        git commit -m "${COMMIT_MSG}"
-        git push "https://gitlab-ci-token:${DEPLOY_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:$CI_DEFAULT_BRANCH
-      else
-        echo "No changes in PDF; skipping commit."
+        git commit -m "$COMMIT_MSG"
+        git push "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:"${CI_DEFAULT_BRANCH}"
       fi
+
   tags:
     - sphinx
