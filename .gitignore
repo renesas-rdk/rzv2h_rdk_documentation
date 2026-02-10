@@ -1,1 +1,13 @@
 build
+*.html
+tmp-theme.yml
+combined_manual*
+
+# Ignore python venv directory
+/.venv/
+/venv/
+
+/output/
+/site/
+__pycache__/
+/extracted/
