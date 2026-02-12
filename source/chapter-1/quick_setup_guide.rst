@@ -1,0 +1,570 @@
+.. _quick_setup_rdk_guide:
+
+Quick setup guide
+============================================
+
+This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
+
+Other advanced boot methods, such as **xSPI flash**, are also supported.
+
+The **TFTP + NFS boot** method is supported as well but is not covered in detail here.
+
+Preparing the SD Card
+---------------------
+
+To boot the RZ/V2H RDK board using a microSD card, you must first flash a bootable Linux image onto it.
+
+Requirements
+^^^^^^^^^^^^^^^
+
+- **Balena Etcher:** GUI-based tool to flash image
+- **microSD card:** at least 16 GB recommended
+- **Provided bootable Linux images:**
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 35 35 30
+
+     * - **File name**
+       - **Target OS**
+       - **Host platform support**
+     * - renesas-core-image-weston.wic.gz
+       - Yocto Linux based Weston Image
+       - Windows / macOS / Linux
+     * - ubuntu-core-image.wic.gz
+       - Ubuntu 24.04 headless
+       - Windows / macOS / Linux
+
+Flash using Balena Etcher
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Balena Etcher is a user-friendly GUI tool to flash OS images to SD cards and USB drives.
+It provides a simple and safe method.
+
+1. **Install Balena Etcher**
+
+   Download and install the software from the `Balena Etcher Official Website <https://etcher.balena.io/>`_.
+
+2. **Flashing the Image**
+
+   - Once Etcher is open:
+
+     .. figure:: ../images/balenaetcher-eye.jpg
+        :alt: Balena Etcher Application
+        :width: 500px
+        :align: center
+
+        Balena Etcher Application
+
+   - **Select Image:** Click “Flash from file” and choose your image file (e.g., ubuntu-core-image.wic.gz)
+   - **Select Target:** Insert your SD card into the host machine and choose the correct device.
+
+     .. note::
+        Please confirm the SD card device name carefully.
+        Double-check to avoid overwriting your main disk.
+
+   - **Flashing:** Click “Flash” to begin. Etcher will:
+
+     - Write the image
+     - Validate the image
+     - Automatically unmount the SD card
+
+   - **Finish:** Remove the SD card safely after Etcher reports successful completion.
+
+Boot Mode Configuration (DIP Switch)
+------------------------------------
+
+Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured correctly using the DIP switches.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 30 20 40
+
+   * - **DSW1**
+     - **RZ/V2H Pin**
+     - **Default Setting**
+     - **Operation**
+
+   * - 1
+     - BTSEL (BOOSTSELCPU)
+     - ON = High: 1
+     - Select the coldboot CPU:
+
+       - High: **CA55** (*default*)
+       - Low: **CM33**
+
+   * - 2, 3
+     - BOOTPLLCA_1
+
+       BOOTPLLCA_0
+     - OFF = High: 1
+
+       ON = High: 1
+     - Input the CA55 frequency at CA55 coldboot.
+
+       **BOOT_PLLCA\[1:0\]:**
+
+       - Low:Low → 1.1 GHz
+       - Low:High → 1.5 GHz (0.9 V)
+       - High:Low → 1.6 GHz (0.9 V)
+       - High:High → 1.7 GHz (0.9 V) (*default*)
+
+   * - 4
+
+       5
+     - MD_BOOT1
+
+       MD_BOOT0
+     - ON = Low: 0
+
+       OFF = Low: 0
+     - Input boot mode select signal.
+
+       **MD_BOOT\[1:0\]:**
+
+       - Low:Low → SD (*default*)
+       - Low:High → eMMC
+       - High:Low → xSPI
+       - High:High → SCIF download
+
+   * - 6
+     - MD_BOOT3
+     - OFF = Low: 0
+     - Select JTAG debug mode:
+
+       - Low: normal mode (*default*)
+       - High: JTAG
+
+.. attention::
+
+   Always power off the board before changing boot switches.
+
+Boot Mode Support
+------------------------
+
+The board supports multiple boot options, including:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 50 20
+
+   * - **Boot Source**
+     - **Description**
+     - **DSW1 Setting**
+   * - microSD
+     - Boot from SD card
+     - SD mode
+   * - xSPI
+     - Boot from xSPI flash
+     - xSPI mode
+
+.. _jtag_reset_tip:
+
+.. tip::
+   The serial port is powered by the **board’s power supply**, not by the **USB port** from the PC.
+   Early boot messages might not appear automatically in the terminal (including U-Boot console and SCIF terminal).
+   To view them, manually reset the board by connecting **JTAG QRESN (PIN10)** to **GND**, as shown below.
+
+.. figure:: ../images/JTAG_Reset.png
+   :alt: JTAG Reset Pin Example
+   :width: 500px
+   :align: center
+
+   JTAG Reset Pin Example
+
+.. note::
+
+    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, TeraTerm, etc.) installed.
+
+    The serial communication between the Windows PC and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
+
+    Download and install the Windows version (`.exe`).
+
+.. important::
+
+    The power supply for the RZ/V2H RDK board should satisfy the maximum requirement of 24V / 5A.
+
+    The common DC power adapter specifications are:
+
+    - DC power adapter 12V, 2A.
+
+    - DC power adapter 24V, 1A.
+
+Option 1: SD Card Boot Mode
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For **SD card boot mode**, the IPLs are already written to the SD card when flashing the image using Balena Etcher.
+
+On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
+
+
+.. figure:: ../images/DSW1_SD.png
+   :alt: DSW1 SD Card Boot Mode
+   :width: 500px
+   :align: center
+
+   DSW1 SD Card Boot Mode
+
+After that, insert the SD card and connect the power supply to the board.
+
+Open a terminal emulator (e.g., **Tera Term**) and connect to the **COM** port.
+
+The COM port settings are the same as described in **Step 3** of :ref:`Write bootloaders to board <write_bootloaders_to_board>`.
+
+The board will start the boot process.
+
+.. tip::
+
+   If there is no output from the terminal, do :ref:`the JTAG reset tip <jtag_reset_tip>` first, then reset the U-Boot environment variables:
+
+   .. code-block:: bash
+
+      env default -a
+      saveenv
+      boot
+
+If you intend to use **SD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
+
+Option 2: xSPI Boot Mode
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Board Setup Procedure**
+
+Follow the instructions below to set up the board.
+
+1. **Install Terminal Emulator**
+
+   .. note::
+      If already installed, skip this step.
+
+   - **Terminal Emulator:** `Tera Term`_
+
+.. _Tera Term: https://teratermproject.github.io/index-en.html
+
+   - **Operating Environment:** Windows
+
+.. _write_bootloaders_to_board:
+
+2. **Write Bootloaders to the Board**
+
+Copy the bootloaders file to your Windows PC.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - **File Name**
+     - **Description**
+   * - Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
+     - Flash writer for RZ/V2H (used in SCIF download mode)
+   * - bl2_bp_spi-rzv2h-rdk.srec
+     - Boot loader stage 2 binary
+   * - fip-rzv2h-rdk.srec
+     - Firmware Image Package for RZ/V2H
+
+- Connect the **Windows PC** and **Board** using a **Serial-to-MicroUSB** cable.
+- Change the **DSW1** setting to **Boot Mode 3 (SCIF download)**.
+
+  .. figure:: ../images/DSW1_SCIF.png
+     :alt: DSW1 SCIF Download Mode
+     :width: 500px
+     :align: center
+
+     DSW1 SCIF Download Mode
+
+- Connect the power cable.
+- Open **Tera Term** and configure:
+
+  **Setup → Terminal:**
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 40 60
+
+     * - **Item**
+       - **Value**
+     * - New-line
+       - Receive: Auto / Transmit: CR
+
+  **Setup → Serial Port:**
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 40 60
+
+     * - **Item**
+       - **Value**
+     * - Baud rate
+       - 115200
+     * - Data
+       - 8-bit
+     * - Parity
+       - None
+     * - Stop
+       - 1-bit
+     * - Flow control
+       - None
+     * - Transmit delay
+       - 0 msec/char
+
+- Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
+
+  If the following message is displayed, the file transfer was successful::
+
+      Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
+      Product Code : RZ/V2x
+
+- Next, enter the ``XLS2`` command in the terminal::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``8101e00``. The log continues::
+
+      Please Input : H'8101e00
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
+
+- If prompted to clear data, enter `y`::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00000000
+      SpiFlashMemory End Address  : H'00036D17
+      ===========================================================
+
+- Enter ``XLS2`` on the terminal again to get the following messages::
+
+      > XLS2
+      ===== Qspi writing of RZ/V2x Board Command =============
+      Load Program to Spiflash
+      Writes to any of SPI address.
+      Program size & Qspi Save Address
+      ===== Please Input Program Top Address ============
+      Please Input : H'
+
+- Enter ``00000``. The log continues::
+
+      Please Input : H'00000
+      ===== Please Input Qspi Save Address ===
+      Please Input : H'
+
+- Enter ``60000``. The log continues::
+
+      Please Input : H'60000
+      please send ! ('.' & CR stop load)
+
+- After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
+
+- If prompted to clear data, enter ``y``::
+
+      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+- The following log will be displayed. The end address depends on the version of IPL::
+
+      Write to SPI Flash memory.
+      ======= Qspi Save Information =================
+      SpiFlashMemory Stat Address : H'00060000
+      SpiFlashMemory End Address  : H'0011C2EE
+      ===========================================================
+
+- Power off the board and change DSW1 to configure the boot mode.
+
+3. **Setup U-Boot Configuration**
+
+   a. Insert the microSD card to the board.
+
+   b. Change DSW1 to **Boot mode 2 (xSPI boot)**:
+
+      .. figure:: ../images/DSW1_xSPI.png
+          :alt: DSW1 xSPI Boot
+          :width: 500px
+          :align: center
+
+          DSW1 xSPI Boot Mode
+
+   c. Connect via **USB Serial to MicroUSB** cable.
+
+   d. Power on the board.
+
+   e. Open the terminal emulator and connect to the **COM** port (same configuration as before).
+
+   f. The board will boot.
+
+.. tip::
+   If there is no output from the terminal, do :ref:`the JTAG reset tip <jtag_reset_tip>` first, then reset the U-Boot environment variables:
+
+   .. code-block:: bash
+
+      env default -a
+      saveenv
+      boot
+
+.. _first_time_boot_setup:
+
+First Time Boot Setup
+---------------------
+
+The default user credentials for the provided Ubuntu images are as follows:
+
+.. list-table:: Default Login Information
+   :header-rows: 1
+   :widths: 35 25 25 15
+
+   * - **Image Type**
+     - **Username**
+     - **Password**
+     - **Root Password**
+   * - Ubuntu 24.04 (Headless)
+     - rz
+     - *(none)*
+     - *(none)*
+   * - Yocto Linux based Weston Image (renesas core image weston)
+     - root
+     - *(none)*
+     - *(none)*
+
+After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
+
+.. note::
+
+   - This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
+   - For Yocto Linux based Weston images, perform **only Step 1** below. **Do not perform Steps 2 to 5.**
+   - For Ubuntu images, perform **all steps (1 through 5)** below.
+
+Connect an Ethernet cable to the board and run:
+
+.. code-block:: bash
+
+   # Check network
+   ping 8.8.8.8 -c 3
+   ping bing.com -c 3
+
+1. Perform apt update and resize the SD card:
+
+   .. code-block:: bash
+
+      sudo apt update
+      sudo apt install parted
+      sudo parted /dev/mmcblk0
+
+   Inside parted terminal:
+
+   .. code-block:: bash
+
+      > print
+      > resizepart 2 100%
+      > print
+      > quit
+
+   Resize root filesystem:
+
+   .. code-block:: bash
+
+      sudo resize2fs /dev/mmcblk0p2
+
+   For example, this is the sample output after resizing:
+
+   .. code-block:: console
+
+      $ sudo parted /dev/mmcblk0
+      sudo: unable to resolve host localhost.localdomain: Name or service not known
+      GNU Parted 3.6
+      Using /dev/mmcblk0
+      Welcome to GNU Parted! Type 'help' to view a list of commands.
+      (parted) print
+      Model: SD SN64G (sd/mmc)
+      Disk /dev/mmcblk0: 63.9GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+      1      1049kB  211MB   210MB   primary               lba
+      2      211MB   4855MB  4644MB  primary  ext4
+
+      (parted) resizepart 2 100%
+      (parted) print
+      Model: SD SN64G (sd/mmc)
+      Disk /dev/mmcblk0: 63.9GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+      1      1049kB  211MB   210MB   primary               lba
+      2      211MB   63.9GB  63.7GB  primary  ext4
+
+      (parted) quit
+      Information: You may need to update /etc/fstab.
+
+      $ rz@localhost:~$ sudo resize2fs /dev/mmcblk0p2
+      sudo: unable to resolve host localhost.localdomain: Name or service not known
+      resize2fs 1.47.0 (5-Feb-2023)
+      Filesystem at /dev/mmcblk0p2 is mounted on /; on-line resizing required
+      old_desc_blocks = 1, new_desc_blocks = 8
+      The filesystem on /dev/mmcblk0p2 is now 15540480 (4k) blocks long.
+
+2. Install the ROS2 Jazzy:
+
+   We provide the script called: `common_utils/ros2_utils/apt_install_ros2.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/ros2_utils/apt_install_ros2.sh?ref_type=heads>`_ to install ROS2 Jazzy packages on the target system.
+
+   Please download the script to the target system and run the following commands:
+
+   .. code-block:: bash
+
+      chmod +x apt_install_ros2.sh
+      sudo ./apt_install_ros2.sh
+
+   For more details about the ROS2 Jazzy installation, please refer to the `ROS2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+
+3. Setup **rosdep** for ROS2 package dependency management:
+
+   .. code-block:: bash
+
+      sudo rosdep init
+      rosdep update
+
+4. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
+
+   .. code-block:: bash
+
+      sudo usermod -aG dialout $USER
+      sudo usermod -aG video $USER
+
+   .. note::
+
+      After executing the above commands, please log out and log back in for the group changes to take effect.
+
+5. (Optional) Add ROS2 workspace setup to bashrc:
+
+   .. code-block:: bash
+
+      echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+      source ~/.bashrc
+
+This completes the **Quick Setup Guide** for the RZ/V2H RDK board.
+
+Reference
+---------
+
+- Advanced Boot Options (xSPI):
+  `Renesas RZ/V AI SDK Developer Guide <https://renesas-rz.github.io/rzv_ai_sdk/latest/dev_guide.html#D3>`_
+- Balena Etcher Official Website:
+  `https://www.balena.io/etcher <https://www.balena.io/etcher>`_

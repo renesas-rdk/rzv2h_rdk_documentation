@@ -5,8 +5,9 @@ Welcome to RZ/V2H RDK Documentation!
    :maxdepth: 3
    :caption: Contents
 
-   Getting Started <0_getting_started/index>
-   System Configuration <1_system_configuration/index>
-   RZ/V2H Advance Features <2_rzv2h_advance_features/index>
-   ROS2 Application Development <3_ros2_development/index>
-   FAQs and Known Issues <4_faqs/index>
+   Getting Started <chapter-1/index>
+   System Configuration <chapter-2/index>
+   RZ/V2H Advance Features <chapter-3/index>
+   ROS2 Application Development <chapter-4/index>
+   FAQs and Known Issues <chapter-5/index>
+   Revision History <chapter-6/index>

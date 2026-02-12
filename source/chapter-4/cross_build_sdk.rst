@@ -1,0 +1,160 @@
+Cross-build with Yocto SDK
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. caution::
+
+    Be aware of potential **ABI mismatch errors** when using the Yocto SDK method.
+
+    Refer to the :ref:`ABI mismatch appendix <abi_mismatch>` for more details.
+
+
+To cross-build ROS2 applications for the RZ/V2H RDK platform, we will use the Yocto SDK provided with the RZ/V2H RDK Linux image.
+
+Prerequisites
+~~~~~~~~~~~~~~
+
+Complete the :ref:`Common docker environment setup <docker_sdk_setup>` step as described in the **System Configuration** section.
+
+After this step, the Docker container is expected to be fully set up with the Yocto SDK installed.
+
+Access the Docker container terminal:
+
+.. code-block:: bash
+
+   $ docker exec -it [name_of_docker_container] bash
+
+Inside the container, go to your ROS2 workspace:
+
+.. code-block:: bash
+
+   $ cd <path-to-your-ROS2-workspace>
+
+.. tip::
+
+   ``$ROS2_WS`` is the default workspace directory set by the Dockerfile.
+
+   .. code-block:: bash
+
+      $ cd $ROS2_WS
+
+  Environment variables set in the Docker container:
+
+  - ``$ROS2_WS``: Default ROS2 workspace directory.
+  - ``$TOOLCHAINS_WS``: Directory for cross-compilation toolchain files.
+
+Copy cross.cmake file to your workspace:
+
+.. code-block:: bash
+
+   $ cp $TOOLCHAINS_WS/cross.cmake $ROS2_WS/
+
+.. note::
+
+   On the first time create the container, the default toolchain files are already installed to the ``$ROS2_WS``
+
+.. _requirements_ros2_cross_build:
+
+Requirements
+~~~~~~~~~~~~~~~~~~~
+
+Before cross-building ROS 2 applications, ensure that the ROS 2 workspace is fully set up with all necessary dependency packages.
+
+Refer to the :ref:`Common ROS2 Workspace structure <common_ros2_workspace_structure>` to gain some tips for setting up the ROS2 workspace for your development.
+
+Make sure to include all required ROS2 packages in the ``src/`` directory of your workspace.
+
+The workspace structure:
+
+.. code-block:: text
+
+    ros2_ws/
+    ├── src/                  # Source code for ROS 2 packages
+    │   ├── package_1/
+    │   ├── package_2/
+    │   └── ...
+    ├── build/                # Build output directory (generated)
+    ├── install/              # Installation directory (generated)
+    ├── cross.cmake           # CMake toolchain file for cross-compilation
+    └── log/                  # Log files (generated)
+
+Cross-build Steps
+~~~~~~~~~~~~~~~~~~~~~~
+
+To cross-build ROS2 applications for the RZ/V2H RDK platform, follow the steps below.
+
+Using ``cross-colcon-build``
+"""""""""""""""""""""""""""""""
+
+Use the ``cross-colcon-build`` command to build ROS 2 packages for the RZ/V2H RDK.
+
+The ``cross-colcon-build`` script is a wrapper around the standard ``colcon build`` command that performs the following steps:
+
+- Checks if a ``cross.cmake`` toolchain file exists in the current working directory.
+- Unsets the ``LD_LIBRARY_PATH`` variable to avoid conflicts with the cross-compilation environment.
+- Loads the cross-compilation environment by sourcing the appropriate SDK setup script.
+- Runs ``colcon build`` with the necessary CMake arguments for cross-compilation, along with any user-provided arguments.
+
+The ``cross-colcon-build`` command functions similarly to the standard ``colcon build`` command, but with key differences tailored for cross-compilation.
+
+Instead of building binaries for your current host architecture, it targets the **RZ/V2H (arm64)** platform using the configured **Yocto SDK** and **toolchain**.
+
+Usage Guide
+"""""""""""""""""""""""""""""""
+
+Simply replace ``colcon build`` with ``cross-colcon-build`` in your workflow.
+
+You can pass any additional arguments supported by ``colcon build`` directly to ``cross-colcon-build``.
+
+**Example:**
+
+.. code-block:: bash
+
+   $ cd <path-to-your-ROS2-workspace>
+   $ cross-colcon-build --packages-select rzv_demo_dexhand
+
+This command ensures that all necessary environment variables and toolchain settings are correctly applied for cross-compiling your ROS 2 packages for the **RZ/V2H** platform.
+
+.. note::
+
+   For more details, refer to the ``env.conf`` file to understand exactly what ``cross-colcon-build`` is doing under the hood.
+
+   Make sure your ``ros2_ws`` contain the ``cross.cmake`` file. To obtain the default ``cross.cmake`` file, copy it from the ``$TOOLCHAIN_WS`` directory.
+
+Deployment
+~~~~~~~~~~~~~~~~~~
+
+After successfully cross-building the ROS2 applications, deploy the built packages to the RZ/V2H RDK target device.
+
+Copy the contents of the ``install/`` directory to the target device using the ``scp`` command or using the **ROS2: Deploy to Target** feature in VS Code workspace.
+
+Refer to the :ref:`ROS2 Deployment <ros2_deployment>` section for detailed instructions on deploying the applications to the target device.
+
+After deployment, please install any additional dependencies on the target device using:
+
+.. code-block:: bash
+
+    $ source /opt/ros/jazzy/setup.bash
+    $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src
+
+Please replace ``<path/to>install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
+
+Know issue
+~~~~~~~~~~~~~~~~~~~~~~~
+
+During cross-build, you will see:
+
+.. code-block:: console
+
+   WARNING:colcon.colcon_ros.prefix_path.ament:The path '/opt/poky/5.1.4/sysroots/cortexa55-poky-linux/opt/ros/jazzy' in the environment variable AMENT_PREFIX_PATH doesn't contain any 'local_setup.*' files.
+
+The warning message during cross-build is expected and does not indicate a problem with your setup. It results from intentionally removing ROS2 setup files from the SDK sysroot to prevent hard code paths that would break execution on the target board.
+
+As long as your application runs correctly on the RZ/V2H device, you can safely ignore this warning.
+
+Without this, this error will be occur on the target board:
+
+.. code-block:: console
+
+   rz@localhost:/home/rz# source install/setup.bash
+   not found: "/opt/poky/5.1.4/sysroots/cortexa55-poky-linux/opt/ros/jazzy/local_setup.bash"
+   rz@localhost:/home/rz#
