@@ -22,16 +22,16 @@ RUN apt-get update && \
         locales \
         make \
         python3-pip \
+        pandoc \
+        ruby-full \
         curl \
         sudo \
         openssh-server \
         vim \
         ca-certificates \
-        curl \
-        gnupg \
         libenchant-2-2 \
-        lsb-release \
-        apt-transport-https && \
+        aspell \
+        aspell-en && \
     rm -rf /var/lib/apt/lists/*
 
 # HTML build dependencies
@@ -42,25 +42,11 @@ RUN pip3 install --no-cache-dir \
     --break-system-packages \
     -r requirements.txt -c constraints.txt
 
-# PDF build dependencies
-RUN apt-get update && \
-    apt-get install -y \
-        texlive-latex-base \
-        texlive-latex-recommended \
-        texlive-latex-extra \
-        texlive-fonts-recommended \
-        texlive-fonts-extra \
-        texlive-xetex \
-        texlive-luatex \
-        texlive-pictures \
-        latexmk \
-        tex-gyre \
-        texlive-lang-english \
-        texlive-lang-other \
-        texlive-lang-cjk \
-        ghostscript \
-        dvipng && \
-    rm -rf /var/lib/apt/lists/*
+# AsciiDoc PDF toolchain for scripts/convert_pdf.sh
+RUN gem install --no-document \
+        asciidoctor \
+        asciidoctor-pdf \
+        asciidoctor-pdf-cjk
 
 # Set locale
 RUN locale-gen en_US en_US.UTF-8
