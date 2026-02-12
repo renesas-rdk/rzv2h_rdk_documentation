@@ -34,17 +34,14 @@
       "problemMatcher": []
     },
     {
-      "label": "Build PDF (LaTeX)",
+      "label": "Build PDF (convert.py)",
       "type": "shell",
-      "command": "make",
+      "command": "python3",
       "args": [
-        "latexpdf"
+        "scripts/convert.py",
+        "--output_filename",
+        "WS125_Robotic_Development_Kit_User_Manual.pdf"
       ],
-      "options": {
-        "env": {
-          "SPHINXOPTS": "-W"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -52,7 +49,7 @@
       "dependsOn": [
         "Build Spelling",
         "Build HTML",
-        "Build PDF (LaTeX)"
+        "Build PDF (convert.py)"
       ],
       "dependsOrder": "sequence",
       "problemMatcher": []
