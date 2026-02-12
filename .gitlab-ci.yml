@@ -2,68 +2,91 @@ stages:
   - validate
   - deploy
 
+variables:
+  PDF_FILENAME: "WS125_Robotic_Development_Kit_User_Manual.pdf"
+
 # For PRs, build for validation only
 validate-docs:
   stage: validate
+  interruptible: true
   rules:
     # Run when a PR is created or updated
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
-    # Skip if the commit message is from the auto PDF update
+    # Skip if the commit is created by the CI bot user
     - if: '$CI_COMMIT_AUTHOR =~ /<ci-runner@gitlab\.com>$/'
       when: never
   script:
+    - set -euo pipefail
     - echo "Running documentation validation for MR..."
     - make SPHINXOPTS="-W" spelling
     - make SPHINXOPTS="-W" html
-    - make SPHINXOPTS="-W" latexpdf
+    - python3 scripts/convert.py --output_filename "${PDF_FILENAME}"
+    - test -f build/html/index.html
+    - test -f "output/${PDF_FILENAME}"
   artifacts:
     paths:
       - build/html/
-      - build/latex/*.pdf
+      - output/*.pdf
     expire_in: 1 week
   tags:
     - sphinx
 
 create-pages:
   stage: deploy
+  interruptible: true
+  resource_group: pages-deploy
   pages:
     publish: public
   rules:
-    # Skip if the commit message is from the auto PDF update
+    # Skip if the commit is created by the CI bot user
     - if: '$CI_COMMIT_AUTHOR =~ /<ci-runner@gitlab\.com>$/'
       when: never
     # Run only for default branch otherwise
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
       when: on_success
   script: |
+      set -euo pipefail
+
       # --- Build docs and check spelling ---
       mkdir -p public
       make SPHINXOPTS="-W" spelling
       make SPHINXOPTS="-W" html
-      make SPHINXOPTS="-W" latexpdf
-      mv build/html/* public
+      python3 scripts/convert.py --output_filename "${PDF_FILENAME}"
+      test -f build/html/index.html
+      test -f "output/${PDF_FILENAME}"
+      cp -a build/html/. public/
 
       # --- Commit PDF back to repo ---
       echo "Committing generated PDF back to repository..."
       git config --global user.name "GitLab CI"
       git config --global user.email "ci-runner@gitlab.com"
 
+      PDF_OUTPUT="output/${PDF_FILENAME}"
+      PDF_NEW="docs/pdf/${PDF_FILENAME}"
+
+      # Compare normalized PDFs (metadata stripped) to avoid commits on metadata-only changes.
+      if git cat-file -e "HEAD:${PDF_NEW}" 2>/dev/null; then
+        PDF_OLD_TMP=$(mktemp)
+        git show "HEAD:${PDF_NEW}" > "${PDF_OLD_TMP}"
+
+        if python3 scripts/check_pdf_content_diff.py "${PDF_OLD_TMP}" "${PDF_OUTPUT}"; then
+          rm -f "${PDF_OLD_TMP}"
+          echo "PDF content identical after normalization - skipping commit."
+          exit 0
+        fi
+
+        rm -f "${PDF_OLD_TMP}"
+      fi
+
       mkdir -p docs/pdf
-      cp build/latex/*.pdf docs/pdf/
+      cp "${PDF_OUTPUT}" "${PDF_NEW}"
+      git add "${PDF_NEW}"
 
-      PDF_NEW="docs/pdf/$(basename build/latex/*.pdf)"
-      PDF_OLD_HASH=$(git show "HEAD:${PDF_NEW}" 2>/dev/null | sha256sum | awk '{print $1}')
-      PDF_NEW_HASH=$(sha256sum "$PDF_NEW" | awk '{print $1}')
-
-      echo "Old hash: $PDF_OLD_HASH"
-      echo "New hash: $PDF_NEW_HASH"
-
-      if [ "$PDF_OLD_HASH" = "$PDF_NEW_HASH" ]; then
-        echo "PDF content identical - skipping commit."
+      if git diff --cached --quiet -- "$PDF_NEW"; then
+        echo "No staged PDF change - skipping commit."
       else
         echo "PDF content changed - committing…"
-        git add "$PDF_NEW"
         COMMIT_HASH=$(echo "$CI_COMMIT_SHA" | cut -c1-8)
         COMMIT_MSG="ci: update generated PDF from commit ${COMMIT_HASH}"
         git commit -m "$COMMIT_MSG"
