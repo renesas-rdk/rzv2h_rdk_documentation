@@ -64,6 +64,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          pip install --break-system-packages pypdf
+
           PDF_OUTPUT="output/${PDF_FILENAME}"
           PDF_NEW="docs/pdf/${PDF_FILENAME}"
 
