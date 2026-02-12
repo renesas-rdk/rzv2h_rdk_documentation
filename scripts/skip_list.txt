@@ -1,0 +1,4 @@
+# The following folders/files will be skip when generating the PDF file.
+source/chapter-1/available_demo.rst
+repo_and_packages
+sample_apps

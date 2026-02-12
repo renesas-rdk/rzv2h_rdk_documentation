@@ -1,0 +1,131 @@
+Cross-build with Docker and QEMU
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method currently supports cross-compiling ROS2 applications for the RZ/V2H platform using Docker Buildx.
+
+The provided Dockerfile and scripts have been tested with the RZ/V2H AI SDK and are intended for development and evaluation purposes.
+
+.. note::
+
+   **Supported:**
+   ROS2 Jazzy cross-compilation for arm64 (RZ/V2H) using the SDK and Docker Buildx.
+
+   **Limitations:**
+   Only RZ/V2H (arm64) builds are supported.
+   Additional ROS2 packages or custom dependencies may need to be installed manually via:
+
+   .. code-block:: bash
+
+      $ sudo apt install ros-<distro>-<package-name>
+
+Prerequisites
+~~~~~~~~~~~~~~
+
+1. Install Docker. Refer to the `Docker Official Installation Guide <https://docs.docker.com/engine/install/>`_.
+
+   Ensure that Docker is installed on your host machine with Buildx and QEMU support for cross-platform builds.
+
+2. Clone the `X Compilation QEMU Docker` repository to your Host PC.
+
+   .. code-block:: bash
+
+       $ git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/x_compilation_qemu_docker.git
+
+3. RZ/V2H RDK Yocto SDK installer.
+
+   Obtain the installer:
+
+   ``poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-5.1.4.sh``
+
+4. Copy the Yocto SDK installer to the Docker build context directory. Please replace the paths below with your actual file locations.
+
+   .. code-block:: bash
+
+      $ cp poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-5.1.4.sh ~/x_compilation_qemu_docker/
+
+After completing the prerequisites, the project structure should be:
+
+.. code-block:: text
+
+    x_compilation_qemu_docker/
+    ├── Dockerfile
+    ├── setup_docker_builx.sh
+    ├── poky-glibc-x86_64-renesas-core-image-weston-cortexa55-rz-cmn-toolchain-5.1.4.sh
+    └── README.md
+
+Build the Docker Image
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run ``./setup_docker_builx.sh <path_to_ros2_workspace> [name_of_docker_container]`` to set up the environment:
+
+.. code-block:: bash
+
+   $ cd x_compilation_qemu_docker/
+   $ ./setup_docker_builx.sh <path_to_ros2_workspace> [name_of_docker_container]
+
+- <path_to_ros2_workspace>: Path to your ROS 2 workspace on your machine. It will be mounted inside the Docker container.
+- [name_of_docker_container]: (Optional) Name for the Docker container. Default is `rzv2h_ros_sdk`.
+
+To start working inside the Docker container, use:
+
+.. code-block:: bash
+
+   $ docker exec -it [name_of_docker_container] bash
+
+Requirements
+~~~~~~~~~~~~~~~~~~~
+
+Before cross-building ROS 2 applications, ensure that the ROS 2 workspace is fully set up with all necessary dependency packages.
+
+Refer to the :ref:`Common ROS2 Workspace structure <common_ros2_workspace_structure>` to gain some tips for setting up the ROS2 workspace for your development.
+
+Make sure to include all required ROS2 packages in the ``src/`` directory of your workspace.
+
+The workspace structure:
+
+.. code-block:: text
+
+    ros2_ws/
+    ├── src/                  # Source code for ROS 2 packages
+    │   ├── package_1/
+    │   ├── package_2/
+    │   └── ...
+    ├── build/                # Build output directory (generated)
+    ├── install/              # Installation directory (generated)
+    └── log/                  # Log files (generated)
+
+Cross-build Steps
+~~~~~~~~~~~~~~~~~~~~~~
+
+Inside the Docker container, navigate to your ROS2 workspace:
+
+.. code-block:: bash
+
+   $ cd <path-to-your-ROS2-workspace>
+
+Build the ROS2 packages using the ``colcon build`` command:
+
+.. code-block:: bash
+
+   $ colcon build
+
+.. seealso::
+
+   For more details on colcon to build the ROS2 applications, refer to the `Using colcon to build packages <https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html>`_.
+
+Deployment
+~~~~~~~~~~~~~~~~~~
+
+After successfully cross-building the ROS2 applications, deploy the built packages to the RZ/V2H RDK target device by copying the contents of the ``install/`` directory to the target.
+
+
+.. code-block:: bash
+
+   $ scp -r <path/to>/ros2_ws/install/* rz@<RZ/V2H-RDK-IP-address>:/path/to/deployment/directory/
+
+Install any additional dependencies on the target device using:
+
+.. code-block:: bash
+
+   $ souce /opt/ros/jazzy/setup.bash
+   $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src

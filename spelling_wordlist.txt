@@ -4,7 +4,6 @@
 adaptiveThreshold
 agilex
 AgileX
-AglieX
 Balena
 bashrc
 bbappend
@@ -45,7 +44,7 @@ eSDK
 Etcher
 filesystem
 fip
-FoxGlove
+Foxglove
 gdbserver
 gpiochip
 gpiod
@@ -53,7 +52,7 @@ grayscale
 GStreamer
 gz
 Ignitarium
-Insprire
+Inspire
 kbps
 Keras
 keypoint
@@ -120,7 +119,7 @@ teleoperation
 Teleoperation
 tf
 toolchain
-Tp
+TP
 ttySC
 ubuntu
 Ubuntu

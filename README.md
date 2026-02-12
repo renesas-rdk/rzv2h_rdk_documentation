@@ -89,13 +89,22 @@ Any changes you make and rebuild (make html) will be visible after the `make htm
 
 ### Build the PDF
 
-Run this command to generate the PDF file:
+Generate the PDF with the conversion script:
 
 ```bash
-make latexpdf
+python3 scripts/convert.py --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf
 ```
 
-The output will be located at: `build/latex/WS125_Robotic_Development_Kit_User_Manual.pdf`
+The output will be located at: `output/WS125_Robotic_Development_Kit_User_Manual.pdf`
+
+Optional arguments:
+
+```bash
+python3 scripts/convert.py \
+  --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf \
+  --release_version 1.0 \
+  --rev_date Mar.31.26
+```
 
 ### Spell Check
 
@@ -109,13 +118,12 @@ This command will generate a list of misspelled words. If you believe a word sho
 
 ### VSCode Task Configuration
 
-To simplify the build process, you can use the preconfigured VS Code tasks for building HTML, generating PDFs, and performing spell checks.
+To simplify the build process, you can use the preconfigured VS Code tasks for HTML, spelling, and PDF generation.
 
 1. Open the project folder in VSCode.
 2. Open the Command Palette (Ctrl+Shift+P) and type `Run Task`, then select it.
 3. Choose the desired task from the list:
    - `Build HTML`: Generates the HTML documentation.
-   - `Build PDF (Latex)`: Generates the PDF version of the documentation.
    - `Build Spelling`: Performs a spell check on the documentation.
-   - `Build All` (HTML + PDF + Spell Check): Executes all the above tasks sequentially.
-4. The selected task will execute, and you can monitor the output in the terminal panel.
+   - `Build PDF (convert.py)`: Generates the PDF via `scripts/convert.py`.
+   - `Build All (spelling, html, pdf)`: Runs spelling, HTML build, and PDF generation sequentially.
