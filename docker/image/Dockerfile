@@ -62,5 +62,3 @@ RUN usermod -aG sudo $user && \
 ENV HOME=/home/$user
 ENV PATH=/home/$user/.local/bin:$PATH
 WORKDIR /tmp/doc_repository
-
-USER $user

@@ -1,0 +1,117 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    paths-ignore:
+      - docs/pdf/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-24.04
+    env:
+      PDF_FILENAME: WS125_Robotic_Development_Kit_User_Manual.pdf
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build docs image with cache
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/image/Dockerfile
+          tags: rdk-docs-ci:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build docs in container
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$PWD:/tmp/doc_repository" \
+            -w /tmp/doc_repository \
+            -e PDF_FILENAME="${PDF_FILENAME}" \
+            rdk-docs-ci:latest \
+            bash -lc 'set -euo pipefail && make SPHINXOPTS="-W" spelling && make SPHINXOPTS="-W" html && python3 scripts/convert.py --output_filename "${PDF_FILENAME}" && test -f build/html/index.html && test -f "output/${PDF_FILENAME}"'
+
+      - name: Prepare Pages artifact
+        run: |
+          rm -rf public
+          mkdir -p public
+          cp -a build/html/. public/
+
+      - name: Commit generated PDF back to repo
+        run: |
+          set -euo pipefail
+
+          PDF_OUTPUT="output/${PDF_FILENAME}"
+          PDF_NEW="docs/pdf/${PDF_FILENAME}"
+
+          if [ ! -f "${PDF_OUTPUT}" ]; then
+            echo "Generated PDF not found at ${PDF_OUTPUT}, skipping commit."
+            exit 0
+          fi
+
+          # Compare normalized PDFs to avoid commits on metadata-only changes.
+          if git cat-file -e "HEAD:${PDF_NEW}" 2>/dev/null; then
+            PDF_OLD_TMP=$(mktemp)
+            git show "HEAD:${PDF_NEW}" > "${PDF_OLD_TMP}"
+
+            if python3 scripts/check_pdf_content_diff.py "${PDF_OLD_TMP}" "${PDF_OUTPUT}"; then
+              rm -f "${PDF_OLD_TMP}"
+              echo "PDF content identical after normalization - skipping commit."
+              exit 0
+            fi
+
+            rm -f "${PDF_OLD_TMP}"
+          fi
+
+          mkdir -p docs/pdf
+          cp "${PDF_OUTPUT}" "${PDF_NEW}"
+          git add "${PDF_NEW}"
+
+          if git diff --cached --quiet -- "${PDF_NEW}"; then
+            echo "No staged PDF change - skipping commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "ci: update generated PDF from commit ${GITHUB_SHA::8}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
