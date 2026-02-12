@@ -48,7 +48,7 @@ The following table lists the OpenCV functions that can be executed using DRP in
    * - morphologyEX
      - Combination of dilate and erode.
    * - filter2D
-     - Image convolving.
+     - Image convolution..
    * - Sobel
      - Extracting image edges.
    * - adaptiveThreshold

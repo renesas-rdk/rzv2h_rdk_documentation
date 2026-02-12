@@ -64,7 +64,7 @@ The following USB-WIFI adapters have been tested and are compatible with the RZ/
   Linux firmware download link: `mt7601u.bin <https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/mediatek/mt7601u.bin>`_
   Firmware path: ``/lib/firmware/mt7601u.bin``
 
-- AC1300 Tp-Link T3U Nano
+- AC1300 TP-Link T3U Nano
   Linux firmware download link: `rtw8822b_fw.bin <https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/rtw88/rtw8822b_fw.bin>`_
   Firmware path: ``/lib/firmware/rtw88/rtw8822b_fw.bin``
 

@@ -269,7 +269,7 @@ USB-WIFI Adapter Support
 The following USB-WIFI adapters have been tested and are compatible with the RZ/V2H RDK:
 
 - Ralink Technology, Corp. MT7601U Wireless Adapter
-- AC1300 Tp-Link T3U Nano
+- AC1300 TP-Link T3U Nano
 
 Please refer to the :ref:`USB-WIFI Adapter Support <faq_usb_wifi>` section for more detailed instructions on driver and firmware installation for these adapters.
 
@@ -289,7 +289,7 @@ Usage example
   Example output:
 
   .. code-block:: bash
-    :emphasize-lines: 4,6
+     :emphasize-lines: 4,6
 
      Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
      Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
@@ -321,14 +321,14 @@ Usage example
   .. code-block:: bash
      :emphasize-lines: 4
 
-    DEVICE           TYPE      STATE                   CONNECTION
-    end0             ethernet  connected               Wired connection 1
-    lo               loopback  connected (externally)  lo
-    wlx98ba5f1918cf  wifi      unavailable             --
-    can0             can       unmanaged               --
-    can1             can       unmanaged               --
-    dummy0           dummy     unmanaged               --
-    sit0             iptunnel  unmanaged               --
+     DEVICE           TYPE      STATE                   CONNECTION
+     end0             ethernet  connected               Wired connection 1
+     lo               loopback  connected (externally)  lo
+     wlx98ba5f1918cf  wifi      unavailable             --
+     can0             can       unmanaged               --
+     can1             can       unmanaged               --
+     dummy0           dummy     unmanaged               --
+     sit0             iptunnel  unmanaged               --
 
 - Enable the WiFi Interface
 

@@ -81,9 +81,9 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
    $ ros2 launch rzv_pose_estimation camera_hand_landmark_estimation.launch.py
 
-5. For visualization using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
+5. For visualization using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-The input layout file for FoxGlove Studio is located at: ``rzv_pose_estimation/config/foxglove/landmark_estimation.json`` inside the ROS2 workspace.
+The input layout file for Foxglove Studio is located at: ``rzv_pose_estimation/config/foxglove/landmark_estimation.json`` inside the ROS2 workspace.
 
 Application Details
 ^^^^^^^^^^^^^^^^^^^^^

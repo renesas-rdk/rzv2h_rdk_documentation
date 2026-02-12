@@ -136,7 +136,7 @@ You can find the ``addr_map.txt`` file in the following path:
 
 ``/drp-ai_tvm/tutorials/temp/<date_time>/tvmgen_default_tvmgen_default_mera_drp_main_*/drp_compilation_output/``
 
-There might be several subdirectories representing different inference stages (executed by DRP-AI or CPU) that each contain an ``addr_map.txt`` file.
+There might be several sub-directories representing different inference stages (executed by DRP-AI or CPU) that each contain an ``addr_map.txt`` file.
 
 The correct file to use is the one with the largest memory address allocation, corresponding to the **maximum drp_desc value**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
 

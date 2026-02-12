@@ -5,7 +5,7 @@ Vision Based Dexterous Hand
 
 .. note::
 
-   Available for :ref:`FoxGlove <foxglove_visualization>` simulation environment without real robotic hardware!
+   Available for :ref:`Foxglove <foxglove_visualization>` simulation environment without real robotic hardware!
 
 .. figure:: ../../images/demo_dexhand.jpg
     :align: center
@@ -39,7 +39,7 @@ RZ/V ROS2 Packages Used
 - rzv_pose_estimation
 - rzv_model
 
-**Option 1:** Using Insprire RH6 hand
+**Option 1:** Using Inspire RH56 hand
 
 - inspire_rh56_urdf
 - inspire_rh56_dexhand
@@ -130,9 +130,9 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
    Refer to the top image for the correct orientation between the camera and the user's hand.
 
-7. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
+7. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-The input layout file for FoxGlove Studio is located at: ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS2 workspace.
+The input layout file for Foxglove Studio is located at: ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS2 workspace.
 
 Application Details
 ^^^^^^^^^^^^^^^^^^^^^

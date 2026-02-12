@@ -5,7 +5,7 @@ Vision Based Robotic Arm Teleoperation
 
 .. note::
 
-   Available for :ref:`FoxGlove <foxglove_visualization>` and :ref:`MuJoCo Visualization <mujoco_visualization>` simulation environment without real robotic hardware!
+   Available for :ref:`Foxglove <foxglove_visualization>` and :ref:`MuJoCo Visualization <mujoco_visualization>` simulation environment without real robotic hardware!
 
 .. figure:: ../../images/arm_teleop.png
     :align: center
@@ -114,7 +114,7 @@ Please replace ``<path/to>install/`` with the actual path to the ``install/`` di
 
    $ ros2 launch rzv_playground hand_palm_pose_teleop_piper_gripper.launch.py use_mock_hardware:=false
 
-- For virtual hand control with FoxGlove (without real arm), use:
+- For virtual hand control with Foxglove (without real arm), use:
 
 .. code-block:: bash
 
@@ -137,9 +137,9 @@ Make sure to check the correct CAN interface and serial port parameters in the l
 - **Close your thumb**, the robotic hand or gripper will switch to the **grasping position**.
 - If the system **cannot detect your hand** after a certain period, the Piper arm will **reset to its initial position**.
 
-7. For simulation using Foxglove Studio, refer to the :ref:`FoxGlove Visualization <foxglove_visualization>` section for setup instructions.
+7. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-The input layout file for FoxGlove Studio is located at: ``rzv_playground/config/foxglove/*.json`` inside the ROS2 workspace.
+The input layout file for Foxglove Studio is located at: ``rzv_playground/config/foxglove/*.json`` inside the ROS2 workspace.
 
 For MuJoCo simulation, refer to the :ref:`MuJoCo Visualization <mujoco_visualization>` section for setup instructions.
 

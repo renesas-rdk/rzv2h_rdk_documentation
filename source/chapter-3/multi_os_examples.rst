@@ -95,7 +95,7 @@ This section describes how to build and flash the firmware for the CM33/CR8 core
 
 **Special Note for ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` Package**
 
-1. This demo includes a prebuilt libmicroros library. If you want to rebuild this library, use this project on the Ubuntu machine and perform the following steps:
+1. This demo includes a pre-built libmicroros library. If you want to rebuild this library, use this project on the Ubuntu machine and perform the following steps:
 
    Go to **Project → Properties → C/C++ Build → Settings → Build Steps** tab and in **Pre-build steps**, add the command:
 
