@@ -2,6 +2,13 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
+from typing import Any
+
+try:
+    from sphinx_polyversion.api import load as polyversion_load
+except ImportError:
+    polyversion_load = None
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -9,7 +16,6 @@
 project = 'RZ/V2H Robotic Development Kit User Manual'
 copyright = '2025, Renesas Electronics Corporation'
 author = 'Renesas Electronics Corporation'
-release = '1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -19,6 +25,20 @@ extensions = ['myst_parser', 'sphinxcontrib.spelling', 'sphinx_copybutton', 'sph
 templates_path = ['_templates']
 exclude_patterns = []
 
+# -- sphinx-polyversion context ---------------------------------------------
+if polyversion_load is not None:
+    try:
+        polyversion_load(globals())
+    except Exception:
+        # Keep standard Sphinx builds working outside sphinx-polyversion.
+        pass
+
+html_context: dict[str, Any] = globals().get('html_context', {})
+poly_current = html_context.get('current')
+poly_release = getattr(poly_current, 'name', None)
+release = poly_release or os.getenv('READTHEDOCS_VERSION', os.getenv('DOCS_VERSION', '1.0'))
+version = release.lstrip('v')
+
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -26,9 +46,11 @@ exclude_patterns = []
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_copy_source = False
 
 # Relative to html_static_path
 html_css_files = ['custom.css']
+html_js_files = ['version-switcher.js']
 
 html_favicon = '../renesas_favicon.png'
 

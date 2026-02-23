@@ -65,6 +65,14 @@ make html
 
 The result will be located at: `build/html/index.html`
 
+### Build Multiple Versions (sphinx-polyversion)
+
+Build all configured versions (release tags + main/master) with:
+
+```bash
+sphinx-polyversion poly.py build/html
+```
+
 (Optional) For convenience, you may use Visual Studio Code (VSCode) and the Live Server extension to view the documentation, but this is not required for building or viewing the documentation.
 
 **Steps:**
@@ -92,12 +100,16 @@ Any changes you make and rebuild (make html) will be visible after the `make htm
 Generate the PDF with the conversion script:
 
 ```bash
-python3 scripts/convert.py --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf
+DOCS_VERSION=${DOCS_VERSION:-1.0}
+python3 scripts/convert.py \
+  --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf \
+  --release_version "${DOCS_VERSION#v}" \
+  --rev_date "$(date '+%b.%d.%y')"
 ```
 
 The output will be located at: `output/WS125_Robotic_Development_Kit_User_Manual.pdf`
 
-Optional arguments:
+Optional manual override:
 
 ```bash
 python3 scripts/convert.py \
@@ -123,7 +135,8 @@ To simplify the build process, you can use the preconfigured VS Code tasks for H
 1. Open the project folder in VSCode.
 2. Open the Command Palette (Ctrl+Shift+P) and type `Run Task`, then select it.
 3. Choose the desired task from the list:
-   - `Build HTML`: Generates the HTML documentation.
+   - `Build HTML`: Generates the HTML documentation (developer version).
+   - `Build HTML (polyversion)`: Generate HTML documentation for all configured versions (max 3 versions) using sphinx-polyversion (release versions only).
    - `Build Spelling`: Performs a spell check on the documentation.
    - `Build PDF (convert.py)`: Generates the PDF via `scripts/convert.py`.
    - `Build All (spelling, html, pdf)`: Runs spelling, HTML build, and PDF generation sequentially.

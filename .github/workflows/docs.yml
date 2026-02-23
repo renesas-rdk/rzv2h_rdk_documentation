@@ -2,6 +2,15 @@ name: Build and Deploy Documentation
 
 on:
   push:
+    tags:
+      - '*'
+    paths-ignore:
+      - docs/pdf/**
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
     paths-ignore:
       - docs/pdf/**
   workflow_dispatch:
@@ -17,10 +26,11 @@ concurrency:
 
 jobs:
   build:
-    if: github.actor != 'github-actions[bot]' && github.ref_name == github.event.repository.default_branch
+    if: github.actor != 'github-actions[bot]' && (github.event_name == 'pull_request' || startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-24.04
     env:
       PDF_FILENAME: WS125_Robotic_Development_Kit_User_Manual.pdf
+      DOCS_VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '1.0' }}
 
     steps:
       - name: Checkout repository
@@ -52,8 +62,10 @@ jobs:
             -v "$PWD:/tmp/doc_repository" \
             -w /tmp/doc_repository \
             -e PDF_FILENAME="${PDF_FILENAME}" \
+            -e DOCS_VERSION="${DOCS_VERSION}" \
+            -e GITHUB_REF="${GITHUB_REF}" \
             rdk-docs-ci:latest \
-            bash -lc 'set -euo pipefail && make SPHINXOPTS="-W" spelling && make SPHINXOPTS="-W" html && python3 scripts/convert.py --output_filename "${PDF_FILENAME}" && test -f build/html/index.html && test -f "output/${PDF_FILENAME}"'
+            bash -lc 'set -euo pipefail && make SPHINXOPTS="-W" spelling && if [[ "${GITHUB_REF}" == refs/tags/* ]]; then sphinx-polyversion poly.py build/html && test -f build/html/index.html && test -f build/html/latest/index.html && test -f "build/html/${DOCS_VERSION}/index.html"; else make SPHINXOPTS="-W" html && test -f build/html/index.html; fi && PDF_RELEASE_VERSION="${DOCS_VERSION#v}" && PDF_REV_DATE="$(date "+%b.%d.%y")" && python3 scripts/convert.py --output_filename "${PDF_FILENAME}" --release_version "${PDF_RELEASE_VERSION}" --rev_date "${PDF_REV_DATE}" && test -f "output/${PDF_FILENAME}"'
 
       - name: Prepare Pages artifact
         run: |
@@ -62,6 +74,7 @@ jobs:
           cp -a build/html/. public/
 
       - name: Commit generated PDF back to repo
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           set -euo pipefail
 
@@ -100,7 +113,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git commit -m "ci: update generated PDF from commit ${GITHUB_SHA::8}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git push origin "HEAD:${{ github.event.repository.default_branch }}"
           fi
 
       - name: Upload Pages artifact
@@ -110,6 +123,7 @@ jobs:
 
   deploy:
     needs: build
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
