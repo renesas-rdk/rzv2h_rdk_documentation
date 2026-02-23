@@ -78,6 +78,16 @@ jobs:
         run: |
           set -euo pipefail
 
+          git fetch origin "${{ github.event.repository.default_branch }}"
+
+          TAG_SHA="$(git rev-parse HEAD)"
+          MAIN_SHA="$(git rev-parse origin/${{ github.event.repository.default_branch }})"
+
+          if [ "${TAG_SHA}" != "${MAIN_SHA}" ]; then
+            echo "Tag is not at default branch HEAD; skip PDF commit-back."
+            exit 0
+          fi
+
           git lfs install
           pip install --break-system-packages pypdf
 
