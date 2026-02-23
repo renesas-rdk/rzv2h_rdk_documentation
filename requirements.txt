@@ -3,5 +3,6 @@ pypdf
 pyenchant
 sphinx
 sphinx-copybutton
+sphinx-polyversion
 sphinx-rtd-theme
 sphinxcontrib-spelling

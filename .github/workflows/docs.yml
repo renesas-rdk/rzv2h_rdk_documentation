@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       PDF_FILENAME: WS125_Robotic_Development_Kit_User_Manual.pdf
+      DOCS_VERSION: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '1.0' }}
 
     steps:
       - name: Checkout repository
@@ -61,8 +62,10 @@ jobs:
             -v "$PWD:/tmp/doc_repository" \
             -w /tmp/doc_repository \
             -e PDF_FILENAME="${PDF_FILENAME}" \
+            -e DOCS_VERSION="${DOCS_VERSION}" \
+            -e GITHUB_REF="${GITHUB_REF}" \
             rdk-docs-ci:latest \
-            bash -lc 'set -euo pipefail && make SPHINXOPTS="-W" spelling && make SPHINXOPTS="-W" html && python3 scripts/convert.py --output_filename "${PDF_FILENAME}" && test -f build/html/index.html && test -f "output/${PDF_FILENAME}"'
+            bash -lc 'set -euo pipefail && make SPHINXOPTS="-W" spelling && if [[ "${GITHUB_REF}" == refs/tags/* ]]; then sphinx-polyversion poly.py build/html && test -f build/html/index.html && test -f build/html/latest/index.html && test -f "build/html/${DOCS_VERSION}/index.html"; else make SPHINXOPTS="-W" html && test -f build/html/index.html; fi && PDF_RELEASE_VERSION="${DOCS_VERSION#v}" && PDF_REV_DATE="$(date "+%b.%d.%y")" && python3 scripts/convert.py --output_filename "${PDF_FILENAME}" --release_version "${PDF_RELEASE_VERSION}" --rev_date "${PDF_REV_DATE}" && test -f "output/${PDF_FILENAME}"'
 
       - name: Prepare Pages artifact
         run: |

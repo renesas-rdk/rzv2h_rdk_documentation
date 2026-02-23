@@ -1,5 +1,7 @@
 build
 *.html
+!source/_templates/
+!source/_templates/*.html
 tmp-theme.yml
 combined_manual*
 

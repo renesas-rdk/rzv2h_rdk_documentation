@@ -34,13 +34,22 @@
       "problemMatcher": []
     },
     {
+      "label": "Build HTML (polyversion)",
+      "type": "shell",
+      "command": "sphinx-polyversion",
+      "args": [
+        "poly.py",
+        "build/html"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Build PDF (convert.py)",
       "type": "shell",
-      "command": "python3",
+      "command": "bash",
       "args": [
-        "scripts/convert.py",
-        "--output_filename",
-        "WS125_Robotic_Development_Kit_User_Manual.pdf"
+        "-lc",
+        "DOCS_VERSION=${DOCS_VERSION:-1.0}; python3 scripts/convert.py --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf --release_version \"${DOCS_VERSION#v}\" --rev_date \"$(date '+%b.%d.%y')\""
       ],
       "problemMatcher": []
     },
