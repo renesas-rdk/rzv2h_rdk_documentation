@@ -8,6 +8,8 @@ Balena
 bashrc
 bbappend
 Blinky
+bmap
+bmaptool
 bootable
 bootloaders
 bp
@@ -52,6 +54,7 @@ grayscale
 GStreamer
 gz
 Ignitarium
+img
 Inspire
 kbps
 Keras
@@ -139,6 +142,7 @@ wrapAffine
 wrapPerspective
 xbuild
 xSPI
+xz
 yaml
 yocto
 Yocto
