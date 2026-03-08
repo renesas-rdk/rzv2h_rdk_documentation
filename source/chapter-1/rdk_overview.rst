@@ -18,9 +18,11 @@ Software Environment
    * - **Category**
      - **Description**
    * - **OS Support**
-     - Yocto 5.1 (Styhead) and **Ubuntu 24.04 (available in headless)**.
+     - **Ubuntu 24.04** (available in headless (Server) and Desktop).
+   * - **Default Credentials**
+     - Username: **ubuntu** | Password: **ubuntu**
    * - **ROS 2 Distribution**
-     - **ROS 2 Jazzy**
+     - Tested with **ROS 2 Jazzy**
 
 Hardware Environment
 --------------------
@@ -43,7 +45,7 @@ Hardware Environment
 
        * Vision/Dynamically Reconfigurable Processor
 
-       **DRP-AI:**
+       **DRP-AI3:**
 
        * Hardware AI Accelerator (8 dense TOPS, 80 sparse TOPS)
 
@@ -52,16 +54,16 @@ Hardware Environment
        * R9A09G057H44GBG: 1368-pin FCBGA
 
    * - **Memory**
-     - LPDDR4 1600MHz (8GB) x 2
+     - LPDDR4 1600MHz - 16GB (8GB x 2)
 
    * - **SD Card**
-     - 64GB SanDisk
+     - Includes a 64GB SanDisk microSD card in the box
 
    * - **QSPI Flash ROM**
      - 64MB
 
    * - **Interfaces**
-     - * DC Jack (12-24V / 2A)
+     - * DC Jack power input supported: 12-24V / 2A (12V/2A power adapter included in the box)
        * JTAG (10-pin)
        * MIPI CSI-2 4-Lane x2 (22-pin / 0.5mm)
        * Micro-HDMI
@@ -73,7 +75,7 @@ Hardware Environment
        * CAN-FD x2
        * 40-pin RasPi GPIO Header
 
-For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Development Kit Hardware Manual <https://gitlab.global.renesas.com/sst_robotics/rzv2h_rdk_documentation/-/blob/main/docs/pdf/WS125_Robotic_Development_Kit_HardwareManual.pdf?ref_type=heads>`_.
+For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Development Kit Hardware Manual <https://github.com/renesas-rdk/rzv2h_rdk_documentation/raw/refs/heads/main/docs/pdf/WS125_Robotic_Development_Kit_HardwareManual.pdf?download=>`_.
 
 **RZ/V2H RDK Board Image View:**
 
@@ -88,7 +90,7 @@ highlighting its main connectors and interfaces.
    RZ/V2H RDK Board Top View
 
 .. figure:: ../images/RDK_Bottom.png
-   :alt: RZ/V2H RDK Board Top View
+   :alt: RZ/V2H RDK Board Bottom View
    :width: 500px
    :align: center
 
