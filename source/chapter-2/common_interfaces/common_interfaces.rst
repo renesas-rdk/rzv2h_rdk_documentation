@@ -1,16 +1,16 @@
 Ubuntu System with RZ/V2H RDK
-========================================
+=============================
 
 This section provides usage information about the interfaces available on the RZ/V2H RDK when running the Ubuntu system.
 
 For more details about specification of each interface, refer to the `RZ/V2H Group User's Manual: Hardware <https://www.renesas.com/en/document/mah/rzv2h-group-users-manual-hardware>`_.
 
 Overview
---------------------------------
+--------
 The RZ/V2H RDK supports multiple peripheral interfaces that allow users to connect and control external devices for various robotic and industrial applications.
 These interfaces include:
 
-.. figure:: ../images/RDK_hw_interface.png
+.. figure:: ../../images/RDK_hw_interface.png
    :alt: RZ/V2H Robotic Development Kit Front View
    :align: center
    :width: 500px
@@ -18,7 +18,7 @@ These interfaces include:
    RZ/V2H Robotic Development Kit Interfaces
 
 Main Interfaces
---------------------------------
+---------------
 
 The main interfaces available on the RZ/V2H Robotic Development Kit are listed below.
 

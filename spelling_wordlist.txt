@@ -19,6 +19,7 @@ cartesian
 cfg
 cmake
 CMake
+codec
 Codec
 colcon
 coldboot
@@ -129,6 +130,10 @@ Ubuntu
 ubuntu-lxde
 udev
 Ultralytics
+Unbootable
+uncomment
+Uncomment
+uncommented
 unmount
 Unsets
 Upsampling
