@@ -77,21 +77,21 @@ Hardware Environment
 
 For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Development Kit Hardware Manual <https://github.com/renesas-rdk/rzv2h_rdk_documentation/raw/refs/heads/main/docs/pdf/WS125_Robotic_Development_Kit_HardwareManual.pdf?download=>`_.
 
-**RZ/V2H RDK Board Image View:**
+**RZ/V2H RDK Image View:**
 
 The following image shows the top/bottom view of the RZ/V2H Robotics Development Kit (RDK) board,
 highlighting its main connectors and interfaces.
 
 .. figure:: ../images/RDK_Top.png
-   :alt: RZ/V2H RDK Board Top View
+   :alt: RZ/V2H RDK Top View
    :width: 500px
    :align: center
 
-   RZ/V2H RDK Board Top View
+   RZ/V2H RDK Top View
 
 .. figure:: ../images/RDK_Bottom.png
-   :alt: RZ/V2H RDK Board Bottom View
+   :alt: RZ/V2H RDK Bottom View
    :width: 500px
    :align: center
 
-   RZ/V2H RDK Board Bottom View
+   RZ/V2H RDK Bottom View

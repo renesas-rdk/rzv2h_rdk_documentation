@@ -12,7 +12,7 @@ The **TFTP + NFS boot** method is supported as well but is not covered in detail
 Preparing the microSD card
 ----------------------------
 
-To boot the RZ/V2H RDK board using a microSD card, you must first flash a bootable Linux image onto it.
+To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Linux image onto it.
 
 There are two options for flashing the image:
 
@@ -228,7 +228,7 @@ The board supports two boot options, including:
 
 .. important::
 
-    The power supply for the RZ/V2H RDK board should satisfy the maximum requirement of 24V / 5A.
+    The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24V / 5A.
 
     The common DC power adapter specifications are:
 
@@ -259,7 +259,7 @@ Option 1: microSD card boot mode
 
 For **microSD card boot mode**, the required bootloaders components are already included in the flashed microSD card image.
 
-On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
+On the RZ/V2H RDK, configure the **DSW1** switches as shown below:
 
 
 .. figure:: ../images/DSW1_SD.png
@@ -560,18 +560,7 @@ Connect an Ethernet cable to the board and run:
 
    For more details about the ROS 2 Jazzy installation, please refer to the `ROS 2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
 
-3. Set up user groups for serial port and video access. Otherwise, some applications may not work properly due to insufficient permissions:
-
-   .. code-block:: bash
-
-      sudo usermod -aG dialout $USER
-      sudo usermod -aG video $USER
-
-   .. note::
-
-      After executing the above commands, please log out and log back in for the group changes to take effect.
-
-4. (Optional) Add the ROS 2 environment setup to ``.bashrc``:
+3. (Optional) Add the ROS 2 environment setup to ``.bashrc``:
 
    .. code-block:: bash
 

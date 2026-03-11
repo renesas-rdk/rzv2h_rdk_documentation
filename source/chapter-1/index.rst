@@ -6,4 +6,5 @@ Getting Started
 
     rdk_overview
     quick_setup_guide
+    advanced_setup/advanced_setup
     available_demo

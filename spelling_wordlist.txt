@@ -143,6 +143,7 @@ utils
 wayland
 weston
 wic
+Wi-Fi
 wrapAffine
 wrapPerspective
 xbuild

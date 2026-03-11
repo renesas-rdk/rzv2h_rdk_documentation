@@ -1,7 +1,7 @@
 RZ/V ROS 2 Demos
 ================
 
-This repository provides ROS 2 demo packages for computer vision applications on Renesas RZ/V MPU platforms, with a primary focus on the RZ/V2H.
+This section provides ROS 2 demo packages for computer vision applications on Renesas RZ/V MPU platforms, with a primary focus on the RZ/V2H.
 
 The demos showcase AI-accelerated vision features such as object detection, pose estimation, and visualization.
 
