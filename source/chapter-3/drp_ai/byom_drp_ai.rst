@@ -35,7 +35,7 @@ BYOM Development Flow
 
 The typical development flow for deploying BYOM AI models on the RZ/V2H platform using the DRP-AI TVM extension package involves the following steps:
 
-.. figure:: ../images/BYOM_Flow.png
+.. figure:: ../../images/BYOM_Flow.png
    :alt: BYOM Development Flow
    :align: center
    :width: 800px

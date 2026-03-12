@@ -23,7 +23,7 @@ Its main advantages are the ability to reduce surface area and power consumption
 
 This image below shows an example of dynamic reconfiguration:
 
-.. figure:: ../images/DRP.png
+.. figure:: ../../images/DRP.png
    :alt: DRP Dynamic Reconfiguration
    :align: center
    :width: 500px
@@ -51,7 +51,7 @@ By combine the DRP and AI-MAC (AI Matrix Arithmetic Circuit) to accelerate AI in
 - Switches to avoid zero data processing
 - Controller to optimize operation flow (scheduling)
 
-.. figure:: ../images/DRP-AI.png
+.. figure:: ../../images/DRP-AI.png
    :alt: DRP-AI Driver Architecture
    :align: center
    :width: 500px
@@ -60,7 +60,7 @@ By combine the DRP and AI-MAC (AI Matrix Arithmetic Circuit) to accelerate AI in
 
 **DRP-AI Driver Execution Flow**:
 
-.. figure:: ../images/DRP-AI_Driver_Flow.png
+.. figure:: ../../images/DRP-AI_Driver_Flow.png
    :alt: DRP-AI Driver Execution Flow
    :align: center
    :width: 600px
