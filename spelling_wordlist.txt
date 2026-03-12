@@ -78,6 +78,7 @@ msgs
 mujoco
 Mujoco
 Nano
+netplan
 Netplan
 opset
 OSTM
@@ -97,6 +98,7 @@ RDK
 realsense
 Reconfigurable
 Remoteproc
+renderer
 renesas
 Renesas
 rh

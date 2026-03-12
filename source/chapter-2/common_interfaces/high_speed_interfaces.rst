@@ -266,9 +266,9 @@ The following USB-WIFI adapters have been tested and are compatible with the RZ/
 
 .. note::
 
-   If you want to use a different USB Wi-Fi adapter, make sure the required driver is available for the RZ/V2H RDK.
+   If you want to use a different USB WiFi adapter, make sure the required driver is available for the RZ/V2H RDK.
 
-   You need to identify the appropriate driver for the USB Wi-Fi adapter and enable it in the Linux kernel configuration file. For example, add ``CONFIG_MT7601U=y`` to ``linux-rz/arch/arm64/configs/renesas_defconfig``, then rebuild and deploy the kernel image.
+   You need to identify the appropriate driver for the USB WiFi adapter and enable it in the Linux kernel configuration file. For example, add ``CONFIG_MT7601U=y`` to ``linux-rz/arch/arm64/configs/renesas_defconfig``, then rebuild and deploy the kernel image.
 
    Refer to the :ref:`Custom Linux Kernel and Device Tree <build_kernel>` section for instructions on how to add support for additional drivers by modifying the Linux kernel.
 
@@ -279,7 +279,8 @@ Usage example
 
   .. code-block:: bash
 
-     sudo apt install rfkill iw wpa_supplicant
+     sudo apt update
+     sudo apt install rfkill iw wpasupplicant
 
 - Check USB devices
 
@@ -372,6 +373,12 @@ Usage example
            access-points:
              "MY_SSID":
                password: "MY_PASSWORD"
+
+- Apply the changes with the following command:
+
+  .. code-block:: bash
+
+     sudo netplan apply
 
 - Test network connectivity
 

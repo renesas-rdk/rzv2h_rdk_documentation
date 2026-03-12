@@ -6,3 +6,4 @@ System Configuration
 
     common_system/common_system
     common_interfaces/common_interfaces
+    ubuntu_features/ubuntu_features
