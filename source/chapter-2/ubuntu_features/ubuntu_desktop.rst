@@ -1,3 +1,5 @@
+.. _ubuntu_desktop:
+
 Ubuntu Desktop with RZ/V2H RDK
 ------------------------------
 

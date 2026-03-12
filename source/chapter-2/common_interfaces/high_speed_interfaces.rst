@@ -114,7 +114,7 @@ For example, to use the OV5645 camera module, create and run the `v4l2_init.sh <
    sudo apt install v4l-utils
 
    # Download the v4l2_init.sh script
-   wget TODO: Add the actual URL for the v4l2_init.sh script
+   wget https://github.com/Renesas-SST/meta-renesas/raw/refs/heads/styhead/rz-cmn/recipes-extend/v4l2-init/files/v4l2-init.sh
 
    # Make the script executable
    chmod +x v4l2_init.sh
@@ -140,6 +140,8 @@ List all supported formats for the selected camera ``/dev/video0``:
 .. code-block:: bash
 
    v4l2-ctl -d /dev/video0 --list-formats-ext
+
+Refer to the :ref:`Video Codec section <video_codec>` for an example of video capture with a MIPI camera.
 
 .. _high_speed_interfaces_set_static_ip:
 
