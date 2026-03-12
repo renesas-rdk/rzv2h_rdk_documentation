@@ -354,15 +354,9 @@ toc::[]
     # Remove section titles that have no content beneath them
     content = remove_empty_titles(content)
 
-    # Fix image paths: ../../images/ → source/images/
+    # Fix image paths: ../images/, ../../images/, and ../../../images/ -> source/images/
     content = re.sub(
-        r'image::\.\./\.\./images/',
-        'image::source/images/',
-        content,
-    )
-    # Fix image paths: ../images/ → source/images/
-    content = re.sub(
-        r'image::\.\./images/',
+        r'image::(?:\.\./){1,3}images/',
         'image::source/images/',
         content,
     )
