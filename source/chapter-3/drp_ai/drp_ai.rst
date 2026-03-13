@@ -1,13 +1,19 @@
 DRP-AI
-==============
+======
 
-This section provides an overview of the DRP-AI (Dynamically Reconfigurable Processor for AI) Driver available on the RZ/V2H platform, along with instructions on how to utilize its features effectively.
+This section provides an overview of the DRP-AI (Dynamically Reconfigurable Processor - AI Matrix Arithmetic Circuit) Driver available on the RZ/V2H platform, along with instructions on how to utilize its features effectively.
+
+.. note::
+
+   This section focuses on the DRP-AI Driver and its capabilities for deploying AI models on the RZ/V2H platform.
+
+   For information about how to customize your AI application with BYOM AI models, refer to the BYOM AI application tutorial.
 
 .. toctree::
    :maxdepth: 3
 
    what_is_drp_ai
-   byom_drp_ai
-   rzv_model
-   drp_ai_with_rzv_model_tutorials
-   renesas_ai_applications
+   compile_tutorials/byom_drp_ai
+   compile_tutorials/how_to_compile_sample_model
+   compile_tutorials/how_to_compile_your_own_model
+   compile_tutorials/how_to_deploy_model_files
