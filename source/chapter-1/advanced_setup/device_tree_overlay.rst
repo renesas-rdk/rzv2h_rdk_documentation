@@ -1,3 +1,5 @@
+.. _device_tree_overlay:
+
 Device Tree Overlay
 -------------------
 

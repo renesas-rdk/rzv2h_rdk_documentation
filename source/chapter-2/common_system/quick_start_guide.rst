@@ -1,3 +1,5 @@
+.. _linux_kernel_and_device_tree:
+
 Overview
 --------
 

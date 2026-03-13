@@ -1,5 +1,5 @@
 RZV2H RDK Multi-OS Example Packages
------------------------------------------------------
+-----------------------------------
 
 This section contains a collection of Multi-OS packages designed for applications on Renesas RZ/V MPU platforms, specifically targeting the RZ/V2H RDK.
 
@@ -8,29 +8,31 @@ These packages provide practical examples demonstrating how to operate and integ
 Additionally, a demo showcasing Micro-ROS (uROS) running on the real-time CR8 core is supported. It demonstrates the implementation of Micro-ROS on an MCU-class core within the device.
 
 Hardware supported
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
-- Platform: Renesas RZ/V2H MPU
+-  Platform: Renesas RZ/V2H MPU
 
-- Development Board: RZ/V2H RDK (SoC: R9A09G057H44GBG)
+-  Development Board: RZ/V2H RDK (SoC: R9A09G057H44GBG)
 
 Software supported
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
-- Target Operating System: Ubuntu 24.04
+-  Target RZ/V2H RDK image: ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``
 
-- RZ/V Multi-OS Package version 3.2
+-  RZ/V Multi-OS Package version 3.2
 
-- RZ/V FSP version 3.1
+-  RZ/V FSP version 3.1
 
-- Micro XRCE-DDS Agent version 3.0.1
+-  Micro XRCE-DDS Agent version 3.0.1
 
-- Micro ROS Client Jazzy
+-  Micro ROS Client Jazzy
 
-- ROS2 Distribution: ROS2 Jazzy
+-  ROS2 Distribution: ROS2 Jazzy
 
 Package Specification
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+
+TODO: Update link to each package as well as note for long path package
 
 .. list-table::
    :header-rows: 1
@@ -72,30 +74,35 @@ Package Specification
        with the custom RPMsg transport layer for communication with Linux and ROS 2.
 
 Installation Guide
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 To set up and use the Multi-OS example packages on the RZ/V2H RDK, follow the steps below:
 
 Firmware Code for CM33/CR8
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""
 
 This section describes how to build and flash the firmware for the CM33/CR8 core using e² studio and the provided sample project.
 
-1. Clone the CM33/CR8 project into your host machine.
-2. Open **e² studio** and import the above project using **"Import Existing Project"**.
-3. Open the configuration file.
-4. Click **"Generate"** to generate configuration files.
-5. Click **"Build Project"** and wait for the build process to complete.
-6. Flash the firmware to the CM33/CR8 core using your preferred method (e.g., J-Link).
+#. Clone the CM33/CR8 project into your host machine.
+
+#. Open **e² studio** and import the above project using **"Import Existing Project"**.
+
+#. Open the configuration file.
+
+#. Click **"Generate"** to generate configuration files.
+
+#. Click **"Build Project"** and wait for the build process to complete.
+
+#. Flash the firmware to the CM33/CR8 core using your preferred method (e.g., J-Link).
 
 .. important::
 
    The preceding project for all of CR8_0 packages is ``RZ/V2H RDK CM33 RPMsg Linux-RTOS Demo``.
    Please import this CM33 project into your e² studio workspace and build it before using the CR8_0 packages.
 
-**Special Note for ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` Package**
+**Special Note for** ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` **Package**
 
-1. This demo includes a pre-built libmicroros library. If you want to rebuild this library, use this project on the Ubuntu machine and perform the following steps:
+#. This demo includes a pre-built libmicroros library. If you want to rebuild this library, use this project on the **Ubuntu host PC machine** and perform the following steps:
 
    Go to **Project → Properties → C/C++ Build → Settings → Build Steps** tab and in **Pre-build steps**, add the command:
 
@@ -105,98 +112,50 @@ This section describes how to build and flash the firmware for the CM33/CR8 core
 
    Then click **Apply and Close** → **Build the project**.
 
-2. The code includes a 30-second delay (in ``main_task_entry.c`` line 168) before initializing MCU tasks to prevent issues with PWM and I2C pin control on the CR8 core.
+#. The code includes a 30-second delay (in ``main_task_entry.c`` line 168) before initializing MCU tasks to prevent issues with PWM and I2C pin control on the CR8 core.
    By default, this delay is commented out.
 
-   - If flashing via **J-Link**, this delay can be skipped.
-   - However, when invoking the firmware from **U-Boot**, please enable this delay.
-
-Cross Compile the Micro XRCE-DDS Agent
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This section describes how to deploy and build the custom OpenAMP Micro-ROS agent application running on the CA55 core of the RZ/V2H platform.
-
-**Prerequisites:** The Linux local host machine must have the Yocto SDK installed.
-It is recommended to use the :ref:`ROS2 cross-build Docker container <docker_sdk_setup>`, since the environment is already fully set up.
-
-1. Clone the ``Micro-XRCE-DDS-Agent`` to your local machine.
-2. The custom OpenAMP agent source code is located at: ``Micro-XRCE-DDS-Agent/examples/custom_agent``.
-3. Navigate to the directory ``Micro-XRCE-DDS-Agent/``.
-4. Build the project:
-
-   .. code-block:: bash
-
-      mkdir build && cd build
-
-      # We have to disable the UAGENT_LOGGER_PROFILE because the current SDK cannot compile spdlog.
-      # For native builds, we can remove the DUAGENT_LOGGER_PROFILE flag.
-      cmake .. -DCMAKE_TOOLCHAIN_FILE=../coretexa55-toolchain.cmake \
-               -DUAGENT_BUILD_USAGE_EXAMPLES=ON \
-               -DUAGENT_LOGGER_PROFILE=OFF \
-               -DCMAKE_BUILD_TYPE=Release \
-               -DCMAKE_INSTALL_PREFIX=./arm64-install
-
-      make -j$(nproc)
-      make install
-
-5. Wait until the build process completes.
-6. Deploy the output to the target board by copying the output artifact:
-
-   - On the **Host machine**:
-
-     .. code-block:: bash
-
-        # Copy the built CustomXRCEAgent binary to the arm64-install folder for deployment
-        $ cp ./examples/custom_agent/CustomXRCEAgent arm64-install/bin
-
-        # Compress the arm64-install folder
-        $ tar -cf libdds_agent.tar.bz2 -C arm64-install .
-
-   - Then copy ``libdds_agent.tar.bz2`` to the target board using **scp** or another file transfer method.
-
-   - On the **Target machine**:
-
-     .. code-block:: bash
-
-        # Extract the archive
-        $ mkdir tmp-install
-        $ sudo tar -xf libdds_agent.tar.bz2 -C tmp-install
-
-        # Install libdds_agent to the system
-        $ cd tmp-install
-        $ sudo cp -r * /usr/local/
-        $ sudo ldconfig
+   -  If flashing via **J-Link**, this delay can be skipped.
+   -  However, when invoking the firmware from **U-Boot**, please enable this delay.
 
 Usage Guide
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
 
 To run the Multi-OS example packages on the RZ/V2H RDK, follow the instructions below for each package.
 
+Install the ``libsysfs-dev`` package on the target board, which is required by the Multi-OS applications:
+
+.. code-block:: bash
+
+   sudo apt update
+   sudo apt install -y libsysfs-dev
+
 RPMsg Linux-RTOS Demo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""""
 
 This demo behaves identically to the version released in the **RZ/V Multi-OS Package**.
-For more details, refer to the `RZ/V2H Quick Start Guide <https://www.renesas.com/en/document/qsg/rzv2h-quick-start-guide-rzv-multi-os-package?r=1570181>`_ for the RZ/V Multi-OS Package.
 
-1. Flash the ``RPMsg Linux-RTOS Demo`` firmware to the target board.
-2. On the board's terminal, run the ``rpmsg_sample_client`` with sudo privilege:
+For more details, refer to the `RZ/V2H Quick Start Guide: Section 4.4 CM33/CR8 Sample Program Invocation for communicating with Linux <https://www.renesas.com/en/document/qsg/rzv2h-quick-start-guide-rzv-multi-os-package?r=1570181>`_ for the RZ/V Multi-OS Package.
+
+#. Flash the ``RPMsg Linux-RTOS Demo`` firmware to the target board.
+
+#. On the board's terminal, run the ``rpmsg_sample_client`` with sudo privilege:
 
    .. code-block:: bash
 
-      root@localhost:~# rpmsg_sample_client
+      sudo rpmsg_sample_client
 
    Example output:
 
    .. code-block:: bash
 
-      root@localhost:~# rpmsg_sample_client
       [694] proc_id:0 rsc_id:0 mbx_id:1
       metal: warning:   metal_linux_irq_handling: Failed to set scheduler: -1.
       metal: info:      metal_uio_dev_open: No IRQ for device 10480000.mbox-uio.
       [694] Successfully probed IPI device
       ...
 
-3. Based on the firmware you have flashed, select the corresponding option below and press **Enter** when prompted.
+#. Based on the firmware you have flashed, select the corresponding option below and press **Enter** when prompted.
 
    .. list-table::
       :header-rows: 1
@@ -213,29 +172,30 @@ For more details, refer to the `RZ/V2H Quick Start Guide <https://www.renesas.co
         - Select this if you have flashed the ``RZ/V2H RDK CR8 Core0 RPMsg Linux-RTOS Demo`` firmware.
 
    .. note::
+
       Ensure that the firmware on your target board matches the selected option to avoid communication errors.
 
-4. Example output:
+#. Example output:
 
-   - If the Input Option is ``1``:
+   -  If the Input Option is ``1``:
 
-     .. code-block:: bash
+      .. code-block:: bash
 
-        [CM33]  received payload number 469 of size 486
-        [CM33] sending payload number 470 of size 487
-        [828] cond signal 1 sync:0
-        ...
+         [CM33]  received payload number 469 of size 486
+         [CM33] sending payload number 470 of size 487
+         [828] cond signal 1 sync:0
+         ...
 
-   - If the Input Option is ``4``:
+   -  If the Input Option is ``4``:
 
-     .. code-block:: bash
+      .. code-block:: bash
 
-        [CR8_0 ]  received payload number 469 of size 486
-        [CR8_0 ] sending payload number 470 of size 487
-        [790] cond signal 2 sync:0
-        ...
+         [CR8_0 ]  received payload number 469 of size 486
+         [CR8_0 ] sending payload number 470 of size 487
+         [790] cond signal 2 sync:0
+         ...
 
-5. By typing ``e``, the sample program should terminate with the message shown below:
+#. By typing ``e``, the sample program should terminate with the message shown below:
 
    .. code-block:: bash
 
@@ -246,28 +206,145 @@ For more details, refer to the `RZ/V2H Quick Start Guide <https://www.renesas.co
       ...
 
 uROS and Custom Micro XRCE-DDS Agent
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""""""""""""""""""""
 
 This section describes how to run the Micro-ROS Client demo and the custom XRCE-DDS RPMsg Agent.
 
-1. (Optional) Connect the UART-to-TTL cable to **GPIO pin 40** on the RDK board to view log output from the CR8 core over UART channel 5 (P72–TXD5 / P73–RXD5).
-2. Flash the ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` firmware to the target board.
-3. On the board's terminal, run the CustomXRCEAgent with sudo privilege:
+Cross Compile the Micro XRCE-DDS Agent
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the custom Micro XRCE-DDS Agent for the Linux CA55 core.
+
+.. note::
+
+   If you have already set up this Docker container (e.g., when building a ROS 2 application), you can use the same container to compile the Micro XRCE-DDS Agent without needing to set up a new environment.
+
+
+#. Make sure your machine have the Docker engine installed and running. You can use Windows, Linux, or macOS as your host machine.
+
+   For the best experience, it is recommended to use a **Ubuntu 24.04 host machine** for cross-compilation.
+
+   If you are using Windows or macOS, please ensure that Docker Desktop is properly set up and configured to use Linux containers.
+
+#. Clone the ``Micro-XRCE-DDS-Agent`` to your local machine:
 
    .. code-block:: bash
 
-      root@localhost:~# CustomXRCEAgent
+      git clone https://github.com/renesas-rdk/Micro-XRCE-DDS-Agent.git
+
+#. Pull the Docker image provided by Renesas RDK for cross-compilation:
+
+   .. code-block:: bash
+
+      docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
+
+#. Create a new Docker container:
+
+   .. code-block:: bash
+
+      docker run -it --rm -v /path/to/Micro-XRCE-DDS-Agent:/home/ubuntu/Micro-XRCE-DDS-Agent ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
+
+   Replace ``/path/to/Micro-XRCE-DDS-Agent`` with the actual path on your host machine where the repository is located.
+
+#. Inside the Docker container, navigate to the Micro-XRCE-DDS-Agent directory and install the necessary dependencies:
+
+   .. code-block:: bash
+
+      cd Micro-XRCE-DDS-Agent/
+      rzv2h-chroot apt update
+      rzv2h-chroot apt install -y libsysfs-dev
+
+   .. note::
+
+      The ``rzv2h-chroot`` command is a helper script provided in the Docker image that allows you to install packages in the chroot environment used for cross-compilation.
+
+      More detail about the cross-compilation environment can be found in the TODO.
+
+#. Navigate to the directory ``Micro-XRCE-DDS-Agent/``.
+
+   .. code-block:: bash
+
+      cd Micro-XRCE-DDS-Agent/
+
+#. Build the project:
+
+   .. code-block:: bash
+
+      mkdir build && cd build
+
+      # Disable logger profile due to SDK incompatibility with spdlog
+      # Enable usage examples to build the CustomXRCEAgent
+      cmake .. -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAINS_WS/cross.cmake \
+               -DUAGENT_BUILD_USAGE_EXAMPLES=ON \
+               -DUAGENT_LOGGER_PROFILE=OFF \
+               -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_INSTALL_PREFIX=./arm64-install
+
+      make -j$(nproc)
+      make install
+
+#. Wait until the build process completes.
+
+#. Deploy the output to the target board by copying the output artifact:
+
+   -  On the **Host machine**:
+
+      .. code-block:: bash
+
+         # Copy the built CustomXRCEAgent binary to the arm64-install folder for deployment
+         cp ./examples/custom_agent/CustomXRCEAgent arm64-install/bin
+
+         # Compress the arm64-install folder
+         tar -cf libdds_agent.tar.bz2 -C arm64-install .
+
+   -  Then copy ``libdds_agent.tar.bz2`` to the target board using **scp** or another file transfer method.
+
+   -  On the **Target machine**:
+
+      .. code-block:: bash
+
+         # Extract the archive
+         mkdir tmp-install
+         sudo tar -xf libdds_agent.tar.bz2 -C tmp-install
+
+         # Install libdds_agent to the system
+         cd tmp-install
+         sudo cp -r * /usr/local/
+         sudo ldconfig
+
+#. (Optional) Connect the UART-to-TTL cable to **GPIO 40 pins** on the RDK board to view log output from the CR8 core over UART channel 5.
+
+   .. list-table:: UART5 Interface Pins
+      :header-rows: 1
+      :widths: 20 20 40
+
+      * - Pin Name
+        - Function
+        - Description
+      * - P72 - GPIO14 - Pin number 8
+        - TXD5
+        - UART5 transmit data (TX) signal.
+      * - P73 - GPIO15 - Pin number 10
+        - RXD5
+        - UART5 receive data (RX) signal.
+
+#. Flash the ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` firmware to the target board.
+
+#. On the board's terminal, run the CustomXRCEAgent with sudo privilege:
+
+   .. code-block:: bash
+
+      sudo CustomXRCEAgent
 
    Example output:
 
    .. code-block:: bash
 
-      root@localhost:~# CustomXRCEAgent
       [787] proc_id:0 rsc_id:0 mbx_id:1
       metal: warning:   metal_linux_irq_handling: Failed to set scheduler: -1.
       ...
 
-4. On another terminal, use the following ROS 2 commands to verify communication:
+#. On another terminal, use the following ROS 2 commands to verify communication:
 
    .. code-block:: bash
 
@@ -281,16 +358,29 @@ This section describes how to run the Micro-ROS Client demo and the custom XRCE-
 - The custom Micro XRCE-DDS Agent makes this topic available in the ROS 2 environment running on the CA55 core.
 - From the CA55 core, you can subscribe to and retrieve data from the ``/cr8/heartbeat`` topic.
 
-Example output:
-
 .. code-block:: bash
 
-   rz@localhost:~$ source /opt/ros/jazzy/setup.bash
-   rz@localhost:~$ ros2 topic list
+   source /opt/ros/jazzy/setup.bash
+   ros2 topic list
+
+Example output:
+
+.. code-block:: text
+
    /cr8/heartbeat
    /parameter_events
    /rosout
-   rz@localhost:~$ ros2 topic echo /cr8/heartbeat
+
+See the data from the CR8 core by running:
+
+.. code-block:: bash
+
+   ros2 topic echo /cr8/heartbeat
+
+Example output:
+
+.. code-block:: text
+
    data: 328
    ---
    data: 329
@@ -299,17 +389,26 @@ Example output:
    ...
 
 Troubleshooting
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
-1. **Can't open the configuration.xml of CR8 e² studio project?**
+#. ``rpmsg_sample_client``: error while loading shared libraries: ``libsysfs.so.2``: cannot open shared object file: No such file or directory
+
+   Please install the ``libsysfs-dev`` package on the target board by running:
+
+   .. code-block:: bash
+
+      sudo apt update
+      sudo apt install -y libsysfs-dev
+
+#. **Can't open the configuration.xml of CR8 e² studio project?**
 
    Confirm the RZ/V FSP version is 3.1 and import the **CM33 project** into the workspace and build it first, then try opening the CR8 project again.
 
-2. **The behavior of the RPMsg demo is strange?**
+#. **The behavior of the RPMsg demo is strange?**
 
-   Restart the **RDK board** to reset the RPMsg endpoint.
+   **Reboot the RDK board** to reset the RPMsg endpoint.
 
-3. **Unknown status of the micro-ROS demo?**
+#. **Unknown status of the micro-ROS demo?**
 
    Use a **USB-to-TTL** module to read logs from the UART interface of the RDK board (baud rate: **115200**).
 
@@ -324,6 +423,6 @@ Troubleshooting
 
    You should run the ``CustomXRCEAgent`` only after the message ``[CR8] RPMsg endpoint ready`` appears on the UART log.
 
-4. **Can't flash the firmware over J-Link?**
+#. **Can't flash the firmware over J-Link?**
 
    Make sure you are using the correct **J-Link firmware version** and that **DIP switch SW1-6** is turned **ON**.
