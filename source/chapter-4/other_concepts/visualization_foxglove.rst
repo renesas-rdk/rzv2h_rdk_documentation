@@ -173,33 +173,33 @@ Common configuration examples:
 
 - For the **Image** panel:
 
-   - select the correct image topic,
-   - choose the correct transport format if multiple image topics are available, and
-   - verify that the displayed frame updates continuously.
+  - select the correct image topic,
+  - choose the correct transport format if multiple image topics are available, and
+  - verify that the displayed frame updates continuously.
 
 - For the **3D** panel:
 
-   - set the correct fixed frame,
-   - enable transforms if available,
-   - add marker, pose, point cloud, or model topics as needed, and
-   - verify that the scene updates correctly when the application is running.
+  - set the correct fixed frame,
+  - enable transforms if available,
+  - add marker, pose, point cloud, or model topics as needed, and
+  - verify that the scene updates correctly when the application is running.
 
 - For the **Plot** panel:
 
-   - add one or more numeric fields from a topic,
-   - adjust the time window if needed, and
-   - use it to compare multiple values over time.
+  - add one or more numeric fields from a topic,
+  - adjust the time window if needed, and
+  - use it to compare multiple values over time.
 
 - For the **Raw Messages** panel:
 
-   - select a topic and inspect its fields,
-   - expand nested fields to verify message content, and
-   - use it when debugging unexpected application behavior.
+  - select a topic and inspect its fields,
+  - expand nested fields to verify message content, and
+  - use it when debugging unexpected application behavior.
 
 - For the **Log** panel:
 
-   - filter messages by severity if needed, and
-   - watch for warnings or errors while launching and running the application.
+  - filter messages by severity if needed, and
+  - watch for warnings or errors while launching and running the application.
 
 Foxglove Studio can also help with debugging and runtime inspection.
 

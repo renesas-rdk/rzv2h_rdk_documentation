@@ -1,6 +1,8 @@
 Cross-compilation FAQ
 ---------------------
 
+This section provides answers to frequently asked questions about cross-compilation for the RZ/V2H RDK using the provided Docker environment and tools.
+
 General
 ^^^^^^^
 
@@ -213,37 +215,35 @@ Sysroot and Docker Environment
 
    **How to keep the sysroot and the board in sync:**
 
-   - For **ROS 2 apt package updates**, install the same package version on both the board and the sysroot.
+   For **ROS 2 apt package updates**, install the same package version on both the board and the sysroot.
 
-     For example, if you updated ``ros-jazzy-rclcpp`` on the board, update the same package in the sysroot:
+   For example, if you updated ``ros-jazzy-rclcpp`` on the board, update the same package in the sysroot:
 
-     On the board:
+   On the board:
 
-     .. code-block:: bash
+   .. code-block:: bash
 
-        sudo apt update
-        sudo apt install ros-jazzy-rclcpp
+      sudo apt update
+      sudo apt install ros-jazzy-rclcpp
 
-     On the sysroot (inside the Docker container):
+   On the sysroot (inside the Docker container):
 
-     .. code-block:: bash
+   .. code-block:: bash
 
-        rzv2h-chroot apt update
-        rzv2h-chroot apt install ros-jazzy-rclcpp
+      rzv2h-chroot apt update
+      rzv2h-chroot apt install ros-jazzy-rclcpp
 
-     Only update the specific packages that were changed.
-     Running ``apt upgrade`` on the entire sysroot is not recommended as it can be time-consuming and may unintentionally update other packages.
+   Only update the specific packages that were changed.
+   Running ``apt upgrade`` on the entire sysroot is not recommended as it can be time-consuming and may unintentionally update other packages.
 
-   - For **Linux image updates** such as firmware updates or OS upgrades, the sysroot cannot be updated with ``apt`` alone.
-     In this case:
+   For **Linux image updates** such as firmware updates or OS upgrades, the sysroot cannot be updated with ``apt`` alone.
+   In this case, pull the latest Docker image that matches the board's Linux image version:
 
-     - Pull the latest Docker image that matches the board's Linux image version:
+   .. code-block:: bash
 
-       .. code-block:: bash
+      docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
 
-          docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
-
-     - Create a new container from the updated image.
+   Then, create a new container from the updated image.
 
    After updating the sysroot by either method, rebuild and redeploy your application:
 

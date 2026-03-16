@@ -99,6 +99,8 @@ highlighting its main connectors and interfaces.
 Development Environment
 -----------------------
 
+When setting up the development environment for the RZ/V2H RDK, it is important to have the necessary hardware components and software tools in place. Below is an overview of the required items and their descriptions.
+
 RZ/V2H RDK
 ^^^^^^^^^^
 

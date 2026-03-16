@@ -7,6 +7,100 @@ import subprocess
 from pypdf import PdfWriter
 
 # ============================================================
+# Ordered List Continuation Fix
+# ============================================================
+
+def fix_ordered_list_continuations(content):
+    """
+    Fix ordered list items that use multiple '+' continuations.
+
+    Pandoc converts RST enumerated lists into AsciiDoc using '+' list
+    continuation markers.  When a list item contains nested bullet lists,
+    code blocks, or admonition blocks, the '+' chain breaks and the '+'
+    characters appear literally in the PDF output.
+
+    This function wraps continuation content in open blocks (-- … --)
+    so that all content stays attached to the list item without needing
+    individual '+' markers.
+    """
+    lines = content.split('\n')
+    result = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Match an ordered list item: `. text`, `.. text`, etc.
+        if re.match(r'^\.{1,5}\s+\S', line):
+            result.append(line)
+            i += 1
+
+            # Check whether the next line is a '+' continuation
+            if i < len(lines) and lines[i].strip() == '+':
+                # Look ahead to count '+' lines until the next list item
+                # or section header (outside code / admonition blocks).
+                j = i
+                plus_count = 0
+                in_code = False
+                while j < len(lines):
+                    stripped = lines[j].strip()
+                    if stripped == '----':
+                        in_code = not in_code
+                    if not in_code:
+                        if re.match(r'^\.{1,5}\s+\S', lines[j]) or \
+                           re.match(r'^={1,6}\s+\S', lines[j]):
+                            break
+                        if stripped == '+':
+                            plus_count += 1
+                    j += 1
+
+                if plus_count >= 2:
+                    # Multiple continuations → wrap in an open block
+                    result.append('+')
+                    result.append('--')
+                    i += 1  # skip the first '+'
+
+                    in_code_block = False
+                    in_admonition = False
+                    while i < len(lines):
+                        stripped = lines[i].strip()
+
+                        # End of this list item?
+                        if not in_code_block and not in_admonition:
+                            if re.match(r'^\.{1,5}\s+\S', lines[i]) or \
+                               re.match(r'^={1,6}\s+\S', lines[i]):
+                                # Strip trailing blank lines inside the block
+                                while result and result[-1].strip() == '':
+                                    result.pop()
+                                result.append('--')
+                                result.append('')  # blank line before next element
+                                break
+
+                        if stripped == '----':
+                            in_code_block = not in_code_block
+                            result.append(lines[i])
+                        elif stripped == '====' and not in_code_block:
+                            in_admonition = not in_admonition
+                            result.append(lines[i])
+                        elif stripped == '+' and not in_code_block \
+                                and not in_admonition:
+                            result.append('')  # replace '+' with blank line
+                        else:
+                            result.append(lines[i])
+                        i += 1
+                    else:
+                        # Reached end of file — close the open block
+                        result.append('--')
+                    continue
+            continue
+
+        result.append(line)
+        i += 1
+
+    return '\n'.join(result)
+
+
+# ============================================================
 # Empty Title Removal
 # ============================================================
 
@@ -214,6 +308,15 @@ def parse_toctree(rst_file_path, skip_patterns=None):
 # RST Helper Utilities
 # ============================================================
 
+def remove_directive_blocks(content, directive):
+    """Remove all RST directive blocks of the given type (e.g. 'tip', 'note')."""
+    pattern = re.compile(
+        r'\.\.\s+' + re.escape(directive) + r'::.*?(?=\n\S|\n\n\S|\Z)',
+        re.DOTALL
+    )
+    return pattern.sub('', content)
+
+
 def remove_toctree_directives(content):
     """Strip all toctree directives from RST content."""
     pattern = re.compile(
@@ -268,10 +371,11 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
     current_chapter = None
 
     with open(output_file, "a", encoding="utf-8") as outfile:
-        # 1. Write the root index.rst first
+        # 1. Write the root index.rst first (without tip blocks and toctrees)
         with open(root_index, "r", encoding="utf-8") as f:
             content = f.read()
             content = remove_toctree_directives(content)
+            content = remove_directive_blocks(content, "tip")
             outfile.write(content + "\n\n")
 
         # 2. Write each file in toctree order
@@ -353,6 +457,9 @@ toc::[]
 
     # Remove section titles that have no content beneath them
     content = remove_empty_titles(content)
+
+    # Fix ordered list '+' continuations that break with nested content
+    content = fix_ordered_list_continuations(content)
 
     # Fix image paths: ../images/, ../../images/, and ../../../images/ -> source/images/
     content = re.sub(

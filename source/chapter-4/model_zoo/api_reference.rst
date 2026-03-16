@@ -165,6 +165,8 @@ Static utility functions defined in ``rzv_model/utils.hpp``.
 Object Detection Models
 ^^^^^^^^^^^^^^^^^^^^^^^
 
+The following models are provided for object detection tasks. Each model class inherits from ``BaseModel`` and implements the required methods for loading, preprocessing, inference, and postprocessing.
+
 rzv_yolox -- YoloxModel
 """""""""""""""""""""""
 
@@ -361,6 +363,8 @@ Header: ``rzv_gold_yolo/gold_yolo_model.hpp`` | Inherits: ``BaseModel``
 
 Pose Estimation Models
 ^^^^^^^^^^^^^^^^^^^^^^
+
+The following models are provided for pose estimation tasks. Each model class inherits from ``BaseModel`` and implements the required methods for loading, preprocessing, inference, and postprocessing.
 
 rzv_hrnetv2 -- HRNetV2Model
 """""""""""""""""""""""""""

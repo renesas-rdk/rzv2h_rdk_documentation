@@ -157,7 +157,7 @@ Deploy and Run on the Board
       The MuJoCo simulation subscribes to ROS 2 topics published by the board. If the board is not running, the simulation will start but the robot will not move.
 
 Launch the MuJoCo Simulation on the Host PC
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 With the board application running and the host PC workspace built and sourced, you can launch the MuJoCo simulation.
 

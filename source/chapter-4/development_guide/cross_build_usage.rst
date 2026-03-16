@@ -54,26 +54,26 @@ The basic usage is as follows:
 
 - Install packages into the sysroot:
 
-   .. code-block:: bash
+  .. code-block:: bash
 
-      rzv2h-chroot apt-get update
-      rzv2h-chroot apt-get install build-essential
+     rzv2h-chroot apt-get update
+     rzv2h-chroot apt-get install build-essential
 
 - Check installed packages:
 
-   .. code-block:: bash
+  .. code-block:: bash
 
-      rzv2h-chroot dpkg -l
+     rzv2h-chroot dpkg -l
 
 - Run a script inside the chroot:
 
-   .. code-block:: bash
+  .. code-block:: bash
 
-      # Copy the script into the sysroot first
-      cp /path/to/your/script.sh $V2H_SYSROOT/path/to/your/script.sh
+     # Copy the script into the sysroot first
+     cp /path/to/your/script.sh $V2H_SYSROOT/path/to/your/script.sh
 
-      # Run it inside the chroot
-      rzv2h-chroot /bin/bash -c "source /path/to/your/script.sh"
+     # Run it inside the chroot
+     rzv2h-chroot /bin/bash -c "source /path/to/your/script.sh"
 
 .. important::
 

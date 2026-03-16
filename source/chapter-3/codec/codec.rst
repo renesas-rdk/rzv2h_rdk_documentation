@@ -47,6 +47,8 @@ Usage notes
 Quick Start Guide
 -----------------
 
+The following sections provide quick start guides for using the Video Codec Library with the default Ubuntu image on the RZ/V2H RDK. These guides include prerequisites and usage examples to help you get started with video encoding and decoding using the Video Codec Library.
+
 Prerequisites
 ^^^^^^^^^^^^^
 
