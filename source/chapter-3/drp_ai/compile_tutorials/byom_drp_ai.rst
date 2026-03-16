@@ -9,8 +9,6 @@ The DRP-AI supports BYOM (Bring Your Own Model) AI models, allowing users to dep
 
    This section **covers only the compilation and deployment of BYOM AI models** by using the DRP-AI TVM extension package.
 
-   For information about how to customize your AI application with BYOM AI models, refer to the BYOM AI application tutorial.
-
 .. seealso::
 
    For more information about the DRP-AI TVM, also known as the RUHMI (Robust Unified Heterogeneous Model Integration) extension package, refer to the following resources:
@@ -35,7 +33,13 @@ This package provides the necessary tools and libraries to facilitate the conver
 Install the DRP-AI TVM extension package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To install the DRP-AI TVM extension package, follow the instructions provided in the `RZ/V DRP-AI TVM setup <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/main/setup>`_.
+To install the DRP-AI TVM extension package, follow the instructions provided in the `RZ/V DRP-AI TVM setup <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/main/setup#installing-drp-ai-tvm1-with-docker-mera2>`_.
+
+.. note::
+
+   There is no need to use Ubuntu 22.04 for the installation, as the DRP-AI TVM extension package can be installed on any Linux distribution that supports Docker.
+
+   We recommend using the Docker-based installation method with **Ubuntu 24.04 machine** for the DRP-AI TVM extension package, as it provides a consistent and isolated environment for model conversion.
 
 BYOM Development Flow
 ^^^^^^^^^^^^^^^^^^^^^

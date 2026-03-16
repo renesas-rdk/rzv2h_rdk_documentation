@@ -5,9 +5,7 @@ This section provides an overview of the DRP-AI (Dynamically Reconfigurable Proc
 
 .. note::
 
-   This section focuses on the DRP-AI Driver and its capabilities for deploying AI models on the RZ/V2H platform.
-
-   For information about how to customize your AI application with BYOM AI models, refer to the BYOM AI application tutorial.
+   This section focuses on the DRP-AI Driver and its capabilities for compiling AI models with the DRP-AI extension package.
 
 .. toctree::
    :maxdepth: 3
@@ -17,3 +15,4 @@ This section provides an overview of the DRP-AI (Dynamically Reconfigurable Proc
    compile_tutorials/how_to_compile_sample_model
    compile_tutorials/how_to_compile_your_own_model
    compile_tutorials/how_to_deploy_model_files
+   model_compilalation_tutorials/model_compilalation_tutorials

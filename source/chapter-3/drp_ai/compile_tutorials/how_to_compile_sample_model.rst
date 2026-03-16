@@ -42,6 +42,12 @@ Setup Environment
 
 Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/README.md#installing-drp-ai-tvm1-with-docker-mera2>`_ to set up the environment before you begin this workflow.
 
+.. note::
+
+   There is no need to use Ubuntu 22.04 for the installation, as the DRP-AI TVM extension package can be installed on any Linux distribution that supports Docker.
+
+   We recommend using an Ubuntu 24.04 machine for the DRP-AI TVM extension package, as it provides a consistent and isolated environment for ROS 2 Jazzy development.
+
 Compile AI models
 ^^^^^^^^^^^^^^^^^
 
