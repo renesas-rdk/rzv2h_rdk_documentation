@@ -23,7 +23,7 @@ How to Install the OpenCVA Library
 
 To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
-#. Remove any existing OpenCV library installed
+#. Remove any existing OpenCV library installed.
 
    If you have **installed OpenCV using the apt package manager**, you need to remove it before installing the OpenCVA library, because the OpenCVA library provides its own version of OpenCV that is optimized for the RZ/V2H RDK on Ubuntu 24.04.
 
@@ -31,34 +31,21 @@ To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
       sudo apt remove -y libopencv* opencv* python3-opencv
 
-#. Get the OpenCVA library from the GitHub repository by using the following command:
+#. Download and run the installation script:
 
    .. code-block:: bash
 
-      git clone TODO: update the link
+      wget https://raw.githubusercontent.com/renesas-rz/TODO_UPDATE_REPO/main/TODO_UPDATE_PATH/install_opencv_arm64.sh
+      chmod +x install_opencv_arm64.sh
+      sudo ./install_opencv_arm64.sh
 
-#. Install the OpenCVA library Debian packages by using the following command:
+   The script will install all OpenCVA Debian packages, resolve any missing dependencies, and verify the installation automatically.
 
-   .. code-block:: bash
+   .. note::
 
-      cd TODO: update the path
-      sudo dpkg -i *.deb
+      The installation process may report missing dependencies during the ``dpkg`` step. This is expected and will be resolved automatically by the script.
 
-   The install process may report missing dependencies and cause an error. You can ignore the error and continue to the next step.
-
-#. Fix the dependencies by using the following command:
-
-   .. code-block:: bash
-
-      sudo apt --fix-broken install -y
-
-#. Verify the installation by running the following command:
-
-   .. code-block:: bash
-
-      dpkg -l | grep opencva
-
-   If the OpenCVA library is installed successfully, you should see the OpenCVA packages listed in the output.
+    After script execution, the OpenCVA library and its dependencies will be installed on your RZ/V2H RDK, and you can start using it in your computer vision applications.
 
 How to Use OpenCVA
 ------------------
