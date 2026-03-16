@@ -1,3 +1,5 @@
+.. _exchange_ai_model:
+
 BYOM AI model support
 ---------------------
 
@@ -68,5 +70,3 @@ The typical development flow for deploying BYOM AI models on the RZ/V2H platform
 .. tip::
 
    In the deployment step, the ready-to-use **rzv_model** package is provided to simplify the integration of compiled models with the DRP-AI Driver.
-
-.. _exchange_ai_model:

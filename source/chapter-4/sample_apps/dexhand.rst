@@ -14,7 +14,7 @@ Vision Based Dexterous Hand
 
     Dexterous Hand Demo
 
-Key features
+Key Features
 ^^^^^^^^^^^^^
 
 The RZ/V Demo DexHand package enables:
@@ -28,8 +28,8 @@ The RZ/V Demo DexHand package enables:
 
 .. _required_ros2_packages_dexhand:
 
-RZ/V ROS2 Packages Used
-^^^^^^^^^^^^^^^^^^^^^^^^
+RZ/V ROS 2 Packages Used
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Base package**
 
@@ -51,95 +51,72 @@ RZ/V ROS2 Packages Used
 - ruiyan_rh2_dexhand
 
 Quick Setup Instructions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Prepare the cross compiled ROS2 workspace with the required packages mentioned above.
+#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_dexhand>` for this application.
 
-- Setup the RZ/V2H RDK board as per :ref:`RZ/V2H RDK board setup <quick_setup_rdk_guide>`.
-- Setup the host machine for cross-compilation as per :ref:`Common docker environment setup <docker_sdk_setup>`.
-- Collect all :ref:`required packages <required_ros2_packages_dexhand>` in the ``ros2_ws/src/`` directory inside the cross-compile docker container.
-- Cross-compile the ROS2 workspace using :ref:`cross-build the ROS2 Application using Yocto SDK <requirements_ros2_cross_build>`.
-- Deploy the ``install`` directory to the RZ/V2H RDK board using :ref:`Deploying the ROS2 Application <ros2_deployment>` or using the ``scp`` command.
+#. **Optional**: Connect the dexterous hand to the RZ/V2H RDK board if you want to control the real hand.
 
-.. note::
+   .. note::
 
-    For cross-compilation by using Yocto SDK, please install ``ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so`` to the SDK sysroot using the following command:
+      Before using the RuiYan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in the ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in the ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
 
-    .. code-block:: bash
+#. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 
-        $ sudo cp ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $ROS2_SDK_SYSROOT/usr/lib/
+#. Launch the Vision Based Dexterous Hand application.
 
+   Load the workspace environment:
 
-2. Install the required dependencies on the RZ/V2H RDK board.
+   .. code-block:: bash
 
-.. code-block:: bash
+      source /opt/ros/jazzy/setup.bash
+      source <path/to>/install/setup.bash
 
-   $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src
+   For real dexterous hand control, use:
 
-Please replace ``<path/to>install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
+   .. code-block:: bash
 
-3. **Optional**: Connect the dexterous hand to the RZ/V2H RDK board if you want to control the real hand.
+      # For Inspire RH56 hand
+      ros2 launch rzv_demo_dexhand demo_physical_inspire_rh56_hand.launch.py
 
-.. note::
+      # For Ruiyan RH2 hand
+      ros2 launch rzv_demo_dexhand demo_physical_ruiyan_rh2_hand.launch.py
 
-    Before using the RuiYan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in the ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in the ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
+   For virtual hand control (without real dexterous hand), use:
 
-4. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
+   .. code-block:: bash
 
-5. Launch the Vision Based Dexterous Hand application.
+      # For Inspire RH56 hand
+      ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
 
-- Load the workspace environment:
+      # For Ruiyan RH2 hand
+      ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
 
-.. code-block:: bash
+#. Based on your hand gesture shown in front of the camera, the dexterous hand will mimic your hand movements.
 
-   $ source /opt/ros/jazzy/setup.bash
-   $ source <path/to>/install/setup.bash
+   .. note::
 
-- For real dexterous hand control, use:
+      The common setup uses a fixed USB camera placed in front of the user and
+      pointing **upward toward the hand**. The camera captures the palm from below,
+      so that the **hand appears from bottom to top** in the image, the **wrist is
+      at the bottom**, and the **fingers point upward**.
 
-.. code-block:: bash
+      When your hand is positioned correctly within the camera view, the **robot hand
+      will mimic your gestures accurately**. The robot hand only interprets motion
+      along the **vertical (bottom-to-top) direction**.
 
-   # For Inspire RH56 hand
-   $ ros2 launch rzv_demo_dexhand demo_physical_inspire_rh56_hand.launch.py
+      Refer to the top image for the correct orientation between the camera and the user's hand.
 
-   # For Ruiyan RH2 hand
-   $ ros2 launch rzv_demo_dexhand demo_physical_ruiyan_rh2_hand.launch.py
+#. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-- For virtual hand control (without real dexterous hand), use:
-
-.. code-block:: bash
-
-   # For Inspire RH56 hand
-   $ ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
-
-   # For Ruiyan RH2 hand
-   $ ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
-
-6. Based on your hand gesture shown in front of the camera, the dexterous hand will mimic your hand movements.
-
-.. note::
-
-   The common setup uses a fixed USB camera placed in front of the user and
-   pointing **upward toward the hand**. The camera captures the palm from below,
-   so that the **hand appears from bottom to top** in the image, the **wrist is
-   at the bottom**, and the **fingers point upward**.
-
-   When your hand is positioned correctly within the camera view, the **robot hand
-   will mimic your gestures accurately**. The robot hand only interprets motion
-   along the **vertical (bottom-to-top) direction**.
-
-   Refer to the top image for the correct orientation between the camera and the user's hand.
-
-7. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
-
-The input layout file for Foxglove Studio is located at: ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS2 workspace.
+   The input layout file for Foxglove Studio is located at: ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS 2 workspace.
 
 Application Details
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
-For more details about the Vision Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_ section.
+For more details about the Vision Based Dexterous Hand application, refer to the `README.md in rzv_demo_dexhand package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_dexhand/-/blob/master/README.md?ref_type=heads>`_.
 
-CHANGELOG
-"""""""""""""
+Changelog
+^^^^^^^^^
 
-- v1.0.0 (2025-31-10): Initial release of the Vision Based Dexterous Hand sample application.
+- v1.0.0 (2025-10-31): Initial release of the Vision Based Dexterous Hand sample application.

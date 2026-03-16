@@ -1,10 +1,10 @@
-FAQs and Known Issues
-=======================
+Known Issues and Revision History
+=================================
 
-This section contains frequently asked questions (FAQs) and known issues related to the RZ/V2H RDK.
+This section contains known issues and revision history for the RZ/V2H RDK.
 
 .. toctree::
    :maxdepth: 2
 
-   faqs
-   know_issues
+   known_issues
+   revision_history

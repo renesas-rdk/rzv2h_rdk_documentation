@@ -1,25 +1,25 @@
 .. _arm_teleoperation:
 
 Vision Based Robotic Arm Teleoperation
---------------------------------------------------------
+--------------------------------------
 
 .. note::
 
    Available for :ref:`Foxglove <foxglove_visualization>` and :ref:`MuJoCo Visualization <mujoco_visualization>` simulation environment without real robotic hardware!
 
 .. figure:: ../../images/arm_teleop.png
-    :align: center
-    :alt: Arm Teleoperation Demo
-    :width: 600px
+   :alt: Arm Teleoperation Demo
+   :width: 600px
+   :align: center
 
-    Arm Teleoperation Demo
+   Arm Teleoperation Demo.
 
-Key features
-^^^^^^^^^^^^^
+Key Features
+^^^^^^^^^^^^
 
 The RZ/V Demo Arm Teleoperation package enables:
 
-- Detect hand landmarks via camera input and control the arm and gripper for grasping tasks.
+- Detection of hand landmarks via camera input to control the arm and gripper for grasping tasks.
 - Support for running two AI models simultaneously on the DRP-AI IP.
 - Mapping of hand landmarks to robotic arm and hand joint commands.
 - Control of AgileX Piper Arm (6 DOFs) with dexterous robotic hands (Inspire RH56).
@@ -28,8 +28,10 @@ The RZ/V Demo Arm Teleoperation package enables:
 
 .. _required_ros2_packages_teleop_arm:
 
-RZ/V ROS2 Packages Used
-^^^^^^^^^^^^^^^^^^^^^^^^
+RZ/V ROS 2 Packages Used
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TODO: update link to each packages.
 
 - agilex_piper_arm_bringup
 - agilex_piper_controller
@@ -43,7 +45,7 @@ RZ/V ROS2 Packages Used
 - foxglove_keypoint_publisher
 - rzv_playground
 
-**Optional**: With Inspire RH56 hand support
+**Optional**: With Inspire RH56 hand support:
 
 - inspire_rh56_description
 - inspire_rh56_dexhand
@@ -52,10 +54,12 @@ RZ/V ROS2 Packages Used
 - inspire_rh56_hand_ros2_control
 - piper_arm_inspire_hand_bringup
 
-RZ/V ROS2 Host PC Packages Used
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RZ/V ROS 2 Host PC Packages Used
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Optional**: Those packages are required on the **host PC** if you want to use MuJoCo simulation:
+.. note::
+
+   These packages are required on the **host PC** only if you want to use :ref:`MuJoCo simulation <mujoco_visualization>`.
 
 - agilex_piper_arm_description
 - agilex_piper_mujoco
@@ -64,101 +68,88 @@ RZ/V ROS2 Host PC Packages Used
 - mujoco_ros2_control
 - mujoco_sim_ros2
 
-Please install the ROS2 Jazzy on the host PC as per `ROS2 Jazzy installation guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+Install ROS 2 Jazzy on the host PC as per the `ROS 2 Jazzy installation guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
 
 Quick Setup Instructions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Prepare the cross compiled ROS2 workspace with the required packages mentioned above.
+#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_teleop_arm>` for this application.
 
-- Setup the RZ/V2H RDK board as per :ref:`RZ/V2H RDK board setup <quick_setup_rdk_guide>`.
-- Setup the host machine for cross-compilation as per :ref:`Common docker environment setup <docker_sdk_setup>`.
-- Collect all :ref:`required packages <required_ros2_packages_teleop_arm>` in the ``ros2_ws/src/`` directory inside the cross-compile docker container.
-- Cross-compile the ROS2 workspace using :ref:`cross-build the ROS2 Application using Yocto SDK <requirements_ros2_cross_build>`.
-- Deploy the ``install`` directory to the RZ/V2H RDK board using :ref:`Deploying the ROS2 Application <ros2_deployment>` or using the ``scp`` command.
+#. **Optional**: Connect the AgileX Piper Arm and Inspire RH56 hand to the RZ/V2H RDK board if you want to control the real arm and hand.
 
-2. Install the required dependencies on the RZ/V2H RDK board.
-
-.. code-block:: bash
-
-   $ rosdep install --from-paths <path/to>install/*/share -y -r --ignore-src
-
-Please replace ``<path/to>install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
-
-3. **Optional**: Connect the AgileX Piper Arm and Inspire RH56 hand to the RZ/V2H RDK board if you want to control the real arm and hand.
-
-4. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
+#. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 
    - The common setup is that the camera is fixed in one position and faces upward.
-
    - The USB camera's field of view should capture the user's hand, and the user's hand must remain within the camera's frame.
 
-5. Launch the Vision Based Robotic Arm Teleoperation application.
+#. Launch the Vision Based Robotic Arm Teleoperation application.
 
-- Load the workspace environment:
+   Load the workspace environment:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ source /opt/ros/jazzy/setup.bash
-   $ source <path/to>/install/setup.bash
+      source /opt/ros/jazzy/setup.bash
+      source <path/to>/install/setup.bash
 
-- For real Agilex Piper Arm and Inspire RH56 Hand control, use:
+   For real AgileX Piper Arm and Inspire RH56 Hand control:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=false
+      ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=false
 
-- For real Agilex Piper Arm with compatible Gripper, use:
+   For real AgileX Piper Arm with compatible Gripper:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ ros2 launch rzv_playground hand_palm_pose_teleop_piper_gripper.launch.py use_mock_hardware:=false
+      ros2 launch rzv_playground hand_palm_pose_teleop_piper_gripper.launch.py use_mock_hardware:=false
 
-- For virtual hand control with Foxglove (without real arm), use:
+   For virtual hand control with Foxglove (without real arm):
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=true
+      ros2 launch rzv_playground hand_palm_pose_teleop_inspire_hand.launch.py use_mock_hardware:=true
 
-- For virtual hand control with MuJoCo (without real arm), use:
+   For virtual hand control with MuJoCo (without real arm):
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ ros2 launch rzv_playground hand_palm_pose_teleop_piper_gripper.launch.py \
-      bringup_launch_file:=agilex_piper_mujoco_cartesian_control.launch.py
+      ros2 launch rzv_playground hand_palm_pose_teleop_piper_gripper.launch.py \
+         bringup_launch_file:=agilex_piper_mujoco_cartesian_control.launch.py
 
-Make sure to check the correct CAN interface and serial port parameters in the launch files before running the above commands.
+   Make sure to check the correct CAN interface and serial port parameters in the launch files before running the above commands.
 
-6. Visualize the robotic arm and hand movements by following the instructions below:
+#. Visualize the robotic arm and hand movements by following the instructions below:
 
-- Move your hand **up or down**, the Piper arm will move **up or down** accordingly.
-- Move your hand **forward or backward**, the Piper arm will move **forward or backward**.
-- Move your hand **left or right**, the Piper arm will move **left or right**.
-- **Close your thumb**, the robotic hand or gripper will switch to the **grasping position**.
-- If the system **cannot detect your hand** after a certain period, the Piper arm will **reset to its initial position**.
+   - Move your hand **up or down**, the Piper arm will move **up or down** accordingly.
+   - Move your hand **forward or backward**, the Piper arm will move **forward or backward**.
+   - Move your hand **left or right**, the Piper arm will move **left or right**.
+   - **Close your thumb**, the robotic hand or gripper will switch to the **grasping position**.
+   - If the system **cannot detect your hand** after a certain period, the Piper arm will **reset to its initial position**.
 
-7. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
+#. Set up visualization.
 
-The input layout file for Foxglove Studio is located at: ``rzv_playground/config/foxglove/*.json`` inside the ROS2 workspace.
+   For Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
+   The input layout file for Foxglove Studio is located at ``rzv_playground/config/foxglove/*.json`` inside the ROS 2 workspace.
 
-For MuJoCo simulation, refer to the :ref:`MuJoCo Visualization <mujoco_visualization>` section for setup instructions.
+   For MuJoCo simulation, refer to the :ref:`MuJoCo Visualization <mujoco_visualization>` section for setup instructions.
+   After setting up the MuJoCo environment, visualize the robotic arm and hand movements in the MuJoCo simulator on your host PC:
 
-After setting up the MuJoCo environment, you can visualize the robotic arm and hand movements in the MuJoCo simulator on your host PC:
+   .. code-block:: bash
 
-.. code-block:: bash
+      source /opt/ros/jazzy/setup.bash
+      source <path/to>/install/setup.bash
+      ros2 launch agilex_piper_mujoco bringup_mujoco_cartesian_motion_controller.launch.py
 
-   $ source /opt/ros/jazzy/setup.bash
-   $ source <path/to>/install/setup.bash
-   $ ros2 launch agilex_piper_mujoco bringup_mujoco_cartesian_motion_controller.launch.py
+   .. note::
 
-Make sure to set up the MuJoCo environment on your host PC as described in the :ref:`MuJoCo Visualization <mujoco_visualization>` section before running the above command.
+      Make sure to set up the MuJoCo environment on your host PC as described in the :ref:`MuJoCo Visualization <mujoco_visualization>` section before running the above command.
 
 Application Details
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
-For more details about the Vision Based Robotic Arm Teleoperation application, refer to the `README.md in rzv_playground package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_playground/-/blob/master/README.md?ref_type=heads>`_ section.
+For more details about the Vision Based Robotic Arm Teleoperation application, refer to the `README.md in rzv_playground package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_playground/-/blob/master/README.md?ref_type=heads>`_.
 
-CHANGELOG
-"""""""""""""
+Changelog
+^^^^^^^^^
 
-- v1.0.0 (2025-31-10): Initial release of the Vision Based Robotic Arm Teleoperation sample application.
+- v1.0.0 (2025-10-31): Initial release of the Vision Based Robotic Arm Teleoperation sample application.
