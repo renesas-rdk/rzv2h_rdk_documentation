@@ -1,5 +1,5 @@
 Overview
-=======================================================
+========
 
 WS125 Robotic Development Kit is a solution with Renesas new generation `RZ/V2H MPU <https://www.renesas.com/en/products/rz-v2h?tab=overview>`_ for AI application,
 which has AI inference processing performance of up to 80TOPS with multi-core CPU to run multiple OS
@@ -95,3 +95,55 @@ highlighting its main connectors and interfaces.
    :align: center
 
    RZ/V2H RDK Bottom View
+
+Development Environment
+-----------------------
+
+RZ/V2H RDK
+^^^^^^^^^^
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 0
+
+   * - RZ/V2H RDK
+     - RZ/V2H Robotic Development Kit (RDK).
+   * - AC Adapter
+     - Power Delivery adapter for the board power supply (included in box).
+   * - HDMI Cable
+     - Used to connect the HDMI monitor to the board.
+       The RZ/V2H RDK has an HDMI port.
+   * - USB Camera
+     - Since the RZ/V2H RDK does not include a camera module, this will be the standard camera input source.
+
+       Supported resolution: 640x480
+
+       Supported format: 'YUYV' (YUYV 4:2:2)
+
+Common
+^^^^^^
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 0
+
+   * - USB to microUSB Cable
+     - Used to connect the board to the PC for initial setup and development.
+   * - Ethernet Cable
+     - Used to connect the board to the network for software installation and updates.
+   * - HDMI Monitor
+     - Used to display the graphical output of the board.
+   * - microSD Card
+     - Must have at least 16 GB of free space and must support high-speed mode.
+   * - Ubuntu 24.04 PC with Docker
+     - Used for microSD card setup and development environment setup.
+
+       Operating environment: **Ubuntu 24.04**
+   * - SD Card Reader
+     - Used for setting up the microSD card.
+   * - USB Hub
+     - Used to connect a USB keyboard and USB mouse to the board.
+   * - USB Keyboard
+     - Used to type strings on the terminal of the board.
+   * - USB Mouse
+     - Used to operate the mouse on the screen of the board.

@@ -1,7 +1,7 @@
 .. _quick_setup_rdk_guide:
 
 Quick start guide for RZ/V2H RDK
-============================================
+================================
 
 This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
 
@@ -44,7 +44,7 @@ Requirements
      - Block map file for fast flashing with bmaptool
 
 Option 1: Flash using bmaptool (Ubuntu)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
 It provides quicker flashing compared to traditional methods by skipping empty blocks and verifying data integrity automatically.
@@ -186,7 +186,7 @@ Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured
    Always power off the board before changing boot switches.
 
 Boot Mode Support
-------------------------
+-----------------
 
 The board supports two boot options, including:
 
@@ -310,7 +310,7 @@ The board will start the boot process.
 If you intend to use **microSD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
 
 Option 2: xSPI boot mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Follow the instructions below to set up the board.
 
