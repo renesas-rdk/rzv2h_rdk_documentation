@@ -1,5 +1,5 @@
-RZ/V ROS 2 Demos
-================
+RZ/V2H ROS 2 Software Stack
+===========================
 
 This section provides ROS 2 demo packages for computer vision applications on Renesas RZ/V MPU platforms, with a primary focus on the RZ/V2H.
 
@@ -8,6 +8,22 @@ The demos showcase AI-accelerated vision features such as object detection, pose
 .. note::
 
    Please follow the pages below to learn more about each demo and set it up on your own.
+
+RZ/V2H ROS 2 Software Stack
+---------------------------
+
+The following image shows the software stack of the RZ/V2H RDK, which includes the available demo applications, AI model packages, DRP-AI support, and other related concepts.
+
+.. figure:: ../images/sw_stack.png
+   :alt: RZ/V2H Software Stack
+   :width: 800px
+   :align: center
+
+   RZ/V2H Software Stack
+
+.. note::
+
+   Some packages are under development. Please stay tuned and get the latest updates from the `Renesas RDK GitHub repository <https://github.com/renesas-rdk>`_.
 
 Available Demo Applications
 ---------------------------

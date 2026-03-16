@@ -38,7 +38,7 @@ Requirements
 
    * - **File name**
      - **Description**
-   * - ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz
+   * - ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz TODO: update link to renesas website
      - Compressed Ubuntu 24.04 server image for RZ/V2H RDK
    * - ubuntu-24.04-server-arm64-rzv2h-rdk.bmap
      - Block map file for fast flashing with bmaptool
