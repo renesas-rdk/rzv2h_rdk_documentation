@@ -1,7 +1,7 @@
 .. _device_tree_overlay:
 
 Device Tree Overlay
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 Device Tree Overlay (DTO) is a mechanism used in embedded systems to modify the device tree at runtime.
 
@@ -13,7 +13,7 @@ On the RZ/V2H RDK, you can enable or disable specific device tree overlays by ed
 Each overlay corresponds to a specific hardware configuration, such as enabling the CAN interface or the audio codec.
 
 How to Configure Environment Variables in ``uEnv.txt``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. caution::
 
@@ -49,7 +49,7 @@ The default U-Boot environment variables defined in ``/boot/uEnv.txt`` are liste
    symbol back.
 
 RZ/V2H RDK U-Boot Environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""
 
 The following table describes the available overlay loading options.
 

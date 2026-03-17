@@ -1,7 +1,7 @@
 .. _renesas_ai_application:
 
 Renesas AI Applications
-========================
+------------------------
 
 This section provides instructions for porting and building Renesas AI Applications on the RZ/V2H RDK platform using the cross-compilation environment.
 

@@ -1,10 +1,10 @@
 Cross-compilation FAQ
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 This section provides answers to frequently asked questions about cross-compilation for the RZ/V2H RDK using the provided Docker environment and tools.
 
 General
-^^^^^^^
+"""""""
 
 #. What is the difference between ``cross-colcon-build`` and ``colcon build``?
 
@@ -58,7 +58,7 @@ General
       ubuntu@ubuntu:~$
 
 Build and Dependencies
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 #. How do I rebuild only one package after modifying its source code?
 
@@ -148,7 +148,7 @@ Build and Dependencies
    If you accidentally overwrite the OpenCV libraries, recreate the sysroot by creating a new Docker container from the original image.
 
 Sysroot and Docker Environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""
 
 #. How do I restart a Docker container that was stopped?
 
@@ -252,7 +252,7 @@ Sysroot and Docker Environment
       cross-colcon-build
 
 Deployment and Runtime
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 #. I deployed successfully, but the application still runs the old code. Why?
 
@@ -285,7 +285,7 @@ Deployment and Runtime
      Run ``rosdep update`` on the board before retrying.
 
 Debugging
-^^^^^^^^^
+"""""""""
 
 #. ``gdbserver`` is not installed on the board. How do I install it?
 

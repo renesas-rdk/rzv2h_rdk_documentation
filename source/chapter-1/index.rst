@@ -1,6 +1,8 @@
 Getting Started
 ===============
 
+This chapter introduces the RZ/V2H RDK, covering the platform overview, quick setup instructions, advanced setup options, and available demo applications to help you get up and running.
+
 .. toctree::
     :maxdepth: 2
 

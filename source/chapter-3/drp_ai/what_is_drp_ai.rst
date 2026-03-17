@@ -1,5 +1,5 @@
 Overview and Concepts of DRP-AI
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The RZ/V2H DRP-AI Driver enables use of the DRP-AI (Dynamically Reconfigurable Processor - AI Matrix Arithmetic Circuit) hardware accelerator on the RZ/V2H platform.
 
@@ -10,7 +10,7 @@ The DRP-AI device driver provides an interface for easily handling AI inference 
 .. _drp_concepts:
 
 What is Dynamically Reconfigurable Processor (DRP)?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 DRP is a hardware IP (Intellectual Property) block that can dynamically change its hardware configuration, including its arithmetic logic circuits.
 
@@ -28,7 +28,7 @@ The following image shows an example of dynamic reconfiguration:
    DRP Dynamic Reconfiguration
 
 What is DRP-AI?
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 DRP-AI is a specialized version of DRP designed specifically for AI (Artificial Intelligence) processing tasks.
 
@@ -42,7 +42,7 @@ It combines DRP and AI-MAC (AI Matrix Arithmetic Circuit) to accelerate AI infer
    - **Software Package**: `AI Accelerator: DRP-AI <https://www.renesas.com/en/software-tool/ai-accelerator-drp-ai>`_
 
 DRP-AI Driver Architecture
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 The DRP-AI Driver architecture includes the following elements:
 
@@ -58,7 +58,7 @@ The DRP-AI Driver architecture includes the following elements:
    DRP-AI Driver Architecture
 
 DRP-AI Driver Execution Flow
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""
 
 .. figure:: ../../images/DRP-AI_Driver_Flow.png
    :alt: DRP-AI Driver Execution Flow

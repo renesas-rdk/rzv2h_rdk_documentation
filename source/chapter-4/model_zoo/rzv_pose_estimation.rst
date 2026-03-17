@@ -1,12 +1,12 @@
 .. _rzv_pose_estimation_package:
 
 rzv_pose_estimation
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 A ROS 2 package for performing hand landmark estimation on the Renesas RZ/V2H platform. This package combines hand detection with landmark estimation to provide detailed hand pose analysis.
 
 Overview
-^^^^^^^^
+""""""""
 
 This package provides ROS 2 nodes for:
 
@@ -17,7 +17,7 @@ This package provides ROS 2 nodes for:
 - Smooth landmark tracking using EMA filtering.
 
 Features
-^^^^^^^^
+""""""""
 
 - Two-stage pipeline:
 
@@ -35,7 +35,7 @@ Features
 - Multi-threaded processing support.
 
 Node Parameters
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 .. list-table::
    :header-rows: 1
@@ -79,7 +79,7 @@ Node Parameters
      - Smoothing factor for EMA (0-1, higher = more smoothing).
 
 Topics
-^^^^^^
+""""""
 
 **Subscriptions**
 
@@ -111,7 +111,7 @@ Topics
      - Hand landmark results as pose arrays.
 
 Launch Files
-^^^^^^^^^^^^
+""""""""""""
 
 .. code-block:: bash
 
@@ -122,7 +122,7 @@ Launch Files
     ros2 launch rzv_pose_estimation static_hand_landmark_estimation.launch.py
 
 Model Performance Comparison
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""
 
 .. list-table::
    :header-rows: 1
@@ -150,7 +150,7 @@ Model Performance Comparison
      - Provides additional hand orientation data.
 
 Usage Examples
-^^^^^^^^^^^^^^
+""""""""""""""
 
 .. code-block:: bash
 
@@ -172,7 +172,7 @@ Usage Examples
         video_device:=/dev/video1
 
 Dependencies
-^^^^^^^^^^^^
+""""""""""""
 
 - ROS 2
 - OpenCV
@@ -182,6 +182,6 @@ Dependencies
 - ``foxglove_keypoint_publisher`` (for visualization)
 
 License
-^^^^^^^
+"""""""
 
 This package is licensed under Apache 2.0.

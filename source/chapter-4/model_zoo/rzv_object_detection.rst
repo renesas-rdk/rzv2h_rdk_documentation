@@ -1,12 +1,12 @@
 .. _rzv_object_detection_package:
 
 rzv_object_detection
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 A ROS 2 package for performing object detection on the Renesas RZ/V2H platform. Implements various detection models and provides nodes for both static image and camera-based detection.
 
 Overview
-^^^^^^^^
+""""""""
 
 This package provides ROS 2 nodes for:
 
@@ -17,7 +17,7 @@ This package provides ROS 2 nodes for:
 - Static image-based detection.
 
 Features
-^^^^^^^^
+""""""""
 
 - Support for multiple detection models:
 
@@ -31,7 +31,7 @@ Features
 - Multi-threaded processing support.
 
 Node Parameters
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 .. list-table::
    :header-rows: 1
@@ -71,7 +71,7 @@ Node Parameters
      - Number of processing threads.
 
 Topics
-^^^^^^
+""""""
 
 **Subscriptions**
 
@@ -103,7 +103,7 @@ Topics
      - Detected object name.
 
 Launch Files
-^^^^^^^^^^^^
+""""""""""""
 
 **Camera-based Detection**
 
@@ -132,7 +132,7 @@ Launch Files
     ros2 launch rzv_object_detection static_rps_hand_detection_yolov8.launch.py
 
 Usage Examples
-^^^^^^^^^^^^^^
+""""""""""""""
 
 .. code-block:: bash
 
@@ -150,7 +150,7 @@ Usage Examples
         video_device:=/dev/video1
 
 Dependencies
-^^^^^^^^^^^^
+""""""""""""
 
 - ROS 2
 - OpenCV
@@ -161,6 +161,6 @@ Dependencies
 - ``foxglove_keypoint_publisher`` (for visualization)
 
 License
-^^^^^^^
+"""""""
 
 This package is licensed under Apache 2.0.

@@ -1,12 +1,12 @@
 .. _cross_build_usage:
 
 Cross compilation Usage Guide
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to use the cross-compilation commands inside the Docker container.
 
 Prepare your workspace
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 If you are **cross-building any ROS 2 applications**, ensure that the ROS 2 workspace is fully set up with all necessary dependency packages.
 
@@ -29,7 +29,7 @@ The expected folder structure for the ROS 2 workspace is as follows:
    └── log/                  # Log files (generated)
 
 rzv2h-chroot
-^^^^^^^^^^^^
+""""""""""""
 
 .. tip::
 
@@ -101,7 +101,7 @@ The basic usage is as follows:
    When using ``rzv2h-chroot <command>``, the command runs inside the ARM64 chroot environment. File paths from the Docker container are not directly accessible. You must copy files into the sysroot (``$V2H_SYSROOT``) before referencing them inside the chroot.
 
 sysroot-rosdep-install
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 .. tip::
 
@@ -133,7 +133,7 @@ The command performs the following steps:
    - Make sure the library versions in the sysroot match those in the RZ/V2H RDK Linux image. Otherwise, runtime errors may occur on the target device.
 
 cross-colcon-build
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 .. tip::
 
@@ -202,7 +202,7 @@ Then save the file and source it again to apply the changes:
 Run ``cross-colcon-build`` again to apply the updated CMake arguments.
 
 Development Workflow
-^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""
 
 #. **Set up your ROS 2 workspace** on the host machine and mount it into the Docker container.
 #. **Install dependencies** using ``sysroot-rosdep-install`` to ensure that all required libraries are available in the sysroot.

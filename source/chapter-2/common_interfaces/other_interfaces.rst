@@ -1,10 +1,10 @@
 Other interfaces
-----------------
+^^^^^^^^^^^^^^^^
 
 The RZ/V2H Robotic Development Kit (RDK) is equipped with several additional interfaces to enhance its functionality and connectivity options. This section provides an overview of these interfaces, including Micro-HDMI, USB-UART, and JTAG 10-pin.
 
 Micro-HDMI
-~~~~~~~~~~
+""""""""""
 
 The RZ/V2H Robotic Development Kit features a Micro-HDMI port for video output to an external display. To use this interface, connect a Micro-HDMI cable from the board to a compatible monitor.
 
@@ -46,7 +46,7 @@ This is particularly useful for multimedia applications.
 .. _usb_uart:
 
 USB-UART
-~~~~~~~~
+""""""""
 
 The RZ/V2H RDK includes a USB-UART interface for serial communication and debugging purposes. This interface allows you to connect the board to a host computer via a USB cable and access the serial console.
 
@@ -65,7 +65,7 @@ The configuration settings for the serial connection are as follows:
    If your PC cannot recognize the USB-UART interface, **power-off then power-on** (do not use the ``sudo reboot`` command) the board and try again.
 
 JTAG 10-pin
-~~~~~~~~~~~
+"""""""""""
 
 The RZ/V2H RDK provides a JTAG 10-pin interface for debugging and programming CM33 and two CR8 cores.
 

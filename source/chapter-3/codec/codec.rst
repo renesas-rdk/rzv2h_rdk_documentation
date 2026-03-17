@@ -1,7 +1,7 @@
 .. _video_codec:
 
 Video Codec Library
-===================
+-------------------
 
 The RZ/V2H Video Codec Library provides hardware-accelerated video encoding and decoding capabilities in combination with :ref:`DRP IP <drp_concepts>`.
 
@@ -11,7 +11,7 @@ This software supports the following features:
 - H.265 encoding and decoding
 
 Usage notes
------------
+^^^^^^^^^^^
 
 .. important::
 
@@ -45,12 +45,12 @@ Usage notes
    - You cannot configure ``vspmfilter`` settings globally for all pipelines by default. If you want to use the Video Codec Library with ``vspmfilter`` settings, include the ``vspmfilter`` element explicitly in your GStreamer pipeline.
 
 Quick Start Guide
------------------
+^^^^^^^^^^^^^^^^^
 
 The following sections provide quick start guides for using the Video Codec Library with the default Ubuntu image on the RZ/V2H RDK. These guides include prerequisites and usage examples to help you get started with video encoding and decoding using the Video Codec Library.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 #. Boot the RZ/V2H RDK board with the default Ubuntu image, ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``. For instructions on how to prepare the SD card and boot the board, refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
 #. Connect the RZ/V2H RDK board to a monitor by using the micro-HDMI interface, and make sure that the board is powered on.
@@ -64,7 +64,7 @@ Prerequisites
       RZ/V2H RDK setting up with a monitor
 
 Usage examples
-^^^^^^^^^^^^^^
+""""""""""""""
 
 To use the Video Codec Library, install the GStreamer base plugins.
 

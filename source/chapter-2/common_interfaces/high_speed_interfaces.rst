@@ -1,12 +1,12 @@
 High-Speed Interface
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 The RZ/V2H Robotic Development Kit is equipped with several high-speed interfaces that enable users to connect a variety of peripherals and expansion modules.
 
 This section describes the high-speed interface unit of this kit.
 
 PCIe 3.0 16-pin connector
-^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""
 
 The PCIe 3.0 interface on the RZ/V2H RDK allows for high-speed data transfer and connectivity with compatible PCIe devices.
 
@@ -87,7 +87,7 @@ Unmount the NVMe SSD:
    sudo rmdir /mnt/nvme
 
 MIPI-CSI 22-pin connector x2
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""
 
 The RZ/V2H RDK features dual MIPI-CSI connectors that support camera input for applications requiring image capture and processing.
 
@@ -102,7 +102,7 @@ The default RZ/V2H RDK device tree supports the OV5645 camera module connected t
    To use the MIPI-CSI interface with another camera module, you must change the DTS file. Refer to the :ref:`Modify the DTS file <modify_dts>` section in the Build Kernel chapter for more details about customizing the DTS file.
 
 Set up the MIPI-CSI interface
-"""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before using the MIPI-CSI interface, configure the camera properties first.
 
@@ -127,7 +127,7 @@ This script detects the connected camera module and sets the desired resolution.
 For other camera modules, modify the script accordingly.
 
 Usage example with v4l2-ctl
-"""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 List all connected cameras:
 
@@ -146,7 +146,7 @@ Refer to the :ref:`Video Codec section <video_codec>` for an example of video ca
 .. _high_speed_interfaces_set_static_ip:
 
 1000M RJ45 - Gigabit Ethernet Port
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""
 
 The Gigabit Ethernet (1000M RJ45) port on the RZ/V2H RDK provides high-speed network connectivity for data communication and internet access.
 
@@ -170,7 +170,7 @@ To test network connectivity to an external server, use the ``ping`` command:
    ping -c 4 8.8.8.8
 
 Set a static IP address
-"""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~
 
 In Ubuntu, the network is configured with Netplan. If you need to set a static IP address for the Ethernet interface, for example ``192.168.0.100``, follow these steps:
 
@@ -212,7 +212,7 @@ In Ubuntu, the network is configured with Netplan. If you need to set a static I
      sudo netplan apply
 
 Set DHCP
-""""""""
+~~~~~~~~
 
 If you want to revert to DHCP configuration, modify the ``/etc/netplan/50-cloud-init.yaml`` file as follows:
 
@@ -234,14 +234,14 @@ Apply the changes with the following command:
    sudo netplan apply
 
 USB 3.0 Type A x2
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 The RZ/V2H RDK includes two USB 3.0 Type-A ports that support high-speed data transfer for connecting various USB peripherals, such as external storage devices, cameras, and input devices.
 
 To use these devices, simply connect them to the USB 3.0 Type-A ports.
 
 Verify USB 3.0 functionality
-""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To verify that the USB 3.0 ports are functioning correctly, you can use the following command to list USB devices and check their connection speed:
 
@@ -259,7 +259,7 @@ Example output:
    /:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci-renesas-hcd/1p, 20000M/x2
 
 USB-WIFI Adapter Support
-""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following USB-WIFI adapters have been tested and are compatible with the RZ/V2H RDK:
 

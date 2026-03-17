@@ -1,5 +1,5 @@
 Tutorial with Vision Based Dexterous Hand
------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This tutorial explains the complete ROS 2 application workflow on the Renesas RZ/V2H RDK platform using the :ref:`Vision Based Dexterous Hand <dexhand>` application as an example.
 
@@ -25,7 +25,7 @@ This page focuses only on the practical development workflow after the environme
    - the required runtime dependencies on the target device.
 
 Tutorial Scenario
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 In this tutorial, the example application is the :ref:`Vision Based Dexterous Hand <dexhand>` demo.
 
@@ -44,7 +44,7 @@ You can replace it with another launch file later if needed, such as:
 or a physical hand launch file if your hardware is connected.
 
 Before You Begin
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 
 Make sure the required source packages for the Dexterous Hand application are already available in your workspace under ``src/`` in the Docker container.
 
@@ -80,7 +80,7 @@ At minimum, make sure the base packages required by the Dexterous Hand applicati
 Add the optional packages according to the hand model you want to use.
 
 Step 1: Open the Workspace in VS Code
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 Open the Docker container in VS Code.
 
@@ -96,7 +96,7 @@ If the current workspace is not ``/home/ubuntu/ros2_ws``, open it manually:
 Make sure ``/home/ubuntu/ros2_ws`` is the active workspace before continuing.
 
 Step 2: Configure ``settings.json``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""
 
 Open the workspace configuration file:
 
@@ -134,7 +134,7 @@ For this tutorial:
 - ``NODE_PACKAGE_NAME`` and ``NODE_EXECUTABLE_NAME`` are used when you want to debug one specific node.
 
 Step 3: Install Sysroot Dependencies and Build the Workspace
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 Before building the workspace, install the required dependencies into the target sysroot.
 
@@ -159,7 +159,7 @@ Other build options are also supported. Refer to :ref:`Build the Application <bu
 After a successful build, confirm that the ``install`` directory exists.
 
 Step 4: Deploy the Built Files to the Target Device
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 Deploy the generated ``install`` directory to the target board.
 
@@ -174,7 +174,7 @@ Or you can use the **Task Buttons** extension:
 - Click the **Deploy** button in the VS Code status bar to start the deployment process.
 
 Step 5: Install Runtime Dependencies on the Target
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 On the target device, install the required runtime dependencies if they are not already installed.
 
@@ -192,7 +192,7 @@ If needed, install ``gdbserver`` for remote debugging:
    sudo apt-get install gdbserver
 
 Step 6: Run the Dexterous Hand Application on the Target
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 This step describes two ways to run the Dexterous Hand application on the target:
 
@@ -200,7 +200,7 @@ This step describes two ways to run the Dexterous Hand application on the target
 - Run remotely from VS Code on the host
 
 Run Directly on the Target
-""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Connect a compatible USB camera to the RZ/V2H RDK board before running the application.
 
@@ -252,7 +252,7 @@ If you want to run a physical hand example:
       /home/ubuntu/ros2_ws/install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh
 
 Run Remotely from VS Code
-"""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Instead of manually logging in and typing commands, you can use the provided VS Code tasks.
 
@@ -283,7 +283,7 @@ on the target device.
    This method is useful when you want to launch the application from the host development environment without manually logging in to the target device.
 
 Step 7: Verify That the Application Is Running
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""
 
 After launching the application on the target device, verify that ROS 2 nodes are running.
 
@@ -299,7 +299,7 @@ In another terminal on the target:
 This step is useful before remote debugging because it helps identify which executable you may want to debug.
 
 Step 8: Prepare for Remote Debugging
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 To debug a node inside the launch file, you need to identify the specific executable to debug.
 
@@ -331,7 +331,7 @@ If you want to debug a node started directly by ``ros2 run``, only these are nee
    }
 
 Step 9: Start Remote Debugging from VS Code
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""
 
 For a node started with ``ros2 run``:
 
@@ -356,7 +356,7 @@ The corresponding target-side command is similar to:
    The current debug task **already performs a debug build** before starting the session, so you do not need to run the build step manually.
 
 Step 10: Typical Day-to-Day Workflow
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 During development, the most common workflow is:
 
@@ -394,7 +394,7 @@ During development, the most common workflow is:
 #. If needed, start a remote debugging session from VS Code.
 
 Troubleshooting
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 #. Build succeeds but the target still runs old code
 
@@ -443,7 +443,7 @@ Troubleshooting
    The common setup uses a fixed camera pointing upward toward the hand so that the hand appears from bottom to top in the image.
 
 Summary
-^^^^^^^
+"""""""
 
 In this tutorial, you used the :ref:`Vision Based Dexterous Hand <dexhand>` application to go through the complete ROS 2 workflow:
 

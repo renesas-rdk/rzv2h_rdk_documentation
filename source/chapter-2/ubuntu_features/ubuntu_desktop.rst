@@ -1,7 +1,7 @@
 .. _ubuntu_desktop:
 
 Ubuntu Desktop with RZ/V2H RDK
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Ubuntu Desktop is supported together with the RZ/V2H RDK environment.
 
@@ -15,7 +15,7 @@ Main points:
 This guide walks you through setting up Ubuntu Desktop on the RZ/V2H RDK.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 - RZ/V2H RDK
 - SD card with the Ubuntu image flashed. Please refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>` for instructions on how to prepare the SD card.
@@ -23,12 +23,12 @@ Prerequisites
 - Internet connection
 
 Detail Steps
-^^^^^^^^^^^^
+""""""""""""
 
 The following sections provide detailed steps to set up and use the Ubuntu Desktop environment on the RZ/V2H RDK.
 
 Hardware Connection
-"""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~
 
 Connect the RZ/V2H RDK to a monitor using the micro-HDMI interface, and ensure that the board is powered on.
 
@@ -42,14 +42,14 @@ The following figure illustrates the typical desktop setup for the RZ/V2H RDK:
    RZ/V2H RDK Desktop Setup
 
 Boot the Board
-""""""""""""""
+~~~~~~~~~~~~~~
 
 - Insert the flashed SD card into the RZ/V2H RDK board.
 - Set the boot option to **SD card boot mode**. The **dip-switch 1** status from 1 to 5 should be **ON-OFF-ON-ON-OFF**.
 - Power on the board.
 
 Initial Boot and Login
-""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 At boot, the **Weston** screen is displayed.
 
@@ -59,7 +59,7 @@ At boot, the **Weston** screen is displayed.
 - Password: ubuntu
 
 Disable Weston Service
-""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 Disable and mask the Weston service to prepare for desktop installation:
 
@@ -75,7 +75,7 @@ Disable and mask the Weston service to prepare for desktop installation:
    sudo systemctl mask weston.service weston-socket-fix.path weston-socket-fix.service
 
 Expand Root Filesystem
-""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 Expand the root filesystem using the ``parted`` tool to use the full SD card capacity.
 
@@ -97,7 +97,7 @@ If you have already expanded the root filesystem, you can skip this step.
    sudo resize2fs /dev/mmcblk0p2
 
 Install Ubuntu Desktop
-""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 Install the minimal Ubuntu desktop environment:
 
@@ -128,7 +128,7 @@ For a better user experience, you can also install additional packages such as f
       fontconfig
 
 Complete Setup
-""""""""""""""
+~~~~~~~~~~~~~~
 
 Reboot the device to start using Ubuntu Desktop:
 
@@ -137,20 +137,20 @@ Reboot the device to start using Ubuntu Desktop:
    sudo reboot
 
 Notes
-"""""
+~~~~~
 
 - Ensure a stable internet connection during desktop installation.
 - The installation process may take some time depending on internet speed.
 - After installation and reboot, you should see the Ubuntu Desktop environment instead of Weston.
 
 Troubleshooting
-"""""""""""""""
+~~~~~~~~~~~~~~~
 
 - If boot fails, verify that SD card boot mode is correctly set.
 - For installation issues, check internet connectivity and available disk space.
 
 Switch from ``networkd`` to ``NetworkManager``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""
 
 The default network manager for the Ubuntu image on RZ/V2H RDK is ``networkd``.
 

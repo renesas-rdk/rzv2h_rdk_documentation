@@ -1,7 +1,7 @@
 .. _exchange_ai_model:
 
 BYOM AI model support
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 The DRP-AI supports BYOM (Bring Your Own Model) AI models, allowing users to deploy custom-trained AI models on the RZ/V2H platform.
 
@@ -22,7 +22,7 @@ The DRP-AI supports BYOM (Bring Your Own Model) AI models, allowing users to dep
 .. _byom_drp_ai:
 
 Getting Started
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 To enable BYOM support, users need to convert their AI models into a format compatible with the DRP-AI using the following package:
 
@@ -31,7 +31,7 @@ To enable BYOM support, users need to convert their AI models into a format comp
 This package provides the necessary tools and libraries to facilitate the conversion process, ensuring that the models can effectively leverage the capabilities of the DRP-AI.
 
 Install the DRP-AI TVM extension package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""
 
 To install the DRP-AI TVM extension package, follow the instructions provided in the `RZ/V DRP-AI TVM setup <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/main/setup#installing-drp-ai-tvm1-with-docker-mera2>`_.
 
@@ -42,7 +42,7 @@ To install the DRP-AI TVM extension package, follow the instructions provided in
    We recommend using the Docker-based installation method with **Ubuntu 24.04 machine** for the DRP-AI TVM extension package, as it provides a consistent and isolated environment for model conversion.
 
 BYOM Development Flow
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 The typical development flow for deploying BYOM AI models on the RZ/V2H platform using the DRP-AI TVM extension package involves the following steps:
 

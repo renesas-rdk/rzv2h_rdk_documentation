@@ -1,7 +1,7 @@
-.. _mujoco_visualization:
-
 MuJoCo Visualization
---------------------
+^^^^^^^^^^^^^^^^^^^^
+
+.. _mujoco_visualization:
 
 `MuJoCo <https://mujoco.org/>`_ is a physics simulation platform designed for robotics development.
 
@@ -11,7 +11,7 @@ Combined with ROS 2, MuJoCo allows you to simulate robot models, verify control 
 This guide walks through installing MuJoCo, setting up the required ROS 2 packages, building the workspace, and launching a simulation.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 Before starting, make sure:
 
@@ -21,12 +21,12 @@ Before starting, make sure:
 - A ROS 2 application is running on the RZ/V2H RDK board and publishes the topics consumed by the MuJoCo simulation, for example, joint commands from the Arm Teleoperation application.
 
 Install MuJoCo and ROS 2 Packages for Host PC
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""
 
 The MuJoCo simulation requires several packages to be installed in your ROS 2 Jazzy workspace on the host PC.
 
 Core MuJoCo Packages
-""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~
 
 The following packages are required for any MuJoCo-based simulation:
 
@@ -44,7 +44,7 @@ The following packages are required for any MuJoCo-based simulation:
      - ROS 2 simulation wrapper that launches MuJoCo with a robot model and connects it to the ROS 2 ecosystem.
 
 Application-specific Packages
-"""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Depending on which application you want to simulate, additional packages are needed on the host PC.
 
@@ -68,7 +68,7 @@ For other applications, refer to the corresponding application documentation for
 Clone all required packages into the ``src/`` directory of your ROS 2 Jazzy workspace on the host PC.
 
 Native Build the ROS 2 Workspace for the Host PC
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""""
 
 After cloning all required packages, build the workspace:
 
@@ -103,12 +103,12 @@ After cloning all required packages, build the workspace:
       source <path-to-your-ROS2-Jazzy-workspace>/install/setup.bash
 
 Build and Run the Application on the RZ/V2H RDK Board
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 Before launching the MuJoCo simulation on the host PC, the ROS 2 application must be running on the RZ/V2H RDK board so that it publishes the joint command topics that MuJoCo subscribes to.
 
 Cross-compile the ROS 2 Workspace
-""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Set up the RZ/V2H RDK board as described in the :ref:`RZ/V2H RDK board setup <quick_setup_rdk_guide>`.
 #. Set up the host machine for cross-compilation as described in :ref:`Development Guide <development_guide>`.
@@ -119,7 +119,7 @@ Cross-compile the ROS 2 Workspace
 #. Cross-compile the ROS 2 workspace using :ref:`cross-build the ROS 2 Application <development_guide>`.
 
 Deploy and Run on the Board
-""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Deploy the ``install`` directory to the RZ/V2H RDK board using :ref:`Deploying the ROS 2 Application <ros2_deployment>` or using the ``scp`` command.
 
@@ -157,7 +157,7 @@ Deploy and Run on the Board
       The MuJoCo simulation subscribes to ROS 2 topics published by the board. If the board is not running, the simulation will start but the robot will not move.
 
 Launch the MuJoCo Simulation on the Host PC
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""
 
 With the board application running and the host PC workspace built and sourced, you can launch the MuJoCo simulation.
 
@@ -177,7 +177,7 @@ The MuJoCo simulator window should open and display the robotic arm:
    MuJoCo simulation of the RZ/V Demo Arm Teleoperation application
 
 How MuJoCo Works with the RZ/V2H RDK
-""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The MuJoCo simulation runs on the host PC and communicates with the RZ/V2H RDK board over ROS 2 topics:
 
@@ -209,7 +209,7 @@ This setup is useful for:
       export ROS_DOMAIN_ID=<your-domain-id>
 
 Interacting with the MuJoCo Simulation
-""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once the simulation is running, you can interact with the MuJoCo viewer:
 
@@ -223,7 +223,7 @@ Once the simulation is running, you can interact with the MuJoCo viewer:
 The simulation window also displays physics information such as simulation time, frame rate, and contact forces.
 
 Troubleshooting
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 #. MuJoCo window does not open
 

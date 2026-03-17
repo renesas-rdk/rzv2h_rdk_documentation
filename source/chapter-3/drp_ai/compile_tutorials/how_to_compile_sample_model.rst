@@ -1,7 +1,7 @@
 .. _how_to_compile_sample_model:
 
 How to Compile Sample Model
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following is an example of how to compile the model with the DRP-AI TVM extension package.
 
@@ -19,14 +19,14 @@ There are 3 tutorials about AI deployment tools for RZ/V2H RDK.
 - To learn how to compile your own model, :ref:`click here <how_to_compile_your_own_model>`.
 
 Getting Started
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 The next section provides a tutorial on how to compile a sample ONNX model using the DRP-AI TVM extension package.
 
 Follow the instructions to set up the environment, compile the model using the sample script, and confirm the output.
 
 Work flow
-^^^^^^^^^
+"""""""""
 
 From this point on, follow these steps.
 
@@ -38,7 +38,7 @@ From this point on, follow these steps.
    Workflow
 
 Setup Environment
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/README.md#installing-drp-ai-tvm1-with-docker-mera2>`_ to set up the environment before you begin this workflow.
 
@@ -49,7 +49,7 @@ Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas
    We recommend using an Ubuntu 24.04 machine for the DRP-AI TVM extension package, as it provides a consistent and isolated environment for ROS 2 Jazzy development.
 
 Compile AI models
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 All subsequent operations are performed within the container created in the above steps.
 
@@ -61,7 +61,7 @@ To enter the container, execute the following command in the terminal.
    docker exec -it drp-ai_tvm_${PRODUCT,,}_container_${USER} bash
 
 Download an ONNX model
-""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~
 
 In this example, ``resnet18`` is used.
 
@@ -73,7 +73,7 @@ First, download the ONNX model file from the following URL by using the followin
    wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet18-v1-7.onnx
 
 Compile an ONNX model
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~
 
 Compile the ONNX model you just downloaded by using the prepared sample script.
 

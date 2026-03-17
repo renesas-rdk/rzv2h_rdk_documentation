@@ -1,12 +1,12 @@
 MediaPipe Hand Landmark Tutorial
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""
 
 This guide describes the process for converting **MediaPipe Hand Landmark Detection** models from **TFLite** to **ONNX** format for compatibility with **DRP-AI**.
 
 Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
 Download Models
-""""""""""""""""
+~~~~~~~~~~~~~~~~
 
 - Reference: `MediaPipe Models List <https://github.com/google-ai-edge/mediapipe/blob/master/setup.py>`_
 - `MediaPipe Hand Landmarker Models Documentation <https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker#models>`_
@@ -16,7 +16,7 @@ Download Models
 - `Palm Detection Lite Model <https://storage.googleapis.com/mediapipe-assets/palm_detection_lite.tflite>`_
 
 Set Up Conversion Environment
-""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Reference: `tensorflow-onnx GitHub Repository <https://github.com/onnx/tensorflow-onnx>`_ — Convert TensorFlow, Keras, TensorFlow.js, and TFLite models to ONNX.
 - Create a dedicated conda environment with Python 3.10:
@@ -27,7 +27,7 @@ Set Up Conversion Environment
      conda activate tf2onnx
 
 Conversion Process
-"""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~
 
 - **Important:** The supported ONNX opset for the DRP-AI translator is **v12**.
 
@@ -69,7 +69,7 @@ Conversion Process
        --inputs-as-nchw input_1
 
 Compile with DRP-AI TVM Extension Package
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run the compilation script provided in the ``hand_models/compilation`` directory to compile the ONNX models for DRP-AI on the RZ/V2H platform.
 

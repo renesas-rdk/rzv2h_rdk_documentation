@@ -1,5 +1,5 @@
 Repositories and Packages
-=========================
+-------------------------
 
 This section provides a quick reference for the ROS 2 packages available for development on the Renesas RZ/V2H RDK platform.
 
@@ -10,7 +10,7 @@ This section provides a quick reference for the ROS 2 packages available for dev
 .. _package_reference:
 
 Application Packages
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 TODO: add complete packages, update this section to link to the actual applications and their descriptions.
 
@@ -32,7 +32,7 @@ TODO: add complete packages, update this section to link to the actual applicati
      - Apache 2.0
 
 AI / Perception Packages
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -49,7 +49,7 @@ AI / Perception Packages
      - Apache 2.0
 
 Visualization Packages
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -63,7 +63,7 @@ Visualization Packages
      - Apache 2.0
 
 Hand Control Packages
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -83,7 +83,7 @@ Hand Control Packages
      - Apache 2.0
 
 Robotic Arm Packages
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1

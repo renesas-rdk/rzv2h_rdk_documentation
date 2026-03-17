@@ -1,7 +1,7 @@
 .. _rzv2h_ai_sdk_apps:
 
 Cross-build Renesas AI Applications
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to cross-compile Renesas AI Applications for the RZ/V2H RDK platform using the Renesas RDK Docker cross-compilation environment.
 
@@ -17,7 +17,7 @@ For more details, visit the `Renesas AI Applications <https://renesas-rz.github.
    To compile AI model files, :ref:`follow the Renesas AI model compilation guide <how_to_compile_your_own_model>`, and then use the compiled model files to run the AI applications on the RZ/V2H RDK.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 Before building the Renesas AI Applications, ensure that you have completed the following:
 
@@ -26,7 +26,7 @@ Before building the Renesas AI Applications, ensure that you have completed the 
 - Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section to set up the Docker-based cross-compilation environment.
 
 Available AI Applications
-^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""
 
 The following AI Applications are available, developed by Renesas and third-party developers:
 
@@ -36,7 +36,7 @@ The following AI Applications are available, developed by Renesas and third-part
 - `Computermind Corporation - DRP-AI Demo App <https://github.com/ComputermindCorp/drp-ai-demo-app/tree/main>`_
 
 Setting up the Environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 #. Start and access the Docker container:
 
@@ -51,7 +51,7 @@ Setting up the Environment
    Refer to the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect from VS Code.
 
 Install Dependencies into the Sysroot
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""
 
 Install the required development libraries for Wayland, GStreamer, and other dependencies into the ARM64 sysroot:
 
@@ -76,7 +76,7 @@ Install the required development libraries for Wayland, GStreamer, and other dep
    For applications with additional dependencies, install those dependencies into the sysroot using ``rzv2h-chroot`` before building the application.
 
 Generate XDG Shell Protocol Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""
 
 The AI applications that use Wayland display require XDG shell protocol files.
 Generate them inside the sysroot:
@@ -100,7 +100,7 @@ Generate them inside the sysroot:
    exit
 
 Building Renesas AI Applications
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""
 
 Select the desired AI Application from the repositories mentioned above and clone the repository inside the Docker container.
 
@@ -120,7 +120,7 @@ Based on the repository, follow the specific porting instructions below to build
 .. _ai_app_cmake_update:
 
 Common Step: Update CMakeLists.txt
-"""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Each application has a ``CMakeLists.txt`` file in its ``src/`` directory (e.g., ``/drp-ai_tvm/how-to/sample_app_v2h/app_deeplabv3_cam/src/CMakeLists.txt``).
 
@@ -149,7 +149,7 @@ Find and replace the following lines in the ``CMakeLists.txt`` file:
 .. _ai_app_mali_lib_update:
 
 Common Step: Update Mali GPU Library Links
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``target_link_libraries`` section in the ``CMakeLists.txt`` file needs to be updated to use the Mali GPU library paths instead of the generic EGL/GLESv2/wayland-egl libraries.
 
@@ -190,7 +190,7 @@ Add the Mali library path variable and update the link libraries:
    Using explicit paths ensures the linker picks up the correct Mali-specific implementations of EGL, GLESv2, and wayland-egl.
 
 Common Step: Update Wayland Initialization
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For applications that use Wayland display functions (i.e., applications with a ``wayland.cpp`` file in the ``src/`` folder), update the ``initWaylandDisplay`` function to add ``wl_display_roundtrip`` after ``wl_surface_commit``:
 
@@ -211,7 +211,7 @@ For applications that use Wayland display functions (i.e., applications with a `
    }
 
 Common Step: Compile the Application
-"""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After making the above common modifications, follow the standard CMake build process to compile the application:
 
@@ -235,7 +235,7 @@ Replace ``<app_name>`` with the actual application name, for example, ``app_deep
    The ``runtime.cmake`` file is not compatible with the RZ/V2H RDK sysroot and library paths, and using it will cause build errors.
 
 Deploying Renesas AI Applications
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""
 
 After building the application, deploy the generated binaries and necessary files to the RZ/V2H RDK board.
 

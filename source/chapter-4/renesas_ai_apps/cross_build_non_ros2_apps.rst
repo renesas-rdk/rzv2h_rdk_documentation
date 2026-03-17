@@ -1,20 +1,20 @@
 .. _cross_build_non_ros2_apps:
 
 Cross-build Non-ROS 2 Applications
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The cross-compilation environment provided by the Renesas RDK Docker image can also be used to build non-ROS 2 applications for the RZ/V2H RDK platform.
 
 This section describes how to cross-compile a generic CMake-based application using the provided toolchain.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 - Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
 - Make sure the Docker container is running and accessible.
 
 Setting up the Environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 #. Start and access the Docker container:
 
@@ -27,7 +27,7 @@ Setting up the Environment
    Refer to the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect to the Docker container from VS Code.
 
 Install Dependencies into the Sysroot
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""
 
 Before building the application, install any required libraries into the ARM64 sysroot using ``rzv2h-chroot``.
 
@@ -45,7 +45,7 @@ For example, to install common development libraries:
    For more details on ``rzv2h-chroot``, refer to the :ref:`Cross compilation usage guide <cross_build_usage>`.
 
 Build the Application
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 For CMake-based projects, use the cross-compilation toolchain file provided in the Docker container.
 
@@ -75,7 +75,7 @@ For CMake-based projects, use the cross-compilation toolchain file provided in t
 #. The resulting ARM64 binaries are ready to be deployed to the RZ/V2H RDK.
 
 Deploy to Target
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 
 Copy the built binaries to the RZ/V2H RDK using ``scp`` or another file transfer method.
 

@@ -1,10 +1,10 @@
 Booting RZ/V2H RDK from SSD
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The advantages of booting from an SSD include **faster read/write speeds**, improved performance, and increased storage capacity compared to booting from an SD card.
 
 Hardware Required
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 - RZ/V2H RDK set.
 - SD card (for initial bootloader storage). Please flash the SD card with the RDK image.
@@ -12,7 +12,7 @@ Hardware Required
 - M.2 NVMe SSD.
 
 Hardware Connection
-^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""
 
 The following image shows how to connect the SSD to the RZ/V2H RDK using the PCIe TO M.2 Board:
 
@@ -24,7 +24,7 @@ The following image shows how to connect the SSD to the RZ/V2H RDK using the PCI
    SSD Connection Diagram
 
 Detail Steps
-^^^^^^^^^^^^
+""""""""""""
 
 .. important::
 
@@ -69,7 +69,10 @@ Detail Steps
 
      .. code-block:: bash
 
+        # Copy the image file to the target board
         scp ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz ubuntu@<rzv2h_rdk_ip>:/home/ubuntu/
+
+        # Copy the bmap file to the target board
         scp ubuntu-24.04-server-arm64-rzv2h-rdk.img.bmap ubuntu@<rzv2h_rdk_ip>:/home/ubuntu/
 
    - Flash the root filesystem image to the SSD by running:

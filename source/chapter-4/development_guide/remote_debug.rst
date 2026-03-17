@@ -1,5 +1,5 @@
 ROS 2 Application Remote Debugging
-----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to remotely debug ROS 2 applications on the Renesas RZ/V2H RDK platform by using GDB.
 
@@ -10,7 +10,7 @@ It covers the required setup, the debugging workflow, and practical notes for ru
    Before proceeding, make sure you have completed the previous sections for cross-compilation, deployment, and VS Code workspace configuration.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 #. Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
 
@@ -28,7 +28,7 @@ Prerequisites
       sudo apt-get install gdbserver
 
 Debugging Workflow
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 #. Before starting the debugging workflow, open ``settings.json`` and make sure the required variables are configured correctly for the mode you want to use.
 

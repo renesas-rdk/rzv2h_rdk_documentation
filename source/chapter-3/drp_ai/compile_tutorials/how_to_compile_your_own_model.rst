@@ -1,7 +1,7 @@
 .. _how_to_compile_your_own_model:
 
 How to compile Your Own Model
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to compile your own AI model for the RZ/V2H RDK platform by using the DRP-AI TVM extension package.
 
@@ -12,7 +12,7 @@ This section describes how to compile your own AI model for the RZ/V2H RDK platf
    For information about MERA, see `MERA™ (Model Efficiency Runtime Accelerator) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/About_mera.md>`_.
 
 Compile your own model for RZ/V2H
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""
 
 You can compile your model by using `the sample script compile_onnx_model_quant.py <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/tutorials/compile_onnx_model_quant.py>`_.
 
@@ -29,7 +29,7 @@ This section also provides general guidance that you can apply to your own model
    Overview of compiling your own model
 
 Tutorial
-^^^^^^^^
+""""""""
 
 .. raw:: html
 
@@ -50,7 +50,7 @@ Tutorial
    Detailed steps for running the RZ/V2H AI application on the RZ/V2H RDK platform are provided in the :ref:`Renesas AI Applications <renesas_ai_application>` section.
 
 Workflow
-^^^^^^^^
+""""""""
 
 This section first provides an overview of the process.
 
@@ -66,7 +66,7 @@ In this chapter, YOLOX is used as an example.
    Compile workflow
 
 Set up the environment
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/README.md#installing-drp-ai-tvm1-with-docker-mera2>`_ to set up the environment before you begin this workflow.
 
@@ -93,7 +93,7 @@ If you pruned the YOLOX model by using the DRP-AI Extension Pack on `this page <
 If you did not prune the model, you can use the prepared model: ``$TVM_ROOT/how-to/sample_app_v2h/app_yolox_cam/yolox-S_VOC.onnx``.
 
 Confirm the model information
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""
 
 First, determine the input format of the model and the application.
 
@@ -115,7 +115,7 @@ In the YOLOX example, confirm the following parameters:
 - Application input format: ``YUYV_422``
 
 Modify the sample script
-^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""
 
 Next, modify the preprocessing statements in the sample script so that they match your model.
 
@@ -124,7 +124,7 @@ This step is required because, when you run inference with your own model, the i
 The sample script already includes preprocessing, but you must update it according to the model information confirmed in the previous section.
 
 Calibration
-"""""""""""
+~~~~~~~~~~~
 
 In `compile_onnx_model_quant.py line 101 <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/tutorials/compile_onnx_model_quant.py#L101>`_, the following process is used for calibration data.
 
@@ -167,7 +167,7 @@ For example, you can modify the script as follows.
    Review the script manually after using ``sed`` to make sure that only the intended lines were changed.
 
 Pre-runtime
-"""""""""""
+~~~~~~~~~~~
 
 Pre-runtime is a runtime that executes preprocessing on DRP-AI before the AI model runs.
 
@@ -319,7 +319,7 @@ This completes the sample script modification.
    Even if the camera input format and the model input format differ, Pre-runtime acts as the conversion stage between them.
 
 Compile the AI model
-^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""
 
 Using the modified sample script from the previous section, compile YOLOX with the following command.
 

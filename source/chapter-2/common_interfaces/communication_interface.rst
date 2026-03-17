@@ -1,12 +1,12 @@
 Communication Interfaces
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section provides usage examples of the communication interfaces available on this kit.
 
 .. _can_interface:
 
 CAN-FD x2
-^^^^^^^^^
+"""""""""
 
 The RZ/V2H RDK is equipped with two CAN-FD (Controller Area Network Flexible Data-Rate) ports that enable high-speed communication for automotive and industrial applications.
 
@@ -93,7 +93,7 @@ You can use the ``can-utils`` package for testing CAN-FD communication.
       cansend can0 123##01122334455667788
 
 RasPi GPIO 40-pin Header
-^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""
 
 The Raspberry Pi GPIO 40-pin header on the RZ/V2H RDK provides a versatile interface for connecting various peripherals and expansion boards compatible with the Raspberry Pi pin layout. This header includes multiple communication protocols such as I2C, SPI, UART, GPIO, and PCM.
 
@@ -106,7 +106,7 @@ The following communication protocols are supported:
 - PCM (Pulse Code Modulation)
 
 Pin Out Diagram
-"""""""""""""""
+~~~~~~~~~~~~~~~
 
 .. figure:: ../../images/GPIO_block.png
    :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
@@ -116,7 +116,7 @@ Pin Out Diagram
    RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
 
 I2C (Inter-Integrated Circuit)
-""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The I2C interface allows communication with multiple slave devices using just two wires: SDA (data line) and SCL (clock line).
 
@@ -196,7 +196,7 @@ Scan for I2C devices on bus 10:
    sudo i2cdetect -y 10
 
 SPI (Serial Peripheral Interface)
-"""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The SPI interface enables high-speed communication with peripheral devices using a master-slave architecture. It uses separate lines for data in, data out, clock, and chip select.
 
@@ -264,7 +264,7 @@ Example output:
    000000a
 
 UART (Universal Asynchronous Receiver/Transmitter)
-""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The UART interface provides serial communication capabilities, allowing data exchange between the RZ/V2H RDK and other devices such as micro-controllers, GPS modules, or serial consoles.
 
@@ -337,7 +337,7 @@ When you type in the minicom terminal, the characters are sent to the host compu
 Similarly, any data sent from the RZ/V2H RDK through the UART5 interface is displayed in the minicom terminal on the host computer.
 
 GPIO (General Purpose Input/Output)
-"""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The GPIO pins allow digital input and output operations, enabling interaction with various sensors, actuators, and other electronic components.
 
@@ -379,7 +379,7 @@ Read the value of a GPIO line:
 .. _audio_interface:
 
 PCM (Pulse Code Modulation)
-"""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. note::
 

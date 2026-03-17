@@ -1,5 +1,5 @@
 Overview
---------
+^^^^^^^^
 
 The RZ/V Multi-OS feature allows the RZ/V2H platform to run multiple operating systems concurrently.
 
@@ -26,7 +26,7 @@ This capability is particularly useful for applications that require separation 
    RZ/V2H RDK JTAG Switch 6 ON
 
 Useful References
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 The following documents and repositories are recommended for users who want to explore more about multi-OS integration and RZ/V FSP software development:
 
@@ -39,14 +39,14 @@ The following documents and repositories are recommended for users who want to e
 We recommend reviewing these resources to gain a deeper understanding of multi-OS capabilities and how to effectively utilize them in your projects.
 
 Requirement
-^^^^^^^^^^^
+"""""""""""
 
 - Ubuntu or Windows machines that can install the e2Studio and Flexible Software Package (FSP) for the Renesas RZ/V MPU Series.
 - Segger J-Link (**firmware version 7.96e**): JTAG debugger for flashing firmware and debugging.
 - `RZ/V FSP version 3.1 <https://github.com/renesas/rzv-fsp/tree/v3.1.0>`_ installed on the development machine. Follow the instructions in the `RZ/V FSP Getting Started Guide <https://www.renesas.com/en/document/apn/rzv-getting-started-flexible-software-package>`_ to set up the FSP.
 
 Note for Integration
-^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""
 
 The peripherals which are NOT enabled enter Module Standby Mode after the Linux kernel is booted up. That means the peripherals used on the CM33 side might stop working at that time.
 
@@ -94,14 +94,14 @@ Please edit the ``r9a09g057-cpg.c`` file accordingly and re-build the Linux Imag
 For how to build the Linux Image, please refer to the :ref:`RZ/V2H RDK Linux Image Build Guide <linux_kernel_and_device_tree>`.
 
 Device tree modification
-^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""
 
 If you plan to use the CM33/CR8 cores to control the peripherals, you need to make sure that the Linux kernel does not bind those peripherals to any drivers.
 
 There are two methods to disable a peripheral in the device tree:
 
 Method 1: Modify the Device Tree Source
-""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Open the device tree source file:
 
@@ -145,7 +145,7 @@ Method 1: Modify the Device Tree Source
 #. Rebuild the Linux image. For instructions, refer to the :ref:`RZ/V2H RDK Linux Image Build Guide <linux_kernel_and_device_tree>`.
 
 Method 2: Disable the Overlay via uEnv.txt
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If the peripheral is enabled through a device tree overlay, you can disable it without rebuilding the kernel.
 
@@ -186,7 +186,7 @@ For more details on device tree overlays, refer to :ref:`Device Tree Overlay <de
    Use **Method 2** when the peripheral is enabled through a device tree overlay loaded at boot time.
 
 How to Create the New Project for RZ/V2H RDK
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""
 
 To create a new project for the RZ/V2H RDK board using the RZ/V Flexible Software Package (FSP) and e2Studio, follow these steps:
 

@@ -1,12 +1,12 @@
 YOLOv8 Object Detection Tutorial
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""
 
 This tutorial describes how to use the **YOLOv8n Rock Paper Scissors Gesture Detection** model for object detection with DRP-AI acceleration on the Renesas RZ/V2H platform.
 
 Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
 Installation Requirements
-""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Ultralytics YOLOv8
 - Dataset for Rock Paper Scissors Gesture Detection
@@ -16,7 +16,7 @@ Installation Requirements
   Please download and prepare the dataset in YOLOv8 format for training.
 
 Train the Model Using Ultralytics YOLOv8 and Transfer Learning
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Please download the dataset above in YOLOv8 format and locate the ``data.yaml`` file. Replace the path in the Python script below and save it as ``train_model_yolov8.py``.
 
@@ -46,7 +46,7 @@ For faster training time, a GPU with the appropriate driver should be installed.
 The result will be located at ``<workspace-directory>/runs/detect/trainX/weights/best.pt``, where ``X`` increments each time you run the training process.
 
 Export and Cut the Model
-"""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since some parts of the post-processing phase of the YOLOv8 model cannot be handled by the DRP-AI hardware, certain steps need to be removed to ensure compatibility.
 
@@ -57,7 +57,7 @@ Please follow this documentation to learn how to export the model to ONNX format
 After exporting and cutting the model, you will get an ONNX model file named ``yolov8n_rps_cut.onnx`` (the name may differ based on your configuration).
 
 Compile with DRP-AI TVM Extension Package
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run the compilation script provided in the ``hand_models/compilation`` directory to compile the ONNX models for DRP-AI on the RZ/V2H platform.
 

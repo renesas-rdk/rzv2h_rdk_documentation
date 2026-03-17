@@ -1,5 +1,5 @@
 RZV2H RDK Multi-OS Example Packages
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section contains a collection of Multi-OS packages designed for applications on Renesas RZ/V MPU platforms, specifically targeting the RZ/V2H RDK.
 
@@ -8,14 +8,14 @@ These packages provide practical examples demonstrating how to operate and integ
 Additionally, a demo showcasing Micro-ROS (uROS) running on the real-time CR8 core is supported. It demonstrates the implementation of Micro-ROS on an MCU-class core within the device.
 
 Hardware supported
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 -  Platform: Renesas RZ/V2H MPU
 
 -  Development Board: RZ/V2H RDK (SoC: R9A09G057H44GBG)
 
 Software supported
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 -  Target RZ/V2H RDK image: ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``
 
@@ -30,7 +30,7 @@ Software supported
 -  ROS2 Distribution: ROS2 Jazzy
 
 Package Specification
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 TODO: Update link to each package as well as note for long path package
 
@@ -74,12 +74,12 @@ TODO: Update link to each package as well as note for long path package
        with the custom RPMsg transport layer for communication with Linux and ROS 2.
 
 Installation Guide
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 To set up and use the Multi-OS example packages on the RZ/V2H RDK, follow the steps below:
 
 Firmware Code for CM33/CR8
-""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes how to build and flash the firmware for the CM33/CR8 core using e² studio and the provided sample project.
 
@@ -119,7 +119,7 @@ This section describes how to build and flash the firmware for the CM33/CR8 core
    -  However, when invoking the firmware from **U-Boot**, please enable this delay.
 
 Usage Guide
-^^^^^^^^^^^
+"""""""""""
 
 To run the Multi-OS example packages on the RZ/V2H RDK, follow the instructions below for each package.
 
@@ -131,7 +131,7 @@ Install the ``libsysfs-dev`` package on the target board, which is required by t
    sudo apt install -y libsysfs-dev
 
 RPMsg Linux-RTOS Demo
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~
 
 This demo behaves identically to the version released in the **RZ/V Multi-OS Package**.
 
@@ -206,7 +206,7 @@ For more details, refer to the `RZ/V2H Quick Start Guide: Section 4.4 CM33/CR8 S
       ...
 
 uROS and Custom Micro XRCE-DDS Agent
-"""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes how to run the Micro-ROS Client demo and the custom XRCE-DDS RPMsg Agent.
 
@@ -389,7 +389,7 @@ Example output:
    ...
 
 Troubleshooting
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 #. ``rpmsg_sample_client``: error while loading shared libraries: ``libsysfs.so.2``: cannot open shared object file: No such file or directory
 

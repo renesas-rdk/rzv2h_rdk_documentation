@@ -1,5 +1,5 @@
 Known Issue: Non-Relocatable Sysroot CMake Paths
-------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In some cases, cross-builds fail because a package installed into the sysroot provides CMake export files that still contain hardcoded absolute paths such as ``/opt/ros/jazzy`` or ``/usr/lib/aarch64-linux-gnu/...``.
 
@@ -7,7 +7,7 @@ These paths may be valid on the original target filesystem, but they are not val
 As a result, CMake cannot resolve imported targets correctly during the build.
 
 How to Recognize This Issue
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""
 
 You may be hitting this issue if your build fails during ``cross-colcon-build`` with an error like:
 
@@ -27,7 +27,7 @@ Common signs include:
 - the failing package is found by ``find_package()`` in CMake.
 
 Why This Happens
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 
 Some packages install CMake files such as:
 
@@ -40,7 +40,7 @@ In a relocated sysroot, those absolute paths may no longer point to the correct 
 Instead, the paths should usually resolve relative to ``${_IMPORT_PREFIX}``, which is how relocatable imported CMake targets are normally expressed.
 
 What Happens Automatically
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 The ``sysroot-rosdep-install`` command automatically runs the ``sysroot-fix`` script.
 
@@ -54,12 +54,12 @@ However, if a package introduces a new broken path or uses a different CMake fil
 In that case, you need to add a new rule manually.
 
 How to Fix It Yourself
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 Follow the steps below to identify and fix the issue.
 
 Step 1: Identify the failing package and broken path
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Read the build error carefully and note:
 
@@ -83,7 +83,7 @@ From this example, you should extract:
 - broken path prefix: ``/opt/ros/jazzy``
 
 Step 2: Search the sysroot for the hardcoded path
-""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Search the package CMake directory inside the sysroot to find which file contains the broken reference.
 
@@ -108,7 +108,7 @@ or:
 Look for the exact file that contains the unwanted absolute path.
 
 Step 3: Decide the replacement path
-""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In most ROS 2 CMake export files, the correct replacement is one of the following:
 
@@ -125,7 +125,7 @@ A good rule of thumb is:
 If you are unsure, check surrounding entries in the CMake file to see how other imported targets are written.
 
 Step 4: Add a new rule to ``sysroot-fix.yaml``
-"""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Open the fix rule file:
 
@@ -166,7 +166,7 @@ Another real example:
    You do not need to define them in the YAML file.
 
 Step 5: Test the rule
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~
 
 Run the fix script in dry-run mode first:
 
@@ -205,7 +205,7 @@ If you see no patch output for the package, then:
 In that case, inspect the actual file again and adjust the rule.
 
 Step 6: Apply the fix
-"""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~
 
 Once the dry run looks correct, apply the fix:
 
@@ -230,7 +230,7 @@ Example:
    backup: /opt/rzv2h-sysroot/.../some_file.cmake.bak.20260316-032342
 
 Step 7: Rebuild and verify
-""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After applying the fix, rebuild the workspace:
 
@@ -242,7 +242,7 @@ If the build still fails, repeat the same process for the next missing path.
 Some packages may require more than one rule.
 
 Examples of Existing Rules
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 The following examples show real rules already used to fix known sysroot relocation problems:
 
@@ -264,7 +264,7 @@ The following examples show real rules already used to fix known sysroot relocat
        replace: "${_IMPORT_PREFIX}/lib/aarch64-linux-gnu/liblz4.so"
 
 How to Interpret Script Output
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""
 
 Examples of useful output from ``sysroot-fix``:
 
@@ -284,7 +284,7 @@ Examples of useful output from ``sysroot-fix``:
   - Unmatched rules are not necessarily errors.
 
 When You Should Update the YAML File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""
 
 You should add or adjust a rule when:
 
@@ -294,7 +294,7 @@ You should add or adjust a rule when:
 - a new package introduces a similar relocation problem.
 
 Summary
-^^^^^^^
+"""""""
 
 If your cross-build fails with an imported CMake target error that references a missing absolute path inside ``/opt/ros/...`` or ``/usr/lib/...``, the sysroot likely contains a non-relocatable CMake export file.
 

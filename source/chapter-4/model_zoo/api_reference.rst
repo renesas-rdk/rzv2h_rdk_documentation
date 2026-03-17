@@ -1,17 +1,17 @@
 API Reference
--------------
+^^^^^^^^^^^^^
 
 This page provides a quick reference for all model classes, result types, and configuration methods available in the RZ/V2H RDK AI model packages.
 
 For guidance on creating your own model, see :ref:`How to Add a New Model <how_to_add_new_model>`.
 
 Core Data Types (rzv_model)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""
 
 These types are defined in ``rzv_model/base_model.hpp`` and ``rzv_model/utils.hpp``.
 
 ModelInput
-""""""""""
+~~~~~~~~~~
 
 .. code-block:: cpp
 
@@ -22,7 +22,7 @@ ModelInput
    };
 
 ModelResult (base class)
-""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 All result types inherit from this. Contains timing information from each inference stage.
 
@@ -37,7 +37,7 @@ All result types inherit from this. Contains timing information from each infere
    };
 
 KeyPoint / KeyPointResult
-"""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Used by pose estimation models (HRNetV2, RTMPose, MediaPipe).
 
@@ -57,7 +57,7 @@ Used by pose estimation models (HRNetV2, RTMPose, MediaPipe).
    };
 
 ModelShapeInfo
-""""""""""""""
+~~~~~~~~~~~~~~
 
 Provides tensor shape information extracted from the loaded model.
 
@@ -76,14 +76,14 @@ Provides tensor shape information extracted from the loaded model.
    };
 
 YUV422Format
-""""""""""""
+~~~~~~~~~~~~
 
 .. code-block:: cpp
 
    enum class YUV422Format { YUYV, UYVY };
 
 BaseModel Class
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 The base class for all AI models. Defined in ``rzv_model/base_model.hpp``.
 
@@ -145,7 +145,7 @@ The base class for all AI models. Defined in ``rzv_model/base_model.hpp``.
      - Logging macros (uses spdlog).
 
 Utils Class
-^^^^^^^^^^^
+"""""""""""
 
 Static utility functions defined in ``rzv_model/utils.hpp``.
 
@@ -163,12 +163,12 @@ Static utility functions defined in ``rzv_model/utils.hpp``.
      - Batched NMS for ``cv::Rect2f`` (axis-aligned) or ``cv::RotatedRect`` (oriented) boxes.
 
 Object Detection Models
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 The following models are provided for object detection tasks. Each model class inherits from ``BaseModel`` and implements the required methods for loading, preprocessing, inference, and postprocessing.
 
 rzv_yolox -- YoloxModel
-"""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_yolox/yolox_model.hpp`` | Inherits: ``BaseModel``
 
@@ -221,7 +221,7 @@ Header: ``rzv_yolox/yolox_model.hpp`` | Inherits: ``BaseModel``
 `YOLOX - Convert for V2H <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/model_list/how_to_convert/How_to_convert_yolox_onnx_models_V2H.md>`_
 
 rzv_yolov8 -- YOLOv8DetectModel
-"""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_yolov8/yolov8_detect_model.hpp`` | Inherits: ``YOLOv8Base`` -> ``BaseModel``
 
@@ -286,7 +286,7 @@ Header: ``rzv_yolov8/yolov8_detect_model.hpp`` | Inherits: ``YOLOv8Base`` -> ``B
 `YOLOv8 - Convert for V2H <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/v2.7.0/docs/model_list/how_to_convert/How_to_convert_yolov8_onnx_models_V2H.md>`_
 
 rzv_yolov8 -- YOLOv8OBBModel
-""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_yolov8/yolov8_obb_model.hpp`` | Inherits: ``YOLOv8Base`` -> ``BaseModel``
 
@@ -325,7 +325,7 @@ For oriented bounding box detection (e.g., aerial/satellite imagery).
    auto result = model->run<rzv_model::YOLOv8OBBDetectionResult>(input);
 
 rzv_gold_yolo -- GoldYoloModel
-""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_gold_yolo/gold_yolo_model.hpp`` | Inherits: ``BaseModel``
 
@@ -362,12 +362,12 @@ Header: ``rzv_gold_yolo/gold_yolo_model.hpp`` | Inherits: ``BaseModel``
    auto result = model->run<rzv_model::GOLDYOLODetectionResult>(input);
 
 Pose Estimation Models
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 The following models are provided for pose estimation tasks. Each model class inherits from ``BaseModel`` and implements the required methods for loading, preprocessing, inference, and postprocessing.
 
 rzv_hrnetv2 -- HRNetV2Model
-"""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_hrnetv2/hrnetv2_model.hpp`` | Inherits: ``BaseModel``
 
@@ -390,7 +390,7 @@ Returns ``KeyPointResult``. No additional configuration methods beyond ``BaseMod
 `Convert for V2H <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/model_list/how_to_convert/How_to_convert_mmpose_models_V2H.md>`_
 
 rzv_rtmpose -- RTMPoseModel
-"""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_rtmpose/rtmpose_model.hpp`` | Inherits: ``BaseModel``
 
@@ -408,7 +408,7 @@ Returns ``KeyPointResult``. No additional configuration methods beyond ``BaseMod
 **Model preparation:** Same as HRNetV2 (MMPose).
 
 rzv_mediapipe -- MediaPipeHandLandmarkModel
-"""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Header: ``rzv_mediapipe/mediapipe_hand_landmark_model.hpp`` | Inherits: ``BaseModel``
 
@@ -436,14 +436,14 @@ Returns ``HandLandmarkResult`` which extends ``KeyPointResult`` with handedness 
 **Model preparation:** `MediaPipe <https://github.com/google-ai-edge/mediapipe/tree/master>`_
 
 ROS 2 Utilities (rzv_model_utils_ros2)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""
 
 Header: ``rzv_model_utils_ros2/model_utils.hpp``
 
 Provides helper functions for integrating AI models into ROS 2 nodes.
 
 ModelConfig
-"""""""""""
+~~~~~~~~~~~
 
 .. code-block:: cpp
 
@@ -454,7 +454,7 @@ ModelConfig
    };
 
 UtilsROS
-""""""""
+~~~~~~~~
 
 .. list-table::
    :header-rows: 1

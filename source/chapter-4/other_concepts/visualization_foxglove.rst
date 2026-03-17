@@ -1,7 +1,7 @@
 .. _foxglove_visualization:
 
 Foxglove Visualization
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 `Foxglove Studio <https://foxglove.dev/>`_ is a popular tool for visualizing running ROS 2 applications, similar to `RViz <https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html>`_.
 
@@ -9,7 +9,7 @@ It provides a web-based visualization client and a desktop application for both 
 This guide walks through installing Foxglove Studio, connecting it to a ROS 2 application on the RZ/V2H RDK board, and using visualization panels.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 Before starting, make sure:
 
@@ -22,7 +22,7 @@ Before starting, make sure:
      ip addr show
 
 Install Foxglove Studio
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 #. `Download Foxglove Studio <https://foxglove.dev/download>`_ for your host PC operating system.
 #. Run the installer and follow the on-screen instructions to complete the installation.
@@ -37,7 +37,7 @@ Install Foxglove Studio
       sudo apt install ./foxglove-studio-*.deb
 
 Connect to the RZ/V2H RDK Board
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""
 
 Foxglove Studio connects to the ROS 2 application through a WebSocket bridge that runs on the RZ/V2H RDK board.
 
@@ -103,7 +103,7 @@ If the connection is successful, the status bar at the top of Foxglove Studio sh
 - No firewall is blocking port ``8765``.
 
 Configure the Foxglove Visualization Workspace
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""""""""
 
 After connecting to the RZ/V2H RDK board, configure the Foxglove Studio workspace so that you can monitor topics more effectively.
 
@@ -128,7 +128,7 @@ In the top-right corner of the window, you can find the **Add panel** button (1)
 In the top-left area, the **Panel**, **Topics**, and **Problems** tabs show the current panel settings, available topics, and any issues with the connection or data.
 
 Add and Configure Visualization Panels
-""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When you first connect, the Foxglove Studio workspace may be empty. You need to add **panels** to display data from ROS 2 topics.
 
@@ -218,7 +218,7 @@ These views are especially useful when:
 - latency or unstable outputs need to be observed over time.
 
 Import a Pre-configured Layout
-""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some RZ/V2H RDK sample applications provide pre-configured Foxglove layouts as JSON files.
 These layouts automatically set up panels and topic subscriptions for a specific application, which reduces manual configuration work.
@@ -272,7 +272,7 @@ Even when using a pre-configured layout, you may still want to review the panel 
 - the displayed panels match the part of the system you want to inspect or debug.
 
 Troubleshooting
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 #. Cannot connect to the board
 

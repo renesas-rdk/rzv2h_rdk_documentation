@@ -1,12 +1,12 @@
 .. _opencva:
 
 OpenCV Accelerator
-==================
+------------------
 
 The RZ/V2H MPU platform includes the OpenCV Accelerator (OpenCVA), which uses the :ref:`DRP IP <drp_concepts>` to accelerate specific OpenCV functions and improve performance in computer vision applications.
 
 Overview
---------
+^^^^^^^^
 
 The OpenCVA library is designed to automatically use the DRP to accelerate supported OpenCV functions when the conditions for DRP usage are met.
 
@@ -19,7 +19,7 @@ The OpenCVA library is designed to automatically use the DRP to accelerate suppo
    For more detailed information about OpenCVA, refer to the `RZ/V2H OpenCV Accelerator <https://github.com/renesas-rz/rzv2h_opencv_accelerator?tab=readme-ov-file#22-how-to-use>`_.
 
 How to Install the OpenCVA Library
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
@@ -48,7 +48,7 @@ To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
     After script execution, the OpenCVA library and its dependencies will be installed on your RZ/V2H RDK, and you can start using it in your computer vision applications.
 
 How to Use OpenCVA
-------------------
+^^^^^^^^^^^^^^^^^^
 
 OpenCVA leverages the DRP's processing capability to enhance specific functions of the OpenCV library.
 

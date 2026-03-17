@@ -1,14 +1,14 @@
 .. _linux_kernel_and_device_tree:
 
 Overview
---------
+^^^^^^^^
 
 The RZ/V2H RDK uses Linux kernel `version 6.10 <https://github.com/Renesas-SST/linux-rz/tree/ubuntu/rz-v2h-rdk>`_ from the **Renesas Software Solutions Team (SST)**. It is based on the Yocto Project ``linux-yocto`` kernel and is customized for the RZ/V2H RDK to ensure compatibility and performance.
 
 This section provides instructions for customizing and rebuilding various system components by using an **Ubuntu 24.04** environment.
 
 Prerequisites
--------------
+^^^^^^^^^^^^^
 
 Before proceeding, ensure that the following prerequisites are met.
 
@@ -36,7 +36,7 @@ Before proceeding, ensure that the following prerequisites are met.
      - SSH connectivity between the build host and target board, with ``rsync`` installed on both systems, is required to copy build artifacts.
 
 Quick Setup Guide
------------------
+^^^^^^^^^^^^^^^^^
 
 Use an Ubuntu 24.04 host machine or a Docker container based on an Ubuntu 24.04 image.
 
@@ -77,7 +77,7 @@ Clone the required repositories using the ``ubuntu/rz-v2h-rdk`` branch:
    The build tool for the bootloaders (U-Boot and ATF) is not included in this release.
 
 Set up the environment for the build
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""
 
 Before running the build script, complete the following steps:
 
@@ -99,12 +99,12 @@ Follow the next sections for detailed instructions on building the Linux kernel 
 .. _build_kernel:
 
 Custom Linux Kernel and Device Tree
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to customize and build the Linux kernel and device tree blobs (DTBs) for the RZ/V2H RDK by using the `rz-utils <https://github.com/Renesas-SST/rz-utils/tree/ubuntu/rz-v2h-rdk>`_ repository.
 
 Customizing and Building the Linux Kernel
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""
 
 Use the build script provided in the ``rz-utils`` repository to build the Linux kernel for the RZ/V2H RDK.
 
@@ -132,7 +132,7 @@ You can also build individual kernel outputs as needed:
 The generated output files are placed in the output directories defined by the build system and ``config.ini``.
 
 Customizing and Building the Kernel Configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 The purpose of customizing the kernel configuration is to enable or disable specific features, drivers, or options in the Linux kernel based on your use case and requirements.
 
@@ -179,7 +179,7 @@ After updating the configuration, rebuild the kernel image and related outputs:
 .. _modify_dts:
 
 Customizing and Building the Device Tree
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""
 
 Use the device tree sources in the ``linux-rz`` repository to modify hardware-related settings such as enabled peripherals, pin control, buses, and attached devices.
 
@@ -198,7 +198,7 @@ After making changes to the device tree source files, rebuild the device tree bl
    ./main_build.sh kernel dtbs
 
 Build output locations
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 The generated kernel artifacts are typically available in the following locations on the build host:
 
@@ -223,7 +223,7 @@ The generated kernel artifacts are typically available in the following location
      - Loadable kernel drivers and other kernel components used at runtime.
 
 Target deployment locations
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The updated files should be deployed to the following locations on the target board:
 
@@ -252,7 +252,7 @@ The updated files should be deployed to the following locations on the target bo
    Do not modify, remove, or overwrite any files other than those listed above, except ``uEnv.txt``, unless explicitly required.
 
 Copy files from the build host to the target board
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. tip::
 
@@ -330,7 +330,7 @@ After copying the files, update module dependencies on the target device:
 Reboot the target board to apply the updated kernel, device tree, and modules:
 
 Recovering Files from an Unbootable SD Card
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If the target board can no longer boot or required files have been accidentally
 removed, you can restore the original files by mounting the SD card on a PC.

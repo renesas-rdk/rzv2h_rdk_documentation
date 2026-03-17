@@ -1,46 +1,42 @@
 .. _hand_landmark:
 
 Static / Camera-based Hand Landmark Estimation
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: ../../images/landmark.png
-    :align: center
-    :alt: Hand Landmark Demo
-    :width: 600px
+   :align: center
+   :alt: Hand Landmark Demo
+   :width: 600px
 
-    Hand Landmark Demo
+   Hand Landmark Demo
 
-Key Features
-^^^^^^^^^^^^^
+The RZ/V Pose Estimation package provides the following features:
 
-The RZ/V Pose Estimation package enables:
+- Demonstrates the usage of the AI library (DRP-AI) wrapped in a ROS 2 node.
+- Supports hand detection and landmark estimation.
+- Supports real-time camera-based estimation.
+- Supports static image-based estimation.
+- Supports smooth landmark tracking.
+- Supports a two-stage pipeline: hand detection using YOLOX models, followed by landmark estimation using various models.
+- Supports multiple landmark models:
 
-- Demonstrates the usage of AI library (DRP-AI) that is wrapped in ROS 2 node.
-- Hand detection and landmark estimation.
-- Real-time camera-based estimation.
-- Static image-based estimation.
-- Smooth landmark tracking.
-- Two-stage pipeline: Hand detection using YOLOX models -> Landmark estimation using various models.
-- Support for multiple landmark models:
+  #. MediaPipe Hand Landmark model
+  #. HRNetV2 Hand Landmark model
+  #. RTMPose Hand model
 
-  1. MediaPipe Hand Landmark model
-  2. HRNetV2 Hand Landmark model
-  3. RTMPose Hand model
-- EMA-based landmark smoothing.
-- Integration with Foxglove Studio for visualization.
-- Multi-threaded processing support.
+- Supports EMA-based landmark smoothing.
+- Integrates with Foxglove Studio for visualization.
+- Supports multi-threaded processing.
 
 .. _required_ros2_packages_hand_landmark:
 
-RZ/V ROS 2 Packages Used
-^^^^^^^^^^^^^^^^^^^^^^^^^
+The following RZ/V ROS 2 packages are used:
 
 - rzv_pose_estimation
 - rzv_model
 - foxglove_keypoint_publisher
 
-Quick Setup Instructions
-^^^^^^^^^^^^^^^^^^^^^^^^
+Quick setup instructions:
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_hand_landmark>` for this application.
 
@@ -55,7 +51,7 @@ Quick Setup Instructions
       source /opt/ros/jazzy/setup.bash
       source <path/to>/install/setup.bash
 
-   For hand landmark estimation on static image, use:
+   For hand landmark estimation on a static image, use:
 
    .. code-block:: bash
 
@@ -69,14 +65,10 @@ Quick Setup Instructions
 
 #. For visualization using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-   The input layout file for Foxglove Studio is located at: ``rzv_pose_estimation/config/foxglove/landmark_estimation.json`` inside the ROS 2 workspace.
+   The input layout file for Foxglove Studio is located at
+   ``rzv_pose_estimation/config/foxglove/landmark_estimation.json`` inside the ROS 2 workspace.
 
-Application Details
-^^^^^^^^^^^^^^^^^^^
-
-For more details about the Static / Camera-based Hand Landmark Estimation application, refer to the `README.md in rzv_pose_estimation package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_pose_estimation/-/blob/master/README.md?ref_type=heads>`_.
-
-Changelog
-^^^^^^^^^
+For more details about the Static / Camera-based Hand Landmark Estimation application, refer to the
+`README.md in the rzv_pose_estimation package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_pose_estimation/-/blob/master/README.md?ref_type=heads>`_.
 
 - v1.0.0 (2025-10-31): Initial release of the Static / Camera-based Hand Landmark Estimation sample application.

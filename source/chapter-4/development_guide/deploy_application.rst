@@ -1,12 +1,12 @@
 .. _ros2_deployment:
 
 ROS 2 Application Deployment
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section provides instructions for deploying ROS 2 applications to the Renesas RZ/V2H RDK platform.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 Before starting deployment:
 
@@ -16,7 +16,7 @@ Before starting deployment:
 #. Make sure all required packages are available in the current workspace on the host machine.
 
 Install Dependencies into the Sysroot
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""
 
 Before building the application, make sure that all required dependencies are installed into the target sysroot.
 
@@ -29,7 +29,7 @@ Prepare the necessary ROS 2 packages in the current workspace on the host machin
 .. _build_deploy:
 
 Build the Application
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 Before deploying, ensure that your ROS 2 application is built using the cross-compilation environment.
 
@@ -58,7 +58,7 @@ There are three ways to build your application:
    - This executes the default build task, which is configured to build with the ``Release`` configuration.
 
 Deploy to Target
-^^^^^^^^^^^^^^^^
+""""""""""""""""
 
 There are two main methods to deploy your application to the RZ/V2H RDK platform:
 
@@ -73,7 +73,7 @@ There are two main methods to deploy your application to the RZ/V2H RDK platform
    - Click the **Deploy** button in the VS Code status bar to start the deployment process.
 
 Install Dependencies on the Target
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""
 
 After deployment, install any additional dependencies on the target device.
 
@@ -93,7 +93,7 @@ After deployment, install any additional dependencies on the target device.
       rosdep install --from-paths ./install/*/share -y -r --ignore-src
 
 Run the Application
-^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""
 
 You can start your application on the target device by using either ``ros2 run`` or ``ros2 launch`` through the VS Code tasks.
 

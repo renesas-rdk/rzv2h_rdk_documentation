@@ -1,14 +1,14 @@
 .. _sample_apps:
 
 Sample Applications
-===================
+-------------------
 
 This section introduces sample ROS 2 applications developed for the Renesas RZ/V2H RDK platform, demonstrating various functionalities and use cases.
 
 .. _sample_apps_prerequisites:
 
 Prerequisites for Running Sample Applications
-----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before running any sample application, ensure that you have completed the following common setup steps:
 
@@ -47,10 +47,10 @@ The following figure shows the hardware setup of the RZ/V2H RDK board and periph
    You can use Foxglove Studio to visualize the robot state and control the robot in a simulated environment.
    See :ref:`Foxglove Studio Visualization <foxglove_visualization>` for more details.
 
-Follow the instructions in the respective sample application sections to run each application on the RZ/V2H RDK platform.
-
 List of Sample Applications
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Follow the instructions in the respective sample application sections to run each application on the RZ/V2H RDK platform.
 
 .. toctree::
    :maxdepth: 1

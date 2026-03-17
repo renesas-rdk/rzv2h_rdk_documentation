@@ -1,36 +1,31 @@
 .. _static_object_detection:
 
 Static Object Detection
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: ../../images/static_objects.png
-    :align: center
-    :alt: Static Object Detection Demo
-    :width: 600px
+   :align: center
+   :alt: Static Object Detection Demo
+   :width: 600px
 
-    Static Object Detection Demo
+   Static Object Detection Demo
 
-Key Features
-^^^^^^^^^^^^^
+The RZ/V Static Object Detection package provides the following features:
 
-The RZ/V Static Object Detection package enables:
-
-- Demonstrates the usage of AI library (DRP-AI) that is wrapped in ROS 2 node.
-- Support YOLOX Pascal VOC model (20 classes) for static object detection.
-- Multi-threaded processing support.
-- Visualization through Foxglove Studio.
+- Demonstrates the usage of the AI library (DRP-AI) wrapped in a ROS 2 node.
+- Supports the YOLOX Pascal VOC model (20 classes) for static object detection.
+- Supports multi-threaded processing.
+- Supports visualization through Foxglove Studio.
 
 .. _required_ros2_packages_object_detection:
 
-RZ/V ROS 2 Packages Used
-^^^^^^^^^^^^^^^^^^^^^^^^^
+The following RZ/V ROS 2 packages are used:
 
 - rzv_model
 - rzv_object_detection
 - foxglove_keypoint_publisher
 
-Quick Setup Instructions
-^^^^^^^^^^^^^^^^^^^^^^^^
+Quick setup instructions:
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_object_detection>` for this application.
 
@@ -58,14 +53,10 @@ Quick Setup Instructions
 
 #. For visualization using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
-   The input layout file for Foxglove Studio is located at: ``rzv_object_detection/config/foxglove/objects_detection.json`` inside the ROS 2 workspace.
+   The input layout file for Foxglove Studio is located at
+   ``rzv_object_detection/config/foxglove/objects_detection.json`` inside the ROS 2 workspace.
 
-Application Details
-^^^^^^^^^^^^^^^^^^^
-
-For more details about the Static Object Detection application, refer to the `README.md in rzv_object_detection package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_object_detection/-/blob/master/README.md?ref_type=heads>`_.
-
-Changelog
-^^^^^^^^^
+For more details about the Static Object Detection application, refer to the
+`README.md in the rzv_object_detection package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_object_detection/-/blob/master/README.md?ref_type=heads>`_.
 
 - v1.0.0 (2025-10-31): Initial release of the Static Object Detection sample application.

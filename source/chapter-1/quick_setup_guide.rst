@@ -1,7 +1,7 @@
 .. _quick_setup_rdk_guide:
 
 Quick start guide for RZ/V2H RDK
-================================
+--------------------------------
 
 This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
 
@@ -10,7 +10,7 @@ Other advanced boot methods, such as **xSPI flash**, are also supported.
 The **TFTP + NFS boot** method is supported as well but is not covered in detail here.
 
 Preparing the microSD card
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Linux image onto it.
 
@@ -20,7 +20,7 @@ There are two options for flashing the image:
 - **Option 2: Flash using Balena Etcher** - A user-friendly GUI tool that supports multiple platforms (Windows, macOS, Linux).
 
 Requirements
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
 - A host machine for flashing the image:
 
@@ -44,7 +44,7 @@ Requirements
      - Block map file for fast flashing with bmaptool
 
 Option 1: Flash using bmaptool (Ubuntu)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""
 
 bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
 It provides quicker flashing compared to traditional methods by skipping empty blocks and verifying data integrity automatically.
@@ -109,7 +109,7 @@ It provides quicker flashing compared to traditional methods by skipping empty b
          sync
 
 Option 2: Flash using Balena Etcher
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""
 
 Balena Etcher is a user-friendly GUI tool to flash OS images to microSD cards and USB drives.
 It provides a simple and safe method.
@@ -147,7 +147,7 @@ It supports many OS platforms, including Windows, macOS, and Linux.
    - **Finish:** Remove the microSD card safely after Etcher reports successful completion.
 
 Boot Mode Configuration (DIP Switch)
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured correctly using the DIP switches.
 
@@ -186,7 +186,7 @@ Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured
    Always power off the board before changing boot switches.
 
 Boot Mode Support
------------------
+^^^^^^^^^^^^^^^^^
 
 The board supports two boot options, including:
 
@@ -237,7 +237,7 @@ The board supports two boot options, including:
     - DC power adapter 24V, 1A.
 
 Common hardware setup
-^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""
 
 The following image shows the common hardware setup for both boot modes:
 
@@ -255,7 +255,7 @@ The setup includes:
 - Ethernet connection for network access
 
 Option 1: microSD card boot mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""
 
 For **microSD card boot mode**, the required bootloaders components are already included in the flashed microSD card image.
 
@@ -310,7 +310,7 @@ The board will start the boot process.
 If you intend to use **microSD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
 
 Option 2: xSPI boot mode
-^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""
 
 Follow the instructions below to set up the board.
 
@@ -503,7 +503,7 @@ Copy the bootloaders files to your Windows PC.
 .. _first_time_boot_setup:
 
 First Time Boot Setup
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 The default user credentials for the provided Ubuntu images are as follows:
 
@@ -578,7 +578,7 @@ Connect an Ethernet cable to the board and run:
 This completes the **Quick Start Guide for RZ/V2H RDK**.
 
 Reference
----------
+^^^^^^^^^
 
 - Advanced Boot Options (xSPI):
   `Renesas RZ/V AI SDK Developer Guide <https://renesas-rz.github.io/rzv_ai_sdk/latest/dev_guide.html#D3>`_

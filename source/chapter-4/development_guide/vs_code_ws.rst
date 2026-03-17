@@ -1,19 +1,19 @@
 .. _ros2_vscode_workspace:
 
 ROS 2 VS Code Workspace Configuration
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section explains the VS Code workspace configuration used for deploying, running, and debugging ROS 2 applications on the Renesas RZ/V2H RDK platform.
 
 Prerequisites
-^^^^^^^^^^^^^
+"""""""""""""
 
 #. Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
 #. Access the Docker container using VS Code and the Dev Containers extension.
 #. Open the ``/home/ubuntu/ros2_ws/`` directory in the Docker container.
 
 Expected Workspace Structure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""
 
 The following workspace structure is expected after cross-building the ROS 2 application:
 
@@ -31,7 +31,7 @@ The following workspace structure is expected after cross-building the ROS 2 app
 If your workspace does not contain the ``.vscode/`` directory, you can copy it manually from the ``$TOOLCHAIN_WS`` directory.
 
 Install Recommended VS Code Extensions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""
 
 Install the extra VS Code extensions recommended for ROS 2 development:
 
@@ -40,7 +40,7 @@ Install the extra VS Code extensions recommended for ROS 2 development:
 #. Install the workspace-recommended extensions, including the **C/C++ Extension Pack** and **Task Buttons**.
 
 VS Code Configuration Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""
 
 VS Code configuration files are located in the ``.vscode/`` directory of your ROS 2 workspace:
 
@@ -60,7 +60,7 @@ By default, the Dockerfile creates these configuration files when the Docker con
 .. _workspace_settings:
 
 Workspace Settings
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 Open the ``settings.json`` file and edit the following variables to match your development environment.
 
@@ -141,7 +141,7 @@ Open the ``settings.json`` file and edit the following variables to match your d
    - Variables marked as **Yes** must be set correctly each time you run the workflow.
 
 Supported VS Code Tasks
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 The following VS Code tasks are available in the workspace.
 
@@ -173,7 +173,7 @@ These tasks are defined in the ``tasks.json`` file and can be executed from the 
      - Cleans all build artifacts, including the ``build``, ``install``, and ``log`` directories.
 
 Task Buttons
-^^^^^^^^^^^^
+""""""""""""
 
 For added convenience, you can use the Task Buttons extension to run these tasks directly from buttons in the VS Code interface.
 

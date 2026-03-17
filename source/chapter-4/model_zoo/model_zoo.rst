@@ -1,5 +1,5 @@
 Model Zoo
-=========
+---------
 
 This section describes the AI model packages available for the RZ/V2H RDK platform.
 
@@ -7,7 +7,7 @@ These packages provide a unified C++ framework for deploying AI models optimized
 enabling high power-efficiency inference on the RZ/V2H architecture.
 
 Overview
---------
+^^^^^^^^
 
 The RZ/V2H RDK AI model ecosystem is organized into the following layers:
 
@@ -17,7 +17,7 @@ The RZ/V2H RDK AI model ecosystem is organized into the following layers:
 - **ROS 2 Utilities** (``rzv_model_utils_ros2``): Helper functions for integrating AI models into ROS 2 applications, including model configuration loading, message encoding, and diagnostics.
 
 Available Packages
-------------------
+^^^^^^^^^^^^^^^^^^
 
 **Core Packages**
 

@@ -1,14 +1,14 @@
 .. _rzv_model_package:
 
 The rzv_model Package
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The **rzv_model** package is a C++ library designed to facilitate the deployment of AI models on the RZ/V2H platform using the DRP-AI driver.
 
 It provides a unified interface for loading, running, and managing various AI models optimized for the RZ/V2H architecture.
 
 Base Framework
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 The **rzv_model** package provides a flexible and modular framework for deploying AI models optimized on DRP-AI driver for the RZ/V2H platform.
 It includes the following core features:
@@ -20,7 +20,7 @@ It includes the following core features:
 - Support for both YUV422 and RGB image formats.
 
 Package Structure
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 The **rzv_model** package is organized into the following structure:
 
@@ -50,7 +50,7 @@ The **rzv_model** package is organized into the following structure:
 - The **CMakeLists.txt** and **package.xml** files are used for building and packaging the library.
 
 Architecture
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 The **rzv_model** package follows a **modular architecture** designed for extensibility, maintainability, and efficient deployment on DRP-AI.
 
@@ -68,14 +68,14 @@ This modular design enables developers to easily integrate new AI models and cus
 .. _how_to_use_rzv_model_package:
 
 How to Use the rzv_model Package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""
 
 To use the **rzv_model** package, you need to prepare the model configuration files, including the compiled model files from the DRP-AI TVM conversion process.
 
 Please follow the steps below to set up and use the **rzv_model** package effectively.
 
 Input Requirements Files
-""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 After completing the :ref:`Exchange AI model <exchange_ai_model>` step, the output should contain the compiled model files including:
 
@@ -130,7 +130,7 @@ This ``output_directory`` folder will be placed under the **config/models** dire
 and the path to the model will be specified in the application configuration.
 
 Post-processing Configuration
-""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Each model may have different post-processing requirements based on its specific task (e.g., object detection, pose estimation).
 
@@ -149,7 +149,7 @@ The details of post-processing configuration are not covered in this section. Pl
     - `Ignitarium Renesas - RZ/V AI Applications <https://github.com/Ignitarium-Renesas/rzv_ai_apps>`_.
 
 Example of Using rzv_model Package
-"""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Load the model and perform inference using the **rzv_model** package with the following code snippet:
 
@@ -168,14 +168,14 @@ Load the model and perform inference using the **rzv_model** package with the fo
 .. _how_to_add_new_model:
 
 How to Add a New Model
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 This section provides a step-by-step guide for adding a new AI model to the RZ/V2H RDK ecosystem.
 
 The process involves creating a new model package, implementing the model-specific logic, preparing the DRP-AI model files, and optionally integrating with ROS 2.
 
 Step 1: Create a New Model Package
-""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create a new ROS 2 / C++ package for your model. The recommended structure is:
 
@@ -204,7 +204,7 @@ In your ``package.xml``, declare the dependency:
     <depend>rzv_model</depend>
 
 Step 2: Define the Result Structure
-"""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Define a result structure that inherits from ``ModelResult``. This structure holds the output of your model's postprocessing.
 
@@ -244,7 +244,7 @@ For pose estimation models, you can reuse the built-in ``KeyPointResult``:
     };
 
 Step 3: Implement the Model Class
-"""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create a model class that inherits from ``BaseModel`` and override the required methods:
 
@@ -309,7 +309,7 @@ Create a model class that inherits from ``BaseModel`` and override the required 
 - ``Utils::non_maximum_suppression_batched()``: Batched NMS for axis-aligned or oriented bounding boxes.
 
 Step 4: Prepare DRP-AI Model Files
-""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Convert your trained model to the DRP-AI compatible format and place the compiled files under the ``config/models`` directory of **your application package**:
 
@@ -338,7 +338,7 @@ Convert your trained model to the DRP-AI compatible format and place the compile
 If you don't use ROS 2 or don't have an application package, you can create a separate folder for your model files and specify the path when loading the model in your code.
 
 Step 5: Load and Run the Model
-""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the model in your application:
 
@@ -381,7 +381,7 @@ Use the model in your application:
     std::cout << "Postprocess: " << result->postprocess_ms << " ms" << std::endl;
 
 Step 6 (Optional): Integrate with ROS 2
-""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To use your new model in a ROS 2 application, you can either:
 
@@ -434,7 +434,7 @@ Then load the model configuration in your ROS 2 node:
     auto class_names = model_config.class_names;
 
 Model Logging
-""""""""""""""
+~~~~~~~~~~~~~~
 
 This package provides logging function to facilitate debugging and information output at runtime with `spdlog <https://github.com/gabime/spdlog>`_.
 
@@ -457,7 +457,7 @@ Usage in your model implementation:
     MODEL_ERROR("Failed to load model: {}", error_msg);
 
 ROS 2 Integration
-""""""""""""""""""
+~~~~~~~~~~~~~~~~~~
 
 This package optionally provides a CMake integration module to simplify usage in ROS 2 packages.
 When enabled, the exported CMake files allow other ROS 2 nodes to link against this model framework using ``find_package(rzv_model)`` and ``ament_target_dependencies``.
@@ -465,7 +465,7 @@ When enabled, the exported CMake files allow other ROS 2 nodes to link against t
 It can also be built as a standalone C++ library using make or CMake without ROS 2 dependencies.
 
 Dependencies
-""""""""""""""
+~~~~~~~~~~~~~~
 
 - OpenCV
 - Renesas DRP-AI Runtime

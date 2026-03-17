@@ -223,10 +223,14 @@ def should_skip(file_path, skip_patterns):
 # Toctree Parsing (with skip support)
 # ============================================================
 
-def parse_toctree(rst_file_path, skip_patterns=None):
+def parse_toctree(rst_file_path, skip_patterns=None, depth=0):
     """
     Parse an RST file, find all toctree directives, and return an ordered
-    list of resolved file paths.
+    list of (file_path, depth) tuples.
+
+    *depth* tracks the nesting level in the toctree hierarchy.  When a file
+    is skipped (content excluded), its children inherit the same depth so
+    that only top-level sections trigger page breaks in the PDF output.
 
     Recursively descends into subfolders when a child file also contains
     toctree directives.  Files/folders matching *skip_patterns* are excluded.
@@ -271,18 +275,29 @@ def parse_toctree(rst_file_path, skip_patterns=None):
             full_path = os.path.normpath(os.path.join(base_dir, entry_with_ext))
 
             # --- Skip checks ---
+            # When a file is skipped, we still recurse into its toctree
+            # so that child documents are included in the output.
+            # Children inherit the same depth (not depth+1) since the
+            # skipped file's content is not emitted.
             if should_skip(full_path, skip_patterns):
-                print(f"  SKIPPED: {full_path}")
+                print(f"  SKIPPED (content only): {full_path}")
+                if os.path.exists(full_path):
+                    ordered_files.extend(
+                        parse_toctree(full_path, skip_patterns, depth))
                 continue
 
             if should_skip(entry, skip_patterns):
-                print(f"  SKIPPED (by entry name): {entry}")
+                print(f"  SKIPPED (by entry name, content only): {entry}")
+                if os.path.exists(full_path):
+                    ordered_files.extend(
+                        parse_toctree(full_path, skip_patterns, depth))
                 continue
             # -------------------
 
             if os.path.exists(full_path):
-                ordered_files.append(full_path)
-                ordered_files.extend(parse_toctree(full_path, skip_patterns))
+                ordered_files.append((full_path, depth))
+                ordered_files.extend(
+                    parse_toctree(full_path, skip_patterns, depth + 1))
             else:
                 # Try treating the entry as a folder with an index.rst inside
                 folder_index = os.path.normpath(
@@ -290,12 +305,16 @@ def parse_toctree(rst_file_path, skip_patterns=None):
                 )
 
                 if should_skip(folder_index, skip_patterns):
-                    print(f"  SKIPPED (folder): {folder_index}")
+                    print(f"  SKIPPED (folder, content only): {folder_index}")
+                    if os.path.exists(folder_index):
+                        ordered_files.extend(
+                            parse_toctree(folder_index, skip_patterns, depth))
                     continue
 
                 if os.path.exists(folder_index):
-                    ordered_files.append(folder_index)
-                    ordered_files.extend(parse_toctree(folder_index, skip_patterns))
+                    ordered_files.append((folder_index, depth))
+                    ordered_files.extend(
+                        parse_toctree(folder_index, skip_patterns, depth + 1))
                 else:
                     print(f"WARNING: Cannot resolve toctree entry: {entry}")
                     print(f"  Tried: {full_path}")
@@ -335,6 +354,53 @@ def get_chapter_from_path(file_path):
     return None
 
 
+# RST heading underline characters in order of precedence (highest to lowest).
+RST_HEADING_CHARS = ['=', '-', '~', '^', '"']
+
+
+def demote_rst_headings(content, levels):
+    """
+    Demote all RST headings in *content* by *levels* steps.
+
+    RST headings are detected as a text line followed by an underline of the
+    same length using one of the characters in RST_HEADING_CHARS.  Each
+    heading's underline character is shifted down in the precedence list.
+    """
+    if levels <= 0:
+        return content
+
+    lines = content.split('\n')
+    result = []
+    i = 0
+
+    while i < len(lines):
+        # Check if this line is a heading: non-empty text line followed by
+        # an underline of the same length using a heading character.
+        if (i + 1 < len(lines)
+                and lines[i].strip()
+                and not lines[i].startswith(' ')
+                and not lines[i].startswith('\t')
+                and not lines[i].startswith('..')):
+            underline = lines[i + 1]
+            if (len(underline) >= len(lines[i].strip())
+                    and underline.strip()
+                    and len(set(underline.strip())) == 1
+                    and underline.strip()[0] in RST_HEADING_CHARS):
+                char = underline.strip()[0]
+                idx = RST_HEADING_CHARS.index(char)
+                new_idx = min(idx + levels, len(RST_HEADING_CHARS) - 1)
+                new_char = RST_HEADING_CHARS[new_idx]
+                result.append(lines[i])
+                result.append(new_char * len(underline))
+                i += 2
+                continue
+
+        result.append(lines[i])
+        i += 1
+
+    return '\n'.join(result)
+
+
 # ============================================================
 # Dump / Combine RST Files (with skip support)
 # ============================================================
@@ -358,8 +424,8 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
     print("=" * 60)
     print("Resolved toctree order (after skip filtering):")
     print("=" * 60)
-    for i, f in enumerate(ordered_files, 1):
-        print(f"  {i:3d}. {f}")
+    for i, (f, d) in enumerate(ordered_files, 1):
+        print(f"  {i:3d}. [depth={d}] {f}")
     print("=" * 60)
 
     if skip_patterns:
@@ -372,19 +438,24 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
 
     with open(output_file, "a", encoding="utf-8") as outfile:
         # 1. Write the root index.rst first (without tip blocks and toctrees)
-        with open(root_index, "r", encoding="utf-8") as f:
-            content = f.read()
-            content = remove_toctree_directives(content)
-            content = remove_directive_blocks(content, "tip")
-            outfile.write(content + "\n\n")
+        if not should_skip(root_index, skip_patterns):
+            with open(root_index, "r", encoding="utf-8") as f:
+                content = f.read()
+                content = remove_toctree_directives(content)
+                content = remove_directive_blocks(content, "tip")
+                outfile.write(content + "\n\n")
+        else:
+            print(f"  SKIPPED (content only): {root_index}")
 
         # 2. Write each file in toctree order
-        for rst_path in ordered_files:
+        for rst_path, depth in ordered_files:
             chapter = get_chapter_from_path(rst_path)
             if chapter and chapter != current_chapter:
-                if current_chapter is not None:
-                    outfile.write("\n<<<\n\n")
                 current_chapter = chapter
+
+            # Page break only before top-level sections (depth 0)
+            if depth == 0:
+                outfile.write("\n<<<\n\n")
 
             with open(rst_path, "r", encoding="utf-8") as f:
                 content = f.read()

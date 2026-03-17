@@ -1,5 +1,5 @@
 Advanced Setup
-==============
+--------------
 
 This section describes the steps to boot RZ/V2H RDK with root file system stored on an SSD.
 

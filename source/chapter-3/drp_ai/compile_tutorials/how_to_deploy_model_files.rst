@@ -1,14 +1,14 @@
 .. _how_to_deploy_model_files:
 
 How to Deploy Model Files
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 After you compile your AI model by using the DRP-AI TVM extension package, you can deploy the generated model files to the RZ/V2H RDK.
 
 This section provides a step-by-step guide for deploying the model files.
 
 Collect the model files
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 After compiling the model, you will obtain the following files.
 
@@ -65,7 +65,7 @@ They are using for other purposes, such as debugging or reference for the model 
 You can safely ignore them or copy them to the board when deploying the model files.
 
 Calculate the memory size used by the model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""
 
 To enable multiple AI models running simultaneously with the DRP-AI driver, a special file called ``addr_map.txt`` is required, **it is different from the one generated in the output_directory** folder.
 
@@ -116,7 +116,7 @@ The correct file to use is the one with the largest memory address allocation, c
 - Copy this ``addr_map.txt`` file to the top-level directory of the model configuration folder, which will be used for deployment on the RZ/V2H RDK board.
 
 Final model configuration for deployment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""""
 
 After you have the model files and the correct ``addr_map.txt`` file, you can construct the final model configuration for deployment on the RZ/V2H RDK board.
 

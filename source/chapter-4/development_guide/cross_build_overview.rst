@@ -1,10 +1,10 @@
 Cross compilation the Application for RZ/V2H RDK
-------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section provides the overview of cross-building applications for the Renesas RZ/V2H RDK platform.
 
 What is Cross-building?
-^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""
 
 Cross-building is the process of compiling software on a host system to run on a different target system.
 
@@ -19,7 +19,7 @@ In this case, we will be cross-building applications on a development machine (U
    However, **the cross-build environment can also be used to build non-ROS applications**, provided they are compatible with the RZ/V2H RDK Linux image and the supplied toolchain.
 
 How ROS 2 Cross-building Works
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""
 
 .. figure:: ../../images/cross_build_overview.png
    :alt: System Overview
@@ -45,7 +45,7 @@ The overall workflow is:
    You can think of the ARM64 sysroot with QEMU emulation as a "virtual RZ/V2H RDK environment" inside the Docker container, which allows you to install dependencies or execute any command via ``rzv2h-chroot`` as if you were directly working on the RZ/V2H RDK.
 
 Limitations
-^^^^^^^^^^^
+"""""""""""
 
 - Command execution inside the chroot environment may be slower due to QEMU emulation. Please be patient when running commands.
 - Only one chroot instance can run simultaneously within the Docker container.

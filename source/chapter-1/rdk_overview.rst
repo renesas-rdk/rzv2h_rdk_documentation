@@ -1,5 +1,5 @@
 Overview
-========
+--------
 
 WS125 Robotic Development Kit is a solution with Renesas new generation `RZ/V2H MPU <https://www.renesas.com/en/products/rz-v2h?tab=overview>`_ for AI application,
 which has AI inference processing performance of up to 80TOPS with multi-core CPU to run multiple OS
@@ -9,7 +9,7 @@ It is also equipped with many interfaces that make it suitable for development a
 robotic applications.
 
 Software Environment
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -25,7 +25,7 @@ Software Environment
      - Tested with **ROS 2 Jazzy**
 
 Hardware Environment
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
    :header-rows: 1
@@ -97,12 +97,12 @@ highlighting its main connectors and interfaces.
    RZ/V2H RDK Bottom View
 
 Development Environment
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 When setting up the development environment for the RZ/V2H RDK, it is important to have the necessary hardware components and software tools in place. Below is an overview of the required items and their descriptions.
 
 RZ/V2H RDK
-^^^^^^^^^^
+""""""""""
 
 .. list-table::
    :widths: 20 80
@@ -123,7 +123,7 @@ RZ/V2H RDK
        Supported format: 'YUYV' (YUYV 4:2:2)
 
 Common
-^^^^^^
+""""""
 
 .. list-table::
    :widths: 20 80

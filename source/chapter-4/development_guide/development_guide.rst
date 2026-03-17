@@ -1,7 +1,7 @@
 .. _development_guide:
 
 Application Development Guide
-=============================
+-----------------------------
 
 This section covers the development of applications on the Renesas RZ/V2H RDK platform, including setup, cross-build, debug, and deploy the application.
 
