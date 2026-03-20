@@ -118,6 +118,14 @@ Pin Out Diagram
 I2C (Inter-Integrated Circuit)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. note::
+
+   Before using the I2C interface from the 40-pin header, update the device tree source file (``rzv2h-rdk-ver1.dts``) by changing the ``&rsci_i2c7`` node status from ``disabled`` to ``okay``.
+
+   Then :ref:`rebuild the device tree blob <linux_kernel_and_device_tree>` and copy the updated blob to the ``/boot/dtb/renesas/`` directory on the target board.
+
+   Besides, do not enable ``#enable_overlay_audio_codec=1``, as it uses I2C7 for the audio codec.
+
 The I2C interface allows communication with multiple slave devices using just two wires: SDA (data line) and SCL (clock line).
 
 It is commonly used for connecting sensors, displays, and other peripherals.
