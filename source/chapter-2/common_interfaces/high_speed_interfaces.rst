@@ -106,21 +106,21 @@ Set up the MIPI-CSI interface
 
 Before using the MIPI-CSI interface, configure the camera properties first.
 
-For example, to use the OV5645 camera module, create and run the `v4l2_init.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/linux_utils/mipi_camera/v4l2_init.sh?ref_type=heads>`_ script in the terminal:
+For example, to use the OV5645 camera module, create and run the `v4l2-init.sh <https://github.com/Renesas-SST/meta-renesas/raw/refs/heads/styhead/rz-cmn/recipes-extend/v4l2-init/files/v4l2-init.sh>`_ script in the terminal:
 
 .. code-block:: bash
 
    # Install necessary packages
    sudo apt install v4l-utils
 
-   # Download the v4l2_init.sh script
+   # Download the v4l2-init.sh script
    wget https://github.com/Renesas-SST/meta-renesas/raw/refs/heads/styhead/rz-cmn/recipes-extend/v4l2-init/files/v4l2-init.sh
 
    # Make the script executable
-   chmod +x v4l2_init.sh
+   chmod +x v4l2-init.sh
 
    # Run the script to initialize the camera
-   ./v4l2_init.sh
+   ./v4l2-init.sh
 
 This script detects the connected camera module and sets the desired resolution.
 

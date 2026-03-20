@@ -55,9 +55,9 @@ Prerequisites
 #. Boot the RZ/V2H RDK board with the default Ubuntu image, ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``. For instructions on how to prepare the SD card and boot the board, refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
 #. Connect the RZ/V2H RDK board to a monitor by using the micro-HDMI interface, and make sure that the board is powered on.
 
-   The following image shows the RZ/V2H RDK connected to a monitor:
+   The following image shows the RZ/V2H RDK connected to a monitor as well as a MIPI-CSI/USB camera for video capture.
 
-   .. figure:: ../../images/ubuntu_desktop_setup.png
+   .. figure:: ../../images/video_codec_setup.png
       :align: center
       :alt: RZ/V2H RDK setting up with a monitor
 
@@ -133,14 +133,14 @@ Set up the MIPI camera by using the following command:
    # Install necessary packages if they are not already installed.
    sudo apt install v4l-utils -y
 
-   # Download the v4l2_init.sh script
+   # Download the v4l2-init.sh script
    wget https://github.com/Renesas-SST/meta-renesas/raw/refs/heads/styhead/rz-cmn/recipes-extend/v4l2-init/files/v4l2-init.sh
 
    # Make the script executable
-   chmod +x v4l2_init.sh
+   chmod +x v4l2-init.sh
 
    # Run the script to initialize the camera
-   ./v4l2_init.sh
+   ./v4l2-init.sh
 
 Start the video capture from the MIPI camera. Replace the video format with the appropriate format if necessary.
 
