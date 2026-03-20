@@ -35,9 +35,8 @@ To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
    .. code-block:: bash
 
-      wget https://raw.githubusercontent.com/renesas-rz/TODO_UPDATE_REPO/main/TODO_UPDATE_PATH/install_opencv_arm64.sh
-      chmod +x install_opencv_arm64.sh
-      sudo ./install_opencv_arm64.sh
+      wget -qO install_opencv_arm64.sh https://raw.githubusercontent.com/renesas-rdk/rzv2h_opencv_accelerated_debs/main/install_opencv_arm64.sh
+      sudo bash install_opencv_arm64.sh
 
    The script will install all OpenCVA Debian packages, resolve any missing dependencies, and verify the installation automatically.
 
@@ -45,7 +44,7 @@ To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
       The installation process may report missing dependencies during the ``dpkg`` step. This is expected and will be resolved automatically by the script.
 
-    After script execution, the OpenCVA library and its dependencies will be installed on your RZ/V2H RDK, and you can start using it in your computer vision applications.
+   After script execution, the OpenCVA library and its dependencies will be installed on your RZ/V2H RDK, and you can start using it in your computer vision applications.
 
 How to Use OpenCVA
 ^^^^^^^^^^^^^^^^^^
@@ -83,7 +82,7 @@ The following table lists the OpenCV functions that can be executed using DRP in
    * - morphologyEX
      - Combination of dilate and erode.
    * - filter2D
-     - Image convolution..
+     - Image convolution.
    * - Sobel
      - Extracting image edges.
    * - adaptiveThreshold

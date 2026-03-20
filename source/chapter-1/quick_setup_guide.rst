@@ -549,24 +549,24 @@ Connect an Ethernet cable to the board and run:
 
 #. Install the ROS 2 Jazzy:
 
-   We provide the script called: `common_utils/ros2_utils/apt_install_ros2.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/ros2_utils/apt_install_ros2.sh?ref_type=heads>`_ to install ROS 2 Jazzy packages on the target system.
+   Install ROS 2 Jazzy on the CA55 core (Ubuntu side). You can find and use the provided script here: `apt_install_ros2.sh <https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh>`_.
 
-   Please download the script to the target system and run the following commands:
+   Quick installation steps:
 
-   .. code-block:: bash
+   .. code-block::
 
+      wget https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh
       chmod +x apt_install_ros2.sh
       sudo ./apt_install_ros2.sh
 
-   For more details about the ROS 2 Jazzy installation, please refer to the `ROS 2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+   For detailed installation instructions, refer to the official ROS 2 documentation: `ROS 2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
 
-#. (Recommended) Install the :ref:`RZ/V2H OpenCV Accelerator <opencva>` optimized for Ubuntu 24.04 on the RZ/V2H RDK.
+#. **(Highly Recommended)** Install the :ref:`RZ/V2H OpenCV Accelerator <opencva>` optimized for Ubuntu 24.04 on the RZ/V2H RDK.
 
    .. code-block:: bash
 
-      wget https://raw.githubusercontent.com/renesas-rz/TODO_UPDATE_REPO/main/TODO_UPDATE_PATH/install_opencv_arm64.sh
-      chmod +x install_opencv_arm64.sh
-      sudo ./install_opencv_arm64.sh
+      wget -qO install_opencv_arm64.sh https://raw.githubusercontent.com/renesas-rdk/rzv2h_opencv_accelerated_debs/main/install_opencv_arm64.sh
+      sudo bash install_opencv_arm64.sh
 
 #. (Optional) Add the ROS 2 environment setup to ``.bashrc``:
 

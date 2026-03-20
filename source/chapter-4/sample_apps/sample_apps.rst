@@ -26,9 +26,11 @@ Before running any sample application, ensure that you have completed the follow
 
    .. code-block:: bash
 
-      rosdep install --from-paths <path/to>/install/*/share -y -r --ignore-src
+      cd /home/ubuntu/ros2_ws
+      source /opt/ros/jazzy/setup.bash
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
 
-   Replace ``<path/to>/install/`` with the actual path to the ``install/`` directory on your RZ/V2H RDK board.
+   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
 
 #. (Optional) If you have the real robot hardware, set up the robot arm or hand according to the instructions provided in the respective sample application sections.
 

@@ -379,8 +379,9 @@ During development, the most common workflow is:
 
    .. code-block:: bash
 
+      cd /home/ubuntu/ros2_ws
       source /opt/ros/jazzy/setup.bash
-      rosdep install --from-paths /home/ubuntu/ros2_ws/install/*/share -y -r --ignore-src
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
 
 #. Run the application on the target, or start a remote run or debug session from VS Code.
 
@@ -422,8 +423,9 @@ Troubleshooting
 
    .. code-block:: bash
 
+      cd /home/ubuntu/ros2_ws
       source /opt/ros/jazzy/setup.bash
-      rosdep install --from-paths /home/ubuntu/ros2_ws/install/*/share -y -r --ignore-src
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
 
 #. Build fails because sysroot dependencies are missing
 

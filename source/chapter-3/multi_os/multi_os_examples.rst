@@ -32,7 +32,15 @@ Software supported
 Package Specification
 """""""""""""""""""""
 
-TODO: Update link to each package as well as note for long path package
+The following table provides an overview of the Multi-OS example packages, including their target cores, operating systems, and main functionalities.
+
+You can access the source code and detailed documentation for each package through the provided links.
+
+.. important::
+
+   Please use the shortest path possible. If you place the project in a deeply nested path, you may encounter issues when building the project with e² studio.
+
+   The recommended workspace path for e² studio on Windows is ``C:\rzv2h_e2_workspace``.
 
 .. list-table::
    :header-rows: 1
@@ -41,33 +49,27 @@ TODO: Update link to each package as well as note for long path package
    * - **Package**
      - **Target Core**
      - **Purpose / Description**
-   * - Micro XRCE-DDS Agent
+   * - `Micro XRCE-DDS Agent <https://github.com/renesas-rdk/Micro-XRCE-DDS-Agent>`_
      - CA55 (Linux)
      - Provides the middleware agent running on the Linux core (CA55) for communication
 
        between Micro-ROS clients (running on RTOS CR8_0 core) and the ROS 2 environment on Linux via the XRCE-DDS protocol.
-   * - RZ/V2H RDK Blinky
+   * - `RZ/V2H RDK Blinky <https://github.com/renesas-rdk/rzv2h_rdk_blinky>`_
      - CM33 (RTOS)
      - A simple LED blinking demo running on the CM33 core that verifies basic GPIO functionality
 
        and confirms that the RTOS environment is running correctly on the RZ/V2H RDK.
-   * - RZ/V2H RDK CM33
-
-       RPMsg Linux-RTOS Demo
+   * - `RZ/V2H RDK CM33 RPMsg Linux-RTOS Demo <https://github.com/renesas-rdk/rzv2h_rdk_cm33_rpmsg_linux_rtos_demo>`_
      - CM33 (RTOS)
      - Demonstrates inter-core communication (RPMsg) between the Linux core (CA55) and the CM33 RTOS core,
 
        showing message exchange and synchronization.
-   * - RZ/V2H RDK CR8 Core0
-
-       RPMsg Linux-RTOS Demo
+   * - `RZ/V2H RDK CR8 Core0 RPMsg Linux-RTOS Demo <https://github.com/renesas-rdk/rzv2h_rdk_cr8_core0_rpmsg_linux_rtos_demo>`_
      - CR8_0 (RTOS)
      - Demonstrates RPMsg-based communication between the Linux core (CA55) and the CR8_0 real-time core,
 
        validating message passing and core coordination.
-   * - RZ/V2H RDK CR8 Core0
-
-       RPMsg Micro-ROS Demo
+   * - `RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo <https://github.com/renesas-rdk/rzv2h_rdk_cr8_core0_rpmsg_microros_demo>`_
      - CR8_0 (RTOS)
      - Showcases Micro-ROS running on the CR8_0 real-time core, integrating the uROS client
 
@@ -210,6 +212,21 @@ uROS and Custom Micro XRCE-DDS Agent
 
 This section describes how to run the Micro-ROS Client demo and the custom XRCE-DDS RPMsg Agent.
 
+Prerequisite
+~~~~~~~~~~~~
+
+Install ROS 2 Jazzy on the CA55 core (Ubuntu side). You can find and use the provided script here: `apt_install_ros2.sh <https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh>`_.
+
+Quick installation steps:
+
+.. code-block::
+
+   wget https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh
+   chmod +x apt_install_ros2.sh
+   sudo ./apt_install_ros2.sh
+
+For detailed installation instructions, refer to the official ROS 2 documentation: `ROS 2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+
 Cross Compile the Micro XRCE-DDS Agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -246,21 +263,7 @@ Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the
 
    Replace ``/path/to/Micro-XRCE-DDS-Agent`` with the actual path on your host machine where the repository is located.
 
-#. Inside the Docker container, navigate to the Micro-XRCE-DDS-Agent directory and install the necessary dependencies:
-
-   .. code-block:: bash
-
-      cd Micro-XRCE-DDS-Agent/
-      rzv2h-chroot apt update
-      rzv2h-chroot apt install -y libsysfs-dev
-
-   .. note::
-
-      The ``rzv2h-chroot`` command is a helper script provided in the Docker image that allows you to install packages in the chroot environment used for cross-compilation.
-
-      More detail about the cross-compilation environment can be found in the TODO.
-
-#. Navigate to the directory ``Micro-XRCE-DDS-Agent/``.
+#. Navigate to the ``Micro-XRCE-DDS-Agent`` directory inside the Docker container:
 
    .. code-block:: bash
 
@@ -272,8 +275,6 @@ Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the
 
       mkdir build && cd build
 
-      # Disable logger profile due to SDK incompatibility with spdlog
-      # Enable usage examples to build the CustomXRCEAgent
       cmake .. -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAINS_WS/cross.cmake \
                -DUAGENT_BUILD_USAGE_EXAMPLES=ON \
                -DUAGENT_LOGGER_PROFILE=OFF \
@@ -282,6 +283,12 @@ Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the
 
       make -j$(nproc)
       make install
+
+   .. note::
+
+      Note that the ``-DUAGENT_LOGGER_PROFILE`` is set to ``OFF`` due to incompatibility during cross-building.
+
+      If you want to see the logs, please build the libraries natively on the RZ/V2H RDK without the ``-DUAGENT_LOGGER_PROFILE=OFF`` flag.
 
 #. Wait until the build process completes.
 
@@ -346,8 +353,12 @@ Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the
 
 #. On another terminal, use the following ROS 2 commands to verify communication:
 
+   .. note::
+      Because the custom Micro XRCE-DDS Agent bridges the CR8 core and the ROS 2 environment on Linux by using ``sudo`` privileges, you must also run ROS 2 commands with ``sudo`` to view the relevant topics and messages.
+
    .. code-block:: bash
 
+      sudo su
       source /opt/ros/jazzy/setup.bash
       ros2 topic list
       ros2 topic echo /cr8/heartbeat
@@ -360,6 +371,7 @@ Before running the Micro-ROS demo on the CR8 core, you need to cross-compile the
 
 .. code-block:: bash
 
+   sudo su
    source /opt/ros/jazzy/setup.bash
    ros2 topic list
 
@@ -391,14 +403,13 @@ Example output:
 Troubleshooting
 """""""""""""""
 
-#. ``rpmsg_sample_client``: error while loading shared libraries: ``libsysfs.so.2``: cannot open shared object file: No such file or directory
+#. **Can't see the heartbeat topic or data?**
 
-   Please install the ``libsysfs-dev`` package on the target board by running:
+   Make sure you have run the CustomXRCEAgent with ``sudo`` privileges and that the agent is running without errors.
 
-   .. code-block:: bash
+   Check the terminal where you ran the CustomXRCEAgent for any error messages or logs that might indicate issues with the agent or communication.
 
-      sudo apt update
-      sudo apt install -y libsysfs-dev
+   Also, ensure that you are running the ROS 2 commands with ``sudo`` privileges to access the topics bridged by the agent.
 
 #. **Can't open the configuration.xml of CR8 e² studio project?**
 

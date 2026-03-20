@@ -127,9 +127,11 @@ Deploy and Run on the Board
 
    .. code-block:: bash
 
-      rosdep install --from-paths <path/to>/install/*/share -y -r --ignore-src
+      cd /home/ubuntu/ros2_ws
+      source /opt/ros/jazzy/setup.bash
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
 
-   Replace ``<path/to>/install/`` with the actual path to the ``install/`` directory on the board.
+   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
 
 #. Connect a compatible USB camera to the RZ/V2H RDK board if the application requires camera input.
 
