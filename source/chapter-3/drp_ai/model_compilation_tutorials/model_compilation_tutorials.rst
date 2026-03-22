@@ -7,7 +7,7 @@ Make sure you have completed the steps in the :ref:`BYOM AI model support <byom_
 
 .. _tutorial_prerequisites:
 
-**Prequisites**
+**Prerequisites**
 
 On the development machine, which has the DRP-AI TVM environment, clone the `Hand Models <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/ai/hand_models.git>`_ repository, which contains the necessary model files and conversion scripts for the tutorials.
 
