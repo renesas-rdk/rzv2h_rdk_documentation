@@ -15,4 +15,4 @@ This section provides an overview of the DRP-AI (Dynamically Reconfigurable Proc
    compile_tutorials/how_to_compile_sample_model
    compile_tutorials/how_to_compile_your_own_model
    compile_tutorials/how_to_deploy_model_files
-   model_compilalation_tutorials/model_compilalation_tutorials
+   model_compilation_tutorials/model_compilation_tutorials
