@@ -36,34 +36,120 @@ Required software
 Docker environment setup
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Pull the latest Docker image provided by Renesas RDK for cross-development. The image includes the required software and toolchain files for cross-compilation.
+#. Run the setup script to create the Docker-based cross-compilation environment.
 
    .. code-block:: bash
 
-      docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
+      wget https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
+      chmod +x setup_rdk_docker.sh
 
-#. Create the mount point for sharing the ROS 2 workspace between the host machine and the Docker container.
-
-   .. code-block:: bash
-
-      export ROS2_WS=~/ros2_ws
-      mkdir -p $ROS2_WS
-
-   Replace ``$ROS2_WS`` with the actual path where you want to create your ROS 2 workspace on the host machine.
-
-#. Create and run a Docker container from the pulled image to set up the cross-compilation environment.
+   Then run it:
 
    .. code-block:: bash
 
-      docker run -it --name ros2_cross_build_container -v $ROS2_WS:/home/ubuntu/ros2_ws ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
+      ./setup_rdk_docker.sh
 
-   After this step, the Docker container is ready to use, and the ``ros2_ws`` directory is shared with the host machine for reuse.
+   The setup script performs the following tasks:
+
+   - checks whether the Docker image already exists locally
+   - compares the local image digest with the remote image digest when ``docker buildx`` is available
+   - pulls the image only if needed or if the remote image differs
+   - creates the ROS 2 workspace mount point on the host machine
+   - creates and starts the Docker container
+   - optionally prepares the ROS 2 workspace inside the container
+
+   The script supports command-line options for non-interactive use:
+
+   .. code-block:: bash
+
+      ./setup_rdk_docker.sh [options]
+
+   .. list-table:: Command-Line Options
+      :widths: 35 65
+      :header-rows: 1
+
+      * - Option
+        - Description
+      * - ``-i, --image IMAGE``
+        - Docker image to use (default: ``ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest``)
+      * - ``-n, --container-name NAME``
+        - Container name (default: ``ros2_cross_build_container``)
+      * - ``-w, --workspace PATH``
+        - Host ROS 2 workspace path (default: ``$HOME/ros2_ws``)
+      * - ``-y, --yes``
+        - Non-interactive mode; accept yes for all confirmations
+      * - ``--pull``
+        - Automatically pull or update the image if needed
+      * - ``--create``
+        - Automatically create and start the container if needed
+      * - ``--prep``
+        - Automatically prepare the workspace inside the container
+      * - ``--shell``
+        - Open a shell inside the container after setup
+      * - ``-h, --help``
+        - Show usage information
+
+   Example of fully non-interactive usage:
+
+   .. code-block:: bash
+
+      ./setup_rdk_docker.sh -n my_container -w ~/ros2_ws -y --pull --create --prep
+
+   .. note::
+
+      The script can be reused to create additional containers. Each container
+      must have a unique name. If a container with the specified name already
+      exists, the script exits with an error and suggests removing the existing
+      container or choosing a different name.
+
+#. Provide the required information when prompted.
+
+   When run without command-line options, the script asks for:
+
+   - the Docker container name (default: ``ros2_cross_build_container``)
+   - the ROS 2 workspace path on the host machine (default: ``$HOME/ros2_ws``)
+
+   If you press ``Enter`` without typing a value, the default value is used.
+
+   Example:
+
+   .. code-block:: bash
+
+      Enter container name [default: ros2_cross_build_container]:
+      Enter ROS 2 workspace path on host [default: /home/user/ros2_ws]:
+
+   The script then displays the configuration summary and asks for confirmation
+   before proceeding.
+
+#. Prepare the ROS 2 workspace inside the Docker container.
+
+   During execution, the script prompts whether to prepare the ROS 2 workspace inside the container.
+
+   This step is required the first time you use a workspace with the container and when mounting
+   a new workspace path.
+
+   If you choose to run it, the script executes:
+
+   .. code-block:: bash
+
+      docker exec "$CONTAINER_NAME" bash -c "
+          sudo chown -R ubuntu:ubuntu /home/ubuntu/ros2_ws &&
+          cp -r /home/ubuntu/toolchains/.vscode /home/ubuntu/ros2_ws/ &&
+          cp /home/ubuntu/toolchains/.clang-format /home/ubuntu/ros2_ws/
+      "
 
 #. Access the Docker container from a terminal.
 
+   After the script completes, it offers to open a shell inside the container.
+   If you decline or if the script finishes without opening a shell, access the
+   container with:
+
    .. code-block:: bash
 
-      docker exec -it ros2_cross_build_container bash
+      docker exec -it <container_name> bash
+
+   Replace ``<container_name>`` with the name you chose during setup
+   (default: ``ros2_cross_build_container``).
 
 #. Inside the container, go to your ROS 2 workspace.
 
@@ -79,7 +165,7 @@ After the Docker container is running, you can connect to it directly from VS Co
 #. Open VS Code on the host machine.
 #. Open the Command Palette ``(Ctrl+Shift+P)``.
 #. Run **Remote-Containers: Attach to Running Container...**
-#. Select ``ros2_cross_build_container`` from the list of running containers.
+#. Select ``$CONTAINER_NAME`` from the list of running containers.
 #. Once connected, open the ``/home/ubuntu/ros2_ws`` directory inside the container.
 
 This allows you to edit source files, use the integrated terminal, and work directly inside the cross-compilation environment from VS Code.

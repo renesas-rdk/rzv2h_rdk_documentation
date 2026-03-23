@@ -147,7 +147,7 @@ Method 1: Modify the Device Tree Source
 Method 2: Disable the Overlay via uEnv.txt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the peripheral is enabled through a device tree overlay, you can disable it without rebuilding the kernel.
+If the peripheral is enabled through a device tree overlay, you can disable it without rebuilding the device tree.
 
 #. Open the U-Boot environment file on the target board:
 
