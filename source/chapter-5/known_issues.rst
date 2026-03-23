@@ -29,3 +29,19 @@ Known Issues
    Some SD cards may not function correctly with the RZ/V2H RDK, leading to issues such as failure to boot or read/write errors.
 
    To ensure compatibility, use **SD cards that support high-speed mode** from reputable brands such as SanDisk, Samsung, or Kingston.
+
+#. **The Ethernet may not work properly when booting up the board**
+
+   The following error may occur when booting Ubuntu 24.04 on the RZ/V2H RDK, causing no Internet connection even though the Ethernet cable is connected:
+
+   .. code-block:: bash
+
+      [   17.664297] dwc-eth-dwmac 15c30000.ethernet end0: __stmmac_open: Cannot attach to PHY (error: -110)
+
+   To resolve this issue:
+
+   #. Power off the board.
+   #. Unplug the Ethernet cable.
+   #. Power on the board.
+   #. Wait until the system fully boots.
+   #. Plug the Ethernet cable back in.

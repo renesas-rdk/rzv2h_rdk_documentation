@@ -520,10 +520,6 @@ The default user credentials for the provided Ubuntu images are as follows:
 
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
 
-.. note::
-
-   The next operation is required **only once**, immediately after flashing the new root filesystem.
-
 Connect an Ethernet cable to the board and run:
 
 .. code-block:: bash
@@ -531,6 +527,18 @@ Connect an Ethernet cable to the board and run:
    # Check network
    ping 8.8.8.8 -c 3
    ping bing.com -c 3
+
+.. note::
+
+   The following error may occur during boot, causing no Internet connection even though the Ethernet cable is connected:
+
+   .. code-block:: text
+
+      ubuntu@ubuntu:~$ dmesg | grep error
+      [   17.664297] dwc-eth-dwmac 15c30000.ethernet end0: __stmmac_open: Cannot attach to PHY (error: -110)
+
+   To resolve this issue, power off the board, unplug the Ethernet cable, power it on,
+   wait until the system fully boots, then plug the Ethernet cable back in.
 
 #. Perform apt update and resize the microSD card:
 
