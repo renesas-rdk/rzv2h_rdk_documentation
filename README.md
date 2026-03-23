@@ -29,6 +29,15 @@ Refer to the official [Docker installation guide](https://docs.docker.com/engine
 
 1. Clone the repository and change the workspace to the cloned directory:
 
+    Install ``git-lfs`` if not available (must be installed **before** cloning):
+
+    ```bash
+    sudo apt update
+    sudo apt install git-lfs
+    ```
+
+    Clone the repo (LFS files will be pulled automatically):
+
     ```bash
     git clone https://github.com/renesas-rdk/rzv2h_rdk_documentation.git
     cd rzv2h_rdk_documentation
