@@ -7,6 +7,100 @@ import subprocess
 from pypdf import PdfWriter
 
 # ============================================================
+# Ordered List Continuation Fix
+# ============================================================
+
+def fix_ordered_list_continuations(content):
+    """
+    Fix ordered list items that use multiple '+' continuations.
+
+    Pandoc converts RST enumerated lists into AsciiDoc using '+' list
+    continuation markers.  When a list item contains nested bullet lists,
+    code blocks, or admonition blocks, the '+' chain breaks and the '+'
+    characters appear literally in the PDF output.
+
+    This function wraps continuation content in open blocks (-- … --)
+    so that all content stays attached to the list item without needing
+    individual '+' markers.
+    """
+    lines = content.split('\n')
+    result = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Match an ordered list item: `. text`, `.. text`, etc.
+        if re.match(r'^\.{1,5}\s+\S', line):
+            result.append(line)
+            i += 1
+
+            # Check whether the next line is a '+' continuation
+            if i < len(lines) and lines[i].strip() == '+':
+                # Look ahead to count '+' lines until the next list item
+                # or section header (outside code / admonition blocks).
+                j = i
+                plus_count = 0
+                in_code = False
+                while j < len(lines):
+                    stripped = lines[j].strip()
+                    if stripped == '----':
+                        in_code = not in_code
+                    if not in_code:
+                        if re.match(r'^\.{1,5}\s+\S', lines[j]) or \
+                           re.match(r'^={1,6}\s+\S', lines[j]):
+                            break
+                        if stripped == '+':
+                            plus_count += 1
+                    j += 1
+
+                if plus_count >= 2:
+                    # Multiple continuations → wrap in an open block
+                    result.append('+')
+                    result.append('--')
+                    i += 1  # skip the first '+'
+
+                    in_code_block = False
+                    in_admonition = False
+                    while i < len(lines):
+                        stripped = lines[i].strip()
+
+                        # End of this list item?
+                        if not in_code_block and not in_admonition:
+                            if re.match(r'^\.{1,5}\s+\S', lines[i]) or \
+                               re.match(r'^={1,6}\s+\S', lines[i]):
+                                # Strip trailing blank lines inside the block
+                                while result and result[-1].strip() == '':
+                                    result.pop()
+                                result.append('--')
+                                result.append('')  # blank line before next element
+                                break
+
+                        if stripped == '----':
+                            in_code_block = not in_code_block
+                            result.append(lines[i])
+                        elif stripped == '====' and not in_code_block:
+                            in_admonition = not in_admonition
+                            result.append(lines[i])
+                        elif stripped == '+' and not in_code_block \
+                                and not in_admonition:
+                            result.append('')  # replace '+' with blank line
+                        else:
+                            result.append(lines[i])
+                        i += 1
+                    else:
+                        # Reached end of file — close the open block
+                        result.append('--')
+                    continue
+            continue
+
+        result.append(line)
+        i += 1
+
+    return '\n'.join(result)
+
+
+# ============================================================
 # Empty Title Removal
 # ============================================================
 
@@ -129,10 +223,14 @@ def should_skip(file_path, skip_patterns):
 # Toctree Parsing (with skip support)
 # ============================================================
 
-def parse_toctree(rst_file_path, skip_patterns=None):
+def parse_toctree(rst_file_path, skip_patterns=None, depth=0):
     """
     Parse an RST file, find all toctree directives, and return an ordered
-    list of resolved file paths.
+    list of (file_path, depth) tuples.
+
+    *depth* tracks the nesting level in the toctree hierarchy.  When a file
+    is skipped (content excluded), its children inherit the same depth so
+    that only top-level sections trigger page breaks in the PDF output.
 
     Recursively descends into subfolders when a child file also contains
     toctree directives.  Files/folders matching *skip_patterns* are excluded.
@@ -177,18 +275,29 @@ def parse_toctree(rst_file_path, skip_patterns=None):
             full_path = os.path.normpath(os.path.join(base_dir, entry_with_ext))
 
             # --- Skip checks ---
+            # When a file is skipped, we still recurse into its toctree
+            # so that child documents are included in the output.
+            # Children inherit the same depth (not depth+1) since the
+            # skipped file's content is not emitted.
             if should_skip(full_path, skip_patterns):
-                print(f"  SKIPPED: {full_path}")
+                print(f"  SKIPPED (content only): {full_path}")
+                if os.path.exists(full_path):
+                    ordered_files.extend(
+                        parse_toctree(full_path, skip_patterns, depth))
                 continue
 
             if should_skip(entry, skip_patterns):
-                print(f"  SKIPPED (by entry name): {entry}")
+                print(f"  SKIPPED (by entry name, content only): {entry}")
+                if os.path.exists(full_path):
+                    ordered_files.extend(
+                        parse_toctree(full_path, skip_patterns, depth))
                 continue
             # -------------------
 
             if os.path.exists(full_path):
-                ordered_files.append(full_path)
-                ordered_files.extend(parse_toctree(full_path, skip_patterns))
+                ordered_files.append((full_path, depth))
+                ordered_files.extend(
+                    parse_toctree(full_path, skip_patterns, depth + 1))
             else:
                 # Try treating the entry as a folder with an index.rst inside
                 folder_index = os.path.normpath(
@@ -196,12 +305,16 @@ def parse_toctree(rst_file_path, skip_patterns=None):
                 )
 
                 if should_skip(folder_index, skip_patterns):
-                    print(f"  SKIPPED (folder): {folder_index}")
+                    print(f"  SKIPPED (folder, content only): {folder_index}")
+                    if os.path.exists(folder_index):
+                        ordered_files.extend(
+                            parse_toctree(folder_index, skip_patterns, depth))
                     continue
 
                 if os.path.exists(folder_index):
-                    ordered_files.append(folder_index)
-                    ordered_files.extend(parse_toctree(folder_index, skip_patterns))
+                    ordered_files.append((folder_index, depth))
+                    ordered_files.extend(
+                        parse_toctree(folder_index, skip_patterns, depth + 1))
                 else:
                     print(f"WARNING: Cannot resolve toctree entry: {entry}")
                     print(f"  Tried: {full_path}")
@@ -213,6 +326,15 @@ def parse_toctree(rst_file_path, skip_patterns=None):
 # ============================================================
 # RST Helper Utilities
 # ============================================================
+
+def remove_directive_blocks(content, directive):
+    """Remove all RST directive blocks of the given type (e.g. 'tip', 'note')."""
+    pattern = re.compile(
+        r'\.\.\s+' + re.escape(directive) + r'::.*?(?=\n\S|\n\n\S|\Z)',
+        re.DOTALL
+    )
+    return pattern.sub('', content)
+
 
 def remove_toctree_directives(content):
     """Strip all toctree directives from RST content."""
@@ -230,6 +352,53 @@ def get_chapter_from_path(file_path):
         if part.startswith("chapter-"):
             return part
     return None
+
+
+# RST heading underline characters in order of precedence (highest to lowest).
+RST_HEADING_CHARS = ['=', '-', '~', '^', '"']
+
+
+def demote_rst_headings(content, levels):
+    """
+    Demote all RST headings in *content* by *levels* steps.
+
+    RST headings are detected as a text line followed by an underline of the
+    same length using one of the characters in RST_HEADING_CHARS.  Each
+    heading's underline character is shifted down in the precedence list.
+    """
+    if levels <= 0:
+        return content
+
+    lines = content.split('\n')
+    result = []
+    i = 0
+
+    while i < len(lines):
+        # Check if this line is a heading: non-empty text line followed by
+        # an underline of the same length using a heading character.
+        if (i + 1 < len(lines)
+                and lines[i].strip()
+                and not lines[i].startswith(' ')
+                and not lines[i].startswith('\t')
+                and not lines[i].startswith('..')):
+            underline = lines[i + 1]
+            if (len(underline) >= len(lines[i].strip())
+                    and underline.strip()
+                    and len(set(underline.strip())) == 1
+                    and underline.strip()[0] in RST_HEADING_CHARS):
+                char = underline.strip()[0]
+                idx = RST_HEADING_CHARS.index(char)
+                new_idx = min(idx + levels, len(RST_HEADING_CHARS) - 1)
+                new_char = RST_HEADING_CHARS[new_idx]
+                result.append(lines[i])
+                result.append(new_char * len(underline))
+                i += 2
+                continue
+
+        result.append(lines[i])
+        i += 1
+
+    return '\n'.join(result)
 
 
 # ============================================================
@@ -255,8 +424,8 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
     print("=" * 60)
     print("Resolved toctree order (after skip filtering):")
     print("=" * 60)
-    for i, f in enumerate(ordered_files, 1):
-        print(f"  {i:3d}. {f}")
+    for i, (f, d) in enumerate(ordered_files, 1):
+        print(f"  {i:3d}. [depth={d}] {f}")
     print("=" * 60)
 
     if skip_patterns:
@@ -268,19 +437,25 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
     current_chapter = None
 
     with open(output_file, "a", encoding="utf-8") as outfile:
-        # 1. Write the root index.rst first
-        with open(root_index, "r", encoding="utf-8") as f:
-            content = f.read()
-            content = remove_toctree_directives(content)
-            outfile.write(content + "\n\n")
+        # 1. Write the root index.rst first (without tip blocks and toctrees)
+        if not should_skip(root_index, skip_patterns):
+            with open(root_index, "r", encoding="utf-8") as f:
+                content = f.read()
+                content = remove_toctree_directives(content)
+                content = remove_directive_blocks(content, "tip")
+                outfile.write(content + "\n\n")
+        else:
+            print(f"  SKIPPED (content only): {root_index}")
 
         # 2. Write each file in toctree order
-        for rst_path in ordered_files:
+        for rst_path, depth in ordered_files:
             chapter = get_chapter_from_path(rst_path)
             if chapter and chapter != current_chapter:
-                if current_chapter is not None:
-                    outfile.write("\n<<<\n\n")
                 current_chapter = chapter
+
+            # Page break only before top-level sections (depth 0)
+            if depth == 0:
+                outfile.write("\n<<<\n\n")
 
             with open(rst_path, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -354,15 +529,12 @@ toc::[]
     # Remove section titles that have no content beneath them
     content = remove_empty_titles(content)
 
-    # Fix image paths: ../../images/ → source/images/
+    # Fix ordered list '+' continuations that break with nested content
+    content = fix_ordered_list_continuations(content)
+
+    # Fix image paths: ../images/, ../../images/, and ../../../images/ -> source/images/
     content = re.sub(
-        r'image::\.\./\.\./images/',
-        'image::source/images/',
-        content,
-    )
-    # Fix image paths: ../images/ → source/images/
-    content = re.sub(
-        r'image::\.\./images/',
+        r'image::(?:\.\./){1,3}images/',
         'image::source/images/',
         content,
     )

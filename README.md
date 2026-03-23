@@ -30,7 +30,7 @@ Refer to the official [Docker installation guide](https://docs.docker.com/engine
 1. Clone the repository and change the workspace to the cloned directory:
 
     ```bash
-    git clone https://gitlab.global.renesas.com/sst/robotics/rzv2h_rdk_documentation.git
+    git clone https://github.com/renesas-rdk/rzv2h_rdk_documentation.git
     cd rzv2h_rdk_documentation
     ```
 

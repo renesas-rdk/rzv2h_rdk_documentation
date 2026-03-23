@@ -1,7 +1,7 @@
 .. _quick_setup_rdk_guide:
 
-Quick setup guide
-============================================
+Quick start guide for RZ/V2H RDK
+--------------------------------
 
 This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
 
@@ -9,37 +9,112 @@ Other advanced boot methods, such as **xSPI flash**, are also supported.
 
 The **TFTP + NFS boot** method is supported as well but is not covered in detail here.
 
-Preparing the SD Card
----------------------
+Preparing the microSD card
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To boot the RZ/V2H RDK board using a microSD card, you must first flash a bootable Linux image onto it.
+To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Linux image onto it.
+
+There are two options for flashing the image:
+
+- **Option 1: Flash using bmaptool (Ubuntu)** - A faster command-line tool for flashing images using block map files.
+- **Option 2: Flash using Balena Etcher** - A user-friendly GUI tool that supports multiple platforms (Windows, macOS, Linux).
 
 Requirements
-^^^^^^^^^^^^^^^
+"""""""""""""""
 
-- **Balena Etcher:** GUI-based tool to flash image
-- **microSD card:** at least 16 GB recommended
-- **Provided bootable Linux images:**
+- A host machine for flashing the image:
 
-  .. list-table::
-     :header-rows: 1
-     :widths: 35 35 30
+  - Ubuntu with ``bmaptool``, or
+  - Windows, macOS, or Linux with Balena Etcher
 
-     * - **File name**
-       - **Target OS**
-       - **Host platform support**
-     * - renesas-core-image-weston.wic.gz
-       - Yocto Linux based Weston Image
-       - Windows / macOS / Linux
-     * - ubuntu-core-image.wic.gz
-       - Ubuntu 24.04 headless
-       - Windows / macOS / Linux
+- **microSD card**: 16 GB or larger.
+  For best performance and compatibility, we recommend using the included 64 GB SanDisk microSD card.
 
-Flash using Balena Etcher
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- **Provided bootable files:**
 
-Balena Etcher is a user-friendly GUI tool to flash OS images to SD cards and USB drives.
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - **File name**
+     - **Description**
+   * - ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz TODO: update link to renesas website
+     - Compressed Ubuntu 24.04 server image for RZ/V2H RDK
+   * - ubuntu-24.04-server-arm64-rzv2h-rdk.bmap
+     - Block map file for fast flashing with bmaptool
+
+Option 1: Flash using bmaptool (Ubuntu)
+"""""""""""""""""""""""""""""""""""""""
+
+bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
+It provides quicker flashing compared to traditional methods by skipping empty blocks and verifying data integrity automatically.
+
+1. **Install bmaptool**
+
+   On **Ubuntu**:
+
+   .. code-block:: bash
+
+      sudo apt-get install bmap-tools
+
+2. **Flashing the Image**
+
+   a. Insert your microSD card into your machine.
+
+   b. Identify the microSD card device name:
+
+      .. code-block:: bash
+
+         lsblk
+
+      Look for your microSD card (e.g., ``/dev/sdb``). Make sure to identify it correctly.
+
+      .. warning::
+
+         Please confirm the microSD card device name carefully.
+         Double-check to avoid overwriting your main disk.
+
+   c. Unmount any auto-mounted partitions on the microSD card:
+
+      .. code-block:: bash
+
+         sudo umount /dev/sdX*
+
+   d. Flash the image directly (no need to extract):
+
+      .. code-block:: bash
+
+         sudo bmaptool copy ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz /dev/sdX
+
+      Replace ``/dev/sdX`` with your actual microSD card device (e.g., ``/dev/sdb``, not ``/dev/sdb1``).
+
+      .. note::
+
+         Please ensure that the ``.bmap`` file is in the same directory as the image file.
+         bmaptool automatically detects the ``.bmap`` file with the same base name.
+
+         You can also specify it explicitly:
+
+         .. code-block:: bash
+
+            sudo bmaptool copy --bmap ubuntu-24.04-server-arm64-rzv2h-rdk.bmap \
+              ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz /dev/sdX
+
+   e. Wait for the process to complete. bmaptool will display progress and verify the image after flashing.
+
+   f. Before removing the microSD card, run:
+
+      .. code-block:: bash
+
+         sync
+
+Option 2: Flash using Balena Etcher
+""""""""""""""""""""""""""""""""""""
+
+Balena Etcher is a user-friendly GUI tool to flash OS images to microSD cards and USB drives.
 It provides a simple and safe method.
+
+It supports many OS platforms, including Windows, macOS, and Linux.
 
 1. **Install Balena Etcher**
 
@@ -56,93 +131,64 @@ It provides a simple and safe method.
 
         Balena Etcher Application
 
-   - **Select Image:** Click “Flash from file” and choose your image file (e.g., ubuntu-core-image.wic.gz)
-   - **Select Target:** Insert your SD card into the host machine and choose the correct device.
+   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz)
+   - **Select Target:** Insert your microSD card into the host machine and choose the correct device.
 
      .. note::
-        Please confirm the SD card device name carefully.
+        Please confirm the microSD card device name carefully.
         Double-check to avoid overwriting your main disk.
 
-   - **Flashing:** Click “Flash” to begin. Etcher will:
+   - **Flashing:** Click ``Flash`` to begin. Etcher will:
 
      - Write the image
      - Validate the image
-     - Automatically unmount the SD card
+     - Automatically unmount the microSD card
 
-   - **Finish:** Remove the SD card safely after Etcher reports successful completion.
+   - **Finish:** Remove the microSD card safely after Etcher reports successful completion.
 
 Boot Mode Configuration (DIP Switch)
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured correctly using the DIP switches.
 
-.. list-table::
-   :header-rows: 1
-   :widths: 10 30 20 40
-
-   * - **DSW1**
-     - **RZ/V2H Pin**
-     - **Default Setting**
-     - **Operation**
-
-   * - 1
-     - BTSEL (BOOSTSELCPU)
-     - ON = High: 1
-     - Select the coldboot CPU:
-
-       - High: **CA55** (*default*)
-       - Low: **CM33**
-
-   * - 2, 3
-     - BOOTPLLCA_1
-
-       BOOTPLLCA_0
-     - OFF = High: 1
-
-       ON = High: 1
-     - Input the CA55 frequency at CA55 coldboot.
-
-       **BOOT_PLLCA\[1:0\]:**
-
-       - Low:Low → 1.1 GHz
-       - Low:High → 1.5 GHz (0.9 V)
-       - High:Low → 1.6 GHz (0.9 V)
-       - High:High → 1.7 GHz (0.9 V) (*default*)
-
-   * - 4
-
-       5
-     - MD_BOOT1
-
-       MD_BOOT0
-     - ON = Low: 0
-
-       OFF = Low: 0
-     - Input boot mode select signal.
-
-       **MD_BOOT\[1:0\]:**
-
-       - Low:Low → SD (*default*)
-       - Low:High → eMMC
-       - High:Low → xSPI
-       - High:High → SCIF download
-
-   * - 6
-     - MD_BOOT3
-     - OFF = Low: 0
-     - Select JTAG debug mode:
-
-       - Low: normal mode (*default*)
-       - High: JTAG
++------------+-------------+----------------------------------------------------+
+| Switch No. | RZ/V2H Pin  | Function                                           |
++============+=============+====================================================+
+| 1          | BOOTSELCPU  | Select the cold boot CPU                           |
+|            |             |                                                    |
+|            |             | OFF: CM33, **ON**: CA55 (default)                  |
++------------+-------------+----------------------------------------------------+
+| 2          | BOOTPLLCA1  | Input the CA55 frequency at the CA55 cold boot     |
+|            |             |                                                    |
+|            |             | BOOTPLLCA[1:0]                                     |
++------------+-------------+                                                    +
+| 3          | BOOTPLLCA0  | - = [OFF:OFF]: 1.6 GHz                             |
+|            |             | - = [**OFF:ON**]: 1.7 GHz (default)                |
+|            |             | - = [ON:OFF]: 1.1 GHz                              |
+|            |             | - = [ON:ON]: 1.5 GHz                               |
++------------+-------------+----------------------------------------------------+
+| 4          | MD_BOOT1    | Input the boot mode select signal                  |
+|            |             |                                                    |
+|            |             | MD_BOOT[1:0]                                       |
++------------+-------------+                                                    +
+| 5          | MD_BOOT0    | - = [OFF:OFF]: xSPI                                |
+|            |             | - = [OFF:ON]: SCIF                                 |
+|            |             | - = [**ON:OFF**]: SD (default)                     |
+|            |             | - = [ON:ON]: eMMC (not supported) on RZ/V2H RDK    |
++------------+-------------+----------------------------------------------------+
+| 6          | MD_BOOT3    | Select JTAG debug mode                             |
+|            |             |                                                    |
+|            |             | **OFF**: Normal mode (default), ON: Debug mode     |
++------------+-------------+----------------------------------------------------+
 
 .. attention::
 
    Always power off the board before changing boot switches.
 
 Boot Mode Support
-------------------------
+^^^^^^^^^^^^^^^^^
 
-The board supports multiple boot options, including:
+The board supports two boot options, including:
 
 .. list-table::
    :header-rows: 1
@@ -151,8 +197,8 @@ The board supports multiple boot options, including:
    * - **Boot Source**
      - **Description**
      - **DSW1 Setting**
-   * - microSD
-     - Boot from SD card
+   * - microSD card
+     - Boot from microSD card
      - SD mode
    * - xSPI
      - Boot from xSPI flash
@@ -161,7 +207,7 @@ The board supports multiple boot options, including:
 .. _jtag_reset_tip:
 
 .. tip::
-   The serial port is powered by the **board’s power supply**, not by the **USB port** from the PC.
+   The serial port is powered by the **board's power supply**, not by the **USB port** from the PC.
    Early boot messages might not appear automatically in the terminal (including U-Boot console and SCIF terminal).
    To view them, manually reset the board by connecting **JTAG QRESN (PIN10)** to **GND**, as shown below.
 
@@ -174,48 +220,86 @@ The board supports multiple boot options, including:
 
 .. note::
 
-    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (MobaXterm, TeraTerm, etc.) installed.
+    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (`MobaXterm <https://mobaxterm.mobatek.net/download.html>`_, `Tera Term <https://teratermproject.github.io/index-en.html>`_, etc.) installed.
 
-    The serial communication between the Windows PC and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
+    The serial communication between the **Windows PC** and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
 
     Download and install the Windows version (`.exe`).
 
 .. important::
 
-    The power supply for the RZ/V2H RDK board should satisfy the maximum requirement of 24V / 5A.
+    The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24V / 5A.
 
     The common DC power adapter specifications are:
 
-    - DC power adapter 12V, 2A.
+    - DC power adapter 12V, 2A. (Included in the package)
 
     - DC power adapter 24V, 1A.
 
-Option 1: SD Card Boot Mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Common hardware setup
+""""""""""""""""""""""
 
-For **SD card boot mode**, the IPLs are already written to the SD card when flashing the image using Balena Etcher.
+The following image shows the common hardware setup for both boot modes:
 
-On the RZ/V2H RDK board, configure the **DSW1** switches as shown below:
+.. figure:: ../images/hardware_connect.png
+   :alt: Common Hardware Setup
+   :width: 700px
+   :align: center
+
+   Common Hardware Setup
+
+The setup includes:
+
+- Power supply connection
+- Serial connection for terminal access
+- Ethernet connection for network access
+
+Option 1: microSD card boot mode
+"""""""""""""""""""""""""""""""""
+
+For **microSD card boot mode**, the required bootloaders components are already included in the flashed microSD card image.
+
+On the RZ/V2H RDK, configure the **DSW1** switches as shown below:
 
 
 .. figure:: ../images/DSW1_SD.png
-   :alt: DSW1 SD Card Boot Mode
+   :alt: DSW1 microSD card Boot Mode
    :width: 500px
    :align: center
 
-   DSW1 SD Card Boot Mode
+   DSW1 microSD card Boot Mode
 
-After that, insert the SD card and connect the power supply to the board.
+After that, insert the microSD card and connect the power supply to the board.
 
-Open a terminal emulator (e.g., **Tera Term**) and connect to the **COM** port.
+Open a terminal emulator (e.g., **Tera Term**) and connect to the **COM** port of the board.
 
-The COM port settings are the same as described in **Step 3** of :ref:`Write bootloaders to board <write_bootloaders_to_board>`.
+The COM port settings are listed below:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - **Item**
+     - **Value**
+   * - **Baud rate**
+     - **115200**
+   * - Data
+     - 8-bit
+   * - Parity
+     - None
+   * - Stop
+     - 1-bit
+   * - Flow control
+     - None
+   * - Transmit delay
+     - 0 msec/char
 
 The board will start the boot process.
 
 .. tip::
 
-   If there is no output from the terminal, do :ref:`the JTAG reset tip <jtag_reset_tip>` first, then reset the U-Boot environment variables:
+   - If no serial output is shown at all, try the :ref:`JTAG reset tip <jtag_reset_tip>`.
+   - If the U-Boot prompt appears but the system does not boot correctly, reset the U-Boot environment variables:
 
    .. code-block:: bash
 
@@ -223,12 +307,10 @@ The board will start the boot process.
       saveenv
       boot
 
-If you intend to use **SD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
+If you intend to use **microSD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
 
-Option 2: xSPI Boot Mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Board Setup Procedure**
+Option 2: xSPI boot mode
+""""""""""""""""""""""""
 
 Follow the instructions below to set up the board.
 
@@ -247,7 +329,7 @@ Follow the instructions below to set up the board.
 
 2. **Write Bootloaders to the Board**
 
-Copy the bootloaders file to your Windows PC.
+Copy the bootloaders files to your Windows PC.
 
 .. list-table::
    :header-rows: 1
@@ -262,7 +344,7 @@ Copy the bootloaders file to your Windows PC.
    * - fip-rzv2h-rdk.srec
      - Firmware Image Package for RZ/V2H
 
-- Connect the **Windows PC** and **Board** using a **Serial-to-MicroUSB** cable.
+- Connect the **Windows PC** and **Board** using a **USB-to-microUSB** cable.
 - Change the **DSW1** setting to **Boot Mode 3 (SCIF download)**.
 
   .. figure:: ../images/DSW1_SCIF.png
@@ -295,7 +377,7 @@ Copy the bootloaders file to your Windows PC.
      * - **Item**
        - **Value**
      * - Baud rate
-       - 115200
+       - **115200**
      * - Data
        - 8-bit
      * - Parity
@@ -386,11 +468,11 @@ Copy the bootloaders file to your Windows PC.
 
 - Power off the board and change DSW1 to configure the boot mode.
 
-3. **Setup U-Boot Configuration**
+3. **Set up U-Boot Configuration**
 
-   a. Insert the microSD card to the board.
+   a. Insert the microSD card into the board.
 
-   b. Change DSW1 to **Boot mode 2 (xSPI boot)**:
+   b. Change DSW1 to **Boot Mode 2 (xSPI boot)**:
 
       .. figure:: ../images/DSW1_xSPI.png
           :alt: DSW1 xSPI Boot
@@ -399,7 +481,7 @@ Copy the bootloaders file to your Windows PC.
 
           DSW1 xSPI Boot Mode
 
-   c. Connect via **USB Serial to MicroUSB** cable.
+   c. Connect the board to the PC using a **USB-to-microUSB** cable.
 
    d. Power on the board.
 
@@ -408,7 +490,9 @@ Copy the bootloaders file to your Windows PC.
    f. The board will boot.
 
 .. tip::
-   If there is no output from the terminal, do :ref:`the JTAG reset tip <jtag_reset_tip>` first, then reset the U-Boot environment variables:
+
+   - If no serial output is shown at all, try the :ref:`JTAG reset tip <jtag_reset_tip>`.
+   - If the U-Boot prompt appears but the system does not boot correctly, reset the U-Boot environment variables:
 
    .. code-block:: bash
 
@@ -419,34 +503,26 @@ Copy the bootloaders file to your Windows PC.
 .. _first_time_boot_setup:
 
 First Time Boot Setup
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 The default user credentials for the provided Ubuntu images are as follows:
 
 .. list-table:: Default Login Information
    :header-rows: 1
-   :widths: 35 25 25 15
+   :widths: 35 25 25
 
    * - **Image Type**
      - **Username**
      - **Password**
-     - **Root Password**
-   * - Ubuntu 24.04 (Headless)
-     - rz
-     - *(none)*
-     - *(none)*
-   * - Yocto Linux based Weston Image (renesas core image weston)
-     - root
-     - *(none)*
-     - *(none)*
+   * - Ubuntu 24.04 Server
+     - ubuntu
+     - ubuntu
 
 After powering on the board **for the first time**, connect to the serial console and check the boot log to verify that Ubuntu boots successfully.
 
 .. note::
 
-   - This operation is required **only once**, immediately after flashing the root filesystem and booting the board for the first time.
-   - For Yocto Linux based Weston images, perform **only Step 1** below. **Do not perform Steps 2 to 5.**
-   - For Ubuntu images, perform **all steps (1 through 5)** below.
+   The next operation is required **only once**, immediately after flashing the new root filesystem.
 
 Connect an Ethernet cable to the board and run:
 
@@ -456,113 +532,53 @@ Connect an Ethernet cable to the board and run:
    ping 8.8.8.8 -c 3
    ping bing.com -c 3
 
-1. Perform apt update and resize the SD card:
+#. Perform apt update and resize the microSD card:
 
    .. code-block:: bash
 
       sudo apt update
       sudo apt install parted
-      sudo parted /dev/mmcblk0
-
-   Inside parted terminal:
-
-   .. code-block:: bash
-
-      > print
-      > resizepart 2 100%
-      > print
-      > quit
-
-   Resize root filesystem:
-
-   .. code-block:: bash
-
+      sudo parted /dev/mmcblk0 resizepart 2 100%
       sudo resize2fs /dev/mmcblk0p2
-
-   For example, this is the sample output after resizing:
-
-   .. code-block:: console
-
-      $ sudo parted /dev/mmcblk0
-      sudo: unable to resolve host localhost.localdomain: Name or service not known
-      GNU Parted 3.6
-      Using /dev/mmcblk0
-      Welcome to GNU Parted! Type 'help' to view a list of commands.
-      (parted) print
-      Model: SD SN64G (sd/mmc)
-      Disk /dev/mmcblk0: 63.9GB
-      Sector size (logical/physical): 512B/512B
-      Partition Table: msdos
-      Disk Flags:
-
-      Number  Start   End     Size    Type     File system  Flags
-      1      1049kB  211MB   210MB   primary               lba
-      2      211MB   4855MB  4644MB  primary  ext4
-
-      (parted) resizepart 2 100%
-      (parted) print
-      Model: SD SN64G (sd/mmc)
-      Disk /dev/mmcblk0: 63.9GB
-      Sector size (logical/physical): 512B/512B
-      Partition Table: msdos
-      Disk Flags:
-
-      Number  Start   End     Size    Type     File system  Flags
-      1      1049kB  211MB   210MB   primary               lba
-      2      211MB   63.9GB  63.7GB  primary  ext4
-
-      (parted) quit
-      Information: You may need to update /etc/fstab.
-
-      $ rz@localhost:~$ sudo resize2fs /dev/mmcblk0p2
-      sudo: unable to resolve host localhost.localdomain: Name or service not known
-      resize2fs 1.47.0 (5-Feb-2023)
-      Filesystem at /dev/mmcblk0p2 is mounted on /; on-line resizing required
-      old_desc_blocks = 1, new_desc_blocks = 8
-      The filesystem on /dev/mmcblk0p2 is now 15540480 (4k) blocks long.
-
-2. Install the ROS2 Jazzy:
-
-   We provide the script called: `common_utils/ros2_utils/apt_install_ros2.sh <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/utility/common_utils/-/blob/main/ros2_utils/apt_install_ros2.sh?ref_type=heads>`_ to install ROS2 Jazzy packages on the target system.
-
-   Please download the script to the target system and run the following commands:
-
-   .. code-block:: bash
-
-      chmod +x apt_install_ros2.sh
-      sudo ./apt_install_ros2.sh
-
-   For more details about the ROS2 Jazzy installation, please refer to the `ROS2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
-
-3. Setup **rosdep** for ROS2 package dependency management:
-
-   .. code-block:: bash
-
-      sudo rosdep init
-      rosdep update
-
-4. Setup user groups for: serial port and video access, otherwise some applications may not work properly due to insufficient permissions:
-
-   .. code-block:: bash
-
-      sudo usermod -aG dialout $USER
-      sudo usermod -aG video $USER
 
    .. note::
 
-      After executing the above commands, please log out and log back in for the group changes to take effect.
+      The above commands resize the second partition to utilize the full capacity of the microSD card.
 
-5. (Optional) Add ROS2 workspace setup to bashrc:
+      If you are using a different partition layout, please adjust the command accordingly (e.g., change the partition number).
+
+#. Install the ROS 2 Jazzy:
+
+   Install ROS 2 Jazzy on the CA55 core (Ubuntu side). You can find and use the provided script here: `apt_install_ros2.sh <https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh>`_.
+
+   Quick installation steps:
+
+   .. code-block::
+
+      wget https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh
+      chmod +x apt_install_ros2.sh
+      sudo ./apt_install_ros2.sh
+
+   For detailed installation instructions, refer to the official ROS 2 documentation: `ROS 2 Jazzy Installation Guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
+
+#. **(Highly Recommended)** Install the :ref:`RZ/V2H OpenCV Accelerator <opencva>` optimized for Ubuntu 24.04 on the RZ/V2H RDK.
+
+   .. code-block:: bash
+
+      wget -qO install_opencv_arm64.sh https://raw.githubusercontent.com/renesas-rdk/rzv2h_opencv_accelerated_debs/main/install_opencv_arm64.sh
+      sudo bash install_opencv_arm64.sh
+
+#. (Optional) Add the ROS 2 environment setup to ``.bashrc``:
 
    .. code-block:: bash
 
       echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
       source ~/.bashrc
 
-This completes the **Quick Setup Guide** for the RZ/V2H RDK board.
+This completes the **Quick Start Guide for RZ/V2H RDK**.
 
 Reference
----------
+^^^^^^^^^
 
 - Advanced Boot Options (xSPI):
   `Renesas RZ/V AI SDK Developer Guide <https://renesas-rz.github.io/rzv_ai_sdk/latest/dev_guide.html#D3>`_

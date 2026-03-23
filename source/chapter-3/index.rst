@@ -6,7 +6,7 @@ The RZ/V2H Advance Features section provides detailed documentation on the advan
 .. toctree::
     :maxdepth: 2
 
-    drp_ai
-    codec
-    opencva
-    multi_os
+    drp_ai/drp_ai
+    codec/codec
+    opencva/opencva
+    multi_os/multi_os
