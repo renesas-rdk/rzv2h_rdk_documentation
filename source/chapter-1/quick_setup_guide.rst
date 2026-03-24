@@ -32,16 +32,39 @@ Requirements
 
 - **Provided bootable files:**
 
-.. list-table::
-   :header-rows: 1
-   :widths: 50 50
+  Download the RZ/V2H RDK Software Package from the Renesas website to your local machine using this link:
 
-   * - **File name**
-     - **Description**
-   * - ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz TODO: update link to renesas website
-     - Compressed Ubuntu 24.04 server image for RZ/V2H RDK
-   * - ubuntu-24.04-server-arm64-rzv2h-rdk.bmap
-     - Block map file for fast flashing with bmaptool
+  - `Renesas Official RZ/V2H RDK Website <https://www.renesas.com/ws125-v2hrdkrefz>`_
+
+  In the ``*.zip`` file, you can find the following files under the ``board_setup`` folder:
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 10 50
+
+     * - **File name**
+       - **Description**
+     * - ``board_image/``
+       - Board image files
+
+         - ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``: Ubuntu 24.04 Server SD card image file containing:
+
+           - Bootloader
+           - Linux kernel image
+           - Linux device tree file
+           - Ubuntu 24.04 root filesystem
+           - Default credentials:
+
+             - **Username**: **ubuntu**
+             - **Password**: **ubuntu**
+
+         - ``ubuntu-24.04-server-arm64-rzv2h-rdk.bmap``: Block map file for fast flashing with ``bmaptool``
+     * - ``xSPI/``
+       - Files for booting the RZ/V2H RDK from xSPI
+
+         - ``Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot``: Bootloader file
+         - ``bl2_bp_spi-rzv2h-rdk.srec``: Bootloader file
+         - ``fip-rzv2h-rdk.srec``: Bootloader file
 
 Option 1: Flash using bmaptool (Ubuntu)
 """""""""""""""""""""""""""""""""""""""
@@ -49,7 +72,7 @@ Option 1: Flash using bmaptool (Ubuntu)
 bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
 It provides quicker flashing compared to traditional methods by skipping empty blocks and verifying data integrity automatically.
 
-1. **Install bmaptool**
+#. **Install bmaptool**
 
    On **Ubuntu**:
 
@@ -57,7 +80,7 @@ It provides quicker flashing compared to traditional methods by skipping empty b
 
       sudo apt-get install bmap-tools
 
-2. **Flashing the Image**
+#. **Flashing the Image**
 
    a. Insert your microSD card into your machine.
 
@@ -116,11 +139,11 @@ It provides a simple and safe method.
 
 It supports many OS platforms, including Windows, macOS, and Linux.
 
-1. **Install Balena Etcher**
+#. **Install Balena Etcher**
 
    Download and install the software from the `Balena Etcher Official Website <https://etcher.balena.io/>`_.
 
-2. **Flashing the Image**
+#. **Flashing the Image**
 
    - Once Etcher is open:
 
@@ -207,9 +230,10 @@ The board supports two boot options, including:
 .. _jtag_reset_tip:
 
 .. tip::
-   The serial port is powered by the **board's power supply**, not by the **USB port** from the PC.
-   Early boot messages might not appear automatically in the terminal (including U-Boot console and SCIF terminal).
-   To view them, manually reset the board by connecting **JTAG QRESN (PIN10)** to **GND**, as shown below.
+
+   The serial port is powered by the board, not by the PC USB port.
+
+   To see early boot messages, briefly **touch JTAG QRESN (PIN10) to GND** to reset the board.
 
 .. figure:: ../images/JTAG_Reset.png
    :alt: JTAG Reset Pin Example
@@ -220,21 +244,21 @@ The board supports two boot options, including:
 
 .. note::
 
-    Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (`MobaXterm <https://mobaxterm.mobatek.net/download.html>`_, `Tera Term <https://teratermproject.github.io/index-en.html>`_, etc.) installed.
+   Before proceeding, ensure that your machine has the necessary drivers and a terminal emulator (`MobaXterm <https://mobaxterm.mobatek.net/download.html>`_, `Tera Term <https://teratermproject.github.io/index-en.html>`_, etc.) installed.
 
-    The serial communication between the **Windows PC** and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
+   The serial communication between the **Windows PC** and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
 
-    Download and install the Windows version (`.exe`).
+   Download and install the Windows version (`.exe`).
 
 .. important::
 
-    The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24V / 5A.
+   The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24V / 5A.
 
-    The common DC power adapter specifications are:
+   The common DC power adapter specifications are:
 
-    - DC power adapter 12V, 2A. (Included in the package)
+   - DC power adapter 12V, 2A. (Included in the package)
 
-    - DC power adapter 24V, 1A.
+   - DC power adapter 24V, 1A.
 
 Common hardware setup
 """"""""""""""""""""""
@@ -314,165 +338,161 @@ Option 2: xSPI boot mode
 
 Follow the instructions below to set up the board.
 
-1. **Install Terminal Emulator**
+#. **Install Terminal Emulator**
 
    .. note::
+
       If already installed, skip this step.
 
-   - **Terminal Emulator:** `Tera Term`_
-
-.. _Tera Term: https://teratermproject.github.io/index-en.html
-
+   - **Terminal Emulator:** `Tera Term <https://teratermproject.github.io/index-en.html>`_
    - **Operating Environment:** Windows
 
-.. _write_bootloaders_to_board:
+#. **Write Bootloaders to the Board**
 
-2. **Write Bootloaders to the Board**
+   Copy the bootloaders files to your Windows PC.
 
-Copy the bootloaders files to your Windows PC.
+   .. list-table::
+      :header-rows: 1
+      :widths: 50 50
 
-.. list-table::
-   :header-rows: 1
-   :widths: 50 50
+      * - **File Name**
+        - **Description**
+      * - Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
+        - Flash writer for RZ/V2H (used in SCIF download mode)
+      * - bl2_bp_spi-rzv2h-rdk.srec
+        - Boot loader stage 2 binary
+      * - fip-rzv2h-rdk.srec
+        - Firmware Image Package for RZ/V2H
 
-   * - **File Name**
-     - **Description**
-   * - Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
-     - Flash writer for RZ/V2H (used in SCIF download mode)
-   * - bl2_bp_spi-rzv2h-rdk.srec
-     - Boot loader stage 2 binary
-   * - fip-rzv2h-rdk.srec
-     - Firmware Image Package for RZ/V2H
+   - Connect the **Windows PC** and **Board** using a **USB-to-microUSB** cable.
+   - Change the **DSW1** setting to **Boot Mode 3 (SCIF download)**.
 
-- Connect the **Windows PC** and **Board** using a **USB-to-microUSB** cable.
-- Change the **DSW1** setting to **Boot Mode 3 (SCIF download)**.
+     .. figure:: ../images/DSW1_SCIF.png
+        :alt: DSW1 SCIF Download Mode
+        :width: 500px
+        :align: center
 
-  .. figure:: ../images/DSW1_SCIF.png
-     :alt: DSW1 SCIF Download Mode
-     :width: 500px
-     :align: center
+        DSW1 SCIF Download Mode
 
-     DSW1 SCIF Download Mode
+   - Connect the power cable.
+   - Open **Tera Term** and configure:
 
-- Connect the power cable.
-- Open **Tera Term** and configure:
+     **Setup → Terminal:**
 
-  **Setup → Terminal:**
+     .. list-table::
+        :header-rows: 1
+        :widths: 40 60
 
-  .. list-table::
-     :header-rows: 1
-     :widths: 40 60
+        * - **Item**
+          - **Value**
+        * - New-line
+          - Receive: Auto / Transmit: CR
 
-     * - **Item**
-       - **Value**
-     * - New-line
-       - Receive: Auto / Transmit: CR
+     **Setup → Serial Port:**
 
-  **Setup → Serial Port:**
+     .. list-table::
+        :header-rows: 1
+        :widths: 40 60
 
-  .. list-table::
-     :header-rows: 1
-     :widths: 40 60
+        * - **Item**
+          - **Value**
+        * - Baud rate
+          - **115200**
+        * - Data
+          - 8-bit
+        * - Parity
+          - None
+        * - Stop
+          - 1-bit
+        * - Flow control
+          - None
+        * - Transmit delay
+          - 0 msec/char
 
-     * - **Item**
-       - **Value**
-     * - Baud rate
-       - **115200**
-     * - Data
-       - 8-bit
-     * - Parity
-       - None
-     * - Stop
-       - 1-bit
-     * - Flow control
-       - None
-     * - Transmit delay
-       - 0 msec/char
+   - Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
 
-- Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
+     If the following message is displayed, the file transfer was successful::
 
-  If the following message is displayed, the file transfer was successful::
+         Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
+         Product Code : RZ/V2x
 
-      Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
-      Product Code : RZ/V2x
+   - Next, enter the ``XLS2`` command in the terminal::
 
-- Next, enter the ``XLS2`` command in the terminal::
+         > XLS2
+         ===== Qspi writing of RZ/V2x Board Command =============
+         Load Program to Spiflash
+         Writes to any of SPI address.
+         Program size & Qspi Save Address
+         ===== Please Input Program Top Address ============
+         Please Input : H'
 
-      > XLS2
-      ===== Qspi writing of RZ/V2x Board Command =============
-      Load Program to Spiflash
-      Writes to any of SPI address.
-      Program size & Qspi Save Address
-      ===== Please Input Program Top Address ============
-      Please Input : H'
+   - Enter ``8101e00``. The log continues::
 
-- Enter ``8101e00``. The log continues::
+         Please Input : H'8101e00
+         ===== Please Input Qspi Save Address ===
+         Please Input : H'
 
-      Please Input : H'8101e00
-      ===== Please Input Qspi Save Address ===
-      Please Input : H'
+   - Enter ``00000``. The log continues::
 
-- Enter ``00000``. The log continues::
+         Please Input : H'00000
+         please send ! ('.' & CR stop load)
 
-      Please Input : H'00000
-      please send ! ('.' & CR stop load)
+   - After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
 
-- After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
+   - If prompted to clear data, enter `y`::
 
-- If prompted to clear data, enter `y`::
+         SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
 
-      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+   - The following log will be displayed. The end address depends on the version of IPL::
 
-- The following log will be displayed. The end address depends on the version of IPL::
+         Write to SPI Flash memory.
+         ======= Qspi Save Information =================
+         SpiFlashMemory Stat Address : H'00000000
+         SpiFlashMemory End Address  : H'00036D17
+         ===========================================================
 
-      Write to SPI Flash memory.
-      ======= Qspi Save Information =================
-      SpiFlashMemory Stat Address : H'00000000
-      SpiFlashMemory End Address  : H'00036D17
-      ===========================================================
+   - Enter ``XLS2`` on the terminal again to get the following messages::
 
-- Enter ``XLS2`` on the terminal again to get the following messages::
+         > XLS2
+         ===== Qspi writing of RZ/V2x Board Command =============
+         Load Program to Spiflash
+         Writes to any of SPI address.
+         Program size & Qspi Save Address
+         ===== Please Input Program Top Address ============
+         Please Input : H'
 
-      > XLS2
-      ===== Qspi writing of RZ/V2x Board Command =============
-      Load Program to Spiflash
-      Writes to any of SPI address.
-      Program size & Qspi Save Address
-      ===== Please Input Program Top Address ============
-      Please Input : H'
+   - Enter ``00000``. The log continues::
 
-- Enter ``00000``. The log continues::
+         Please Input : H'00000
+         ===== Please Input Qspi Save Address ===
+         Please Input : H'
 
-      Please Input : H'00000
-      ===== Please Input Qspi Save Address ===
-      Please Input : H'
+   - Enter ``60000``. The log continues::
 
-- Enter ``60000``. The log continues::
+         Please Input : H'60000
+         please send ! ('.' & CR stop load)
 
-      Please Input : H'60000
-      please send ! ('.' & CR stop load)
+   - After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
 
-- After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
+   - If prompted to clear data, enter ``y``::
 
-- If prompted to clear data, enter ``y``::
+         SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
 
-      SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+   - The following log will be displayed. The end address depends on the version of IPL::
 
-- The following log will be displayed. The end address depends on the version of IPL::
+         Write to SPI Flash memory.
+         ======= Qspi Save Information =================
+         SpiFlashMemory Stat Address : H'00060000
+         SpiFlashMemory End Address  : H'0011C2EE
+         ===========================================================
 
-      Write to SPI Flash memory.
-      ======= Qspi Save Information =================
-      SpiFlashMemory Stat Address : H'00060000
-      SpiFlashMemory End Address  : H'0011C2EE
-      ===========================================================
+   - Power off the board and change DSW1 to configure the boot mode.
 
-- Power off the board and change DSW1 to configure the boot mode.
+#. **Set up xSPI U-Boot Configuration**
 
-3. **Set up U-Boot Configuration**
+   #. Insert the microSD card into the board.
 
-   a. Insert the microSD card into the board.
-
-   b. Change DSW1 to **Boot Mode 2 (xSPI boot)**:
+   #. Change DSW1 to **Boot Mode 2 (xSPI boot)**:
 
       .. figure:: ../images/DSW1_xSPI.png
           :alt: DSW1 xSPI Boot
@@ -481,13 +501,13 @@ Copy the bootloaders files to your Windows PC.
 
           DSW1 xSPI Boot Mode
 
-   c. Connect the board to the PC using a **USB-to-microUSB** cable.
+   #. Connect the board to the PC using a **USB-to-microUSB** cable.
 
-   d. Power on the board.
+   #. Power on the board.
 
-   e. Open the terminal emulator and connect to the **COM** port (same configuration as before).
+   #. Open the terminal emulator and connect to the **COM** port (same configuration as before).
 
-   f. The board will boot.
+   #. The board will boot.
 
 .. tip::
 
@@ -500,10 +520,10 @@ Copy the bootloaders files to your Windows PC.
       saveenv
       boot
 
-.. _first_time_boot_setup:
-
 First Time Boot Setup
 ^^^^^^^^^^^^^^^^^^^^^
+
+.. _first_time_boot_setup:
 
 The default user credentials for the provided Ubuntu images are as follows:
 
