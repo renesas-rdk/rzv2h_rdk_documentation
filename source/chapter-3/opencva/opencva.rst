@@ -42,7 +42,7 @@ To install the OpenCVA library on the RZ/V2H RDK, follow these steps:
 
    .. note::
 
-      The installation process may report missing dependencies during the ``dpkg`` step. This is expected and will be resolved automatically by the script.
+      The installation process may report error about missing dependencies during the ``dpkg`` step. This is expected and will be resolved automatically by the script.
 
    After script execution, the OpenCVA library and its dependencies will be installed on your RZ/V2H RDK, and you can start using it in your computer vision applications.
 

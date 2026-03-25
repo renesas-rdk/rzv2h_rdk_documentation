@@ -9,11 +9,11 @@ Make sure you have completed the steps in the :ref:`BYOM AI model support <byom_
 
 **Prerequisites**
 
-On the development machine, which has the DRP-AI TVM environment, clone the `Hand Models <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/ai/hand_models.git>`_ repository, which contains the necessary model files and conversion scripts for the tutorials.
+On the development machine, which has the DRP-AI TVM environment, clone the `Hand Models <https://github.com/renesas-rdk/hand_models.git>`_ repository, which contains the necessary model files and conversion scripts for the tutorials.
 
 .. code-block:: bash
 
-    git clone https://partnergitlab.renesas.solutions/sst1/industrial/ws078/ai/hand_models.git
+    git clone https://github.com/renesas-rdk/hand_models.git
 
 Then, set the hand models directory environment variable:
 
