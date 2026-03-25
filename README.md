@@ -7,7 +7,8 @@ It also includes a generated **PDF file** for offline viewing.
 The documentation is built with [Sphinx](https://www.sphinx-doc.org/en/master/) using a theme provided by [Read the Docs](https://about.readthedocs.com/?ref=app.readthedocs.org).
 
 ## How to use
-Once the GitLab CI/CD pipeline finishes, you can access the published User Manual directly from **GitLab Pages**:
+
+Access the Online Manual which is available at:
 
 🤖 [RZ/V2H Robotic Development Kit User Manual (Online)](https://renesas-rdk.github.io/rzv2h_rdk_documentation/)
 
