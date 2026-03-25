@@ -596,6 +596,10 @@ Connect an Ethernet cable to the board and run:
       wget -qO install_opencv_arm64.sh https://raw.githubusercontent.com/renesas-rdk/rzv2h_opencv_accelerated_debs/main/install_opencv_arm64.sh
       sudo bash install_opencv_arm64.sh
 
+   .. note::
+
+      The installation process may report error about missing dependencies during the ``dpkg`` step. This is expected and will be resolved automatically by the script.
+
 #. (Optional) Add the ROS 2 environment setup to ``.bashrc``:
 
    .. code-block:: bash
