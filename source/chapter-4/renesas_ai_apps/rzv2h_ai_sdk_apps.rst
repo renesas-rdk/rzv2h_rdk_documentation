@@ -11,10 +11,12 @@ For more details, visit the `Renesas AI Applications <https://renesas-rz.github.
 
 .. important::
 
-   The instructions in this section are specifically for porting and building the Renesas AI Applications on the RZ/V2H RDK platform using the provided cross-compilation environment only.
+   #. The instructions in this section apply only to porting and building the Renesas AI Applications on the RZ/V2H RDK platform by using the provided cross-compilation environment.
+      They do not describe how to compile AI model files.
 
-   These instructions do not cover how to compile AI model files.
-   To compile AI model files, :ref:`follow the Renesas AI model compilation guide <how_to_compile_your_own_model>`, and then use the compiled model files to run the AI applications on the RZ/V2H RDK.
+   #. To compile AI model files, :ref:`follow the Renesas AI model compilation guide <how_to_compile_your_own_model>`, and then use the compiled model files to run the AI applications on the RZ/V2H RDK.
+
+   #. The target board must use :ref:`OpenCVA <opencva>`, not the default OpenCV package from the Ubuntu repository, because the Renesas AI Applications use APIs provided by OpenCVA.
 
 Prerequisites
 """""""""""""

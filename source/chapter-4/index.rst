@@ -28,7 +28,6 @@ The following topics are covered in this section:
 
    development_guide/development_guide
    model_zoo/model_zoo
-   repo_and_packages/repo_and_packages
    sample_apps/sample_apps
    renesas_ai_apps/renesas_ai_apps
    other_concepts/other_concepts

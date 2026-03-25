@@ -22,32 +22,10 @@ The RZ/V Demo RPS (Rock Paper Scissors) package provides the following features:
 - Supports simultaneous control of virtual and physical dexterous hands.
 - Supports visualization through Foxglove Studio.
 
-.. _required_ros2_packages_rps:
+Quick hardware setup instructions
+""""""""""""""""""""""""""""""""""
 
-The following RZ/V ROS 2 packages are used.
-
-**Base packages**
-
-- arm_hand_control
-- foxglove_keypoint_publisher
-- rzv_object_detection
-- rzv_demo_rps
-- rzv_model
-
-**Option 1: Using Inspire RH56 hand**
-
-- inspire_rh56_urdf
-- inspire_rh56_dexhand
-
-**Option 2: Using Ruiyan RH2 hand**
-
-- ruiyan_rh2_controller
-- ruiyan_rh2_urdf
-- ruiyan_rh2_dexhand
-
-Quick setup instructions:
-
-#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_rps>` for this application.
+#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
 
 #. **Optional**: Connect the dexterous hand to the RZ/V2H RDK board if you want to control the real hand.
 
@@ -56,6 +34,66 @@ Quick setup instructions:
       Before using the Ruiyan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
 
 #. Connect a compatible USB camera to the RZ/V2H RDK board for Rock Paper Scissors gesture detection.
+
+Quick software setup instructions
+"""""""""""""""""""""""""""""""""
+
+.. note::
+
+   All subsequent operations must be executed inside :ref:`the cross-compilation Docker container <development_guide>`, which was set up in the :ref:`common setup step <sample_apps_prerequisites>`.
+
+#. Clone the required source from GitHub by using the ``vcs`` tool inside the Docker container.
+
+   Get the ``ros2_demo_workspace`` repository first:
+
+   .. code-block:: bash
+
+      cd ~/ros2_ws
+      git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
+
+   Import the repositories by using the ``vcs`` command:
+
+   .. code-block:: bash
+
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rock_paper_scissors.target.lock.repos
+
+   It will clone all required repositories to the ``./src`` folder.
+
+#. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
+
+   Install the dependencies to the target board first:
+
+   .. code-block:: bash
+
+      sysroot-rosdep-install
+
+   It will take time if you run this command for the first time.
+
+   Cross-build the application:
+
+   .. code-block:: bash
+
+      cross-colcon-build
+
+   Deploy the binaries to the target board:
+
+   .. code-block:: bash
+
+      scp -r install ubuntu@board_ip:~/ros2_ws/
+
+   .. note::
+
+      Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+
+#. Install the required dependencies on the RZ/V2H RDK board.
+
+   .. code-block:: bash
+
+      cd /home/ubuntu/ros2_ws
+      source /opt/ros/jazzy/setup.bash
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
+
+   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
 
 #. Application rules:
 
@@ -74,7 +112,7 @@ Quick setup instructions:
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path/to>/install/setup.bash
+      source ./install/setup.bash
 
    For real dexterous hand control, use:
 
@@ -102,6 +140,6 @@ Quick setup instructions:
    ``rzv_demo_rps/config/foxglove/demo_rps.json`` inside the ROS 2 workspace.
 
 For more details about the Rock Paper Scissors application, refer to the
-`README.md in the rzv_demo_rps package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_demo_rps/-/blob/main/README.md?ref_type=heads>`_.
+`README.md in the rzv_demo_rps package <https://github.com/renesas-rdk/rzv_demo_rps>`_.
 
-- v1.0.0 (2025-10-31): Initial release of the Rock Paper Scissors sample application.
+- v1.0.0 (2026-03-31): Initial release of the Rock Paper Scissors sample application.

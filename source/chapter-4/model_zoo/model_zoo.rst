@@ -28,10 +28,10 @@ Available Packages
    * - Package
      - Description
      - License
-   * - ``rzv_model``
+   * - `rzv_model <https://github.com/renesas-rdk/rzv_model>`_
      - Base framework providing ``BaseModel`` class, DRP-AI runtime integration, and shared utilities for model loading, preprocessing, inference, and postprocessing.
      - Apache 2.0
-   * - ``rzv_model_utils_ros2``
+   * - `rzv_model_utils_ros2 <https://github.com/renesas-rdk/rzv_model_utils_ros2>`_
      - ROS 2 utility library for model configuration loading, message encoding, and inference diagnostics.
      - Apache 2.0
 
@@ -44,13 +44,13 @@ Available Packages
    * - Package
      - Description
      - License
-   * - ``rzv_yolox``
+   * - `rzv_yolox <https://github.com/renesas-rdk/rzv_yolox>`_
      - YOLOX object detection with axis-aligned bounding boxes. Extends ``BaseModel`` with YOLOX-specific postprocessing.
      - Apache 2.0
-   * - ``rzv_yolov8``
+   * - `rzv_yolov8 <https://github.com/renesas-rdk/rzv_yolov8>`_
      - YOLOv8 detection (axis-aligned and oriented bounding boxes) with DFL decoding and multi-threaded postprocessing.
      - AGPLv3
-   * - ``rzv_gold_yolo``
+   * - `rzv_gold_yolo <https://github.com/renesas-rdk/rzv_gold_yolo>`_
      - Gold-YOLO object detection with axis-aligned bounding boxes.
      - Apache 2.0
 
@@ -63,13 +63,13 @@ Available Packages
    * - Package
      - Description
      - License
-   * - ``rzv_hrnetv2``
+   * - `rzv_hrnetv2 <https://github.com/renesas-rdk/rzv_hrnetv2>`_
      - HRNetV2-based pose estimation with heatmap decoding for keypoint detection.
      - Apache 2.0
-   * - ``rzv_rtmpose``
+   * - `rzv_rtmpose <https://github.com/renesas-rdk/rzv_rtmpose>`_
      - RTMPose lightweight real-time pose estimation.
      - Apache 2.0
-   * - ``rzv_mediapipe``
+   * - `rzv_mediapipe <https://github.com/renesas-rdk/rzv_mediapipe>`_
      - MediaPipe hand landmark detection with handedness classification.
      - Apache 2.0
 
@@ -85,10 +85,10 @@ You can also refer to the source code of these packages for implementation detai
    * - Package
      - Description
      - License
-   * - ``rzv_object_detection``
+   * - `rzv_object_detection <https://github.com/renesas-rdk/rzv_object_detection>`_
      - ROS 2 nodes for camera-based and static image object detection using YOLOX, YOLOv8, and Gold-YOLO models.
      - Apache 2.0
-   * - ``rzv_pose_estimation``
+   * - `rzv_pose_estimation <https://github.com/renesas-rdk/rzv_pose_estimation>`_
      - ROS 2 nodes for hand landmark estimation with a two-stage pipeline (detection + landmark).
      - Apache 2.0
 

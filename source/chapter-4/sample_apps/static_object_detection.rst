@@ -17,17 +17,70 @@ The RZ/V Static Object Detection package provides the following features:
 - Supports multi-threaded processing.
 - Supports visualization through Foxglove Studio.
 
-.. _required_ros2_packages_object_detection:
+Quick hardware setup instructions
+""""""""""""""""""""""""""""""""""
 
-The following RZ/V ROS 2 packages are used:
+#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
 
-- rzv_model
-- rzv_object_detection
-- foxglove_keypoint_publisher
+Quick software setup instructions
+"""""""""""""""""""""""""""""""""
 
-Quick setup instructions:
+.. note::
 
-#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_object_detection>` for this application.
+   All subsequent operations must be executed inside :ref:`the cross-compilation Docker container <development_guide>`, which was set up in the :ref:`common setup step <sample_apps_prerequisites>`.
+
+#. Clone the required source from GitHub by using the ``vcs`` tool inside the Docker container.
+
+   Get the ``ros2_demo_workspace`` repository first:
+
+   .. code-block:: bash
+
+      cd ~/ros2_ws
+      git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
+
+   Import the repositories by using the ``vcs`` command:
+
+   .. code-block:: bash
+
+      vcs import < ./ros2_demo_workspace/vcs_manifests/static_object_detection.target.lock.repos
+
+   It will clone all required repositories to the ``./src`` folder.
+
+#. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
+
+   Install the dependencies to the target board first:
+
+   .. code-block:: bash
+
+      sysroot-rosdep-install
+
+   It will take time if you run this command for the first time.
+
+   Cross-build the application:
+
+   .. code-block:: bash
+
+      cross-colcon-build
+
+   Deploy the binaries to the target board:
+
+   .. code-block:: bash
+
+      scp -r install ubuntu@board_ip:~/ros2_ws/
+
+   .. note::
+
+      Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+
+#. Install the required dependencies on the RZ/V2H RDK board.
+
+   .. code-block:: bash
+
+      cd /home/ubuntu/ros2_ws
+      source /opt/ros/jazzy/setup.bash
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
+
+   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
 
 #. Launch the Object Detection application.
 
@@ -36,7 +89,7 @@ Quick setup instructions:
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path/to>/install/setup.bash
+      source ./install/setup.bash
 
    For static object detection, use:
 
@@ -57,6 +110,6 @@ Quick setup instructions:
    ``rzv_object_detection/config/foxglove/objects_detection.json`` inside the ROS 2 workspace.
 
 For more details about the Static Object Detection application, refer to the
-`README.md in the rzv_object_detection package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_object_detection/-/blob/master/README.md?ref_type=heads>`_.
+`README.md in the rzv_object_detection package <https://github.com/renesas-rdk/rzv_object_detection>`_.
 
-- v1.0.0 (2025-10-31): Initial release of the Static Object Detection sample application.
+- v1.0.0 (2026-03-31): Initial release of the Static Object Detection sample application.

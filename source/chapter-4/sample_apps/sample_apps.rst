@@ -16,21 +16,32 @@ Before running any sample application, ensure that you have completed the follow
 
 #. Complete the :ref:`Development Guide <development_guide>` steps to set up the cross-compilation environment, including setting up the Docker container and VS Code workspace.
 
-#. Collect all required packages for the target sample application in the ``ros2_ws/src/`` directory inside the cross-compile Docker container.
+   Create and enter the container from the Docker image `ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest <https://github.com/orgs/renesas-rdk/packages/container/package/rzv2h_ubuntu_xbuild>`_ image.
 
-   Refer to the **RZ/V ROS 2 Packages Used** section of each sample application for the list of required packages.
-
-#. Cross-compile the ROS 2 workspace and deploy the workspace to the RZ/V2H RDK board.
-
-#. Install the required dependencies on the RZ/V2H RDK board.
+   Run the setup script to create the Docker-based cross-compilation environment.
 
    .. code-block:: bash
 
-      cd /home/ubuntu/ros2_ws
-      source /opt/ros/jazzy/setup.bash
-      rosdep install --from-paths ./install/*/share -y -r --ignore-src
+      wget https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
+      chmod +x setup_rdk_docker.sh
 
-   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
+   Execute the script and follow the guide to complete the setup.
+
+   .. code-block:: bash
+
+      ./setup_rdk_docker.sh
+
+   Enter the Docker container:
+
+   .. code-block:: bash
+
+      docker exec -it container_name bash
+
+   Replace ``container_name`` with your created Docker container name.
+
+   After this step, we assume that you already know about how to cross build the ROS 2 application on RZ/V2H RDK board as well as how to deploy and run it.
+
+   The next instruction only focuses on demo-specific operation, not cover the general setup anymore.
 
 #. (Optional) If you have the real robot hardware, set up the robot arm or hand according to the instructions provided in the respective sample application sections.
 

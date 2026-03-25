@@ -38,9 +38,9 @@ The following packages are required for any MuJoCo-based simulation:
      - Description
    * - `mujoco software <https://github.com/google-deepmind/mujoco/releases/tag/3.3.0>`_
      - MuJoCo physics engine library.
-   * - `mujoco_ros2_control <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/pc_host_ros_package/mujoco_ros2_control>`_
+   * - `mujoco_ros2_control <https://github.com/renesas-rdk/mujoco_ros2_control>`_
      - ROS 2 control plugin for MuJoCo that bridges ``ros2_control`` interfaces to the MuJoCo simulator.
-   * - `mujoco_sim_ros2 <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/pc_host_ros_package/mujoco_sim_ros2>`_
+   * - `mujoco_sim_ros2 <https://github.com/renesas-rdk/mujoco_sim_ros2>`_
      - ROS 2 simulation wrapper that launches MuJoCo with a robot model and connects it to the ROS 2 ecosystem.
 
 Application-specific Packages
@@ -56,19 +56,34 @@ For the **Arm Teleoperation** application:
 
    * - Package
      - Description
-   * - `agilex_piper_arm_description <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/robots/agilex_piper_arm/agilex_piper_arm_description.git>`_
+   * - `agilex_piper_arm_description <https://github.com/renesas-rdk/agilex_piper_arm_description.git>`_
      - URDF and mesh files that describe the AgileX Piper arm.
-   * - `agilex_piper_mujoco <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/pc_host_ros_package/agilex_piper_mujoco.git>`_
+   * - `agilex_piper_mujoco <https://github.com/renesas-rdk/agilex_piper_mujoco.git>`_
      - MuJoCo-specific launch files, MJCF model, and controllers for the AgileX Piper arm.
-   * - `cartesian_controllers <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/cartesian_controllers.git>`_
+   * - `cartesian_controllers <https://github.com/renesas-rdk/cartesian_controllers.git>`_
      - Cartesian motion controllers used by the arm teleoperation pipeline.
 
 For other applications, refer to the corresponding application documentation for any additional packages that may be required.
 
 Clone all required packages into the ``src/`` directory of your ROS 2 Jazzy workspace on the host PC.
 
+Import the required repositories by using the ``vcs`` command:
+
+.. code-block:: bash
+
+   cd ~/ros2_ws
+   git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
+   vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.host.lock.repos
+
 Native Build the ROS 2 Workspace for the Host PC
 """"""""""""""""""""""""""""""""""""""""""""""""
+
+Before build this package configure environment variable for mujoco directory.
+
+.. code-block:: bash
+
+   # export path to mujoco directory
+   export MUJOCO_DIR=~/ros2_ws/src/mujoco
 
 After cloning all required packages, build the workspace:
 
@@ -76,7 +91,7 @@ After cloning all required packages, build the workspace:
 
    .. code-block:: bash
 
-      cd <path-to-your-ROS2-Jazzy-workspace>
+      cd ~/ros2_ws
 
 #. Install dependencies:
 
@@ -100,7 +115,7 @@ After cloning all required packages, build the workspace:
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path-to-your-ROS2-Jazzy-workspace>/install/setup.bash
+      source ./install/setup.bash
 
 Build and Run the Application on the RZ/V2H RDK Board
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -114,14 +129,32 @@ Cross-compile the ROS 2 Workspace
 #. Set up the host machine for cross-compilation as described in :ref:`Development Guide <development_guide>`.
 #. Collect all required ROS 2 packages in the ``ros2_ws/src/`` directory inside the cross-compile docker container.
 
-   For example, for the Arm Teleoperation application, see :ref:`required packages <required_ros2_packages_teleop_arm>`.
+   Import the required repositories by using the ``vcs`` command:
+
+   .. code-block:: bash
+
+      cd ~/ros2_ws
+      git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
+      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.target.lock.repos
 
 #. Cross-compile the ROS 2 workspace using :ref:`cross-build the ROS 2 Application <development_guide>`.
+
+   .. code-block:: bash
+
+      # Install the dependencies first
+      sysroot-rosdep-install
+
+      # Cross build the application
+      cross-colcon-build
 
 Deploy and Run on the Board
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Deploy the ``install`` directory to the RZ/V2H RDK board using :ref:`Deploying the ROS 2 Application <ros2_deployment>` or using the ``scp`` command.
+
+   .. code-block:: bash
+
+      scp -r install ubuntu@board_ip:~/ros2_ws/
 
 #. Install the required dependencies on the RZ/V2H RDK board:
 
@@ -140,7 +173,7 @@ Deploy and Run on the Board
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path/to>/install/setup.bash
+      source ./install/setup.bash
 
 #. Launch the application with MuJoCo mode enabled.
 

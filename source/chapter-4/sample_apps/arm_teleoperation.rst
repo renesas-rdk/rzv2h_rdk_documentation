@@ -23,54 +23,10 @@ The RZ/V Demo Arm Teleoperation package provides the following features:
 - Supports simultaneous control of virtual and physical AgileX Piper Arm systems.
 - Supports visualization through Foxglove Studio and MuJoCo.
 
-.. _required_ros2_packages_teleop_arm:
+Quick hardware setup instructions
+""""""""""""""""""""""""""""""""""
 
-The following RZ/V ROS 2 packages are used:
-
-.. note::
-
-   TODO: Update links to each package.
-
-- agilex_piper_arm_bringup
-- agilex_piper_controller
-- agilex_piper_utils
-- agilex_piper_arm_description
-- agilex_piper_ros2_control
-- arm_hand_control
-- cartesian_controllers
-- rzv_model
-- rzv_pose_estimation
-- foxglove_keypoint_publisher
-- rzv_playground
-
-**Optional: With Inspire RH56 hand support**
-
-- inspire_rh56_description
-- inspire_rh56_dexhand
-- inspire_rh56_hand_bringup
-- inspire_rh56_hand_utils
-- inspire_rh56_hand_ros2_control
-- piper_arm_inspire_hand_bringup
-
-The following RZ/V ROS 2 host PC packages are used:
-
-.. note::
-
-   These packages are required on the **host PC** only if you want to use :ref:`MuJoCo simulation <mujoco_visualization>`.
-
-- agilex_piper_arm_description
-- agilex_piper_mujoco
-- cartesian_controllers
-- mujoco
-- mujoco_ros2_control
-- mujoco_sim_ros2
-
-Install ROS 2 Jazzy on the host PC as described in the
-`ROS 2 Jazzy installation guide <https://docs.ros.org/en/jazzy/Installation.html>`_.
-
-Quick setup instructions:
-
-#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>` with the :ref:`required packages <required_ros2_packages_teleop_arm>` for this application.
+#. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
 
 #. **Optional**: Connect the AgileX Piper Arm and Inspire RH56 hand to the RZ/V2H RDK board if you want to control the real arm and hand.
 
@@ -79,6 +35,66 @@ Quick setup instructions:
    - The common setup uses a fixed camera facing upward.
    - The USB camera field of view should capture the user's hand, and the hand must remain within the camera frame.
 
+Quick software setup instructions
+"""""""""""""""""""""""""""""""""
+
+.. note::
+
+   All subsequent operations must be executed inside :ref:`the cross-compilation Docker container <development_guide>`, which was set up in the :ref:`common setup step <sample_apps_prerequisites>`.
+
+#. Clone the required source from GitHub by using the ``vcs`` tool inside the Docker container.
+
+   Get the ``ros2_demo_workspace`` repository first:
+
+   .. code-block:: bash
+
+      cd ~/ros2_ws
+      git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
+
+   Import the repositories by using the ``vcs`` command:
+
+   .. code-block:: bash
+
+      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.target.lock.repos
+
+   It will clone all required repositories to the ``./src`` folder.
+
+#. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
+
+   Install the dependencies to the target board first:
+
+   .. code-block:: bash
+
+      sysroot-rosdep-install
+
+   It will take time if you run this command for the first time.
+
+   Cross-build the application:
+
+   .. code-block:: bash
+
+      cross-colcon-build
+
+   Deploy the binaries to the target board:
+
+   .. code-block:: bash
+
+      scp -r install ubuntu@board_ip:~/ros2_ws/
+
+   .. note::
+
+      Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+
+#. Install the required dependencies on the RZ/V2H RDK board.
+
+   .. code-block:: bash
+
+      cd /home/ubuntu/ros2_ws
+      source /opt/ros/jazzy/setup.bash
+      rosdep install --from-paths ./install/*/share -y -r --ignore-src
+
+   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
+
 #. Launch the Vision Based Robotic Arm Teleoperation application.
 
    Load the workspace environment:
@@ -86,7 +102,7 @@ Quick setup instructions:
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path/to>/install/setup.bash
+      source ./install/setup.bash
 
    For real AgileX Piper Arm and Inspire RH56 hand control:
 
@@ -135,7 +151,7 @@ Quick setup instructions:
    .. code-block:: bash
 
       source /opt/ros/jazzy/setup.bash
-      source <path/to>/install/setup.bash
+      source ./install/setup.bash
       ros2 launch agilex_piper_mujoco bringup_mujoco_cartesian_motion_controller.launch.py
 
    .. note::
@@ -143,6 +159,6 @@ Quick setup instructions:
       Make sure to set up the MuJoCo environment on your host PC as described in the :ref:`MuJoCo Visualization <mujoco_visualization>` section before running the above command.
 
 For more details about the Vision Based Robotic Arm Teleoperation application, refer to the
-`README.md in the rzv_playground package <https://partnergitlab.renesas.solutions/sst1/industrial/ws078/rzv_ros_package/rzv_playground/-/blob/master/README.md?ref_type=heads>`_.
+`README.md in the rzv_playground package <https://github.com/renesas-rdk/rzv_playground>`_.
 
-- v1.0.0 (2025-10-31): Initial release of the Vision Based Robotic Arm Teleoperation sample application.
+- v1.0.0 (2026-03-31): Initial release of the Vision Based Robotic Arm Teleoperation sample application.
