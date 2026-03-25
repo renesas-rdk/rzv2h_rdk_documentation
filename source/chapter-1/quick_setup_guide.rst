@@ -1,7 +1,7 @@
 .. _quick_setup_rdk_guide:
 
 Quick start guide for RZ/V2H RDK
---------------------------------
+---------------------------------
 
 This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
 
@@ -10,7 +10,7 @@ Other advanced boot methods, such as **xSPI flash**, are also supported.
 The **TFTP + NFS boot** method is supported as well but is not covered in detail here.
 
 Preparing the microSD card
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Linux image onto it.
 
@@ -20,7 +20,7 @@ There are two options for flashing the image:
 - **Option 2: Flash using Balena Etcher** - A user-friendly GUI tool that supports multiple platforms (Windows, macOS, Linux).
 
 Requirements
-"""""""""""""""
+""""""""""""
 
 - A host machine for flashing the image:
 
@@ -34,7 +34,7 @@ Requirements
 
   Download the RZ/V2H RDK Software Package from the Renesas website to your local machine using this link:
 
-  - `Renesas Official RZ/V2H RDK Website <https://www.renesas.com/ws125-v2hrdkrefz>`_
+  `Renesas Official RZ/V2H RDK Website <https://www.renesas.com/ws125-v2hrdkrefz>`_
 
   In the ``*.zip`` file, you can find the following files under the ``board_setup`` folder:
 
@@ -67,7 +67,7 @@ Requirements
          - ``fip-rzv2h-rdk.srec``: Bootloader file
 
 Option 1: Flash using bmaptool (Ubuntu)
-"""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""
 
 bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
 It provides quicker flashing compared to traditional methods by skipping empty blocks and verifying data integrity automatically.
@@ -154,10 +154,11 @@ It supports many OS platforms, including Windows, macOS, and Linux.
 
         Balena Etcher Application
 
-   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz)
+   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``)
    - **Select Target:** Insert your microSD card into the host machine and choose the correct device.
 
      .. note::
+
         Please confirm the microSD card device name carefully.
         Double-check to avoid overwriting your main disk.
 
@@ -170,39 +171,49 @@ It supports many OS platforms, including Windows, macOS, and Linux.
    - **Finish:** Remove the microSD card safely after Etcher reports successful completion.
 
 Boot Mode Configuration (DIP Switch)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before powering up the RZ/V2H RDK, make sure the board's boot mode is configured correctly using the DIP switches.
 
-+------------+-------------+----------------------------------------------------+
-| Switch No. | RZ/V2H Pin  | Function                                           |
-+============+=============+====================================================+
-| 1          | BOOTSELCPU  | Select the cold boot CPU                           |
-|            |             |                                                    |
-|            |             | OFF: CM33, **ON**: CA55 (default)                  |
-+------------+-------------+----------------------------------------------------+
-| 2          | BOOTPLLCA1  | Input the CA55 frequency at the CA55 cold boot     |
-|            |             |                                                    |
-|            |             | BOOTPLLCA[1:0]                                     |
-+------------+-------------+                                                    +
-| 3          | BOOTPLLCA0  | - = [OFF:OFF]: 1.6 GHz                             |
-|            |             | - = [**OFF:ON**]: 1.7 GHz (default)                |
-|            |             | - = [ON:OFF]: 1.1 GHz                              |
-|            |             | - = [ON:ON]: 1.5 GHz                               |
-+------------+-------------+----------------------------------------------------+
-| 4          | MD_BOOT1    | Input the boot mode select signal                  |
-|            |             |                                                    |
-|            |             | MD_BOOT[1:0]                                       |
-+------------+-------------+                                                    +
-| 5          | MD_BOOT0    | - = [OFF:OFF]: xSPI                                |
-|            |             | - = [OFF:ON]: SCIF                                 |
-|            |             | - = [**ON:OFF**]: SD (default)                     |
-|            |             | - = [ON:ON]: eMMC (not supported) on RZ/V2H RDK    |
-+------------+-------------+----------------------------------------------------+
-| 6          | MD_BOOT3    | Select JTAG debug mode                             |
-|            |             |                                                    |
-|            |             | **OFF**: Normal mode (default), ON: Debug mode     |
-+------------+-------------+----------------------------------------------------+
+.. list-table:: DIP Switch Configuration
+   :header-rows: 1
+   :widths: 10 15 75
+
+   * - **Switch No.**
+     - **RZ/V2H Pin**
+     - **Function**
+   * - 1
+     - BOOTSELCPU
+     - Select the cold boot CPU
+
+       OFF: CM33, **ON**: CA55 (default)
+   * - 2
+     - BOOTPLLCA1
+     - Input the CA55 frequency at the CA55 cold boot
+
+       BOOTPLLCA[1:0]
+   * - 3
+     - BOOTPLLCA0
+     - - = [OFF:OFF]: 1.6 GHz
+       - = [**OFF:ON**]: 1.7 GHz (default)
+       - = [ON:OFF]: 1.1 GHz
+       - = [ON:ON]: 1.5 GHz
+   * - 4
+     - MD_BOOT1
+     - Input the boot mode select signal
+
+       MD_BOOT[1:0]
+   * - 5
+     - MD_BOOT0
+     - - = [OFF:OFF]: xSPI
+       - = [OFF:ON]: SCIF
+       - = [**ON:OFF**]: SD (default)
+       - = [ON:ON]: eMMC (not supported) on RZ/V2H RDK
+   * - 6
+     - MD_BOOT3
+     - Select JTAG debug mode
+
+       **OFF**: Normal mode (default), ON: Debug mode
 
 .. attention::
 
@@ -248,7 +259,7 @@ The board supports two boot options, including:
 
    The serial communication between the **Windows PC** and **RZ/V2H RDK** requires: `FTDI Virtual COM Port (VCP) driver <https://ftdichip.com/drivers/vcp-drivers/>`_
 
-   Download and install the Windows version (`.exe`).
+   Download and install the Windows version (``.exe``).
 
 .. important::
 
@@ -261,7 +272,7 @@ The board supports two boot options, including:
    - DC power adapter 24V, 1A.
 
 Common hardware setup
-""""""""""""""""""""""
+"""""""""""""""""""""
 
 The following image shows the common hardware setup for both boot modes:
 
@@ -284,7 +295,6 @@ Option 1: microSD card boot mode
 For **microSD card boot mode**, the required bootloaders components are already included in the flashed microSD card image.
 
 On the RZ/V2H RDK, configure the **DSW1** switches as shown below:
-
 
 .. figure:: ../images/DSW1_SD.png
    :alt: DSW1 microSD card Boot Mode
@@ -334,7 +344,7 @@ The board will start the boot process.
 If you intend to use **microSD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
 
 Option 2: xSPI boot mode
-""""""""""""""""""""""""
+"""""""""""""""""""""""""
 
 Follow the instructions below to set up the board.
 
@@ -357,11 +367,11 @@ Follow the instructions below to set up the board.
 
       * - **File Name**
         - **Description**
-      * - Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
+      * - ``Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot``
         - Flash writer for RZ/V2H (used in SCIF download mode)
-      * - bl2_bp_spi-rzv2h-rdk.srec
+      * - ``bl2_bp_spi-rzv2h-rdk.srec``
         - Boot loader stage 2 binary
-      * - fip-rzv2h-rdk.srec
+      * - ``fip-rzv2h-rdk.srec``
         - Firmware Image Package for RZ/V2H
 
    - Connect the **Windows PC** and **Board** using a **USB-to-microUSB** cable.
@@ -409,82 +419,104 @@ Follow the instructions below to set up the board.
         * - Transmit delay
           - 0 msec/char
 
-   - Open **File → Send file...** and send the **Flash Writer** file (.mot) as text.
+   - Open **File → Send file...** and send the **Flash Writer** file (``.mot``) as text.
 
-     If the following message is displayed, the file transfer was successful::
+     If the following message is displayed, the file transfer was successful:
 
-         Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
-         Product Code : RZ/V2x
+     .. code-block:: text
 
-   - Next, enter the ``XLS2`` command in the terminal::
+        Flash writer for RZ/V2x Series Vx.xx xxx.xx,20xx
+        Product Code : RZ/V2x
 
-         > XLS2
-         ===== Qspi writing of RZ/V2x Board Command =============
-         Load Program to Spiflash
-         Writes to any of SPI address.
-         Program size & Qspi Save Address
-         ===== Please Input Program Top Address ============
-         Please Input : H'
+   - Next, enter the ``XLS2`` command in the terminal:
 
-   - Enter ``8101e00``. The log continues::
+     .. code-block:: text
 
-         Please Input : H'8101e00
-         ===== Please Input Qspi Save Address ===
-         Please Input : H'
+        > XLS2
+        ===== Qspi writing of RZ/V2x Board Command =============
+        Load Program to Spiflash
+        Writes to any of SPI address.
+        Program size & Qspi Save Address
+        ===== Please Input Program Top Address ============
+        Please Input : H'
 
-   - Enter ``00000``. The log continues::
+   - Enter ``8101e00``. The log continues:
 
-         Please Input : H'00000
-         please send ! ('.' & CR stop load)
+     .. code-block:: text
 
-   - After the "please send!" message, open **File → Send file...** and send the `bl2_bp_spi-rzv2*.srec` file as text from the terminal software.
+        Please Input : H'8101e00
+        ===== Please Input Qspi Save Address ===
+        Please Input : H'
 
-   - If prompted to clear data, enter `y`::
+   - Enter ``00000``. The log continues:
 
-         SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+     .. code-block:: text
 
-   - The following log will be displayed. The end address depends on the version of IPL::
+        Please Input : H'00000
+        please send ! ('.' & CR stop load)
 
-         Write to SPI Flash memory.
-         ======= Qspi Save Information =================
-         SpiFlashMemory Stat Address : H'00000000
-         SpiFlashMemory End Address  : H'00036D17
-         ===========================================================
+   - After the "please send!" message, open **File → Send file...** and send the ``bl2_bp_spi-rzv2*.srec`` file as text from the terminal software.
 
-   - Enter ``XLS2`` on the terminal again to get the following messages::
+   - If prompted to clear data, enter ``y``:
 
-         > XLS2
-         ===== Qspi writing of RZ/V2x Board Command =============
-         Load Program to Spiflash
-         Writes to any of SPI address.
-         Program size & Qspi Save Address
-         ===== Please Input Program Top Address ============
-         Please Input : H'
+     .. code-block:: text
 
-   - Enter ``00000``. The log continues::
+        SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
 
-         Please Input : H'00000
-         ===== Please Input Qspi Save Address ===
-         Please Input : H'
+   - The following log will be displayed. The end address depends on the version of IPL:
 
-   - Enter ``60000``. The log continues::
+     .. code-block:: text
 
-         Please Input : H'60000
-         please send ! ('.' & CR stop load)
+        Write to SPI Flash memory.
+        ======= Qspi Save Information =================
+        SpiFlashMemory Stat Address : H'00000000
+        SpiFlashMemory End Address  : H'00036D17
+        ===========================================================
 
-   - After the "please send!" message, open **File → Send file...** and send the `fip-rzv2*.srec` file as text from the terminal software.
+   - Enter ``XLS2`` on the terminal again to get the following messages:
 
-   - If prompted to clear data, enter ``y``::
+     .. code-block:: text
 
-         SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+        > XLS2
+        ===== Qspi writing of RZ/V2x Board Command =============
+        Load Program to Spiflash
+        Writes to any of SPI address.
+        Program size & Qspi Save Address
+        ===== Please Input Program Top Address ============
+        Please Input : H'
 
-   - The following log will be displayed. The end address depends on the version of IPL::
+   - Enter ``00000``. The log continues:
 
-         Write to SPI Flash memory.
-         ======= Qspi Save Information =================
-         SpiFlashMemory Stat Address : H'00060000
-         SpiFlashMemory End Address  : H'0011C2EE
-         ===========================================================
+     .. code-block:: text
+
+        Please Input : H'00000
+        ===== Please Input Qspi Save Address ===
+        Please Input : H'
+
+   - Enter ``60000``. The log continues:
+
+     .. code-block:: text
+
+        Please Input : H'60000
+        please send ! ('.' & CR stop load)
+
+   - After the "please send!" message, open **File → Send file...** and send the ``fip-rzv2*.srec`` file as text from the terminal software.
+
+   - If prompted to clear data, enter ``y``:
+
+     .. code-block:: text
+
+        SPI Data Clear(H'FF) Check : H'00000000-0000FFFF, Clear OK?(y/n)
+
+   - The following log will be displayed. The end address depends on the version of IPL:
+
+     .. code-block:: text
+
+        Write to SPI Flash memory.
+        ======= Qspi Save Information =================
+        SpiFlashMemory Stat Address : H'00060000
+        SpiFlashMemory End Address  : H'0011C2EE
+        ===========================================================
 
    - Power off the board and change DSW1 to configure the boot mode.
 
@@ -495,11 +527,11 @@ Follow the instructions below to set up the board.
    #. Change DSW1 to **Boot Mode 2 (xSPI boot)**:
 
       .. figure:: ../images/DSW1_xSPI.png
-          :alt: DSW1 xSPI Boot
-          :width: 500px
-          :align: center
+         :alt: DSW1 xSPI Boot
+         :width: 500px
+         :align: center
 
-          DSW1 xSPI Boot Mode
+         DSW1 xSPI Boot Mode
 
    #. Connect the board to the PC using a **USB-to-microUSB** cable.
 
@@ -520,10 +552,10 @@ Follow the instructions below to set up the board.
       saveenv
       boot
 
+.. _first_time_boot_setup:
+
 First Time Boot Setup
 ^^^^^^^^^^^^^^^^^^^^^
-
-.. _first_time_boot_setup:
 
 The default user credentials for the provided Ubuntu images are as follows:
 
@@ -581,7 +613,7 @@ Connect an Ethernet cable to the board and run:
 
    Quick installation steps:
 
-   .. code-block::
+   .. code-block:: bash
 
       wget https://raw.githubusercontent.com/renesas-rdk/ros2_demo_workspace/refs/heads/main/common_utils/apt_install_ros2.sh
       chmod +x apt_install_ros2.sh
