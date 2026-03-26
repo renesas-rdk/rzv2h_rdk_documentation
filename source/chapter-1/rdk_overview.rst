@@ -75,7 +75,7 @@ Hardware Environment
        * CAN-FD x2
        * 40-pin RasPi GPIO Header
 
-For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Development Kit Hardware Manual <https://github.com/renesas-rdk/rzv2h_rdk_documentation/raw/refs/heads/main/docs/pdf/WS125_Robotic_Development_Kit_HardwareManual.pdf?download=>`_.
+For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Development Kit Hardware Manual <https://github.com/renesas-rdk/rzv2h_rdk_documentation/raw/refs/heads/main/docs/pdf/WS125-V2HRDKREFZ-Hardware-Manual-20260323.pdf?download=>`_.
 
 **RZ/V2H RDK Image View:**
 

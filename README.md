@@ -14,6 +14,8 @@ Access the Online Manual which is available at:
 
 For offline use, download the generated PDF after each build at: `docs/pdf/WS125_Robotic_Development_Kit_User_Manual.pdf`
 
+The **RZ/V2H Robotic Development Kit Hardware Manual** is also available in PDF format at: `docs/pdf/WS125-V2HRDKREFZ-Hardware-Manual-20260323.pdf`
+
 ---
 
 ## Building the documentation locally
