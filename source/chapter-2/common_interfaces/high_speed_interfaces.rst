@@ -191,7 +191,7 @@ In Ubuntu, the network is configured with Netplan. If you need to set a static I
        renderer: networkd
        ethernets:
          end0:
-           dhcp4: no
+           dhcp4: false
            addresses: [169.254.43.99/24]
            routes:
              - to: default
