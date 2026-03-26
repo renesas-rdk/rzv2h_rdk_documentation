@@ -16,7 +16,7 @@ In this case, we will be cross-building applications on a development machine (U
 
    The primary focus of this section is cross-building ROS 2 applications.
 
-   However, **the cross-build environment can also be used to build non-ROS applications**, provided they are compatible with the RZ/V2H RDK Linux image and the supplied toolchain.
+   However, :ref:`the cross-build environment can also be used to build non-ROS applications <cross_build_non_ros2_apps>`, provided they are compatible with the RZ/V2H RDK Linux image and the supplied toolchain.
 
 How ROS 2 Cross-building Works
 """"""""""""""""""""""""""""""
