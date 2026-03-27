@@ -1,0 +1,2 @@
+# The following folders/files will be skip when generating the PDF file.
+source/index.rst

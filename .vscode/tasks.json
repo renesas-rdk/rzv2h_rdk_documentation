@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Spelling",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "spelling"
+      ],
+      "options": {
+        "env": {
+          "SPHINXOPTS": "-W"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build HTML",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "html"
+      ],
+      "options": {
+        "env": {
+          "SPHINXOPTS": "-W"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build HTML (polyversion)",
+      "type": "shell",
+      "command": "sphinx-polyversion",
+      "args": [
+        "poly.py",
+        "build/html"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build PDF (convert.py)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "DOCS_VERSION=${DOCS_VERSION:-1.0}; python3 scripts/convert.py --output_filename WS125_Robotic_Development_Kit_User_Manual.pdf --release_version \"${DOCS_VERSION#v}\" --rev_date \"$(date '+%b.%d.%y')\""
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build All (spelling, html, pdf)",
+      "dependsOn": [
+        "Build Spelling",
+        "Build HTML",
+        "Build PDF (convert.py)"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}
