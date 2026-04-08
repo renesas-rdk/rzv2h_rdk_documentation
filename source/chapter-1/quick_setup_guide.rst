@@ -32,7 +32,7 @@ Requirements
 
 - **Provided bootable files:**
 
-  Download the RZ/V2H RDK Software Package from the Renesas website to your local machine using this link:
+ Download WS125-V2HRDKREFZ Robotic Development Kit Software from the Renesas website to your local machine using this link:
 
   `Renesas Official RZ/V2H RDK Website <https://www.renesas.com/ws125-v2hrdkrefz>`_
 
