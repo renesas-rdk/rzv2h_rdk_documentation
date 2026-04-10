@@ -12,15 +12,41 @@ The RZ/V2H RDK is equipped with two CAN-FD (Controller Area Network Flexible Dat
 
 .. note::
 
-   The CAN-FD overlay is enabled by default on the RZ/V2H RDK. The overlay is
-   controlled by the following line in ``/boot/uEnv.txt``:
+   #. The CAN-FD overlay is enabled by default on the RZ/V2H RDK. The overlay is
+      controlled by the following line in ``/boot/uEnv.txt``:
 
-   .. code-block:: text
+      .. code-block:: text
+         
+         enable_overlay_can=1
 
-      enable_overlay_can=1
+      To disable the overlay, add a comment symbol ``#`` at the beginning of the
+      line and reboot the system. To re-enable it, remove the ``#`` and reboot.
 
-   To disable the overlay, add a comment symbol ``#`` at the beginning of the
-   line and reboot the system. To re-enable it, remove the ``#`` and reboot.
+   #. **By default, the RZ/V2H RDK uses the CAN-FD feature**. To use the CAN with Classic CAN frames, you have to rebuild the device tree
+      blob with the CAN-FD feature disabled.      
+
+      Edit the `rzv2h-rdk-1.0-can.dts <https://github.com/Renesas-SST/linux-rz/blob/ubuntu/rz-v2h-rdk/arch/arm64/boot/dts/renesas/overlays/rzv2h-rdk-1.0-can.dts>`_
+      file, add the ``renesas,no-can-fd;`` property to the CAN nodes, and then
+      :ref:`rebuild the device tree blob <linux_kernel_and_device_tree>`.
+
+      .. code-block:: dts
+         :emphasize-lines: 6
+
+         &canfd {
+            pinctrl-0 = <&can0_pins &can3_pins>;
+            pinctrl-names = "default";
+            status = "okay";
+
+            renesas,no-can-fd;
+
+            channel0 {
+               status = "okay";
+            };
+
+            channel3 {
+               status = "okay";
+            };
+         };
 
 .. tip::
 
@@ -43,6 +69,8 @@ The following image shows the pinout for the CAN-FD ports on the RZ/V2H RDK:
 
 Follow the steps below to use the CAN-FD interfaces on the RZ/V2H RDK running Ubuntu.
 
+This example is applied for testing CAN-FD feature only, it does not cover the configuration for Classic CAN frames.
+
 Verify that the CAN interfaces are recognized:
 
 .. code-block:: bash
@@ -56,41 +84,50 @@ Example output:
    5: can0: <NOARP,ECHO> mtu 72 qdisc noop state DOWN mode DEFAULT group default qlen 10 link/can
    6: can1: <NOARP,ECHO> mtu 72 qdisc noop state DOWN mode DEFAULT group default qlen 10 link/can
 
-Bring up the CAN interface (for example, 500 kbps nominal, 2 Mbps data):
+Bring up the CAN0 and CAN1 interfaces (for example, 500 kbps nominal, 2 Mbps data):
 
 .. code-block:: bash
 
+   # Bring up the CAN0 interface with the specified bitrate and data bitrate for CAN-FD
    sudo ip link set can0 down
    sudo ip link set can0 type can bitrate 500000 dbitrate 2000000 fd on
    sudo ip link set can0 up
+
+   # Bring up the CAN1 interface with the specified bitrate and data bitrate for CAN-FD
+   sudo ip link set can1 down
+   sudo ip link set can1 type can bitrate 500000 dbitrate 2000000 fd on
+   sudo ip link set can1 up
 
 Check the interface status:
 
 .. code-block:: bash
 
    ip -details link show can0
+   ip -details link show can1
 
 Send and receive CAN messages:
 
 You can use the ``can-utils`` package for testing CAN-FD communication.
 
-1. Install ``can-utils`` if it is not already installed:
+#. Install ``can-utils`` if it is not already installed:
 
    .. code-block:: bash
 
       sudo apt install can-utils
 
-2. In one terminal, listen for incoming CAN-FD frames:
+#. Connect the CAN0_H to CAN1_H and CAN0_L to CAN1_L.
+
+#. In one terminal, listen for incoming CAN-FD frames:
 
    .. code-block:: bash
 
       candump can0
 
-3. In another terminal, send a test frame:
+#. In another terminal, send a test frame:
 
    .. code-block:: bash
 
-      cansend can0 123##01122334455667788
+      cansend can1 123##01122334455667788
 
 RasPi GPIO 40-pin Header
 """"""""""""""""""""""""
