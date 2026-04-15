@@ -157,6 +157,12 @@ Docker environment setup
 
       cd ~/ros2_ws
 
+#. Update the APT repository list in the target sysroot. This command ensures that the latest package information is available for installing dependencies.
+
+   .. code-block:: bash
+
+      rzv2h-chroot apt update
+
 Accessing the Docker container from VS Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

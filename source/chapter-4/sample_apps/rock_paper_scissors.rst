@@ -69,6 +69,12 @@ Quick software setup instructions
 
    It will take time if you run this command for the first time.
 
+   Copy the hand control library to the sysroot:
+
+   .. code-block:: bash
+
+      sudo cp /home/ubuntu/ros2_ws/src/ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $V2H_SYSROOT/usr/lib/aarch64-linux-gnu/
+
    Cross-build the application:
 
    .. code-block:: bash
@@ -84,6 +90,9 @@ Quick software setup instructions
    .. note::
 
       Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+
+Start the application
+"""""""""""""""""""""
 
 #. Install the required dependencies on the RZ/V2H RDK board.
 

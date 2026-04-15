@@ -187,7 +187,10 @@ Sysroot and Docker Environment
    Also, if multiple containers mount the same host directory (``$ROS2_WS``), concurrent builds may cause file conflicts.
    It is recommended to use a separate workspace directory for each container.
 
+
 #. How do I avoid library version mismatches between the sysroot and the board?
+
+.. _abi_mismatch:
 
    The sysroot used for cross-compilation must match the Linux image running on the RZ/V2H RDK board.
 
@@ -309,7 +312,7 @@ Debugging
 
    Check the following:
 
-   - **``NODE_EXECUTABLE_NAME``** in ``settings.json`` must match the exact name of the executable you want to debug.
+   - **NODE_EXECUTABLE_NAME** in ``settings.json`` must match the exact name of the executable you want to debug.
      If the name does not match, ``gdbserver`` will not attach to the correct process.
 
      You can verify the executable name by listing running processes on the target:

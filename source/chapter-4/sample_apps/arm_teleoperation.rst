@@ -61,6 +61,12 @@ Quick software setup instructions
 
 #. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
 
+   Update the APT repository list in the target sysroot.
+
+   .. code-block:: bash
+
+      rzv2h-chroot apt update
+
    Install the dependencies to the target board first:
 
    .. code-block:: bash
@@ -84,6 +90,9 @@ Quick software setup instructions
    .. note::
 
       Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+
+Start the application
+"""""""""""""""""""""
 
 #. Install the required dependencies on the RZ/V2H RDK board.
 

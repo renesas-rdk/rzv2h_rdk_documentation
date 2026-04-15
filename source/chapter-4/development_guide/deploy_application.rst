@@ -20,11 +20,24 @@ Install Dependencies into the Sysroot
 
 Before building the application, make sure that all required dependencies are installed into the target sysroot.
 
+Update the APT repository list in the target sysroot. This command ensures that the latest package information is available for installing dependencies.
+
+.. code-block:: bash
+
+   rzv2h-chroot apt update
+
 Prepare the necessary ROS 2 packages in the current workspace on the host machine, then run the following command to install the required dependencies into the sysroot:
 
 .. code-block:: bash
 
    sysroot-rosdep-install
+
+.. note::
+
+   Note that target sysroot libraries must match the runtime environment of the target device.
+   Otherwise, the application may fail to run on the target device due to missing or incompatible libraries.
+
+   For more information about how to avoid library version mismatches, see :ref:`ABI mismatch issues <abi_mismatch>` in the FAQ.
 
 .. _build_deploy:
 
