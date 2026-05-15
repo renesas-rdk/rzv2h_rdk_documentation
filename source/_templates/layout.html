@@ -2,12 +2,14 @@
 
 {% block sidebartitle %}
   {{ super() }}
-  <div class="version-switcher" id="version-switcher-container" hidden>
+  <div class="version-switcher" id="version-switcher-container">
     <select
       id="version-switcher"
       class="version-switcher__select"
       aria-label="Select documentation version"
       onchange="if (this.value) window.location.href = this.value;"
-    ></select>
+    >
+      <option value="" selected>{{ release }}</option>
+    </select>
   </div>
 {% endblock %}
