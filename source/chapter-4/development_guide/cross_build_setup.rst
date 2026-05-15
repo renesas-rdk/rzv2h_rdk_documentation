@@ -62,7 +62,9 @@ Docker environment setup
 
    .. code-block:: bash
 
-      ./setup_rdk_docker.sh [options]
+      ./setup_rdk_docker.sh [platform] [options]
+
+   If you want to specify custom options, run ``./setup_rdk_docker.sh --help`` to see the available command-line arguments.
 
    .. list-table:: Command-Line Options
       :widths: 35 65
@@ -86,14 +88,10 @@ Docker environment setup
         - Automatically prepare the workspace inside the container
       * - ``--shell``
         - Open a shell inside the container after setup
+      * - ``--no-self-update``
+        - Skip checking the remote repository for a newer script
       * - ``-h, --help``
         - Show usage information
-
-   Example of fully non-interactive usage:
-
-   .. code-block:: bash
-
-      ./setup_rdk_docker.sh -n my_container -w ~/ros2_ws -y --pull --create --prep
 
    .. note::
 
@@ -125,18 +123,7 @@ Docker environment setup
 
    During execution, the script prompts whether to prepare the ROS 2 workspace inside the container.
 
-   This step is required the first time you use a workspace with the container and when mounting
-   a new workspace path.
-
-   If you choose to run it, the script executes:
-
-   .. code-block:: bash
-
-      docker exec "$CONTAINER_NAME" bash -c "
-          sudo chown -R ubuntu:ubuntu /home/ubuntu/ros2_ws &&
-          cp -r /home/ubuntu/toolchains/.vscode /home/ubuntu/ros2_ws/ &&
-          cp /home/ubuntu/toolchains/.clang-format /home/ubuntu/ros2_ws/
-      "
+   This step is required the first time you use a workspace with the container and when **mounting a new workspace path**.
 
 #. Access the Docker container from a terminal.
 
@@ -161,7 +148,7 @@ Docker environment setup
 
    .. code-block:: bash
 
-      rzv2h-chroot apt update
+      arm64-chroot apt update
 
 Accessing the Docker container from VS Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

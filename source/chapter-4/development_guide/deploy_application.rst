@@ -24,7 +24,7 @@ Update the APT repository list in the target sysroot. This command ensures that 
 
 .. code-block:: bash
 
-   rzv2h-chroot apt update
+   arm64-chroot apt update
 
 Prepare the necessary ROS 2 packages in the current workspace on the host machine, then run the following command to install the required dependencies into the sysroot:
 

@@ -42,7 +42,7 @@ The overall workflow is:
 
 .. tip::
 
-   You can think of the ARM64 sysroot with QEMU emulation as a "virtual RZ/V2H RDK environment" inside the Docker container, which allows you to install dependencies or execute any command via ``rzv2h-chroot`` as if you were directly working on the RZ/V2H RDK.
+   You can think of the ARM64 sysroot with QEMU emulation as a "virtual RZ/V2H RDK environment" inside the Docker container, which allows you to install dependencies or execute any command via ``arm64-chroot`` as if you were directly working on the RZ/V2H RDK.
 
 Limitations
 """""""""""
