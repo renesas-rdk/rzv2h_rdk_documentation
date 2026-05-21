@@ -233,6 +233,41 @@ Apply the changes with the following command:
 
    sudo netplan apply
 
+Set a MAC Address
+~~~~~~~~~~~~~~~~~
+
+When you connect two or more RZ/V2H RDK boards to the same network (using the same router), you may encounter an issue where you cannot reach the boards over the network.
+
+This is due to duplicate MAC addresses. Because the RZ/V2H RDK uses a random MAC address by default, multiple boards might acquire the same MAC address.
+
+Consequently, two devices with the same MAC address will cause conflicts on the router, preventing network access.
+
+The easiest way to resolve this is to assign a static MAC address to each device. Edit the ``/etc/netplan/50-cloud-init.yaml`` file as follows:
+
+.. code-block:: bash
+
+   sudo vi /etc/netplan/50-cloud-init.yaml
+
+Add or modify the configuration to include your custom MAC address:
+
+.. code-block:: yaml
+
+   # This file describes the network interfaces available on your system
+   # For more information, see netplan(5).
+   network:
+     version: 2
+     renderer: networkd
+     ethernets:
+       end0:
+         dhcp4: yes
+         macaddress: "02:00:00:11:22:34"
+
+Then apply the changes:
+
+.. code-block:: bash
+
+   sudo netplan apply
+
 USB 3.0 Type A x2
 """""""""""""""""
 
