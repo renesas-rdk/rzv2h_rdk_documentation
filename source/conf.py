@@ -14,7 +14,7 @@ except ImportError:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'RZ/V2H Robotic Development Kit User Manual'
-copyright = '2025, Renesas Electronics Corporation'
+copyright = '2026, Renesas Electronics Corporation'
 author = 'Renesas Electronics Corporation'
 
 # -- General configuration ---------------------------------------------------

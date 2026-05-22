@@ -34,29 +34,6 @@ General
 
    Alternatively, if a directory should always be ignored by colcon, add a ``COLCON_IGNORE`` file in that package directory.
 
-#. Why do I see a warning about ``AMENT_PREFIX_PATH`` during cross-build?
-
-   During cross-build, you may see a warning like this:
-
-   .. code-block:: console
-
-      [0.233s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/opt/rzv2h-sysroot/opt/ros/jazzy' in the environment variable AMENT_PREFIX_PATH doesn't contain any 'local_setup.*' files.
-
-   This warning is expected and does not indicate a problem with your setup.
-
-   The warning appears because the ROS 2 setup files are intentionally removed from the sysroot.
-   This prevents hardcoded paths from being embedded in the build output, which would otherwise break execution on the target board.
-
-   As long as your application runs correctly on the RZ/V2H RDK device, you can safely ignore this warning.
-
-   Without this adjustment, you may see an error like the following on the target board:
-
-   .. code-block:: console
-
-      ubuntu@ubuntu:~$ source install/setup.bash
-      not found: "/opt/rzv2h-sysroot/opt/ros/jazzy/local_setup.bash"
-      ubuntu@ubuntu:~$
-
 Build and Dependencies
 """"""""""""""""""""""
 
@@ -121,11 +98,11 @@ Build and Dependencies
    #. Run ``sysroot-rosdep-install`` to install the missing dependency into the sysroot.
    #. Run ``cross-colcon-build`` again.
 
-   If the dependency is not available through ``rosdep``, you may need to install it manually into the sysroot using ``rzv2h-chroot``:
+   If the dependency is not available through ``rosdep``, you may need to install it manually into the sysroot using ``arm64-chroot``:
 
    .. code-block:: bash
 
-      rzv2h-chroot apt-get install <package_name>
+      arm64-chroot apt-get install <package_name>
 
 #. The sysroot uses Renesas OpenCVA, not the default OpenCV from the apt repository. What should I know?
 
@@ -140,7 +117,7 @@ Build and Dependencies
    .. warning::
 
       Do **not** install ``libopencv-dev`` from the apt repository into the sysroot.
-      Running ``apt-get install libopencv-dev`` inside ``rzv2h-chroot`` will overwrite the Renesas OpenCVA libraries and break hardware acceleration on the target board.
+      Running ``apt-get install libopencv-dev`` inside ``arm64-chroot`` will overwrite the Renesas OpenCVA libraries and break hardware acceleration on the target board.
 
    If your package depends on OpenCV, it will automatically link against the Renesas OpenCVA libraries already present in the sysroot.
    No additional installation is required.
@@ -182,7 +159,7 @@ Sysroot and Docker Environment
    However, each container has its own independent sysroot and chroot environment.
 
    Keep in mind that only **one chroot instance** can run at a time **within a single container**.
-   If you need to run ``rzv2h-chroot`` or ``sysroot-rosdep-install`` in parallel, use separate containers.
+   If you need to run ``arm64-chroot`` or ``sysroot-rosdep-install`` in parallel, use separate containers.
 
    Also, if multiple containers mount the same host directory (``$ROS2_WS``), concurrent builds may cause file conflicts.
    It is recommended to use a separate workspace directory for each container.
@@ -233,8 +210,8 @@ Sysroot and Docker Environment
 
    .. code-block:: bash
 
-      rzv2h-chroot apt update
-      rzv2h-chroot apt install ros-jazzy-rclcpp
+      arm64-chroot apt update
+      arm64-chroot apt install ros-jazzy-rclcpp
 
    Only update the specific packages that were changed.
    Running ``apt upgrade`` on the entire sysroot is not recommended as it can be time-consuming and may unintentionally update other packages.

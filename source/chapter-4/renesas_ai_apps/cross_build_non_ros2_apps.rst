@@ -29,20 +29,20 @@ Setting up the Environment
 Install Dependencies into the Sysroot
 """"""""""""""""""""""""""""""""""""""
 
-Before building the application, install any required libraries into the ARM64 sysroot using ``rzv2h-chroot``.
+Before building the application, install any required libraries into the ARM64 sysroot using ``arm64-chroot``.
 
 For example, to install common development libraries:
 
 .. code-block:: bash
 
-   rzv2h-chroot apt update
-   rzv2h-chroot apt install -y <package-name>
+   arm64-chroot apt update
+   arm64-chroot apt install -y <package-name>
 
 .. important::
 
-   The ``rzv2h-chroot`` command already runs with ``sudo`` privileges. Do not add ``sudo`` to commands executed with ``rzv2h-chroot``.
+   The ``arm64-chroot`` command already runs with ``sudo`` privileges. Do not add ``sudo`` to commands executed with ``arm64-chroot``.
 
-   For more details on ``rzv2h-chroot``, refer to the :ref:`Cross compilation usage guide <cross_build_usage>`.
+   For more details on ``arm64-chroot``, refer to the :ref:`Cross compilation usage guide <cross_build_usage>`.
 
 Build the Application
 """""""""""""""""""""

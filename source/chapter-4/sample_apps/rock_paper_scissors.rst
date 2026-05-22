@@ -69,12 +69,6 @@ Quick software setup instructions
 
    It will take time if you run this command for the first time.
 
-   Copy the hand control library to the sysroot:
-
-   .. code-block:: bash
-
-      sudo cp /home/ubuntu/ros2_ws/src/ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $V2H_SYSROOT/usr/lib/aarch64-linux-gnu/
-
    Cross-build the application:
 
    .. code-block:: bash
@@ -123,32 +117,86 @@ Start the application
       source /opt/ros/jazzy/setup.bash
       source ./install/setup.bash
 
-   For real dexterous hand control, use:
+   To launch the virtual hands demo (without requiring hand hardware):
 
    .. code-block:: bash
 
       # For Inspire RH56 hand
-      ros2 launch rzv_demo_rps demo_physical_inspire_rh56_hand_rps.launch.py
+      ros2 launch rzv_demo_rps demo_inspire_rh56_hand_rps.launch.py use_mock_hardware:=true
+
+      # For Inspire RH56 hand + low-latency always win mode with YOLOX
+      ros2 launch rzv_demo_rps demo_inspire_rh56_hand_rps_always_win.launch.py use_mock_hardware:=true detector:=yolox
+
+      # For Inspire RH56E2 hand
+      ros2 launch rzv_demo_rps demo_inspire_rh56e2_hand_rps.launch.py use_mock_hardware:=true
+
+      # For Inspire RH56E2 hand + low-latency always win mode with YOLOX
+      ros2 launch rzv_demo_rps demo_inspire_rh56e2_hand_rps_always_win.launch.py use_mock_hardware:=true detector:=yolox
 
       # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_rps demo_physical_ruiyan_rh2_hand_rps.launch.py
+      ros2 launch rzv_demo_rps demo_ruiyan_rh2_hand_rps.launch.py use_mock_hardware:=true
 
-   For virtual hand control (without a real dexterous hand), use:
+      # For Ruiyan RH2 hand + low-latency always win mode with YOLOX
+      ros2 launch rzv_demo_rps demo_ruiyan_rh2_hand_rps_always_win.launch.py use_mock_hardware:=true detector:=yolox
+
+   To launch the physical Inspire RH56 hand control demo:
 
    .. code-block:: bash
 
-      # For Inspire RH56 hand
-      ros2 launch rzv_demo_rps demo_virtual_inspire_rh56_hand.launch.py
+      ros2 launch rzv_demo_rps demo_inspire_rh56_hand_rps.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
 
-      # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_rps demo_virtual_ruiyan_rh2_hand.launch.py
+   To launch the low-latency always-win Inspire RH56 demo:
+
+   .. code-block:: bash
+
+      # With YOLOv8 (default)
+      ros2 launch rzv_demo_rps demo_inspire_rh56_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+      # With YOLOX
+      ros2 launch rzv_demo_rps demo_inspire_rh56_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0 detector:=yolox
+
+   To launch the physical Inspire RH56E2 hand control demo:
+
+   .. code-block:: bash
+
+      ros2 launch rzv_demo_rps demo_inspire_rh56e2_hand_rps.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+   To launch the low-latency always-win Inspire RH56E2 demo:
+
+   .. code-block:: bash
+
+      # With YOLOv8 (default)
+      ros2 launch rzv_demo_rps demo_inspire_rh56e2_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+      # With YOLOX
+      ros2 launch rzv_demo_rps demo_inspire_rh56e2_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0 detector:=yolox
+
+   To launch the physical RuiYan RH2 hand control demo:
+
+   .. code-block:: bash
+
+      ros2 launch rzv_demo_rps demo_ruiyan_rh2_hand_rps.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
+
+   To launch the low-latency always-win RuiYan RH2 demo:
+
+   .. code-block:: bash
+
+      # With YOLOv8 (default)
+      ros2 launch rzv_demo_rps demo_ruiyan_rh2_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
+
+      # With YOLOX
+      ros2 launch rzv_demo_rps demo_ruiyan_rh2_hand_rps_always_win.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2 detector:=yolox
 
 #. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
    The input layout file for Foxglove Studio is located at
    ``rzv_demo_rps/config/foxglove/demo_rps.json`` inside the ROS 2 workspace.
 
+   For always win mode, the input layout file is located at
+   ``rzv_demo_rps/config/foxglove/demo_rps_always_win.json``.
+
 For more details about the Rock Paper Scissors application, refer to the
 `README.md in the rzv_demo_rps package <https://github.com/renesas-rdk/rzv_demo_rps>`_.
 
 - v1.0.0 (2026-03-31): Initial release of the Rock Paper Scissors sample application.
+- v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand, always win mode, and ported the application to ``ros2_control`` framework for improved performance and flexibility.

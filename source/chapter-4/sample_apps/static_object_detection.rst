@@ -52,7 +52,7 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      rzv2h-chroot apt update
+      arm64-chroot apt update
 
    Install the dependencies to the target board first:
 

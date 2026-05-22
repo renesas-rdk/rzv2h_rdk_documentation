@@ -59,8 +59,8 @@ Install the required development libraries for Wayland, GStreamer, and other dep
 
 .. code-block:: bash
 
-   rzv2h-chroot apt update
-   rzv2h-chroot apt install -y \
+   arm64-chroot apt update
+   arm64-chroot apt install -y \
       wayland-protocols \
       libwayland-dev \
       wayland-scanner++ \
@@ -75,7 +75,7 @@ Install the required development libraries for Wayland, GStreamer, and other dep
 
    The above command installs the necessary development libraries for building the Renesas AI Applications that use Wayland display and GStreamer functionalities.
 
-   For applications with additional dependencies, install those dependencies into the sysroot using ``rzv2h-chroot`` before building the application.
+   For applications with additional dependencies, install those dependencies into the sysroot using ``arm64-chroot`` before building the application.
 
 Generate XDG Shell Protocol Files
 """"""""""""""""""""""""""""""""""
@@ -86,7 +86,7 @@ Generate them inside the sysroot:
 .. code-block:: bash
 
    # Enter the chroot environment
-   rzv2h-chroot
+   arm64-chroot
 
    # Generate the xdg-shell-client-protocol.h file
    wayland-scanner client-header \

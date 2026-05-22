@@ -32,7 +32,7 @@ Quick hardware setup instructions
 
    .. note::
 
-      Before using the Ruiyan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in ``ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` or in ``install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh`` after installation.
+      Before using the Ruiyan RH2 Dexhand, ensure that the hand is properly initialized using the provided setup script located in ``ruiyan_rh2_hand_bringup/setup/ruiyan_rh2_init.sh`` or in ``install/ruiyan_rh2_hand_bringup/share/ruiyan_rh2_hand_bringup/setup/ruiyan_rh2_init.sh`` after installation.
 
 #. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 
@@ -56,7 +56,7 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_dexterous_dand.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_dexterous_hand.target.lock.repos
 
    It will clone all required repositories to the ``./src`` folder.
 
@@ -66,7 +66,7 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      rzv2h-chroot apt update
+      arm64-chroot apt update
 
    Install the dependencies to the target board first:
 
@@ -75,12 +75,6 @@ Quick software setup instructions
       sysroot-rosdep-install
 
    It will take time if you run this command for the first time.
-
-   Copy the hand control library to the sysroot:
-
-   .. code-block:: bash
-
-      sudo cp /home/ubuntu/ros2_ws/src/ruiyan_rh2_controller/rh6_ctrl/lib/libRyhandArm64.so $V2H_SYSROOT/usr/lib/aarch64-linux-gnu/
 
    Cross-build the application:
 
@@ -126,20 +120,26 @@ Start the application
    .. code-block:: bash
 
       # For Inspire RH56 hand
-      ros2 launch rzv_demo_dexhand demo_physical_inspire_rh56_hand.launch.py
+      ros2 launch rzv_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+      # For Inspire RH56E2 hand
+      ros2 launch rzv_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
 
       # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_dexhand demo_physical_ruiyan_rh2_hand.launch.py
+      ros2 launch rzv_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
 
    For virtual hand control (without a real dexterous hand), use:
 
    .. code-block:: bash
 
       # For Inspire RH56 hand
-      ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+      ros2 launch rzv_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=true
+
+      # For Inspire RH56E2 hand
+      ros2 launch rzv_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=true
 
       # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
+      ros2 launch rzv_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=true
 
 #. Based on the hand gesture shown in front of the camera, the dexterous hand mimics the observed hand movement.
 
@@ -164,3 +164,4 @@ Start the application
 For more details about the Vision Based Dexterous Hand application, refer to the
 `README.md in the rzv_demo_dexhand package <https://github.com/renesas-rdk/rzv_demo_dexhand>`_
 - v1.0.0 (2026-03-31): Initial release of the Vision Based Dexterous Hand sample application.
+- v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand and ported the application to ``ros2_control`` framework for improved performance and flexibility.
