@@ -110,8 +110,8 @@ Start the application
       # Hand detection on static image using YOLOX
       ros2 launch rzv_object_detection static_hand_detection_yolox.launch.py
 
-      # Hand detection on static image using Gold YOLOX
-      ros2 launch rzv_object_detection static_hand_detection_gold_yolox.launch.py
+      # Hand detection on static image using Gold YOLO
+      ros2 launch rzv_object_detection static_hand_detection_gold_yolo.launch.py
 
 #. For visualization using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
