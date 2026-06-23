@@ -39,7 +39,7 @@ The main interfaces available on the RZ/V2H Robotic Development Kit are listed b
      - 1000M RJ45
      - Gigabit Ethernet LAN port for network connectivity.
    * - 4
-     - USB 3.0 Type A x2
+     - USB 3.2 Type A x2
      - USB host ports for external devices such as mouse, keyboard, or USB camera.
 
 .. list-table:: Communication Interfaces

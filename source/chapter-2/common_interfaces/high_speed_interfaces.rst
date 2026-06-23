@@ -268,17 +268,17 @@ Then apply the changes:
 
    sudo netplan apply
 
-USB 3.0 Type A x2
+USB 3.2 Type A x2
 """""""""""""""""
 
-The RZ/V2H RDK includes two USB 3.0 Type-A ports that support high-speed data transfer for connecting various USB peripherals, such as external storage devices, cameras, and input devices.
+The RZ/V2H RDK includes two USB 3.2 Type-A ports that support high-speed data transfer for connecting various USB peripherals, such as external storage devices, cameras, and input devices.
 
-To use these devices, simply connect them to the USB 3.0 Type-A ports.
+To use these devices, simply connect them to the USB 3.2 Type-A ports.
 
-Verify USB 3.0 functionality
+Verify USB 3.2 functionality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To verify that the USB 3.0 ports are functioning correctly, you can use the following command to list USB devices and check their connection speed:
+To verify that the USB 3.2 ports are functioning correctly, you can use the following command to list USB devices and check their connection speed:
 
 .. code-block:: bash
 
