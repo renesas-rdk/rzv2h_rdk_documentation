@@ -300,6 +300,10 @@ The following USB-WIFI adapters have been tested and are compatible with the RZ/
 
 - Ralink Technology, Corp. MT7601U Wireless Adapter
 - AC1300 TP-Link T3U Nano
+- TP-LINK 882x
+- TP-LINK Archer Plus
+- RTL8821AU
+- TL-WDN6200
 
 .. note::
 
