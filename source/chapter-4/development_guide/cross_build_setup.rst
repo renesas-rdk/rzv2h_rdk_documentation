@@ -12,7 +12,7 @@ Supported host operating systems:
 
 - **Linux**: Ubuntu 24.04 (x86_64) - **recommended**.
 - **Windows**: Windows 10/11 (x86_64) with Docker Desktop or WSL2 (Ubuntu 24.04).
-- **macOS**: macOS 13 Ventura or later on Apple Silicon (arm64, M1/M2/M3/M4) - **provide good performance**.
+- **macOS**: macOS 13 Ventura or later on Apple Silicon - **provide good performance**.
 
 - The following image show the expected setup for cross-building applications for the RZ/V2H RDK platform:
 
