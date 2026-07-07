@@ -8,7 +8,11 @@ This section provides instructions on how to set up the cross-compilation enviro
 Hardware requirements
 """""""""""""""""""""
 
-- Ubuntu 24.04 host machine.
+Supported host operating systems:
+
+- **Linux**: Ubuntu 24.04 (x86_64) - **recommended**.
+- **Windows**: Windows 10/11 (x86_64) with Docker Desktop or WSL2 (Ubuntu 24.04).
+- **macOS**: macOS 13 Ventura or later on Apple Silicon (arm64, M1/M2/M3/M4) - **provide good performance**.
 
 - The following image show the expected setup for cross-building applications for the RZ/V2H RDK platform:
 
@@ -38,19 +42,30 @@ Docker environment setup
 
 #. Run the setup script to create the Docker-based cross-compilation environment.
 
-   .. code-block:: bash
+   #. For Linux, macOS and WSL2, open a terminal and run:
 
-      wget https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
-      chmod +x setup_rdk_docker.sh
+      .. code-block:: bash
 
-   Then run it:
+         wget https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
+         chmod +x setup_rdk_docker.sh
 
-   .. code-block:: bash
+      Then run it:
 
-      ./setup_rdk_docker.sh
+      .. code-block:: bash
+
+         ./setup_rdk_docker.sh
+
+   #. For Windows, **open a Docker Desktop terminal** (PowerShell) and run:
+
+      .. code-block:: powershell
+
+         Invoke-WebRequest -Uri "https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.ps1" -OutFile "setup_rdk_docker.ps1"
+         Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+         .\setup_rdk_docker.ps1
 
    The setup script performs the following tasks:
 
+   - checks if the current script is the latest version by comparing it with the remote version on GitHub, if not it prompts to download the latest version.
    - checks whether the Docker image already exists locally
    - compares the local image digest with the remote image digest when ``docker buildx`` is available
    - pulls the image only if needed or if the remote image differs
@@ -62,36 +77,13 @@ Docker environment setup
 
    .. code-block:: bash
 
+      # For Linux, macOS and WSL2
       ./setup_rdk_docker.sh [platform] [options]
 
-   If you want to specify custom options, run ``./setup_rdk_docker.sh --help`` to see the available command-line arguments.
+      # For Windows
+      .\setup_rdk_docker.ps1 [platform] [options]
 
-   .. list-table:: Command-Line Options
-      :widths: 35 65
-      :header-rows: 1
-
-      * - Option
-        - Description
-      * - ``-i, --image IMAGE``
-        - Docker image to use (default: ``ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest``)
-      * - ``-n, --container-name NAME``
-        - Container name (default: ``ros2_cross_build_container``)
-      * - ``-w, --workspace PATH``
-        - Host ROS 2 workspace path (default: ``$HOME/ros2_ws``)
-      * - ``-y, --yes``
-        - Non-interactive mode; accept yes for all confirmations
-      * - ``--pull``
-        - Automatically pull or update the image if needed
-      * - ``--create``
-        - Automatically create and start the container if needed
-      * - ``--prep``
-        - Automatically prepare the workspace inside the container
-      * - ``--shell``
-        - Open a shell inside the container after setup
-      * - ``--no-self-update``
-        - Skip checking the remote repository for a newer script
-      * - ``-h, --help``
-        - Show usage information
+   If you want to specify custom options, run ``./setup_rdk_docker.sh --help`` for Linux, macOS and WSL2 or ``.\setup_rdk_docker.ps1 --help`` for Windows to see the available command-line arguments.
 
    .. note::
 
@@ -119,12 +111,6 @@ Docker environment setup
    The script then displays the configuration summary and asks for confirmation
    before proceeding.
 
-#. Prepare the ROS 2 workspace inside the Docker container.
-
-   During execution, the script prompts whether to prepare the ROS 2 workspace inside the container.
-
-   This step is required the first time you use a workspace with the container and when **mounting a new workspace path**.
-
 #. Access the Docker container from a terminal.
 
    After the script completes, it offers to open a shell inside the container.
@@ -149,6 +135,16 @@ Docker environment setup
    .. code-block:: bash
 
       arm64-chroot apt update
+
+.. tip::
+
+   The cross build environment uses the toolchain files (under ``/home/ubuntu/toolchains``) from the `ubuntu_xbuild_toolchains <https://github.com/renesas-rdk/ubuntu_xbuild_toolchains>`_ repository.
+
+   When a new release of the toolchain files is available, instead of rebuilding the Docker container (which can take a long time, since you have to install the dependencies again), you can simply restart the container and the toolchains will update automatically.
+
+   However, if you have modified the toolchain files in a way that conflicts with the new release, you may need to resolve the conflict manually.
+
+   We recommend restarting the container first and checking whether the auto update worked by using the ``docker logs`` command. If the auto update fails, you can enter the container and resolve the conflict manually.
 
 Accessing the Docker container from VS Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
