@@ -22,7 +22,24 @@ Known Issues
 
       This issue does not occur with USB 3.0 cameras on the RZ/V2H RDK.
 
-   We are actively investigating the root cause and working towards a resolution.
+   **Workaround**: change the IPL to the experiment version, and then the warning and error messages will not appear when running AI applications that use USB 2.0 cameras on the RZ/V2H RDK.
+
+   However, we do not warrant that the experiment version IPL is stable, so please use it at your own risk.
+
+   You can download the experiment version IPL inside the `RZ/V2H RDK release package <https://www.renesas.com/en/design-resources/boards-kits/ws125-v2hrdkrefz>`_ the path is ``board_setup/experiment_ipl/``.
+
+   You can use the following command to quickly flash the IPL to the board when using SD card boot mode. For xSPI boot mode, please refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
+
+   .. code-block:: bash
+
+      # On the Ubuntu host machine, navigate to the directory where the experiment version IPL is located.
+      cd /path/to/experiment_ipl
+
+      # Please replace /dev/sdX with the actual device name of your SD card.
+      # You can use the `lsblk` command to list all block devices and identify the correct device name for your SD card.
+      sudo dd if=bl2_bp_esd-rzv2h-rdk.bin of=/dev/sdX bs=512 seek=1 conv=notrunc status=progress
+      sudo dd if=fip-rzv2h-rdk.bin of=/dev/sdX bs=512 seek=768 conv=notrunc status=progress
+      sync
 
 #. **Some SD cards may not work properly with the RZ/V2H RDK**
 
