@@ -51,10 +51,13 @@ VS Code configuration files are located in the ``.vscode/`` directory of your RO
 
    .vscode/
    ├── c_cpp_properties.json      # C/C++ extension configuration file
+   ├── check_package_versions.py  # Python script to check package versions between sysroot and target
    ├── deploy.sh                  # Deployment script to copy files to target
+   ├── extensions.json            # VS Code recommended extensions file
    ├── launch.json                # Debugger launch configuration file
    ├── run_program.sh             # Script to run the program on target
    ├── settings.json              # VS Code workspace settings file
+   ├── settings.template.json     # Template for settings.json
    ├── start_target_gdbserver.sh  # Script to start gdbserver on target
    └── tasks.json                 # Task runner configuration file
 
@@ -174,6 +177,10 @@ These tasks are defined in the ``tasks.json`` file and can be executed from the 
      - Builds the workspace with the ``Release`` configuration.
    * - ROS2: Clean All
      - Cleans all build artifacts, including the ``build``, ``install``, and ``log`` directories.
+   * - ROS2: Install Deps on Target (rosdep)
+     - Installs runtime dependencies on the target board via rosdep (over SSH), using the deployed ``install/`` workspace.
+   * - ROS2: Check Package Versions (Sysroot and Board)
+     - Checks the package versions in the sysroot against those on the target board to ensure compatibility. Updates them if any discrepancies are found.
 
 Task Buttons
 """"""""""""
@@ -202,7 +209,10 @@ The following tasks are configured as buttons by default. You can access them fr
      - Launches the specified launch file from the specified package on the target device. Make sure ``LAUNCH_PACKAGE_NAME`` and ``LAUNCH_FILE_NAME`` are configured correctly in ``settings.json``.
    * - ``Run ExecutableFile``
      - ``ROS2: Run Package Executable``
-     - Runs the specified executable from the specified package on the target device. Make sure ``NODE_PACKAGE_NAME`` and ``NODE_EXECUTABLE_NAME`` are configured correctly in ``settings.json``.
+     - Runs the specified executable from the specified package on the target device. Make sure ``NODE_PACKAGE_NAME`` and ``NODE_EXECUTABLE_NAME`` are configured correctly in ``settings.json``..
+   * - ``Install Deps``
+     - ``ROS2: Install Deps on Target (rosdep)``
+     - Install runtime dependencies on the target board via rosdep (over SSH), using the deployed install/ workspace.
    * - ``SSH to Target``
      - ``ROS2: SSH to Target``
      - Opens an SSH session to the target device.

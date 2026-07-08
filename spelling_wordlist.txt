@@ -37,6 +37,7 @@ ctl
 cvtColor
 cvtColorTwoPlane
 defconfig
+Deps
 dev
 devtool
 dexhand
