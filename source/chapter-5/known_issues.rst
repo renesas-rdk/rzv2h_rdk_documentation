@@ -62,3 +62,17 @@ Known Issues
    #. Power on the board.
    #. Wait until the system fully boots.
    #. Plug the Ethernet cable back in.
+
+#. **The Balena Etcher may not work properly with *.img.xz files**
+
+   When flashing the RZ/V2H RDK image to an SD card using Balena Etcher, if you select the compressed ``.img.xz`` file, the flashing process may fail or not complete successfully.
+
+   To avoid this issue, **decompress the image file** first and then use the resulting ``.img`` file for flashing with Balena Etcher.
+
+   You can decompress the image file using the following command on Linux:
+
+   .. code-block:: bash
+
+      xz -dk ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz
+
+   Or use a decompression tool on Windows or macOS to extract the ``.img`` file.

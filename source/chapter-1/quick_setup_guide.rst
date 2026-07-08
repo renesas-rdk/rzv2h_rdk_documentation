@@ -143,6 +143,17 @@ It supports many OS platforms, including Windows, macOS, and Linux.
 
    Download and install the software from the `Balena Etcher Official Website <https://etcher.balena.io/>`_.
 
+#. **Decompress the image file**
+
+   If you downloaded the image as a compressed ``.xz`` file, decompress it first:
+
+   .. code-block:: bash
+
+      # On Linux
+      xz -dk ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz
+
+   Or use a decompression tool on Windows or macOS to extract the ``.img`` file.
+
 #. **Flashing the Image**
 
    - Once Etcher is open:
@@ -154,7 +165,7 @@ It supports many OS platforms, including Windows, macOS, and Linux.
 
         Balena Etcher Application
 
-   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``)
+   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ``ubuntu-24.04-server-arm64-rzv2h-rdk.img``)
    - **Select Target:** Insert your microSD card into the host machine and choose the correct device.
 
      .. note::
