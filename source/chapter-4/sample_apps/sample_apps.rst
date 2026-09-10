@@ -60,6 +60,63 @@ The following figure shows the hardware setup of the RZ/V2H RDK board and periph
    You can use Foxglove Studio to visualize the robot state and control the robot in a simulated environment.
    See :ref:`Foxglove Studio Visualization <foxglove_visualization>` for more details.
 
+.. _sample_apps_deploy:
+
+Deploying and Installing Dependencies
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After cross-building, the ``install`` folder has to reach the board and the demo's runtime
+dependencies have to be installed there. The VS Code workspace does both over SSH, so neither
+step needs a terminal on the board.
+
+Using the VS Code Tasks
+"""""""""""""""""""""""
+
+Make sure ``TARGET_IP`` in ``settings.json`` points at your board (see
+:ref:`Workspace Settings <workspace_settings>`), then run the two tasks in order:
+
+#. **Deploy.** Click the **Deploy** button in the status bar, or press ``Ctrl+Shift+P``, run
+   **Tasks: Run Task**, and choose **ROS2: Deploy to Target**. This copies the ``install``
+   directory to the board.
+
+#. **Install dependencies.** Click the **Install Deps** button, or run the
+   **ROS2: Install Deps on Target (rosdep)** task. It runs ``rosdep`` on the board over SSH
+   against the workspace you just deployed.
+
+Both tasks are described in :ref:`ROS 2 VS Code Workspace Configuration <ros2_vscode_workspace>`.
+
+.. tip::
+
+   The **Install Deps** task only has to be re-run when a demo's dependencies change, such as
+   after adding a package or editing a ``package.xml``. Re-deploying alone is enough after a
+   plain source change.
+
+Doing It Manually
+"""""""""""""""""
+
+If you are not using the VS Code workspace, copy the ``install`` folder to the board yourself,
+then run this in your ROS 2 workspace on the board:
+
+.. code-block:: bash
+
+   source /opt/ros/jazzy/setup.bash
+   rosdep install --from-paths install/*/share -y -r --ignore-src
+
+Running a Demo
+^^^^^^^^^^^^^^
+
+Source the workspace on the board before launching any demo:
+
+.. code-block:: bash
+
+   source /opt/ros/jazzy/setup.bash
+   source install/setup.bash
+
+The demos can also be started from VS Code with the **Run LaunchFile** and
+**Run ExecutableFile** buttons, once the matching package and launch-file variables are set in
+``settings.json``. See :ref:`ROS 2 Application Deployment <ros2_deployment>` for that
+workflow.
+
 List of Sample Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -70,6 +127,9 @@ Follow the instructions in the respective sample application sections to run eac
 
    arm_teleoperation
    dexhand
+   dexhand_with_sensors
    rock_paper_scissors
+   queens_hand
+   vision_based_grasping
    static_object_detection
    hand_landmark
