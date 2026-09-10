@@ -96,6 +96,10 @@ latex_documents = [
 # Spell checker configuration
 spelling_lang = 'en_US'
 spelling_word_list_filename = '../spelling_wordlist.txt'
+# Do not accept words just because they are importable Python modules on the
+# build machine (e.g. "netplan", "cairo" on Ubuntu hosts); keep results
+# identical between host and container builds.
+spelling_ignore_importable_modules = False
 
 # Copybutton configuration (keep comment lines, remove $/# prompts)
 copybutton_prompt_text = r'^(?:[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+:[^$]*\$ |\$ )'

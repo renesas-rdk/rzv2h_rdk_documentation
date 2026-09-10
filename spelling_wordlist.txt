@@ -29,6 +29,7 @@ cmake
 CMake
 codec
 Codec
+codecs
 colcon
 coldboot
 composable
@@ -60,6 +61,8 @@ egl
 EGL
 EMA
 eMMC
+encodings
+enum
 esdk
 eSDK
 Etcher
@@ -138,6 +141,7 @@ pyrDown
 pyrUp
 QoS
 Quantizer
+quaternion
 Ralink
 RCPU
 rdk
