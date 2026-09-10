@@ -42,7 +42,7 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      vcs import < ./ros2_demo_workspace/vcs_manifests/static_object_detection.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/static_object_detection.target.lock.repos
 
    It will clone all required repositories to the ``./src`` folder.
 

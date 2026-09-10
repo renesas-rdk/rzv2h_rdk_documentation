@@ -435,23 +435,81 @@ Returns ``HandLandmarkResult`` which extends ``KeyPointResult`` with handedness 
 
 **Model preparation:** `MediaPipe <https://github.com/google-ai-edge/mediapipe/tree/master>`_
 
-ROS 2 Utilities (rzv_model_utils_ros2)
-""""""""""""""""""""""""""""""""""""""
+ROS 2 Utilities (renesas_model_utils_ros2)
+""""""""""""""""""""""""""""""""""""""""""
 
-Header: ``rzv_model_utils_ros2/model_utils.hpp``
+Header: ``renesas_model_utils_ros2/model_utils.hpp``
 
-Provides helper functions for integrating AI models into ROS 2 nodes.
+Provides helper functions for integrating AI models into ROS 2 nodes. Every symbol lives in the
+``renesas_model_utils`` namespace, and the stateless helpers are static members of ``UtilsROS``.
+The package builds a single shared library, ``librenesas_model_utils_ros2.so``.
 
-ModelConfig
-~~~~~~~~~~~
+.. note::
+
+   The target platform is selected at configure time by the ``PRODUCT`` variable, which must be
+   set to ``V2H`` for the RZ/V2H RDK. Configuration fails if it is unset. The selection is applied
+   as a **PUBLIC** compile definition, ``PRODUCT_V2H``, so a consuming package automatically
+   compiles against the same platform the library was built for.
+
+   The cross-compilation environment exports ``PRODUCT`` by default. For a native build, pass it
+   explicitly:
+
+   .. code-block:: bash
+
+      colcon build --packages-select renesas_model_utils_ros2 --cmake-args -DPRODUCT=V2H
+
+V2HModelConfig
+~~~~~~~~~~~~~~
+
+Declared only when ``PRODUCT_V2H`` is defined.
 
 .. code-block:: cpp
 
-   struct ModelConfig
+   struct V2HModelConfig
    {
      std::string model_path;
      std::vector<std::string> class_names;
+     // Channel order the network expects on its input tensor: "rgb" (default)
+     // or "bgr", set per model via the optional `input_order` key.
+     std::string input_order = "rgb";
    };
+
+DetectionMeta
+~~~~~~~~~~~~~
+
+Decoded counterpart of the metadata that the bounding-box encoders pack into a ``PoseArray``.
+One entry per detection.
+
+.. code-block:: cpp
+
+   struct DetectionMeta
+   {
+     int class_id = 0;
+     float confidence = 0.0f;
+     // Up to about 15 characters, reconstructed from poses 1 to 4. Truncated
+     // names are common; look up by class_id when the exact name matters.
+     std::string class_name;
+   };
+
+load_v2h_model_config
+~~~~~~~~~~~~~~~~~~~~~
+
+A free function in the ``renesas_model_utils`` namespace, not a member of ``UtilsROS``.
+
+.. code-block:: cpp
+
+   V2HModelConfig load_v2h_model_config(
+     const std::string & package_name, const std::string & model_name,
+     const std::string & path_override = "",
+     const std::vector<std::string> & class_names_override = {});
+
+It reads ``<share>/<package_name>/config/models/models_config.yaml``. A non-empty
+``path_override`` or ``class_names_override`` wins over the value in the YAML file. On any error
+the function logs and returns a default-constructed config rather than throwing.
+
+.. code-block:: cpp
+
+   V2HModelConfig cfg = load_v2h_model_config("my_inference_pkg", "yolov8");
 
 UtilsROS
 ~~~~~~~~
@@ -462,12 +520,55 @@ UtilsROS
 
    * - Method
      - Description
-   * - ``UtilsROS::load_model_info(package, model_type, path_override, class_override)``
-     - Load model configuration from YAML with optional parameter overrides.
-   * - ``UtilsROS::encode_bboxes_to_pose_array(detections)``
-     - Convert detection bounding boxes to ``geometry_msgs/PoseArray``.
-   * - ``UtilsROS::encode_diagonal_timing(result)``
-     - Encode inference timing into a diagnostic message.
+   * - ``UtilsROS::encode_bounding_box_to_poses(pose_array, bbox, class_name, class_id, confidence)``
+     - Encode an axis-aligned bounding box and its metadata as 8 poses in a
+       ``geometry_msgs/PoseArray``.
+   * - ``UtilsROS::encode_oriented_bounding_box_to_poses(pose_array, obbox, class_name, class_id, confidence)``
+     - Encode a rotated bounding box and its metadata as 8 poses.
+   * - ``UtilsROS::decode_detections_from_poses(pose_array, poses_per_detection)``
+     - Decode the metadata packed by the two encoders above. Each detection occupies a fixed
+       stride of ``poses_per_detection`` poses, 8 by default. Trailing poses that do not form a
+       full detection block are ignored.
+   * - ``UtilsROS::encode_inference_timing_diagnostic(name, pre_time, infer_time, post_time)``
+     - Wrap preprocess, inference, and postprocess timings into a
+       ``diagnostic_msgs/DiagnosticStatus`` with ``Preprocess Time (ms)``,
+       ``Inference Time (ms)``, and ``Postprocess Time (ms)`` entries.
+   * - ``UtilsROS::ros_image_to_bgr(msg)``
+     - Convert a ``sensor_msgs/Image`` to a BGR ``cv::Mat``. Supports ``bgr8``, ``rgb8``,
+       ``rgba8``, ``bgra8``, ``yuv422``/``uyvy``, ``yuv422_yuy2``/``yuyv``, and ``mono8``; other
+       encodings fall back to a ``cv_bridge`` conversion attempt. Returns an empty ``cv::Mat`` on
+       failure.
+
+.. code-block:: cpp
+
+   // Encode, axis-aligned or oriented
+   UtilsROS::encode_bounding_box_to_poses(pose_array, bbox, "person", 0, 0.92f);
+   UtilsROS::encode_oriented_bounding_box_to_poses(pose_array, obbox, "car", 2, 0.87f);
+
+   // Decode the metadata on the subscriber side
+   std::vector<DetectionMeta> dets = UtilsROS::decode_detections_from_poses(pose_array);
+
+   // Convert an incoming image
+   cv::Mat bgr = UtilsROS::ros_image_to_bgr(msg);
+
+   // Package the timings for diagnostics
+   auto status = UtilsROS::encode_inference_timing_diagnostic(
+     "yolo_node", pre_ms, infer_ms, post_ms);
+
+Detection layout in a PoseArray
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each detection occupies a fixed block of **8 poses**:
+
+- The ``position`` of the 8 poses holds the box corners: the bottom face first, then the top
+  face. For a 2D box the two faces are duplicated and ``z`` is 0.
+- The ``orientation`` of the first 5 poses carries the metadata. Pose 0 holds ``class_id`` in
+  ``x`` and ``confidence`` in ``y``. Poses 1 to 4 hold up to about 15 characters of the class
+  name, one character per quaternion component.
+- Poses 5 to 7 keep the identity quaternion.
+
+Long class names are truncated by this layout. Look the exact name up by ``class_id`` when it
+matters.
 
 **YAML configuration format** (``config/models/models_config.yaml``):
 
@@ -476,6 +577,7 @@ UtilsROS
    models:
      my_model:
        path: "models/my_model_name"
+       input_order: rgb
        names:
          0: class_a
          1: class_b

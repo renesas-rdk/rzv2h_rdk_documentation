@@ -33,13 +33,13 @@ The tutorial uses the following example launch file for the virtual hand workflo
 
 .. code-block:: bash
 
-   ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+   ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py
 
 You can replace it with another launch file later if needed, such as:
 
 .. code-block:: bash
 
-   ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
+   ros2 launch renesas_demo_dexhand demo_ruiyan_rh2_hand.launch.py
 
 or a physical hand launch file if your hardware is connected.
 
@@ -65,14 +65,12 @@ The workspace should contain the ROS 2 source packages and the VS Code configura
    ├── src                             # Must contain the required source packages for the Dexterous Hand application
    │   ├── arm_hand_control
    │   ├── foxglove_keypoint_publisher
-   │   ├── rzv_demo_dexhand
+   │   ├── renesas_demo_dexhand
+   │   ├── renesas_model_utils_ros2
    │   ├── rzv_model
    │   ├── rzv_pose_estimation
-   │   ├── inspire_rh56_dexhand
-   │   ├── inspire_rh56_urdf
-   │   ├── ruiyan_rh2_controller
-   │   ├── ruiyan_rh2_dexhand
-   │   └── ruiyan_rh2_urdf
+   │   ├── inspire_rh56_hand
+   │   ├── ruiyan_rh2_hand
    └── .vscode
 
 At minimum, make sure the base packages required by the Dexterous Hand application are available under ``src/``.
@@ -114,8 +112,8 @@ For this tutorial, update the key variables in ``.vscode/settings.json`` as foll
      "TARGET_IP": "192.168.0.10",     // Replace with the actual target IP address
      "NODE_PACKAGE_NAME": "rzv_pose_estimation",
      "NODE_EXECUTABLE_NAME": "hand_landmark_estimation",
-     "LAUNCH_PACKAGE_NAME": "rzv_demo_dexhand",
-     "LAUNCH_FILE_NAME": "demo_virtual_inspire_rh56_hands.launch.py"
+     "LAUNCH_PACKAGE_NAME": "renesas_demo_dexhand",
+     "LAUNCH_FILE_NAME": "demo_inspire_rh56_hand.launch.py"
    }
 
 Replace ``192.168.0.10`` with the actual IP address of your RZ/V2H RDK board.
@@ -221,25 +219,25 @@ Run the virtual hand example:
 
 .. code-block:: bash
 
-   ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+   ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py
 
 If you want to use the Ruiyan RH2 virtual hand example instead:
 
 .. code-block:: bash
 
-   ros2 launch rzv_demo_dexhand demo_virtual_ruiyan_rh2_hands.launch.py
+   ros2 launch renesas_demo_dexhand demo_ruiyan_rh2_hand.launch.py
 
 If you want to run a physical hand example:
 
 .. code-block:: bash
 
    # Inspire RH56
-   ros2 launch rzv_demo_dexhand demo_physical_inspire_rh56_hand.launch.py
+   ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
 
 .. code-block:: bash
 
    # Ruiyan RH2
-   ros2 launch rzv_demo_dexhand demo_physical_ruiyan_rh2_hand.launch.py
+   ros2 launch renesas_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
 
 .. note::
 
@@ -249,7 +247,7 @@ If you want to run a physical hand example:
 
    .. code-block:: bash
 
-      /home/ubuntu/ros2_ws/install/ruiyan_rh2_dexhand/share/ruiyan_rh2_dexhand/setup/ruiyan_rh2_init.sh
+      /home/ubuntu/ros2_ws/install/ruiyan_rh2_hand_bringup/share/ruiyan_rh2_hand_bringup/setup/ruiyan_rh2_init.sh
 
 Run Remotely from VS Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -262,8 +260,8 @@ For the Dexterous Hand example, set the following in ``settings.json``:
 
    {
      "TARGET_IP": "192.168.0.10",
-     "LAUNCH_PACKAGE_NAME": "rzv_demo_dexhand",
-     "LAUNCH_FILE_NAME": "demo_virtual_inspire_rh56_hands.launch.py"
+     "LAUNCH_PACKAGE_NAME": "renesas_demo_dexhand",
+     "LAUNCH_FILE_NAME": "demo_inspire_rh56_hand.launch.py"
    }
 
 Then run the task:
@@ -274,7 +272,7 @@ This is equivalent to running:
 
 .. code-block:: bash
 
-   ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+   ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py
 
 on the target device.
 
@@ -309,8 +307,8 @@ For launch-based debugging, the following variables are required in ``settings.j
 
    {
      "TARGET_IP": "192.168.0.10",
-     "LAUNCH_PACKAGE_NAME": "rzv_demo_dexhand",
-     "LAUNCH_FILE_NAME": "demo_virtual_inspire_rh56_hands.launch.py",
+     "LAUNCH_PACKAGE_NAME": "renesas_demo_dexhand",
+     "LAUNCH_FILE_NAME": "demo_inspire_rh56_hand.launch.py",
      "NODE_PACKAGE_NAME": "<package_of_target_node>",
      "NODE_EXECUTABLE_NAME": "<target_executable>"
    }
@@ -349,7 +347,7 @@ The corresponding target-side command is similar to:
 
 .. code-block:: bash
 
-   ros2 launch --launch-prefix 'gdbserver localhost:<debug_port>' --launch-prefix-filter '<executable_name>' rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+   ros2 launch --launch-prefix 'gdbserver localhost:<debug_port>' --launch-prefix-filter '<executable_name>' renesas_demo_dexhand demo_inspire_rh56_hand.launch.py
 
 .. note::
 
@@ -390,7 +388,7 @@ During development, the most common workflow is:
       ssh ubuntu@192.168.0.10
       source /opt/ros/jazzy/setup.bash
       source /home/ubuntu/ros2_ws/install/setup.bash
-      ros2 launch rzv_demo_dexhand demo_virtual_inspire_rh56_hands.launch.py
+      ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py
 
 #. If needed, start a remote debugging session from VS Code.
 

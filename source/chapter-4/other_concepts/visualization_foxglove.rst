@@ -240,9 +240,15 @@ For example:
    * - Static Object Detection
      - ``rzv_object_detection/config/foxglove/objects_detection.json``
    * - Rock Paper Scissors
-     - ``rzv_demo_rps/config/foxglove/demo_rps.json``
+     - ``renesas_demo_rps/config/foxglove/demo_rps.json``
    * - Dexterous Hand Control
-     - ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json``
+     - ``renesas_demo_dexhand/config/foxglove/demo_dexhand.json``
+   * - Dexterous Hand with Tactile Sensors
+     - ``renesas_demo_dexhand_w_sensors/config/foxglove/integrated_demo.json``
+   * - Queen's Hand Chess Robot
+     - ``renesas_demo_queens_hand/config/foxglove/chess_demo.json``
+   * - Vision-Based Grasping
+     - ``renesas_vision_based_grasping/config/foxglove/vision_base_grasping.json``
    * - Hand Landmark Estimation
      - ``rzv_pose_estimation/config/foxglove/landmark_estimation.json``
    * - Arm Teleoperation

@@ -73,7 +73,7 @@ Import the required repositories by using the ``vcs`` command:
 
    cd ~/ros2_ws
    git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
-   vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.host.lock.repos
+   vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/vision_based_robotic_arm_teleoperation.host.lock.repos
 
 Native Build the ROS 2 Workspace for the Host PC
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -135,7 +135,7 @@ Cross-compile the ROS 2 Workspace
 
       cd ~/ros2_ws
       git clone https://github.com/renesas-rdk/ros2_demo_workspace.git
-      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/vision_based_robotic_arm_teleoperation.target.lock.repos
 
 #. Cross-compile the ROS 2 workspace using :ref:`cross-build the ROS 2 Application <development_guide>`.
 

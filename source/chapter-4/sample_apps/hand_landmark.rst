@@ -55,11 +55,11 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      vcs import < ./ros2_demo_workspace/vcs_manifests/hand_landmark_estimation.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/hand_landmark_estimation.target.lock.repos
 
    It will clone all required repositories to the ``./src`` folder.
 
-#. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
+#. Cross-compile the ROS 2 workspace.
 
    Update the APT repository list in the target sysroot.
 
@@ -79,39 +79,23 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      cross-colcon-build
+      cross-colcon-build --packages-up-to rzv_pose_estimation
 
-   Deploy the binaries to the target board:
-
-   .. code-block:: bash
-
-      scp -r install ubuntu@board_ip:~/ros2_ws/
-
-   .. note::
-
-      Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+#. Deploy the result to the board and install the runtime dependencies there, as described in
+   :ref:`Deploying and Installing Dependencies <sample_apps_deploy>`.
 
 Start the application
 """""""""""""""""""""
 
-#. Install the required dependencies on the RZ/V2H RDK board.
+#. Load the workspace environment on the RZ/V2H RDK board.
 
    .. code-block:: bash
 
       cd /home/ubuntu/ros2_ws
       source /opt/ros/jazzy/setup.bash
-      rosdep install --from-paths ./install/*/share -y -r --ignore-src
-
-   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
+      source ./install/setup.bash
 
 #. Launch the Static / Camera-based Hand Landmark Estimation application.
-
-   Load the workspace environment:
-
-   .. code-block:: bash
-
-      source /opt/ros/jazzy/setup.bash
-      source ./install/setup.bash
 
    For hand landmark estimation on a static image, use:
 

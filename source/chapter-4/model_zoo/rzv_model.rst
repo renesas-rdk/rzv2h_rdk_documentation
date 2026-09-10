@@ -385,27 +385,31 @@ Step 6 (Optional): Integrate with ROS 2
 
 To use your new model in a ROS 2 application, you can either:
 
-- Add it to a new or existing ROS 2 application package (e.g., ``rzv_my_app ``, ``rzv_object_detection`` or ``rzv_pose_estimation``).
-- Create a new ROS 2 node that uses ``rzv_model_utils_ros2`` for model configuration and message encoding.
+- Add it to a new or existing ROS 2 application package (e.g., ``rzv_object_detection`` or ``rzv_pose_estimation``).
+- Create a new ROS 2 node that uses ``renesas_model_utils_ros2`` for model configuration and message encoding.
 
-In your application package, add ``rzv_model_utils_ros2`` and your model package as dependencies:
+In your application package, add ``renesas_model_utils_ros2`` and your model package as dependencies:
 
 .. code-block:: cmake
 
     # CMakeLists.txt of the application package
     find_package(rzv_model REQUIRED)
     find_package(rzv_my_model REQUIRED)
-    find_package(rzv_model_utils_ros2 REQUIRED)
-    ament_target_dependencies(rzv_model rzv_my_model rzv_model_utils_ros2)
+    find_package(renesas_model_utils_ros2 REQUIRED)
+    ament_target_dependencies(rzv_model rzv_my_model renesas_model_utils_ros2)
 
 .. code-block:: xml
 
     <!-- package.xml of the application package -->
     <depend>rzv_model</depend>
     <depend>rzv_my_model</depend>
-    <depend>rzv_model_utils_ros2</depend>
+    <depend>renesas_model_utils_ros2</depend>
 
-When using ``rzv_model_utils_ros2``, register your model in the YAML configuration file:
+.. code-block:: cpp
+
+    #include <renesas_model_utils_ros2/model_utils.hpp>
+
+When using ``renesas_model_utils_ros2``, register your model in the YAML configuration file:
 
 .. code-block:: yaml
 
