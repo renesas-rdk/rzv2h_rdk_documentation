@@ -616,7 +616,7 @@ restarts.
 
    :ref:`Foxglove Visualization <foxglove_visualization>` for the general Foxglove setup.
 
-For more details about the Queen's Hand Chess Robot application, refer to the
+For more details about the Queen's Hand Chess Robot application, refer to the
 `README.md in the renesas_demo_queens_hand package <https://github.com/renesas-rdk/renesas_demo_queens_hand>`_.
 
 - v1.0.0 (2026-09-10): Initial release of the Queen's Hand Chess Robot application.
