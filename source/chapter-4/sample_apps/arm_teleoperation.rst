@@ -55,7 +55,7 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_robotic_arm_teleoperation.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/vision_based_robotic_arm_teleoperation.target.lock.repos
 
    It will clone all required repositories to the ``./src`` folder.
 

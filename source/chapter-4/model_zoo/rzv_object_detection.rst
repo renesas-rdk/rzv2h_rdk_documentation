@@ -154,7 +154,7 @@ Dependencies
 
 - ROS 2
 - OpenCV
-- ``rzv_model_utils_ros2``
+- ``renesas_model_utils_ros2``
 - ``rzv_model`` and related AI model packages
 - ``image_publisher`` (for static images)
 - ``v4l2_camera`` (for camera input)

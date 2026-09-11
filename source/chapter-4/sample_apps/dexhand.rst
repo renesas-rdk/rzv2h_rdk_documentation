@@ -1,7 +1,7 @@
+.. _dexhand:
+
 Vision Based Dexterous Hand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. _dexhand:
 
 .. note::
 
@@ -14,12 +14,12 @@ Vision Based Dexterous Hand
 
    Dexterous Hand Demo
 
-The RZ/V Demo DexHand package provides the following features:
+The ``renesas_demo_dexhand`` package provides the following features:
 
 - Supports hand landmark estimation and interpretation.
 - Supports simultaneous control of virtual and physical dexterous hands.
 - Supports visualization through Foxglove Studio.
-- Supports multiple dexterous hand models.
+- Supports multiple dexterous hand models: Inspire RH56, Inspire RH56E2, and Ruiyan RH2.
 - Supports running two AI models simultaneously on the DRP-AI IP: one for hand detection and another for hand landmark estimation.
 - Supports multiple AI models for both hand detection and hand landmark estimation.
 
@@ -56,11 +56,11 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      vcs import < ./ros2_demo_workspace/vcs_manifests/vision_based_dexterous_hand.target.lock.repos
+      vcs import < ./ros2_demo_workspace/vcs_manifests/rz-v2h/vision_based_dexterous_hand.target.lock.repos
 
    It will clone all required repositories to the ``./src`` folder.
 
-#. Cross-compile the ROS 2 workspace and deploy it to the RZ/V2H RDK board.
+#. Cross-compile the ROS 2 workspace.
 
    Update the APT repository list in the target sysroot.
 
@@ -80,66 +80,49 @@ Quick software setup instructions
 
    .. code-block:: bash
 
-      cross-colcon-build
+      cross-colcon-build --packages-up-to renesas_demo_dexhand
 
-   Deploy the binaries to the target board:
-
-   .. code-block:: bash
-
-      scp -r install ubuntu@board_ip:~/ros2_ws/
-
-   .. note::
-
-      Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
+#. Deploy the result to the board and install the runtime dependencies there, as described in
+   :ref:`Deploying and Installing Dependencies <sample_apps_deploy>`.
 
 Start the application
 """""""""""""""""""""
 
-#. Install the required dependencies on the RZ/V2H RDK board.
+#. Load the workspace environment on the RZ/V2H RDK board.
 
    .. code-block:: bash
 
       cd /home/ubuntu/ros2_ws
       source /opt/ros/jazzy/setup.bash
-      rosdep install --from-paths ./install/*/share -y -r --ignore-src
-
-   The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
-
-
-#. Launch the Vision Based Dexterous Hand application.
-
-   Load the workspace environment:
-
-   .. code-block:: bash
-
-      source /opt/ros/jazzy/setup.bash
       source ./install/setup.bash
 
-   For real dexterous hand control, use:
-
-   .. code-block:: bash
-
-      # For Inspire RH56 hand
-      ros2 launch rzv_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
-
-      # For Inspire RH56E2 hand
-      ros2 launch rzv_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
-
-      # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
+#. Launch the Vision Based Dexterous Hand application.
 
    For virtual hand control (without a real dexterous hand), use:
 
    .. code-block:: bash
 
       # For Inspire RH56 hand
-      ros2 launch rzv_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=true
+      ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=true
 
       # For Inspire RH56E2 hand
-      ros2 launch rzv_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=true
+      ros2 launch renesas_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=true
 
       # For Ruiyan RH2 hand
-      ros2 launch rzv_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=true
+      ros2 launch renesas_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=true
+
+   For real dexterous hand control, use:
+
+   .. code-block:: bash
+
+      # For Inspire RH56 hand
+      ros2 launch renesas_demo_dexhand demo_inspire_rh56_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+      # For Inspire RH56E2 hand
+      ros2 launch renesas_demo_dexhand demo_inspire_rh56e2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 serial_port:=/dev/ttyUSB0
+
+      # For Ruiyan RH2 hand
+      ros2 launch renesas_demo_dexhand demo_ruiyan_rh2_hand.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
 
 #. Based on the hand gesture shown in front of the camera, the dexterous hand mimics the observed hand movement.
 
@@ -159,9 +142,45 @@ Start the application
 #. For simulation using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
 
    The input layout file for Foxglove Studio is located at
-   ``rzv_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS 2 workspace.
+   ``renesas_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS 2 workspace.
+
+Launch arguments
+""""""""""""""""
+
+The following table lists the launch arguments accepted by the demo launch files:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 34 46 20
+
+   * - Argument
+     - Meaning
+     - Default
+   * - ``video_device``
+     - Camera device node used for hand tracking.
+     - ``/dev/video0``
+   * - ``landmark_model_type``
+     - Hand landmark model to use. Other values are ``rtmpose_hand`` and ``hrnetv2_hand_landmark``.
+     - ``mediapipe_hand_landmark``
+   * - ``serial_port``
+     - Serial port of the physical Inspire RH56 or RH56E2 hand.
+     - ``/dev/ttyUSB0``
+   * - ``can_interface``
+     - CAN interface of the physical Ruiyan RH2 hand.
+     - ``can2``
+   * - ``hand_speed``
+     - Target motor speed for all joints, 0 to 1000.
+     - ``1000``
+   * - ``hand_side``
+     - Which hand to control, ``left`` or ``right``.
+     - ``left``
+   * - ``use_mock_hardware``
+     - Set to ``true`` to run in simulation without physical hardware.
+     - ``true``
 
 For more details about the Vision Based Dexterous Hand application, refer to the
-`README.md in the rzv_demo_dexhand package <https://github.com/renesas-rdk/rzv_demo_dexhand>`_
+`README.md in the renesas_demo_dexhand package <https://github.com/renesas-rdk/renesas_demo_dexhand>`_.
+
 - v1.0.0 (2026-03-31): Initial release of the Vision Based Dexterous Hand sample application.
 - v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand and ported the application to ``ros2_control`` framework for improved performance and flexibility.
+- v1.2.0 (2026-09-10): Moved the package to a build-time platform selection.

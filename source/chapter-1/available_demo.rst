@@ -40,6 +40,18 @@ The demos showcase AI-accelerated vision features such as object detection, pose
 
   Includes game launch steps, gesture requirements, and display behavior.
 
+- :ref:`Dexterous Hand with Tactile Sensors <sample_app_dexhand_sensors>`
+
+  Includes the dual-camera perception setup, tactile glove bringup, object-aware grip control, and gesture detection.
+
+- :ref:`Queen's Hand Chess Robot <sample_app_queens_hand>`
+
+  Includes board calibration, the hardware-free and software-only modes, and the full chess-playing stack.
+
+- :ref:`Vision-Based Grasping <sample_app_grasping>`
+
+  Includes the pick-and-place behavior tree, arm and hand bringup, and mission control.
+
 - :ref:`Static Object Detection <static_object_detection>`
 
   Includes model requirements, camera input setup, and object detection output details.

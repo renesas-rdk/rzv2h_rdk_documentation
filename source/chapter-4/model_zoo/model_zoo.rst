@@ -14,7 +14,7 @@ The RZ/V2H RDK AI model ecosystem is organized into the following layers:
 - **Base Framework** (``rzv_model``): Core C++ library providing the ``BaseModel`` class, DRP-AI runtime integration, and shared utilities for model loading, preprocessing, inference, and postprocessing.
 - **Model-Specific Packages**: Each AI model family (YOLOX - ``rzv_yolox``, YOLOv8 - ``rzv_yolov8``, HRNetV2 - ``rzv_hrnetv2``, RTMPose - ``rzv_rtmpose``, MediaPipe - ``rzv_mediapipe``, Gold-YOLO - ``rzv_gold_yolo``) is implemented as a separate package that extends the base framework with task-specific postprocessing logic.
 - **ROS 2 Application Packages** (``rzv_object_detection``, ``rzv_pose_estimation``): ROS 2 nodes that combine the model packages with camera/image input and visualization output.
-- **ROS 2 Utilities** (``rzv_model_utils_ros2``): Helper functions for integrating AI models into ROS 2 applications, including model configuration loading, message encoding, and diagnostics.
+- **ROS 2 Utilities** (``renesas_model_utils_ros2``): Helper functions for integrating AI models into ROS 2 applications, including model configuration loading, message encoding, and diagnostics.
 
 Available Packages
 ^^^^^^^^^^^^^^^^^^
@@ -31,7 +31,7 @@ Available Packages
    * - `rzv_model <https://github.com/renesas-rdk/rzv_model>`_
      - Base framework providing ``BaseModel`` class, DRP-AI runtime integration, and shared utilities for model loading, preprocessing, inference, and postprocessing.
      - Apache 2.0
-   * - `rzv_model_utils_ros2 <https://github.com/renesas-rdk/rzv_model_utils_ros2>`_
+   * - `renesas_model_utils_ros2 <https://github.com/renesas-rdk/renesas_model_utils_ros2>`_
      - ROS 2 utility library for model configuration loading, message encoding, and inference diagnostics.
      - Apache 2.0
 
