@@ -12,6 +12,23 @@ Perception runs ``rzv_chess_pieces_detection``: a 12-class YOLOv8 detector accel
 DRP-AI IP turns the camera image into a Forsyth-Edwards Notation (FEN) board state. The nodes
 exchange the board position as FEN throughout.
 
+.. important::
+
+   ``rzv_chess_pieces_detection`` requires 1 GB of reserved memory for the DRP-AI IP, but the
+   default RZ/V2H RDK device tree reserves only 512 MB.
+
+   In the ``rzv2h-rdk-ver1.dts`` file, increase the size of the ``drp_reserved`` node from
+   ``0x20000000`` to ``0x40000000``, and then
+   :ref:`rebuild the device tree blob <modify_dts>`:
+
+   .. code-block:: dts
+      :emphasize-lines: 3
+
+      drp_reserved: DRP-AI@240000000 {
+          reusable;
+          reg = <0x2 0x40000000 0x0 0x40000000>;
+      };
+
 .. note::
 
    The demo has a hardware-free mode. ``behavior_bringup_mock.launch.py`` runs the whole stack
