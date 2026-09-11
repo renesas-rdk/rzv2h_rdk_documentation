@@ -176,7 +176,7 @@ Quick Software Setup Instructions
 
    .. code-block:: bash
 
-      ./install/renesas_demo_queens_hand/share/renesas_demo_queens_hand/setup/install_dependencies.sh
+      bash ./install/renesas_demo_queens_hand/share/renesas_demo_queens_hand/setup/install_dependencies.sh
 
    Run this once per board.
 
