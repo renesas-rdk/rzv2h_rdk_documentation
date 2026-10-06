@@ -16,7 +16,7 @@ Before running any sample application, ensure that you have completed the follow
 
 #. Complete the :ref:`Development Guide <development_guide>` steps to set up the cross-compilation environment, including setting up the Docker container and VS Code workspace.
 
-   Create and enter the container from the Docker image `ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest <https://github.com/orgs/renesas-rdk/packages/container/package/rzv2h_ubuntu_xbuild>`_ image.
+   Create and enter the container from the `ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest <https://github.com/orgs/renesas-rdk/packages/container/package/rzv2h_ubuntu_xbuild>`_ Docker image.
 
    Run the setup script to create the Docker-based cross-compilation environment.
 
@@ -39,9 +39,9 @@ Before running any sample application, ensure that you have completed the follow
 
    Replace ``container_name`` with your created Docker container name.
 
-   After this step, we assume that you already know about how to cross build the ROS 2 application on RZ/V2H RDK board as well as how to deploy and run it.
+   After this step, we assume that you already know how to cross-build a ROS 2 application for the RZ/V2H RDK board, and how to deploy and run it.
 
-   The next instruction only focuses on demo-specific operation, not cover the general setup anymore.
+   The following instructions focus only on demo-specific operations and do not repeat the general setup.
 
 #. (Optional) If you have the real robot hardware, set up the robot arm or hand according to the instructions provided in the respective sample application sections.
 

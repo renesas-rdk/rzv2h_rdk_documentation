@@ -1,6 +1,6 @@
 .. _dexhand:
 
-Vision Based Dexterous Hand
+Vision-Based Dexterous Hand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
@@ -23,7 +23,7 @@ The ``renesas_demo_dexhand`` package provides the following features:
 - Supports running two AI models simultaneously on the DRP-AI IP: one for hand detection and another for hand landmark estimation.
 - Supports multiple AI models for both hand detection and hand landmark estimation.
 
-Quick hardware setup instructions
+Quick Hardware Setup Instructions
 """"""""""""""""""""""""""""""""""
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
@@ -36,7 +36,7 @@ Quick hardware setup instructions
 
 #. Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 
-Quick software setup instructions
+Quick Software Setup Instructions
 """""""""""""""""""""""""""""""""
 
 .. note::
@@ -68,7 +68,7 @@ Quick software setup instructions
 
       arm64-chroot apt update
 
-   Install the dependencies to the target board first:
+   Install the dependencies into the target sysroot first:
 
    .. code-block:: bash
 
@@ -85,7 +85,7 @@ Quick software setup instructions
 #. Deploy the result to the board and install the runtime dependencies there, as described in
    :ref:`Deploying and Installing Dependencies <sample_apps_deploy>`.
 
-Start the application
+Start the Application
 """""""""""""""""""""
 
 #. Load the workspace environment on the RZ/V2H RDK board.
@@ -96,7 +96,7 @@ Start the application
       source /opt/ros/jazzy/setup.bash
       source ./install/setup.bash
 
-#. Launch the Vision Based Dexterous Hand application.
+#. Launch the Vision-Based Dexterous Hand application.
 
    For virtual hand control (without a real dexterous hand), use:
 
@@ -144,7 +144,7 @@ Start the application
    The input layout file for Foxglove Studio is located at
    ``renesas_demo_dexhand/config/foxglove/demo_dexhand.json`` inside the ROS 2 workspace.
 
-Launch arguments
+Launch Arguments
 """"""""""""""""
 
 The following table lists the launch arguments accepted by the demo launch files:
@@ -178,9 +178,9 @@ The following table lists the launch arguments accepted by the demo launch files
      - Set to ``true`` to run in simulation without physical hardware.
      - ``true``
 
-For more details about the Vision Based Dexterous Hand application, refer to the
+For more details about the Vision-Based Dexterous Hand application, refer to the
 `README.md in the renesas_demo_dexhand package <https://github.com/renesas-rdk/renesas_demo_dexhand>`_.
 
-- v1.0.0 (2026-03-31): Initial release of the Vision Based Dexterous Hand sample application.
+- v1.0.0 (2026-03-31): Initial release of the Vision-Based Dexterous Hand sample application.
 - v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand and ported the application to ``ros2_control`` framework for improved performance and flexibility.
 - v1.2.0 (2026-09-10): Moved the package to a build-time platform selection.

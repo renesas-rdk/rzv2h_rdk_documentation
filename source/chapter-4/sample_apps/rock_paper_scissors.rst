@@ -17,7 +17,7 @@ Rock Paper Scissors
 
 The ``renesas_demo_rps`` (Rock Paper Scissors) package provides the following features:
 
-- Rock-Paper-Scissors controller: detects rock, paper, and scissors gestures in real time, executes the game logic, and sends commands to control the robotic hand accordingly.
+- Rock Paper Scissors controller: detects rock, paper, and scissors gestures in real time, executes the game logic, and sends commands to control the robotic hand accordingly.
 - Compatible with the Inspire RH56, Inspire RH56E2, and Ruiyan RH2 robotic hands.
 - Supports RPS object detection and interpretation.
 - Supports simultaneous control of virtual and physical dexterous hands.
@@ -25,7 +25,7 @@ The ``renesas_demo_rps`` (Rock Paper Scissors) package provides the following fe
 - Supports visualization through Foxglove Studio.
 - Supports publishing a compressed H.264 video stream for low-bandwidth Foxglove viewing.
 
-Quick hardware setup instructions
+Quick Hardware Setup Instructions
 """"""""""""""""""""""""""""""""""
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
@@ -38,7 +38,7 @@ Quick hardware setup instructions
 
 #. Connect a compatible USB camera to the RZ/V2H RDK board for Rock Paper Scissors gesture detection.
 
-Quick software setup instructions
+Quick Software Setup Instructions
 """""""""""""""""""""""""""""""""
 
 .. note::
@@ -70,7 +70,7 @@ Quick software setup instructions
 
       arm64-chroot apt update
 
-   Install the dependencies to the target board first:
+   Install the dependencies into the target sysroot first:
 
    .. code-block:: bash
 
@@ -87,7 +87,7 @@ Quick software setup instructions
 #. Deploy the result to the board and install the runtime dependencies there, as described in
    :ref:`Deploying and Installing Dependencies <sample_apps_deploy>`.
 
-Start the application
+Start the Application
 """""""""""""""""""""
 
 #. Application rules:
@@ -189,13 +189,13 @@ Start the application
       Pass ``enable_whip:=false``. The launch file otherwise also tries to push the encoded stream
       to a network uplink that is not part of the RDK.
 
-   To launch the physical RuiYan RH2 hand control demo:
+   To launch the physical Ruiyan RH2 hand control demo:
 
    .. code-block:: bash
 
       ros2 launch renesas_demo_rps demo_ruiyan_rh2_hand_rps.launch.py use_mock_hardware:=false video_device:=/dev/video0 can_interface:=can2
 
-   To launch the low-latency always-win RuiYan RH2 demo:
+   To launch the low-latency always-win Ruiyan RH2 demo:
 
    .. code-block:: bash
 
@@ -217,7 +217,7 @@ Start the application
    ``renesas_demo_rps/config/foxglove/demo_rps_always_win_r365.json`` instead. It uses
    ``/hand_camera/compressed_video`` for the camera panel.
 
-Selecting the detector
+Selecting the Detector
 """"""""""""""""""""""
 
 The ``detector`` argument exists only in the always-win launch files. The plain ``demo_*_rps``
@@ -237,7 +237,7 @@ launch files are fixed to YOLOv8.
      - ``yolov8_object_detection``
      - ``yolov8_rps``
 
-Launch arguments
+Launch Arguments
 """"""""""""""""
 
 The following table lists the launch arguments accepted by the demo launch files:
@@ -313,5 +313,5 @@ For more details about the Rock Paper Scissors application, refer to the
 `README.md in the renesas_demo_rps package <https://github.com/renesas-rdk/renesas_demo_rps>`_.
 
 - v1.0.0 (2026-03-31): Initial release of the Rock Paper Scissors sample application.
-- v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand, always win mode, and ported the application to ``ros2_control`` framework for improved performance and flexibility.
+- v1.1.0 (2026-05-31): Added support for the RH56E2 Dexhand, always-win mode, and ported the application to ``ros2_control`` framework for improved performance and flexibility.
 - v1.2.0 (2026-09-10): Added the compressed-video streaming launch file and moved the package to a build-time platform selection.

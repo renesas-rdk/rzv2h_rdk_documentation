@@ -17,12 +17,12 @@ The RZ/V Static Object Detection package provides the following features:
 - Supports multi-threaded processing.
 - Supports visualization through Foxglove Studio.
 
-Quick hardware setup instructions
+Quick Hardware Setup Instructions
 """"""""""""""""""""""""""""""""""
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
 
-Quick software setup instructions
+Quick Software Setup Instructions
 """""""""""""""""""""""""""""""""
 
 .. note::
@@ -54,7 +54,7 @@ Quick software setup instructions
 
       arm64-chroot apt update
 
-   Install the dependencies to the target board first:
+   Install the dependencies into the target sysroot first:
 
    .. code-block:: bash
 
@@ -78,7 +78,7 @@ Quick software setup instructions
 
       Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
 
-Start the application
+Start the Application
 """""""""""""""""""""
 
 #. Install the required dependencies on the RZ/V2H RDK board.
@@ -110,7 +110,7 @@ Start the application
       # Hand detection on static image using YOLOX
       ros2 launch rzv_object_detection static_hand_detection_yolox.launch.py
 
-      # Hand detection on static image using Gold YOLO
+      # Hand detection on static image using Gold-YOLO
       ros2 launch rzv_object_detection static_hand_detection_gold_yolo.launch.py
 
 #. For visualization using Foxglove Studio, refer to the :ref:`Foxglove Visualization <foxglove_visualization>` section for setup instructions.
