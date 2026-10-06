@@ -1,11 +1,11 @@
 DRP-AI
 ------
 
-This section provides an overview of the DRP-AI (Dynamically Reconfigurable Processor - AI Matrix Arithmetic Circuit) Driver available on the RZ/V2H platform, along with instructions on how to utilize its features effectively.
+This section provides an overview of the DRP-AI (Dynamically Reconfigurable Processor - AI Matrix Arithmetic Circuit) Driver available on the RZ/V2H platform, along with instructions on how to use its features effectively.
 
 .. note::
 
-   This section focuses on the DRP-AI Driver and its capabilities for compiling AI models with the DRP-AI extension package.
+   This section focuses on the DRP-AI Driver and its capabilities for compiling AI models with the DRP-AI TVM extension package.
 
 .. toctree::
    :maxdepth: 3

@@ -9,7 +9,7 @@ The DRP-AI device driver provides an interface for easily handling AI inference 
 
 .. _drp_concepts:
 
-What is Dynamically Reconfigurable Processor (DRP)?
+What Is Dynamically Reconfigurable Processor (DRP)?
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 DRP is a hardware IP (Intellectual Property) block that can dynamically change its hardware configuration, including its arithmetic logic circuits.
@@ -27,7 +27,7 @@ The following image shows an example of dynamic reconfiguration:
 
    DRP Dynamic Reconfiguration
 
-What is DRP-AI?
+What Is DRP-AI?
 """""""""""""""
 
 DRP-AI is a specialized version of DRP designed specifically for AI (Artificial Intelligence) processing tasks.
@@ -69,9 +69,9 @@ DRP-AI Driver Execution Flow
 
 The DRP-AI Driver handles the following tasks to execute AI inference on the DRP-AI:
 
-#. Pre-processing: Prepares input data for DRP-AI processing, including format conversion, image cropping, and normalization.
+#. Preprocessing: Prepares input data for DRP-AI processing, including format conversion, image cropping, and normalization.
 #. Inference execution: Manages execution of the AI model on the DRP-AI hardware.
-#. Post-processing: Processes output data from DRP-AI to obtain the final inference results.
+#. Postprocessing: Processes output data from DRP-AI to obtain the final inference results.
 
 .. seealso::
 

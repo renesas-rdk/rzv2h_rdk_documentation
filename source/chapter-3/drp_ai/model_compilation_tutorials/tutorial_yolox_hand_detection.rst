@@ -3,9 +3,9 @@ YOLOX Object Detection Tutorial
 
 This tutorial describes how to use the **YOLOX Hand Detection** model for object detection with DRP-AI acceleration on the Renesas RZ/V2H platform.
 
-Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
+Complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
-For this tutorial, we will utilize the pre-trained YOLOX model.
+This tutorial uses the pre-trained YOLOX model.
 
 Compile with DRP-AI TVM Extension Package
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,7 +26,7 @@ Run the compilation script provided in the ``hand_models/compilation`` directory
        -v 100 \
        --images $HAND_MODELS_DIR/dataset/scripts/selected_hands/
 
-- Gold YOLO Nano
+- Gold-YOLO Nano
 
   .. code-block:: bash
 

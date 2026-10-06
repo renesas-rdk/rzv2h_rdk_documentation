@@ -10,14 +10,12 @@ This software supports the following features:
 - H.264 encoding and decoding
 - H.265 encoding and decoding
 
-Usage notes
+Usage Notes
 ^^^^^^^^^^^
 
 .. important::
 
-   #. In this release, the Video Codec Library is available only with the default image, ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``, which is the Ubuntu 24.04 Server image with the Weston compositor for the RZ/V2H RDK board.
-
-      The :ref:`Ubuntu Desktop <ubuntu_desktop>` environment may not be compatible with the Video Codec Library in this release.
+   #. In this release, the Video Codec Library is available only with the default image, ``ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz`` (``<ver>``: ``ver1`` or ``ver101``), which is the Ubuntu 24.04 Server image with the Weston compositor for the RZ/V2H RDK board.
 
    #. The GStreamer base plugins are installed from the apt repository, not the custom version provided by Renesas. As a result, the behavior of the Video Codec Library may differ from the behavior described for the Renesas-provided custom GStreamer base plugins.
 
@@ -52,8 +50,8 @@ The following sections provide quick start guides for using the Video Codec Libr
 Prerequisites
 """""""""""""
 
-#. Boot the RZ/V2H RDK board with the default Ubuntu image, ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``. For instructions on how to prepare the SD card and boot the board, refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
-#. Connect the RZ/V2H RDK board to a monitor by using the micro-HDMI interface, and make sure that the board is powered on.
+#. Boot the RZ/V2H RDK board with the default Ubuntu image, ``ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz``. For instructions on how to prepare the microSD card and boot the board, refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
+#. Connect the RZ/V2H RDK board to a monitor by using the Micro-HDMI interface, and make sure that the board is powered on.
 
    The following image shows the RZ/V2H RDK connected to a monitor as well as a MIPI-CSI/USB camera for video capture.
 
@@ -63,7 +61,7 @@ Prerequisites
 
       RZ/V2H RDK setting up with a monitor
 
-Usage examples
+Usage Examples
 """"""""""""""
 
 To use the Video Codec Library, install the GStreamer base plugins.
@@ -109,7 +107,7 @@ Start video capture from the USB camera. Replace ``/dev/video0`` or the video fo
       "video/x-raw,format=YUY2,width=640,height=480,framerate=30/1" ! \
       vspmfilter dmabuf-use=true ! \
       "video/x-raw,format=NV12" ! \
-      omxh264enc control-rate=2 target-bitrate=8388608 ! \
+      omxh264enc control-rate=2 target-bitrate=8388608 use-dmabuf=true ! \
       omxh264dec ! \
       waylandsink
 
@@ -120,11 +118,11 @@ Start video capture from the USB camera. Replace ``/dev/video0`` or the video fo
       "video/x-raw,format=YUY2,width=640,height=480,framerate=30/1" ! \
       vspmfilter dmabuf-use=true ! \
       "video/x-raw,format=NV12" ! \
-      omxh265enc ! \
+      omxh265enc use-dmabuf=true ! \
       omxh265dec ! \
       fpsdisplaysink video-sink=waylandsink text-overlay=true sync=false
 
-To capture video from a **MIPI camera** and display it by using the Video Codec Library, following the steps below:
+To capture video from a **MIPI camera** and display it by using the Video Codec Library, follow the steps below:
 
 Set up the MIPI camera by using the following command:
 
@@ -148,10 +146,10 @@ Start the video capture from the MIPI camera. Replace the video format with the 
 
 	# H.264 encoding and decoding
 	gst-launch-1.0 v4l2src device=/dev/video0 ! \
-		"video/x-raw,format=YUY2,width=1920,height=1080,framerate=15/1" ! \
+		"video/x-raw,format=YUY2,width=1920,height=1080,framerate=30/1" ! \
 		vspmfilter dmabuf-use=true ! \
 		"video/x-raw,format=NV12" ! \
-		omxh264enc control-rate=2 target-bitrate=8388608 ! \
+		omxh264enc control-rate=2 target-bitrate=8388608 use-dmabuf=true ! \
 		omxh264dec ! \
 		waylandsink
 
@@ -159,10 +157,10 @@ Start the video capture from the MIPI camera. Replace the video format with the 
 
 	# H.265 encoding and decoding
 	gst-launch-1.0 v4l2src device=/dev/video0 ! \
-		"video/x-raw,format=YUY2,width=1920,height=1080,framerate=15/1" ! \
+		"video/x-raw,format=YUY2,width=1920,height=1080,framerate=30/1" ! \
 		vspmfilter dmabuf-use=true ! \
 		"video/x-raw,format=NV12" ! \
-		omxh265enc ! \
+		omxh265enc use-dmabuf=true ! \
 		omxh265dec ! \
 		fpsdisplaysink video-sink=waylandsink text-overlay=true sync=false
 
