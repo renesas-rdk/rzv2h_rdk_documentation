@@ -60,20 +60,40 @@ def fix_ordered_list_continuations(content):
                     result.append('--')
                     i += 1  # skip the first '+'
 
+                    # Is the list itself inside an admonition (odd number of
+                    # '====' delimiters so far, outside code blocks)?
+                    in_code = False
+                    enclosing_delims = 0
+                    for prev in result:
+                        if prev.strip() == '----':
+                            in_code = not in_code
+                        elif prev.strip() == '====' and not in_code:
+                            enclosing_delims += 1
+                    inside_enclosing = enclosing_delims % 2 == 1
+
                     in_code_block = False
                     in_admonition = False
                     while i < len(lines):
                         stripped = lines[i].strip()
 
-                        # End of this list item?
+                        # End of this list item?  A '====' that is not an
+                        # inner admonition closes the enclosing admonition.
                         if not in_code_block and not in_admonition:
                             if re.match(r'^\.{1,5}\s+\S', lines[i]) or \
-                               re.match(r'^={1,6}\s+\S', lines[i]):
+                               re.match(r'^={1,6}\s+\S', lines[i]) or \
+                               (inside_enclosing and stripped == '===='):
                                 # Strip trailing blank lines inside the block
+                                while result and result[-1].strip() == '':
+                                    result.pop()
+                                # Keep anchors of the next section outside the block
+                                anchors = []
+                                while result and re.match(r'^\[\[[^\]]+\]\]$', result[-1].strip()):
+                                    anchors.insert(0, result.pop())
                                 while result and result[-1].strip() == '':
                                     result.pop()
                                 result.append('--')
                                 result.append('')  # blank line before next element
+                                result.extend(anchors)
                                 break
 
                         if stripped == '----':
@@ -470,6 +490,23 @@ def dump_rst_files(base_folder, output_file="combined.rst", skip_patterns=None):
 # RST to AsciiDoc Conversion
 # ============================================================
 
+def protect_inline_literals(content):
+    """
+    Wrap inline literals that contain '#' or '*' in a literal passthrough
+    (`text` -> `+text+`), skipping listing and literal blocks.
+    """
+    literal_re = re.compile(r'`([^`+\n]*[#*][^`+\n]*)`')
+    lines = content.split('\n')
+    in_block = False
+    for idx, line in enumerate(lines):
+        if line.strip() in ('----', '....'):
+            in_block = not in_block
+            continue
+        if not in_block:
+            lines[idx] = literal_re.sub(r'`+\1+`', line)
+    return '\n'.join(lines)
+
+
 def rst_to_adoc(rst_file):
     """
     Convert a (combined) RST file to AsciiDoc via Pandoc, then apply
@@ -479,10 +516,11 @@ def rst_to_adoc(rst_file):
         rst_content = file.read()
 
     # Pre-process cross-references so Pandoc can handle them
-    rst_content = re.sub(r':ref:`([^<]+)<([^>]+)>`', r'<<\2,\1>>', rst_content)
+    # Exclude backticks so a match cannot span into the next inline literal.
+    rst_content = re.sub(r':ref:`([^<`]+?)\s*<([^>`]+)>`', r'<<\2,\1>>', rst_content)
     rst_content = re.sub(r':ref:`([^<`]+)`', r'<<\1>>', rst_content)
     rst_content = re.sub(
-        r':ref:`([^<]+?)\s*<([^>]+)>\s*`',
+        r':ref:`([^<`]+?)\s*<([^>`]+)>\s*`',
         r'<<\2,\1>>',
         rst_content,
     )
@@ -563,6 +601,10 @@ toc::[]
         return f"[{', '.join(flags)}]\n{level}{spaces}{title}"
 
     content = attr_pattern.sub(replace_attr, content)
+
+    # Make inline literals containing '#' or '*' literal monospace (`+...+`),
+    # otherwise AsciiDoc treats those characters as highlight/bold markup.
+    content = protect_inline_literals(content)
 
     with open(adoc_file, "w", encoding="utf-8") as file:
         file.write(content)
