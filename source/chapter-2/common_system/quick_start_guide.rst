@@ -12,7 +12,7 @@ The `rz-utils <https://github.com/renesas-rdk/rz-utils/tree/ubuntu/rz-v2h-rdk>`_
    * - Component
      - Content
    * - Linux kernel
-     - ``Image``, DTBs, DT overlays (DTBOs), and in-tree modules from `linux-rz <https://github.com/renesas-rdk/linux-rz/tree/ubuntu/rz-v2h-rdk>`_ (branch ``ubuntu/rz-v2h-rdk``).
+     - Linux kernel 6.18.20: ``Image``, DTBs, DT overlays (DTBOs), and in-tree modules from `linux-rz <https://github.com/renesas-rdk/linux-rz/tree/ubuntu/rz-v2h-rdk>`_ (branch ``ubuntu/rz-v2h-rdk``).
    * - Out-of-tree modules
      - ``mmngr``, ``mmngrbuf``, ``vspm``, ``vspm_if``, ``mali_kbase``, ``uvcs_drv``.
    * - IPL

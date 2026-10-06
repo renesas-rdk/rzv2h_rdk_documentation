@@ -25,7 +25,7 @@ The RZ/V2H RDK is equipped with two CAN-FD (Controller Area Network Flexible Dat
    #. **By default, the RZ/V2H RDK uses the CAN-FD feature**. To use the CAN with Classic CAN frames, you have to rebuild the device tree
       blob with the CAN-FD feature disabled.      
 
-      Edit the `rzv2h-rdk-1.0-can.dts <https://github.com/Renesas-SST/linux-rz/blob/ubuntu/rz-v2h-rdk/arch/arm64/boot/dts/renesas/overlays/rzv2h-rdk-1.0-can.dts>`_
+      Edit the `rzv2h-rdk-can.dts <https://github.com/renesas-rdk/linux-rz/blob/ubuntu/rz-v2h-rdk/arch/arm64/boot/dts/renesas/overlays/rzv2h-rdk-can.dts>`_
       file, add the ``renesas,no-can-fd;`` property to the CAN nodes, and then
       :ref:`rebuild the device tree blob <linux_kernel_and_device_tree>`.
 
@@ -157,7 +157,7 @@ I2C (Inter-Integrated Circuit)
 
 .. note::
 
-   Before using the I2C interface from the 40-pin header, update the device tree source file (``rzv2h-rdk-ver1.dts``) by changing the ``&rsci_i2c7`` node status from ``disabled`` to ``okay``.
+   Before using the I2C interface from the 40-pin header, update the device tree source file for your board version (``rzv2h-rdk-ver1.dts`` or ``rzv2h-rdk-ver101.dts``) by changing the ``&rsci_i2c7`` node status from ``disabled`` to ``okay``.
 
    Then :ref:`rebuild the device tree blob <linux_kernel_and_device_tree>` and copy the updated blob to the ``/boot/dtb/renesas/`` directory on the target board.
 
