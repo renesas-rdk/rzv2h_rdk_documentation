@@ -357,7 +357,7 @@ Usage Example
 
      7: wlx98ba5f1918cf: <BROADCAST,MULTICAST,DYNAMIC> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
 
-- Unlock the Wi-Fi interface (if necessary)
+- Unblock the Wi-Fi interface (if necessary)
 
   .. code-block:: bash
 

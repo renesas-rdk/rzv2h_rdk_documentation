@@ -7,6 +7,7 @@ AgileX
 allocator
 argmax
 Balena
+balenaEtcher
 bashrc
 bbappend
 bitrate
@@ -24,6 +25,7 @@ centroid
 centroids
 cfg
 Changelog
+checksums
 chroot
 cmake
 CMake
@@ -67,6 +69,7 @@ esdk
 eSDK
 Etcher
 executables
+Fi
 filesystem
 fip
 Forsyth
@@ -120,6 +123,7 @@ natively
 netplan
 Netplan
 Netron
+OpenAMP
 opset
 OSTM
 parallelize
@@ -137,6 +141,7 @@ Preconfigured
 preprocess
 preprocessed
 preprocessing
+preprocessor
 pyrDown
 pyrUp
 QoS
@@ -149,6 +154,7 @@ RDK
 realsense
 recalibrated
 Reconfigurable
+remoteproc
 Remoteproc
 renderer
 renesas
@@ -184,6 +190,7 @@ Styhead
 subcommands
 subtrees
 sudo
+symlinked
 sysroot
 teleoperation
 Teleoperation
@@ -211,9 +218,13 @@ urdf
 uROS
 utils
 Ventura
+ver
+vermagic
+virtio
 voc
 wayland
 weston
+Wi
 wic
 Wi-Fi
 wrapAffine
