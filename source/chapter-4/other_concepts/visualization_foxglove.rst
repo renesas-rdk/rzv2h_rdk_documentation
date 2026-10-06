@@ -217,7 +217,7 @@ These views are especially useful when:
 - transforms or marker data are missing in the 3D view, or
 - latency or unstable outputs need to be observed over time.
 
-Import a Pre-configured Layout
+Import a Pre-Configured Layout
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some RZ/V2H RDK sample applications provide pre-configured Foxglove layouts as JSON files.

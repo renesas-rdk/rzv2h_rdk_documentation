@@ -1,6 +1,6 @@
 .. _cross_build_non_ros2_apps:
 
-Cross-build Non-ROS 2 Applications
+Cross-Build Non-ROS 2 Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The cross-compilation environment provided by the Renesas RDK Docker image can also be used to build non-ROS 2 applications for the RZ/V2H RDK platform.
@@ -10,10 +10,10 @@ This section describes how to cross-compile a generic CMake-based application us
 Prerequisites
 """""""""""""
 
-- Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
+- Complete the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section.
 - Make sure the Docker container is running and accessible.
 
-Setting up the Environment
+Setting Up the Environment
 """"""""""""""""""""""""""
 
 #. Start and access the Docker container:
@@ -22,9 +22,9 @@ Setting up the Environment
 
       docker exec -it ros2_cross_build_container bash
 
-#. (Optional) Connect to the Docker container from VS Code using the **Remote - Containers** extension for a better development experience.
+#. (Optional) Connect to the Docker container from VS Code using the **Dev Containers** extension for a better development experience.
 
-   Refer to the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect to the Docker container from VS Code.
+   Refer to the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect to the Docker container from VS Code.
 
 Install Dependencies into the Sysroot
 """"""""""""""""""""""""""""""""""""""
@@ -42,7 +42,7 @@ For example, to install common development libraries:
 
    The ``arm64-chroot`` command already runs with ``sudo`` privileges. Do not add ``sudo`` to commands executed with ``arm64-chroot``.
 
-   For more details on ``arm64-chroot``, refer to the :ref:`Cross compilation usage guide <cross_build_usage>`.
+   For more details on ``arm64-chroot``, refer to the :ref:`Cross-compilation usage guide <cross_build_usage>`.
 
 Build the Application
 """""""""""""""""""""
