@@ -3,20 +3,20 @@
 The rzv_model Package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The **rzv_model** package is a C++ library designed to facilitate the deployment of AI models on the RZ/V2H platform using the DRP-AI driver.
+The **rzv_model** package is a C++ library designed to facilitate the deployment of AI models on the RZ/V2H platform using the DRP-AI Driver.
 
 It provides a unified interface for loading, running, and managing various AI models optimized for the RZ/V2H architecture.
 
 Base Framework
 """""""""""""""""""""""
 
-The **rzv_model** package provides a flexible and modular framework for deploying AI models optimized on DRP-AI driver for the RZ/V2H platform.
+The **rzv_model** package provides a flexible and modular framework for deploying AI models optimized on DRP-AI Driver for the RZ/V2H platform.
 It includes the following core features:
 
 - Abstracted model interface with hardware acceleration support.
-- Common pre-processing and post-processing utilities for image-based inference.
+- Common preprocessing and postprocessing utilities for image-based inference.
 - DRP-AI runtime integration for efficient inference execution.
-- Support multiple AI model running at the same time with DRP-AI driver.
+- Support for running multiple AI models simultaneously with the DRP-AI Driver.
 - Support for both YUV422 and RGB image formats.
 
 Package Structure
@@ -55,15 +55,15 @@ Architecture
 The **rzv_model** package follows a **modular architecture** designed for extensibility, maintainability, and efficient deployment on DRP-AI.
 
 - **Base Model:**
-  Provides the ``BaseModel`` class, which implements shared functionalities such as model loading, pre-processing, inference execution, and result handling.
+  Provides the ``BaseModel`` class, which implements shared functionalities such as model loading, preprocessing, inference execution, and result handling.
 
 - **Model-Specific Implementations:**
-  Each AI model (e.g., YOLOX, YOLOv8, HRNet, RTMPose) inherits from the base class and extends it with task-specific logic such as detection parsing or key point extraction.
+  Each AI model (e.g., YOLOX, YOLOv8, HRNetV2, RTMPose) inherits from the base class and extends it with task-specific logic such as detection parsing or keypoint extraction.
 
 - **Utility Modules:**
-  Contain helper functions for image pre-processing, tensor conversion, normalization, and post-processing visualization.
+  Contain helper functions for image preprocessing, tensor conversion, normalization, and postprocessing visualization.
 
-This modular design enables developers to easily integrate new AI models and customize pre-processing or inference pipelines for various use cases on the RZ/V2H platform.
+This modular design enables developers to easily integrate new AI models and customize preprocessing or inference pipelines for various use cases on the RZ/V2H platform.
 
 .. _how_to_use_rzv_model_package:
 
@@ -72,7 +72,7 @@ How to Use the rzv_model Package
 
 To use the **rzv_model** package, you need to prepare the model configuration files, including the compiled model files from the DRP-AI TVM conversion process.
 
-Please follow the steps below to set up and use the **rzv_model** package effectively.
+Follow the steps below to set up and use the **rzv_model** package effectively.
 
 Input Requirements Files
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,26 +123,26 @@ Example of ``mera2`` model files:
          ├── deploy.params
          └── deploy.so
 
-Note that, the top-level ``addr_map.txt`` file is required for multiple models running with DRP-AI driver.
+Note that the top-level ``addr_map.txt`` file is required when running multiple models with the DRP-AI Driver.
 
 This ``output_directory`` folder will be placed under the **config/models** directory of the application package that uses the model
 (e.g., ``rzv_object_detection/config/models/``, ``rzv_pose_estimation/config/models/``),
 and the path to the model will be specified in the application configuration.
 
-Post-processing Configuration
+Postprocessing Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Each model may have different post-processing requirements based on its specific task (e.g., object detection, pose estimation).
+Each model may have different postprocessing requirements based on its specific task (e.g., object detection, pose estimation).
 
-To customize the post-processing behavior, you can modify the corresponding model-specific implementation files located in the **src/** directory of the **rzv_ai_model_name** (rzv_yolov8,etc.) package.
+To customize the postprocessing behavior, you can modify the corresponding model-specific implementation files located in the **src/** directory of the **rzv_ai_model_name** (rzv_yolov8,etc.) package.
 
-The details of post-processing configuration are not covered in this section. Please refer to the example in the each package (rzv_yolox, etc.) for a clearer understanding.
+The details of postprocessing configuration are not covered in this section. Refer to the examples in each package (e.g., ``rzv_yolox``) for a clearer understanding.
 
 .. hint::
 
-    There are some sample applications from Renesas, which have the custom post-processing for the specific models.
+    There are some sample applications from Renesas, which have the custom postprocessing for the specific models.
 
-    You can refer to these applications for reference on implementing the AI model post-processing logic:
+    You can refer to these applications for reference on implementing the AI model postprocessing logic:
 
     - `RZ/V AI Applications Repository <https://github.com/renesas-rz/rzv_ai_sdk/tree/main>`_.
 
@@ -426,8 +426,8 @@ Then load the model configuration in your ROS 2 node:
 
 .. code-block:: cpp
 
-    auto model_config = rzv_model::UtilsROS::load_model_info(
-        "rzv_my_app",          // ROS 2 package name contains the model files
+    auto model_config = renesas_model_utils::load_v2h_model_config(
+        "rzv_my_app",          // Name of the ROS 2 package that contains the model files
         "my_model_name",       // Model type key in YAML
         model_path_param,      // Optional: path override
         class_names_param      // Optional: class name override
