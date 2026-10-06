@@ -1,5 +1,4 @@
 .. _rock_paper_scissors:
-.. _sample_app_rps:
 
 Rock Paper Scissors
 ^^^^^^^^^^^^^^^^^^^
