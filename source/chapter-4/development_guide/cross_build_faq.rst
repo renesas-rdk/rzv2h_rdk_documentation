@@ -1,4 +1,4 @@
-Cross-compilation FAQ
+Cross-Compilation FAQ
 ^^^^^^^^^^^^^^^^^^^^^
 
 This section provides answers to frequently asked questions about cross-compilation for the RZ/V2H RDK using the provided Docker environment and tools.
@@ -167,7 +167,7 @@ Sysroot and Docker Environment
 
 #. How do I avoid library version mismatches between the sysroot and the board?
 
-.. _abi_mismatch:
+   .. _abi_mismatch:
 
    The sysroot used for cross-compilation must match the Linux image running on the RZ/V2H RDK board.
 
@@ -221,7 +221,7 @@ Sysroot and Docker Environment
 
    .. code-block:: bash
 
-      docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:latest
+      docker pull ghcr.io/renesas-rdk/rzv2h_ubuntu_xbuild:multiarch
 
    Then, create a new container from the updated image.
 

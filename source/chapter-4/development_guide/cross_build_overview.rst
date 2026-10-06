@@ -1,14 +1,14 @@
-Cross compilation the Application for RZ/V2H RDK
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Cross-Compiling Applications for the RZ/V2H RDK
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section provides the overview of cross-building applications for the Renesas RZ/V2H RDK platform.
+This section provides an overview of cross-building applications for the Renesas RZ/V2H RDK platform.
 
-What is Cross-building?
+What Is Cross-Building?
 """""""""""""""""""""""
 
 Cross-building is the process of compiling software on a host system to run on a different target system.
 
-The advantages of cross-building is that it allows developers to build applications for embedded systems without needing to compile directly on the target device, **which have limited resources causing longer build times**.
+The main advantage of cross-building is that it allows developers to build applications for embedded systems without compiling directly on the target device, **which typically has limited resources and therefore longer build times**.
 
 In this case, we will be cross-building applications on a development machine (Ubuntu PC 24.04 host) to run on the Renesas RZ/V2H RDK (target).
 
@@ -18,7 +18,7 @@ In this case, we will be cross-building applications on a development machine (U
 
    However, :ref:`the cross-build environment can also be used to build non-ROS applications <cross_build_non_ros2_apps>`, provided they are compatible with the RZ/V2H RDK Linux image and the supplied toolchain.
 
-How ROS 2 Cross-building Works
+How ROS 2 Cross-Building Works
 """"""""""""""""""""""""""""""
 
 .. figure:: ../../images/cross_build_overview.png
@@ -47,5 +47,5 @@ The overall workflow is:
 Limitations
 """""""""""
 
-- Command execution inside the chroot environment may be slower due to QEMU emulation. Please be patient when running commands.
+- Command execution inside the chroot environment may be slower due to QEMU emulation. Be patient when running commands.
 - Only one chroot instance can run simultaneously within the Docker container.

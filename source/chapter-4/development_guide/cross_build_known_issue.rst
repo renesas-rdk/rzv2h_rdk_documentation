@@ -58,7 +58,7 @@ How to Fix It Yourself
 
 Follow the steps below to identify and fix the issue.
 
-Step 1: Identify the failing package and broken path
+Step 1: Identify the Failing Package and Broken Path
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Read the build error carefully and note:
@@ -82,7 +82,7 @@ From this example, you should extract:
 - CMake file: ``pinocchioTargets.cmake``
 - broken path prefix: ``/opt/ros/jazzy``
 
-Step 2: Search the sysroot for the hardcoded path
+Step 2: Search the Sysroot for the Hardcoded Path
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Search the package CMake directory inside the sysroot to find which file contains the broken reference.
@@ -107,7 +107,7 @@ or:
 
 Look for the exact file that contains the unwanted absolute path.
 
-Step 3: Decide the replacement path
+Step 3: Decide the Replacement Path
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In most ROS 2 CMake export files, the correct replacement is one of the following:
@@ -124,7 +124,7 @@ A good rule of thumb is:
 
 If you are unsure, check surrounding entries in the CMake file to see how other imported targets are written.
 
-Step 4: Add a new rule to ``sysroot-fix.yaml``
+Step 4: Add a New Rule to ``sysroot-fix.yaml``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Open the fix rule file:
@@ -165,7 +165,7 @@ Another real example:
    The variables ``V2H_SYSROOT`` and ``ROS_DISTRO`` are already provided by the ``sysroot-fix`` script.
    You do not need to define them in the YAML file.
 
-Step 5: Test the rule
+Step 5: Test the Rule
 ~~~~~~~~~~~~~~~~~~~~~
 
 Run the fix script in dry-run mode first:
@@ -204,7 +204,7 @@ If you see no patch output for the package, then:
 
 In that case, inspect the actual file again and adjust the rule.
 
-Step 6: Apply the fix
+Step 6: Apply the Fix
 ~~~~~~~~~~~~~~~~~~~~~
 
 Once the dry run looks correct, apply the fix:
@@ -229,7 +229,7 @@ Example:
 
    backup: /opt/rzv2h-sysroot/.../some_file.cmake.bak.20260316-032342
 
-Step 7: Rebuild and verify
+Step 7: Rebuild and Verify
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After applying the fix, rebuild the workspace:
