@@ -5,7 +5,7 @@ The RZ/V2H Robotic Development Kit is equipped with several high-speed interface
 
 This section describes the high-speed interface unit of this kit.
 
-PCIe 3.0 16-pin connector
+PCIe 3.0 16-Pin Connector
 """""""""""""""""""""""""
 
 The PCIe 3.0 interface on the RZ/V2H RDK allows for high-speed data transfer and connectivity with compatible PCIe devices.
@@ -86,7 +86,7 @@ Unmount the NVMe SSD:
    sudo umount /mnt/nvme
    sudo rmdir /mnt/nvme
 
-MIPI-CSI 22-pin connector x2
+MIPI-CSI 22-Pin Connector x2
 """"""""""""""""""""""""""""
 
 The RZ/V2H RDK features dual MIPI-CSI connectors that support camera input for applications requiring image capture and processing.
@@ -101,7 +101,7 @@ The default RZ/V2H RDK device tree supports the OV5645 camera module connected t
 
    To use the MIPI-CSI interface with another camera module, you must change the DTS file. Refer to the :ref:`Modify the DTS file <modify_dts>` section in the Build Kernel chapter for more details about customizing the DTS file.
 
-Set up the MIPI-CSI interface
+Set Up the MIPI-CSI Interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before using the MIPI-CSI interface, configure the camera properties first.
@@ -126,7 +126,7 @@ This script detects the connected camera module and sets the desired resolution.
 
 For other camera modules, modify the script accordingly.
 
-Usage example with v4l2-ctl
+Usage Example with v4l2-ctl
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 List all connected cameras:
@@ -152,7 +152,7 @@ The Gigabit Ethernet (1000M RJ45) port on the RZ/V2H RDK provides high-speed net
 
 Connect the network cable to the Gigabit Ethernet port before using the Ethernet interface.
 
-The current Ubuntu netplan configures the system to obtain its network settings via DHCP.
+The current Ubuntu Netplan configures the system to obtain its network settings via DHCP.
 
 After connecting the Ethernet cable, use the following command to confirm the network configuration.
 
@@ -169,12 +169,12 @@ To test network connectivity to an external server, use the ``ping`` command:
    ping -c 4 bing.com
    ping -c 4 8.8.8.8
 
-Set a static IP address
+Set a Static IP Address
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-In Ubuntu, the network is configured with Netplan. If you need to set a static IP address for the Ethernet interface, for example ``192.168.0.100``, follow these steps:
+In Ubuntu, the network is configured with Netplan. If you need to set a static IP address for the Ethernet interface, for example ``169.254.43.99``, follow these steps:
 
-- Open the network configuration file with ``vim``:
+- Open the network configuration file with ``vi``:
 
   .. code-block:: bash
 
@@ -268,14 +268,14 @@ Then apply the changes:
 
    sudo netplan apply
 
-USB 3.2 Type A x2
+USB 3.2 Type-A x2
 """""""""""""""""
 
 The RZ/V2H RDK includes two USB 3.2 Type-A ports that support high-speed data transfer for connecting various USB peripherals, such as external storage devices, cameras, and input devices.
 
 To use these devices, simply connect them to the USB 3.2 Type-A ports.
 
-Verify USB 3.2 functionality
+Verify USB 3.2 Functionality
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To verify that the USB 3.2 ports are functioning correctly, you can use the following command to list USB devices and check their connection speed:
@@ -293,10 +293,10 @@ Example output:
    /:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci-renesas-hcd/1p, 480M
    /:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci-renesas-hcd/1p, 20000M/x2
 
-USB-WIFI Adapter Support
-~~~~~~~~~~~~~~~~~~~~~~~~
+USB Wi-Fi Adapter Support
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following USB-WIFI adapters have been tested and are compatible with the RZ/V2H RDK:
+The following USB Wi-Fi adapters have been tested and are compatible with the RZ/V2H RDK:
 
 - Ralink Technology, Corp. MT7601U Wireless Adapter
 - AC1300 TP-Link T3U Nano
@@ -307,13 +307,13 @@ The following USB-WIFI adapters have been tested and are compatible with the RZ/
 
 .. note::
 
-   If you want to use a different USB WiFi adapter, make sure the required driver is available for the RZ/V2H RDK.
+   If you want to use a different USB Wi-Fi adapter, make sure the required driver is available for the RZ/V2H RDK.
 
-   You need to identify the appropriate driver for the USB WiFi adapter and enable it in the Linux kernel configuration file. For example, add ``CONFIG_MT7601U=y`` to ``linux-rz/arch/arm64/configs/renesas_defconfig``, then rebuild and deploy the kernel image.
+   You need to identify the appropriate driver for the USB Wi-Fi adapter and enable it in the Linux kernel configuration file. For example, add ``CONFIG_MT7601U=y`` to ``linux-rz/arch/arm64/configs/renesas_defconfig``, then rebuild and deploy the kernel image.
 
    Refer to the :ref:`Custom Linux Kernel and Device Tree <build_kernel>` section for instructions on how to add support for additional drivers by modifying the Linux kernel.
 
-Usage example
+Usage Example
 ~~~~~~~~~~~~~
 
 - Install necessary packages
@@ -325,7 +325,7 @@ Usage example
 
 - Check USB devices
 
-  First, connect the USB-WIFI adapter to the RZ/V2H RDK.
+  First, connect the USB Wi-Fi adapter to the RZ/V2H RDK.
 
   Then, run the following command to list all connected USB devices:
 
@@ -357,7 +357,7 @@ Usage example
 
      7: wlx98ba5f1918cf: <BROADCAST,MULTICAST,DYNAMIC> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
 
-- Unlock the WiFi interface (if necessary)
+- Unlock the Wi-Fi interface (if necessary)
 
   .. code-block:: bash
 
@@ -373,7 +373,7 @@ Usage example
         Soft blocked: no
         Hard blocked: no
 
-- Bring up the WiFi interface
+- Bring up the Wi-Fi interface
 
   .. code-block:: bash
 
@@ -386,19 +386,19 @@ Usage example
 
      7: wlx98ba5f1918cf: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
 
-- Scan for available WiFi networks
+- Scan for available Wi-Fi networks
 
   .. code-block:: bash
 
      sudo iw dev wlx98ba5f1918cf scan | grep <YOUR_SSID>
 
-- Modify network configuration to connect to the WiFi network by editing the Netplan configuration file:
+- Modify network configuration to connect to the Wi-Fi network by editing the Netplan configuration file:
 
   .. code-block:: bash
 
      sudo vi /etc/netplan/50-cloud-init.yaml
 
-  Add the following configuration to connect to the WiFi network (replace ``MY_SSID`` and ``MY_PASSWORD`` with your actual WiFi SSID and password):
+  Add the following configuration to connect to the Wi-Fi network (replace ``MY_SSID`` and ``MY_PASSWORD`` with your actual Wi-Fi SSID and password):
 
   .. code-block:: yaml
 

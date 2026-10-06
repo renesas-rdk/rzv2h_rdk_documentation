@@ -129,7 +129,7 @@ You can use the ``can-utils`` package for testing CAN-FD communication.
 
       cansend can1 123##01122334455667788
 
-RasPi GPIO 40-pin Header
+RasPi GPIO 40-Pin Header
 """"""""""""""""""""""""
 
 The Raspberry Pi GPIO 40-pin header on the RZ/V2H RDK provides a versatile interface for connecting various peripherals and expansion boards compatible with the Raspberry Pi pin layout. This header includes multiple communication protocols such as I2C, SPI, UART, GPIO, and PCM.
@@ -142,15 +142,15 @@ The following communication protocols are supported:
 - GPIO (General Purpose Input/Output)
 - PCM (Pulse Code Modulation)
 
-Pin Out Diagram
-~~~~~~~~~~~~~~~
+Pinout Diagram
+~~~~~~~~~~~~~~
 
 .. figure:: ../../images/GPIO_block.png
-   :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
+   :alt: RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pinout
    :align: center
    :width: 500px
 
-   RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pin Out
+   RZ/V2H RDK Raspberry Pi GPIO 40-pin Header Pinout
 
 I2C (Inter-Integrated Circuit)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -232,7 +232,7 @@ In this example, I2C7 corresponds to bus number 10.
 
    You can identify the correct I2C bus number by checking the device tree source (DTS) file for the RZ/V2H RDK or by referring to the system documentation.
 
-   In this case, the device tree of the RZ/V2H RDK defines the I2C7 interface as ``12802800.i2c``, which is mapped to **I²C bus number 10**.
+   In this case, the device tree of the RZ/V2H RDK defines the I2C7 interface as ``12802800.i2c``, which is mapped to **I2C bus number 10**.
 
 Scan for I2C devices on bus 10:
 
@@ -441,15 +441,15 @@ PCM (Pulse Code Modulation)
       # Remove the comment from the line below to enable the PCM audio codec overlay
       enable_overlay_audio_codec=1
 
-   If this overlay is enabled, the audio line from micro HDMI will be routed
+   If this overlay is enabled, the audio line from Micro-HDMI will be routed
    to the PCM interface, allowing you to use the PCM pins for audio data
    transmission.
 
    .. warning::
 
-      The PCM interface and the micro HDMI audio output cannot be used at
+      The PCM interface and the Micro-HDMI audio output cannot be used at
       the same time. Enabling the PCM overlay disables audio output through
-      micro HDMI.
+      Micro-HDMI.
 
 The PCM interface is used for audio data transmission, allowing the RZ/V2H RDK to connect with audio codecs and other audio peripherals.
 
