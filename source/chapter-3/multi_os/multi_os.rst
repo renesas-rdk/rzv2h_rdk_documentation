@@ -3,7 +3,7 @@ RZ/V Multi-OS
 
 .. _multi_os:
 
-The RZ/V2H RDK equipped with the following CPUs:
+The RZ/V2H RDK is equipped with the following CPUs:
 
 - Cortex-A55 (4 cores): Runs Linux OS
 - Cortex-M33 (1 core): Runs MCU based OS such as FreeRTOS, Zephyr, or BareMetal

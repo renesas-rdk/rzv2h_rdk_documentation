@@ -17,7 +17,7 @@ The following image shows the software stack of the RZ/V2H RDK, which includes t
 
 .. note::
 
-   Some packages are under development. Please stay tuned and get the latest updates from the `Renesas RDK GitHub repository <https://github.com/renesas-rdk>`_.
+   Some packages are under development. Stay tuned and get the latest updates from the `Renesas RDK GitHub repository <https://github.com/renesas-rdk>`_.
 
 Available Demo Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -26,7 +26,7 @@ The demos showcase AI-accelerated vision features such as object detection, pose
 
 .. note::
 
-   Please follow the pages below to learn more about each demo and set it up on your own.
+   Follow the pages below to learn more about each demo and set it up on your own.
 
 - :ref:`Vision-Based Robotic Arm Teleoperation <arm_teleoperation>`
 

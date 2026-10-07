@@ -2,11 +2,53 @@ Overview
 --------
 
 WS125 Robotic Development Kit is a solution with Renesas new generation `RZ/V2H MPU <https://www.renesas.com/en/products/rz-v2h?tab=overview>`_ for AI application,
-which has AI inference processing performance of up to 80TOPS with multi-core CPU to run multiple OS
+which has AI inference processing performance of up to 80 TOPS with multi-core CPU to run multiple OS
 simultaneously for high performance AI image processing.
 
 It is also equipped with many interfaces that make it suitable for development and integration into a variety of
 robotic applications.
+
+.. _rdk_board_versions:
+
+Board Versions
+^^^^^^^^^^^^^^
+
+The RZ/V2H RDK is available in two versions, which differ in memory size. Identify the version by the label printed on the top side of the board, below the fan area.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 30 30
+
+   * - **Version**
+     - **Board label**
+     - **Memory**
+     - **Board name in software**
+   * - ver1
+     - ``V1.0``
+     - 16 GB LPDDR4X (8 GB x 2)
+     - ``rzv2h-rdk-ver1``
+   * - ver101
+     - ``V1.0.1``
+     - 8 GB LPDDR4X (4 GB x 2)
+     - ``rzv2h-rdk-ver101``
+
+.. figure:: ../images/rdk_version_1.png
+   :alt: RZ/V2H RDK ver1 board label (V1.0)
+   :width: 400px
+   :align: center
+
+   RZ/V2H RDK ver1 (16 GB): label ``V1.0``
+
+.. figure:: ../images/rdk_version_101.png
+   :alt: RZ/V2H RDK ver101 board label (V1.0.1)
+   :width: 400px
+   :align: center
+
+   RZ/V2H RDK ver101 (8 GB): label ``V1.0.1``
+
+.. important::
+
+   The IPL (BL2 and FIP) is board-specific. Always use the IPL that matches the board version. An IPL for the other version programs the wrong DDR configuration and the board does not boot.
 
 Software Environment
 ^^^^^^^^^^^^^^^^^^^^
@@ -37,9 +79,9 @@ Hardware Environment
    * - **RZ/V2H**
      - **CPU:**
 
-       * 4 x Arm Cortex-A55 (1.8GHz)
-       * 2 x Arm Cortex-R8 (800MHz)
-       * 1 x Arm Cortex-M33 (200MHz)
+       * 4 x Arm Cortex-A55 (1.8 GHz)
+       * 2 x Arm Cortex-R8 (800 MHz)
+       * 1 x Arm Cortex-M33 (200 MHz)
 
        **DRP:**
 
@@ -54,24 +96,29 @@ Hardware Environment
        * R9A09G057H44GBG: 1368-pin FCBGA
 
    * - **Memory**
-     - LPDDR4 1600MHz - 16GB (8GB x 2)
+     - LPDDR4X 1600 MHz
+
+       * ver1: 16 GB (8 GB x 2)
+       * ver101: 8 GB (4 GB x 2)
+
+       See `Board Versions`_.
 
    * - **SD Card**
-     - Includes a 64GB SanDisk microSD card in the box
+     - Includes a 64 GB SanDisk microSD card in the box
 
    * - **QSPI Flash ROM**
-     - 64MB
+     - 64 MB
 
    * - **Interfaces**
-     - * DC Jack power input supported: 12-24V / 2A (12V/2A power adapter included in the box)
+     - * DC Jack power input supported: 12–24 V / 2 A (12 V / 2 A power adapter included in the box)
        * JTAG (10-pin)
-       * MIPI CSI-2 4-Lane x2 (22-pin / 0.5mm)
+       * MIPI CSI-2 4-Lane x2 (22-pin / 0.5 mm)
        * Micro-HDMI
-       * USB3.2 Type-A x2
+       * USB 3.2 Type-A x2
        * USB Micro-B (SCIF)
        * 10/100/1000 Base-T RJ45
-       * Micro SD
-       * PCIe 3.0 Root Complex (16-pin / 0.5mm)
+       * microSD
+       * PCIe 3.0 Root Complex (16-pin / 0.5 mm)
        * CAN-FD x2
        * 40-pin RasPi GPIO Header
 
@@ -79,7 +126,7 @@ For more details about RZ/V2H RDK's specification, visit the `WS125 Robotic Deve
 
 **RZ/V2H RDK Image View:**
 
-The following image shows the top/bottom view of the RZ/V2H Robotics Development Kit (RDK) board,
+The following image shows the top/bottom view of the RZ/V2H Robotic Development Kit (RDK) board,
 highlighting its main connectors and interfaces.
 
 .. figure:: ../images/RDK_Top.png

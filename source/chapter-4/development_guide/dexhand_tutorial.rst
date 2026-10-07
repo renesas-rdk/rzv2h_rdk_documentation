@@ -1,7 +1,7 @@
-Tutorial with Vision Based Dexterous Hand
+Tutorial with Vision-Based Dexterous Hand
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This tutorial explains the complete ROS 2 application workflow on the Renesas RZ/V2H RDK platform using the :ref:`Vision Based Dexterous Hand <dexhand>` application as an example.
+This tutorial explains the complete ROS 2 application workflow on the Renesas RZ/V2H RDK platform using the :ref:`Vision-Based Dexterous Hand <dexhand>` application as an example.
 
 You do not need to understand the internal implementation details of the application for this tutorial.
 
@@ -27,7 +27,7 @@ This page focuses only on the practical development workflow after the environme
 Tutorial Scenario
 """""""""""""""""
 
-In this tutorial, the example application is the :ref:`Vision Based Dexterous Hand <dexhand>` demo.
+In this tutorial, the example application is the :ref:`Vision-Based Dexterous Hand <dexhand>` demo.
 
 The tutorial uses the following example launch file for the virtual hand workflow:
 
@@ -445,7 +445,7 @@ Troubleshooting
 Summary
 """""""
 
-In this tutorial, you used the :ref:`Vision Based Dexterous Hand <dexhand>` application to go through the complete ROS 2 workflow:
+In this tutorial, you used the :ref:`Vision-Based Dexterous Hand <dexhand>` application to go through the complete ROS 2 workflow:
 
 - install the required dependencies into the sysroot,
 - cross-build in the development container,

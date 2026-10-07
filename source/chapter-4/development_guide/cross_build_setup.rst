@@ -1,20 +1,20 @@
 .. _requirements_ros2_cross_build:
 
-Cross compilation Environment Setup
+Cross-Compilation Environment Setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section provides instructions on how to set up the cross-compilation environment for building ROS 2 applications for the Renesas RZ/V2H RDK platform.
 
-Hardware requirements
+Hardware Requirements
 """""""""""""""""""""
 
 Supported host operating systems:
 
 - **Linux**: Ubuntu 24.04 (x86_64) - **recommended**.
 - **Windows**: Windows 10/11 (x86_64) with Docker Desktop or WSL2 (Ubuntu 24.04).
-- **macOS**: macOS 13 Ventura or later on Apple Silicon - **provide good performance**.
+- **macOS**: macOS 13 Ventura or later on Apple Silicon - **provides good performance**.
 
-- The following image show the expected setup for cross-building applications for the RZ/V2H RDK platform:
+- The following image shows the expected setup for cross-building applications for the RZ/V2H RDK platform:
 
   .. figure:: ../../images/cross_build_setup.png
      :align: center
@@ -25,19 +25,19 @@ Supported host operating systems:
 
   Make sure your board and host machine are properly set up and connected to the same network to enable communication between them during development and deployment.
 
-Software requirements on the host machine
+Software Requirements on the Host Machine
 """""""""""""""""""""""""""""""""""""""""
 
 This section describes the required software on the host machine and how to set up and access the Docker-based cross-compilation environment.
 
-Required software
+Required Software
 ~~~~~~~~~~~~~~~~~
 
 - `Docker <https://docs.docker.com/engine/install/ubuntu/>`_ installed on the host machine.
 - `VS Code <https://code.visualstudio.com/download>`_ for code editing and development.
-- `Remote - Containers extension <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers>`_ installed in VS Code for developing inside the Docker container.
+- `Dev Containers extension <https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers>`_ installed in VS Code for developing inside the Docker container.
 
-Docker environment setup
+Docker Environment Setup
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Run the setup script to create the Docker-based cross-compilation environment.
@@ -138,7 +138,7 @@ Docker environment setup
 
 .. tip::
 
-   The cross build environment uses the toolchain files (under ``/home/ubuntu/toolchains``) from the `ubuntu_xbuild_toolchains <https://github.com/renesas-rdk/ubuntu_xbuild_toolchains>`_ repository.
+   The cross-build environment uses the toolchain files (under ``/home/ubuntu/toolchains``) from the `ubuntu_xbuild_toolchains <https://github.com/renesas-rdk/ubuntu_xbuild_toolchains>`_ repository.
 
    When a new release of the toolchain files is available, instead of rebuilding the Docker container (which can take a long time, since you have to install the dependencies again), you can simply restart the container and the toolchains will update automatically.
 
@@ -146,14 +146,14 @@ Docker environment setup
 
    We recommend restarting the container first and checking whether the auto update worked by using the ``docker logs`` command. If the auto update fails, you can enter the container and resolve the conflict manually.
 
-Accessing the Docker container from VS Code
+Accessing the Docker Container from VS Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After the Docker container is running, you can connect to it directly from VS Code using the Remote - Containers extension.
+After the Docker container is running, you can connect to it directly from VS Code using the Dev Containers extension.
 
 #. Open VS Code on the host machine.
 #. Open the Command Palette ``(Ctrl+Shift+P)``.
-#. Run **Remote-Containers: Attach to Running Container...**
+#. Run **Dev Containers: Attach to Running Container...**
 #. Select ``$CONTAINER_NAME`` from the list of running containers.
 #. Once connected, open the ``/home/ubuntu/ros2_ws`` directory inside the container.
 

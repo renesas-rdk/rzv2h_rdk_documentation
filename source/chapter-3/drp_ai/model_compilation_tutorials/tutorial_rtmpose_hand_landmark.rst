@@ -3,9 +3,9 @@ RTMPose Hand Landmark Tutorial
 
 This tutorial describes how to use the **RTMPose Hand Landmark** model for hand landmark estimation with DRP-AI acceleration on the Renesas RZ/V2H platform.
 
-Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
+Complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
-For this tutorial, we will utilize the pre-trained RTMPose model.
+This tutorial uses the pre-trained RTMPose model.
 
 Compile with DRP-AI TVM Extension Package
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

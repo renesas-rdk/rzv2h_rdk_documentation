@@ -43,7 +43,7 @@ The following packages are required for any MuJoCo-based simulation:
    * - `mujoco_sim_ros2 <https://github.com/renesas-rdk/mujoco_sim_ros2>`_
      - ROS 2 simulation wrapper that launches MuJoCo with a robot model and connects it to the ROS 2 ecosystem.
 
-Application-specific Packages
+Application-Specific Packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Depending on which application you want to simulate, additional packages are needed on the host PC.
@@ -78,11 +78,11 @@ Import the required repositories by using the ``vcs`` command:
 Native Build the ROS 2 Workspace for the Host PC
 """"""""""""""""""""""""""""""""""""""""""""""""
 
-Before build this package configure environment variable for mujoco directory.
+Before building the workspace, set the environment variable for the MuJoCo directory:
 
 .. code-block:: bash
 
-   # export path to mujoco directory
+   # Export the path to the MuJoCo directory
    export MUJOCO_DIR=~/ros2_ws/src/mujoco
 
 After cloning all required packages, build the workspace:
@@ -122,7 +122,7 @@ Build and Run the Application on the RZ/V2H RDK Board
 
 Before launching the MuJoCo simulation on the host PC, the ROS 2 application must be running on the RZ/V2H RDK board so that it publishes the joint command topics that MuJoCo subscribes to.
 
-Cross-compile the ROS 2 Workspace
+Cross-Compile the ROS 2 Workspace
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Set up the RZ/V2H RDK board as described in the :ref:`RZ/V2H RDK board setup <quick_setup_rdk_guide>`.

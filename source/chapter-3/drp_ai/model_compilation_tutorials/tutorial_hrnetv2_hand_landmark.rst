@@ -3,9 +3,9 @@ HRNetV2 Hand Landmark Tutorial
 
 This tutorial describes how to use the **HRNetV2 Hand Landmark** model for hand landmark estimation with DRP-AI acceleration on the Renesas RZ/V2H platform.
 
-Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
+Complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
-For this tutorial, we will utilize the pre-trained HRNetV2 model.
+This tutorial uses the pre-trained HRNetV2 model.
 
 Compile with DRP-AI TVM Extension Package
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +40,7 @@ Run the compilation script provided in the ``hand_models/compilation`` directory
        --images $HAND_MODELS_DIR/dataset/scripts/selected_hands/ \
        -v 100
 
-- HRNetV2 Evaluation with FreiHand Dataset
+- HRNetV2 Evaluation with FreiHAND Dataset
 
   .. code-block:: bash
 

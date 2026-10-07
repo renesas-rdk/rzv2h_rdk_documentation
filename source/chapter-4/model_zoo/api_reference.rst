@@ -21,7 +21,7 @@ ModelInput
      cv::Rect roi;            // Region of interest within the image
    };
 
-ModelResult (base class)
+ModelResult (Base Class)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 All result types inherit from this. Contains timing information from each inference stage.
@@ -555,7 +555,7 @@ UtilsROS
    auto status = UtilsROS::encode_inference_timing_diagnostic(
      "yolo_node", pre_ms, infer_ms, post_ms);
 
-Detection layout in a PoseArray
+Detection Layout in a PoseArray
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Each detection occupies a fixed block of **8 poses**:

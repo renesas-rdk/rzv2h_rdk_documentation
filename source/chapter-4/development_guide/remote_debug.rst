@@ -12,7 +12,7 @@ It covers the required setup, the debugging workflow, and practical notes for ru
 Prerequisites
 """""""""""""
 
-#. Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
+#. Complete the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section.
 
    Make sure VS Code is configured with the required extensions and workspace settings for ROS 2 development, and that the application has been successfully deployed to the RZ/V2H RDK platform.
 

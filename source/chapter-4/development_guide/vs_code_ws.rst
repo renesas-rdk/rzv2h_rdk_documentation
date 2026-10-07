@@ -8,7 +8,7 @@ This section explains the VS Code workspace configuration used for deploying, ru
 Prerequisites
 """""""""""""
 
-#. Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
+#. Complete the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section.
 #. Access the Docker container using VS Code and the Dev Containers extension.
 #. Open the ``/home/ubuntu/ros2_ws/`` directory in the Docker container.
 
@@ -31,7 +31,7 @@ The following workspace structure is expected after cross-building the ROS 2 app
    ├── src              # Source code directory for ROS 2 packages, must use `src` as the directory name
    └── .vscode          # VS Code configuration directory
 
-If your workspace does not contain the ``.vscode/`` directory, you can copy it manually from the ``$TOOLCHAIN_WS`` directory.
+If your workspace does not contain the ``.vscode/`` directory, you can copy it manually from the ``$TOOLCHAINS_WS`` directory.
 
 Install Recommended VS Code Extensions
 """""""""""""""""""""""""""""""""""""""
@@ -74,7 +74,7 @@ Open the ``settings.json`` file and edit the following variables to match your d
 
    These variables are essential for the remote debugging and deployment workflow.
 
-   Please ensure they are set correctly before using the VS Code tasks.
+   Ensure they are set correctly before using the VS Code tasks.
 
 .. list-table:: Debug Configuration Variables
    :header-rows: 1
@@ -209,7 +209,7 @@ The following tasks are configured as buttons by default. You can access them fr
      - Launches the specified launch file from the specified package on the target device. Make sure ``LAUNCH_PACKAGE_NAME`` and ``LAUNCH_FILE_NAME`` are configured correctly in ``settings.json``.
    * - ``Run ExecutableFile``
      - ``ROS2: Run Package Executable``
-     - Runs the specified executable from the specified package on the target device. Make sure ``NODE_PACKAGE_NAME`` and ``NODE_EXECUTABLE_NAME`` are configured correctly in ``settings.json``..
+     - Runs the specified executable from the specified package on the target device. Make sure ``NODE_PACKAGE_NAME`` and ``NODE_EXECUTABLE_NAME`` are configured correctly in ``settings.json``.
    * - ``Install Deps``
      - ``ROS2: Install Deps on Target (rosdep)``
      - Install runtime dependencies on the target board via rosdep (over SSH), using the deployed install/ workspace.
@@ -226,7 +226,7 @@ on a task. The same library is shared by three agents so that build,
 deploy, debug, and packaging behavior is consistent regardless of which
 assistant is driving.
 
-Agent entry points
+Agent Entry Points
 ~~~~~~~~~~~~~~~~~~~
 
 Each agent reads a different top-level file, but all of them route to the
@@ -243,7 +243,7 @@ same skills under ``.github/skills/``:
      - ``.github/copilot-instructions.md``
      - Primary router. Defines the skill table and general rules.
    * - Claude (Claude Code)
-     - ``.claude/`` (``skills`` symbol-linked to ``.github/skills``)
+     - ``.claude/`` (``skills`` symlinked to ``.github/skills``)
      - Reuses the same skills; permissions set in ``.claude/settings.json``.
    * - Codex
      - ``AGENTS.md``
@@ -252,7 +252,7 @@ same skills under ``.github/skills/``:
 Because ``.claude/skills`` is a symbolic link to ``.github/skills``, a
 single edit to a ``SKILL.md`` file updates every agent at once.
 
-Skill router
+Skill Router
 ~~~~~~~~~~~~
 
 Agents pick a skill by the *primary verb* of the request, as defined in
@@ -276,7 +276,7 @@ Agents pick a skill by the *primary verb* of the request, as defined in
 If more than one could apply, agents follow the workflow order
 **conventions → build → deploy → on-device test**.
 
-Skill reference
+Skill Reference
 ~~~~~~~~~~~~~~~
 
 .. list-table:: Available Skills
@@ -302,7 +302,7 @@ Skill reference
      - Compose Conventional Commits messages with intelligent staging
        and message generation from the diff.
 
-General rules for agents
+General Rules for Agents
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The shared guidance instructs all agents to:
