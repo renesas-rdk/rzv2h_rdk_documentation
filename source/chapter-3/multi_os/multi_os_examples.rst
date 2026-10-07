@@ -125,25 +125,26 @@ This section describes how to build and flash the firmware for the CM33/CR8 core
 
 .. important::
 
-   Every CR8 project uses a CM33 project as its preceding project.
-   Import the matching CM33 project into your e² studio workspace and build it before building the CR8 project.
+   Every CR8 project requires a preceding project:
+   CR8 Core0 projects use a CM33 project, and CR8 Core1 projects use the matching CR8 Core0 project.
+   Import the preceding project into your e² studio workspace and build it before building the CR8 project.
 
    .. list-table::
       :header-rows: 1
       :widths: 50 50
 
       * - **CR8 Project**
-        - **Preceding CM33 Project**
+        - **Preceding Project**
       * - ``RZ/V2H RDK CR8 Core0 RPMsg Linux-RTOS Demo``
-
-          ``RZ/V2H RDK CR8 Core1 RPMsg Linux-RTOS Demo``
 
           ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo``
         - ``RZ/V2H RDK CM33 RPMsg Linux-RTOS Demo``
+      * - ``RZ/V2H RDK CR8 Core1 RPMsg Linux-RTOS Demo``
+        - ``RZ/V2H RDK CR8 Core0 RPMsg Linux-RTOS Demo``
       * - ``RZ/V2H RDK CR8 Core0 RPMsg RTOS-RTOS Demo``
-
-          ``RZ/V2H RDK CR8 Core1 RPMsg RTOS-RTOS Demo``
         - ``RZ/V2H RDK CM33 RPMsg RTOS-RTOS Demo``
+      * - ``RZ/V2H RDK CR8 Core1 RPMsg RTOS-RTOS Demo``
+        - ``RZ/V2H RDK CR8 Core0 RPMsg RTOS-RTOS Demo``
 
 **Special Note for** ``RZ/V2H RDK CR8 Core0 RPMsg Micro-ROS Demo`` **Package**
 
