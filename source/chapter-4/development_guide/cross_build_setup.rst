@@ -46,7 +46,7 @@ Docker Environment Setup
 
       .. code-block:: bash
 
-         wget https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
+         curl -fLO https://github.com/renesas-rdk/ros2_demo_workspace/raw/refs/heads/main/common_utils/setup_rdk_docker.sh
          chmod +x setup_rdk_docker.sh
 
       Then run it:
