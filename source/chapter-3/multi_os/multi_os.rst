@@ -16,3 +16,4 @@ This package provides the necessary software components and examples to enable a
 
     multi_os_general
     multi_os_examples
+    multi_os_boot_modes

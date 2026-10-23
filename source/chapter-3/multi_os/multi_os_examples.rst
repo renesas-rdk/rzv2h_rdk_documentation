@@ -262,6 +262,136 @@ For more details, refer to the `RZ/V2H Quick Start Guide: Section 4.4 CM33/CR8 S
       [xxx] 43000000.vring-ctl0 closed
       ...
 
+.. _multi_os_uboot:
+
+U-Boot Invocation
+~~~~~~~~~~~~~~~~~
+
+The CM33/CR8 firmware can also be loaded from the microSD card and started from U-Boot, before Linux boots.
+The default IPL of the RZ/V2H RDK supports this method. No IPL rebuild is required.
+
+The procedure and load addresses are the same as in Section 4.4.2 of the `RZ/V2H Quick Start Guide for RZ/V Multi-OS Package <https://www.renesas.com/en/document/qsg/rzv2h-quick-start-guide-rzv-multi-os-package>`_. On the RZ/V2H RDK, the microSD card is ``mmc 0`` and the root filesystem is partition ``2``.
+
+**Build the firmware for U-Boot**
+
+#. Import and build the project as described in `Firmware Code for CM33/CR8`_.
+
+#. Make sure that the ``ENABLE_REMOTEPROC`` macro in ``src/platform_info.h`` is set to ``0``:
+
+   .. code-block:: c
+
+      #define ENABLE_REMOTEPROC        (0U)
+
+#. Build the project. The following binary files are generated in the ``Debug`` or ``Release`` folder of the project:
+
+   .. list-table::
+      :header-rows: 1
+      :widths: 20 80
+
+      * - **Core**
+        - **Binary files**
+      * - CM33
+        - ``<project_name>.bin``
+      * - CR8_0 / CR8_1
+        - ``<project_name>_itcm.bin``, ``<project_name>_sram.bin``, ``<project_name>_sdram.bin``
+
+#. Copy the binary files to the ``/boot`` folder on the target board, for example:
+
+   .. code-block:: bash
+
+      # On the host machine
+      scp Debug/rzv2h_rdk_cm33_rpmsg_linux_rtos_demo.bin <user>@<board_ip>:/tmp/
+
+      # On the target board
+      sudo cp /tmp/rzv2h_rdk_cm33_rpmsg_linux_rtos_demo.bin /boot/
+
+#. On the target board, disable the remoteproc overlay in ``/boot/uEnv.txt`` by commenting out the following line:
+
+   .. code-block:: bash
+
+      #enable_overlay_remoteproc=1
+
+   When remoteproc is enabled, Linux can reset the cores started from U-Boot. See :ref:`Device Tree Overlay <device_tree_overlay>`.
+
+**Start the firmware from U-Boot**
+
+#. Reboot the board and press any key on the serial console when ``Hit any key to stop autoboot`` is shown.
+
+   .. tip::
+
+      If the U-Boot messages are not shown on the serial console after a reboot, reset the board with the :ref:`JTAG reset tip <jtag_reset_tip>`.
+
+#. Define the start command of the target core. Replace the file names with the names of your binary files.
+
+   -  For CM33:
+
+      .. code-block:: text
+
+         => setenv cm33start 'dcache off; mw.l 0x10420D2C 0x02000000;\
+         mw.l 0x1043080c 0x08003000; mw.l 0x10430810 0x18003000;\
+         mw.l 0x10420604 0x00040004; mw.l 0x10420C1C 0x00003100;\
+         mw.l 0x10420C0C 0x00000001; mw.l 0x10420904 0x00380008;\
+         mw.l 0x10420904 0x00380038;\
+         ext4load mmc 0:2 0x08001e00 boot/rzv2h_rdk_cm33_rpmsg_linux_rtos_demo.bin;\
+         mw.l 0x10420C0C 0x00000000; dcache on;'
+
+   -  For CR8_0:
+
+      .. code-block:: text
+
+         => setenv cr80start 'dcache off; mw.l 0x10420D24 0x04000000;\
+         mw.l 0x10420600 0xE000E000; mw.l 0x10420604 0x00830083;\
+         mw.l 0x10420908 0x1FFF0000; mw.l 0x10420C44 0x003F0000;\
+         mw.l 0x10420C14 0x00000000; mw.l 0x10420908 0x10001000;\
+         mw.l 0x10420C48 0x00000020; mw.l 0x10420908 0x1FFF1FFF;\
+         mw.l 0x10420C48 0x00000000;\
+         ext4load mmc 0:2 0x12040000 boot/rzv2h_rdk_cr8_core0_rpmsg_linux_rtos_demo_itcm.bin;\
+         ext4load mmc 0:2 0x08180000 boot/rzv2h_rdk_cr8_core0_rpmsg_linux_rtos_demo_sram.bin;\
+         ext4load mmc 0:2 0x40800000 boot/rzv2h_rdk_cr8_core0_rpmsg_linux_rtos_demo_sdram.bin;\
+         mw.l 0x10420C14 0x00000003; dcache on;'
+
+   -  For CR8_1:
+
+      .. code-block:: text
+
+         => setenv cr81start 'dcache off; mw.l 0x10420D24 0x04000000;\
+         mw.l 0x10420600 0xE000E000; mw.l 0x10420604 0x00830083;\
+         mw.l 0x10420908 0x1FFF0000; mw.l 0x10420C44 0x003F0000;\
+         mw.l 0x10420C14 0x00000000; mw.l 0x10420908 0x10001000;\
+         mw.l 0x10420C48 0x00000020; mw.l 0x10420908 0x1FFF1FFF;\
+         mw.l 0x10420C48 0x00000000;\
+         ext4load mmc 0:2 0x12080000 boot/rzv2h_rdk_cr8_core1_rpmsg_linux_rtos_demo_itcm.bin;\
+         ext4load mmc 0:2 0x081C0000 boot/rzv2h_rdk_cr8_core1_rpmsg_linux_rtos_demo_sram.bin;\
+         ext4load mmc 0:2 0x41800000 boot/rzv2h_rdk_cr8_core1_rpmsg_linux_rtos_demo_sdram.bin;\
+         mw.l 0x10420C14 0x00000003; dcache on;'
+
+#. Save the environment and start the core, for example CM33:
+
+   .. code-block:: text
+
+      => saveenv
+      => run cm33start
+
+   For CR8_0 and CR8_1, run ``cr80start`` and ``cr81start``.
+
+#. Boot Linux:
+
+   .. code-block:: text
+
+      => boot
+
+#. Run the Linux side application, for example ``rpmsg_sample_client`` as described in `RPMsg Linux-RTOS Demo`_.
+
+.. tip::
+
+   To start the core automatically at every boot, add the start command to ``bootcmd``. Check the current value first, then prepend the start command to it:
+
+   .. code-block:: text
+
+      => printenv bootcmd
+      => setenv bootcmd 'run cm33start; <current bootcmd>'
+      => saveenv
+
 .. _multi_os_remoteproc:
 
 Remoteproc Support
@@ -371,7 +501,7 @@ You can use one of the projects above as is, or as a base project for your own a
 
 .. note::
 
-   The firmware files are loaded from ``/lib/firmware``. When you update the firmware, replace the ELF file in this folder and restart the core.
+   The firmware files are loaded from ``/usr/lib/firmware``. When you update the firmware, replace the ELF file in this folder and restart the core.
 
 RPMsg RTOS-RTOS Demo
 ~~~~~~~~~~~~~~~~~~~~

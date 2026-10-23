@@ -10,9 +10,9 @@ This capability is particularly useful for applications that require separation 
    On our default IPL, the following features are enabled by default:
 
    - Remoteproc support for CM33 and CR8 cores (see :ref:`Remoteproc Support <multi_os_remoteproc>`)
-   - CM33 and CR8 invocation from U-Boot
+   - CM33 and CR8 invocation from U-Boot (see :ref:`U-Boot Invocation <multi_os_uboot>`)
 
-   If you want to use other features of Multi-OS, such as CM33 cold boot or CA55 1.8 GHz support, feel free to contact us for support at `renesas-rdk <https://github.com/renesas-rdk/rzv2h_rdk_documentation>`_.
+   To use CA55 at 1.8 GHz or CM33 cold boot, see :ref:`CA55 1.8 GHz Clock-up and CM33 Cold Boot <multi_os_boot_modes>`.
 
 .. attention::
 
@@ -37,6 +37,8 @@ The following documents and repositories are recommended for users who want to e
 - `micro_ros_renesas_demos <https://github.com/micro-ROS/micro_ros_renesas_demos/tree/jazzy>`_: Demonstrations and documentation for using micro-ROS with Renesas platforms, including agent setup and communication examples.
 
 We recommend reviewing these resources to gain a deeper understanding of Multi-OS capabilities and how to effectively use them in your projects.
+
+.. _multi_os_requirement:
 
 Requirement
 """""""""""
@@ -185,6 +187,8 @@ For more details on device tree overlays, refer to :ref:`Device Tree Overlay <de
    Use **Method 1** when the peripheral is defined directly in the base device tree source (``rzv2h-rdk-ver1.dts`` or ``rzv2h-rdk-ver101.dts``).
 
    Use **Method 2** when the peripheral is enabled through a device tree overlay loaded at boot time.
+
+.. _multi_os_create_project:
 
 How to Create the New Project for RZ/V2H RDK
 """""""""""""""""""""""""""""""""""""""""""""

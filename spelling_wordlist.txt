@@ -194,6 +194,7 @@ symlinked
 sysroot
 teleoperation
 Teleoperation
+Tera
 tf
 toolchain
 toolchains
