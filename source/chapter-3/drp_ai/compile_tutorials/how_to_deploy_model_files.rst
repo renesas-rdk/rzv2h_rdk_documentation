@@ -169,3 +169,5 @@ Example of ``mera2`` model files:
          └── deploy.so
 
 Use this final model configuration to deploy the AI model on the RZ/V2H RDK with the DRP-AI Driver.
+
+To check the accuracy and the performance of the deployed model on the board, see :ref:`Validate and Profile Compiled Models <drp_ai_deployment>`.
