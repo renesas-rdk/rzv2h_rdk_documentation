@@ -15,5 +15,5 @@ This section covers the development of applications on the Renesas RZ/V2H RDK pl
    deploy_application
    remote_debug
    dexhand_tutorial
-   cross_build_know_issue
+   cross_build_known_issue
    cross_build_faq

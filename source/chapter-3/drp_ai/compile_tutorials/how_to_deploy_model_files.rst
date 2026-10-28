@@ -7,14 +7,14 @@ After you compile your AI model by using the DRP-AI TVM extension package, you c
 
 This section provides a step-by-step guide for deploying the model files.
 
-Collect the model files
+Collect the Model Files
 """""""""""""""""""""""
 
 After compiling the model, you will obtain the following files.
 
-There are two kinds of model files: one for the **mera1** model and one for the **mera2** model.
+There are two kinds of model files: one for the **MERA1** model and one for the **MERA2** model.
 
-For more information about the differences between mera1 and mera2, see `About Mera <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/About_mera.md>`_.
+For more information about the differences between MERA1 and MERA2, see `About MERA <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/About_mera.md>`_.
 
 Example of ``mera1`` model files:
 
@@ -60,16 +60,16 @@ Example of ``mera2`` model files:
 
 The other files in the output directory, such as ``input_0.bin`` and ``model_subgraphs.json``, are not required for deployment on the RZ/V2H RDK board.
 
-They are using for other purposes, such as debugging or reference for the model structure, and can be ignored for deployment.
+They are used for other purposes, such as debugging or as a reference for the model structure, and can be ignored for deployment.
 
 You can safely ignore them or copy them to the board when deploying the model files.
 
-Calculate the memory size used by the model
+Calculate the Memory Size Used by the Model
 """""""""""""""""""""""""""""""""""""""""""
 
-To enable multiple AI models running simultaneously with the DRP-AI driver, a special file called ``addr_map.txt`` is required, **it is different from the one generated in the output_directory** folder.
+To enable multiple AI models running simultaneously with the DRP-AI Driver, a special ``addr_map.txt`` file is required, which **is different from the one generated in the output_directory** folder.
 
-This ``addr_map.txt`` file is for the model in the inference phase. The purpose is to get the memory size used as multiple models scenario each model shall be allocated a memory block in advance before running.
+This ``addr_map.txt`` file is for the model in the inference phase. It is used to determine the memory size of the model, because in a multi-model scenario, each model must be allocated a memory block before it runs.
 
 To obtain the ``addr_map.txt`` file, locate it in the **temp** folder created during the model conversion process.
 
@@ -81,7 +81,7 @@ You can find the ``addr_map.txt`` file in the following path:
 
 There might be several sub-directories representing different inference stages (executed by DRP-AI or CPU) that each contain an ``addr_map.txt`` file.
 
-The correct file to use is the one with the largest memory address allocation, corresponding to the **maximum drp_desc value**, as it represents the final and complete memory size used by the AI Model with DRP-AI driver.
+The correct file to use is the one with the largest memory address allocation, corresponding to the **maximum drp_desc value**, as it represents the final and complete memory size used by the AI Model with DRP-AI Driver.
 
 **How to calculate the memory size used by the model?**
 
@@ -111,11 +111,11 @@ The correct file to use is the one with the largest memory address allocation, c
 
   Therefore, the total memory size for ``drp_desc`` is: ``33e2980`` (start address) + ``380`` (size) = ``33e2d00``.
 
-- Find the correct ``addr_map.txt`` file that contains the largest ``drp_desc`` value, corresponding to the total memory size used by the AI model with the DRP-AI driver.
+- Find the correct ``addr_map.txt`` file that contains the largest ``drp_desc`` value, corresponding to the total memory size used by the AI model with the DRP-AI Driver.
 
 - Copy this ``addr_map.txt`` file to the top-level directory of the model configuration folder, which will be used for deployment on the RZ/V2H RDK board.
 
-Final model configuration for deployment
+Final Model Configuration for Deployment
 """"""""""""""""""""""""""""""""""""""""
 
 After you have the model files and the correct ``addr_map.txt`` file, you can construct the final model configuration for deployment on the RZ/V2H RDK board.
@@ -168,4 +168,4 @@ Example of ``mera2`` model files:
          ├── deploy.params
          └── deploy.so
 
-Use this final model configuration to deploy the AI model on the RZ/V2H RDK with the DRP-AI driver.
+Use this final model configuration to deploy the AI model on the RZ/V2H RDK with the DRP-AI Driver.

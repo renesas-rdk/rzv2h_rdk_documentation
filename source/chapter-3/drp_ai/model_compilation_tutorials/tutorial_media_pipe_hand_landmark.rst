@@ -3,7 +3,7 @@ MediaPipe Hand Landmark Tutorial
 
 This guide describes the process for converting **MediaPipe Hand Landmark Detection** models from **TFLite** to **ONNX** format for compatibility with **DRP-AI**.
 
-Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
+Complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
 Download Models
 ~~~~~~~~~~~~~~~~
@@ -29,7 +29,7 @@ Set Up Conversion Environment
 Conversion Process
 ~~~~~~~~~~~~~~~~~~~
 
-- **Important:** The supported ONNX opset for the DRP-AI translator is **v12**.
+- **Important:** The supported ONNX opset for the DRP-AI Translator is **v12**.
 
 - Install dependencies (downgrade NumPy to resolve compatibility issues):
 

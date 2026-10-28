@@ -25,7 +25,7 @@ The next section provides a tutorial on how to compile a sample ONNX model using
 
 Follow the instructions to set up the environment, compile the model using the sample script, and confirm the output.
 
-Work flow
+Workflow
 """""""""
 
 From this point on, follow these steps.
@@ -40,7 +40,7 @@ From this point on, follow these steps.
 Setup Environment
 """""""""""""""""
 
-Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/README.md#installing-drp-ai-tvm1-with-docker-mera2>`_ to set up the environment before you begin this workflow.
+Refer to `Installing DRP-AI TVM1 with Docker (MERA2) <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/README.md#installing-drp-ai-tvm1-with-docker-mera2>`_ to set up the environment before you begin this workflow.
 
 .. note::
 
@@ -48,7 +48,7 @@ Refer to `Installing DRP-AI TVM1 with Docker (Mera2) <https://github.com/renesas
 
    We recommend using an Ubuntu 24.04 machine for the DRP-AI TVM extension package, as it provides a consistent and isolated environment for ROS 2 Jazzy development.
 
-Compile AI models
+Compile AI Models
 """""""""""""""""
 
 All subsequent operations are performed within the container created in the above steps.
@@ -60,7 +60,7 @@ To enter the container, execute the following command in the terminal.
    docker start drp-ai_tvm_${PRODUCT,,}_container_${USER}
    docker exec -it drp-ai_tvm_${PRODUCT,,}_container_${USER} bash
 
-Download an ONNX model
+Download an ONNX Model
 ~~~~~~~~~~~~~~~~~~~~~~
 
 In this example, ``resnet18`` is used.
@@ -72,7 +72,7 @@ First, download the ONNX model file from the following URL by using the followin
    cd $TVM_ROOT/tutorials/
    wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet18-v1-7.onnx
 
-Compile an ONNX model
+Compile an ONNX Model
 ~~~~~~~~~~~~~~~~~~~~~
 
 Compile the ONNX model you just downloaded by using the prepared sample script.
@@ -95,4 +95,4 @@ Example output:
 
 They are the compiled model files that can be deployed on the RZ/V2H platform with the DRP-AI Driver.
 
-To deploy the model files on the RZ/V2H platform, please refer to the :ref:`How to Deploy Model Files <how_to_deploy_model_files>` section for more details.
+To deploy the model files on the RZ/V2H platform, refer to the :ref:`How to Deploy Model Files <how_to_deploy_model_files>` section for more details.

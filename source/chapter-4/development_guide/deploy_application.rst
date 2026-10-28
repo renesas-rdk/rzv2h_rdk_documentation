@@ -10,7 +10,7 @@ Prerequisites
 
 Before starting deployment:
 
-#. Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section.
+#. Complete the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section.
 #. Prepare the VS Code workspace configuration by following :ref:`ROS 2 VS Code Workspace Configuration <ros2_vscode_workspace>`.
 #. Make sure the required :ref:`variables <workspace_settings>` in ``settings.json`` are configured correctly, especially ``TARGET_IP``.
 #. Make sure all required packages are available in the current workspace on the host machine.

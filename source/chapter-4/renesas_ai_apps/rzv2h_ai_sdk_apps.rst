@@ -1,6 +1,6 @@
 .. _rzv2h_ai_sdk_apps:
 
-Cross-build Renesas AI Applications
+Cross-Build Renesas AI Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to cross-compile Renesas AI Applications for the RZ/V2H RDK platform using the Renesas RDK Docker cross-compilation environment.
@@ -23,9 +23,9 @@ Prerequisites
 
 Before building the Renesas AI Applications, ensure that you have completed the following:
 
-- Set up the RZ/V2H RDK with the Ubuntu 24.04 server image (``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``) flashed on the microSD card.
+- Set up the RZ/V2H RDK with the Ubuntu 24.04 server image (``ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz``, ``<ver>``: ``ver1`` or ``ver101``) flashed on the microSD card.
   Follow the instructions in the :ref:`Quick Setup Guide <quick_setup_rdk_guide>`.
-- Complete the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section to set up the Docker-based cross-compilation environment.
+- Complete the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section to set up the Docker-based cross-compilation environment.
 
 Available AI Applications
 """""""""""""""""""""""""
@@ -37,7 +37,7 @@ The following AI Applications are available, developed by Renesas and third-part
 - `Ignitarium Renesas - RZ/V AI Applications <https://github.com/Ignitarium-Renesas/rzv_ai_apps>`_
 - `Computermind Corporation - DRP-AI Demo App <https://github.com/ComputermindCorp/drp-ai-demo-app/tree/main>`_
 
-Setting up the Environment
+Setting Up the Environment
 """"""""""""""""""""""""""
 
 #. Start and access the Docker container:
@@ -46,11 +46,11 @@ Setting up the Environment
 
       docker exec -it ros2_cross_build_container bash
 
-#. Connect to the Docker container from VS Code using the **Remote - Containers** extension.
+#. Connect to the Docker container from VS Code using the **Dev Containers** extension.
 
    Once connected, open the ``/drp-ai_tvm`` directory inside the container as your working folder.
 
-   Refer to the :ref:`Cross compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect from VS Code.
+   Refer to the :ref:`Cross-compilation environment setup <requirements_ros2_cross_build>` section for instructions on how to connect from VS Code.
 
 Install Dependencies into the Sysroot
 """"""""""""""""""""""""""""""""""""""

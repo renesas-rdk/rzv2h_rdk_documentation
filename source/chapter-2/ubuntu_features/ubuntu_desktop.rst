@@ -18,8 +18,8 @@ Prerequisites
 """""""""""""
 
 - RZ/V2H RDK
-- SD card with the Ubuntu image flashed. Please refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>` for instructions on how to prepare the SD card.
-- Monitor and micro-HDMI to HDMI cable
+- microSD card with the Ubuntu image flashed. Refer to the :ref:`Quick Setup Guide <quick_setup_rdk_guide>` for instructions on how to prepare the microSD card.
+- Monitor and Micro-HDMI to HDMI cable
 - Internet connection
 
 Detail Steps
@@ -30,7 +30,7 @@ The following sections provide detailed steps to set up and use the Ubuntu Deskt
 Hardware Connection
 ~~~~~~~~~~~~~~~~~~~
 
-Connect the RZ/V2H RDK to a monitor using the micro-HDMI interface, and ensure that the board is powered on.
+Connect the RZ/V2H RDK to a monitor using the Micro-HDMI interface, and ensure that the board is powered off.
 
 The following figure illustrates the typical desktop setup for the RZ/V2H RDK:
 
@@ -44,8 +44,8 @@ The following figure illustrates the typical desktop setup for the RZ/V2H RDK:
 Boot the Board
 ~~~~~~~~~~~~~~
 
-- Insert the flashed SD card into the RZ/V2H RDK board.
-- Set the boot option to **SD card boot mode**. The **dip-switch 1** status from 1 to 5 should be **ON-OFF-ON-ON-OFF**.
+- Insert the flashed microSD card into the RZ/V2H RDK board.
+- Set the boot option to **microSD card boot mode**. The **DIP switch 1** status from 1 to 5 should be **ON-OFF-ON-ON-OFF**.
 - Power on the board.
 
 Initial Boot and Login
@@ -77,7 +77,7 @@ Disable and mask the Weston service to prepare for desktop installation:
 Expand Root Filesystem
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Expand the root filesystem using the ``parted`` tool to use the full SD card capacity.
+Expand the root filesystem using the ``parted`` tool to use the full microSD card capacity.
 
 If you have already expanded the root filesystem, you can skip this step.
 
@@ -146,7 +146,7 @@ Notes
 Troubleshooting
 ~~~~~~~~~~~~~~~
 
-- If boot fails, verify that SD card boot mode is correctly set.
+- If boot fails, verify that microSD card boot mode is correctly set.
 - For installation issues, check internet connectivity and available disk space.
 
 Switch from ``networkd`` to ``NetworkManager``
@@ -198,13 +198,13 @@ If you want to switch to ``NetworkManager`` **to support graphical network manag
       systemctl enable NetworkManager
       systemctl start NetworkManager
 
-#. Back up the netplan configuration and edit it to use NetworkManager as the renderer:
+#. Back up the Netplan configuration and edit it to use NetworkManager as the renderer:
 
    .. code-block:: bash
 
       cp -a /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
 
-   Edit the netplan file. For example:
+   Edit the Netplan file. For example:
 
    .. code-block:: bash
 
@@ -233,7 +233,7 @@ If you want to switch to ``NetworkManager`` **to support graphical network manag
           end0:
             dhcp4: true
 
-#. Apply netplan:
+#. Apply Netplan:
 
    .. code-block:: bash
 

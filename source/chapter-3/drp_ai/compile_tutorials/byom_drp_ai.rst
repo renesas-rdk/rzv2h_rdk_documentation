@@ -1,6 +1,6 @@
 .. _exchange_ai_model:
 
-BYOM AI model support
+BYOM AI Model Support
 ^^^^^^^^^^^^^^^^^^^^^
 
 The DRP-AI supports BYOM (Bring Your Own Model) AI models, allowing users to deploy custom-trained AI models on the RZ/V2H platform.
@@ -30,7 +30,7 @@ To enable BYOM support, users need to convert their AI models into a format comp
 
 This package provides the necessary tools and libraries to facilitate the conversion process, ensuring that the models can effectively leverage the capabilities of the DRP-AI.
 
-Install the DRP-AI TVM extension package
+Install the DRP-AI TVM Extension Package
 """"""""""""""""""""""""""""""""""""""""
 
 To install the DRP-AI TVM extension package, follow the instructions provided in the `RZ/V DRP-AI TVM setup <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/main/setup#installing-drp-ai-tvm1-with-docker-mera2>`_.

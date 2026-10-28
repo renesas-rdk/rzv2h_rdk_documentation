@@ -1,6 +1,6 @@
 .. _hand_landmark:
 
-Static / Camera-based Hand Landmark Estimation
+Static / Camera-Based Hand Landmark Estimation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: ../../images/landmark.png
@@ -28,14 +28,14 @@ The RZ/V Pose Estimation package provides the following features:
 - Integrates with Foxglove Studio for visualization.
 - Supports multi-threaded processing.
 
-Quick hardware setup instructions
+Quick Hardware Setup Instructions
 """"""""""""""""""""""""""""""""""
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
 
 #. **Optional:** Connect a compatible USB camera to the RZ/V2H RDK board for hand detection and landmark estimation.
 
-Quick software setup instructions
+Quick Software Setup Instructions
 """""""""""""""""""""""""""""""""
 
 .. note::
@@ -67,7 +67,7 @@ Quick software setup instructions
 
       arm64-chroot apt update
 
-   Install the dependencies to the target board first:
+   Install the dependencies into the target sysroot first:
 
    .. code-block:: bash
 
@@ -84,7 +84,7 @@ Quick software setup instructions
 #. Deploy the result to the board and install the runtime dependencies there, as described in
    :ref:`Deploying and Installing Dependencies <sample_apps_deploy>`.
 
-Start the application
+Start the Application
 """""""""""""""""""""
 
 #. Load the workspace environment on the RZ/V2H RDK board.
@@ -95,7 +95,7 @@ Start the application
       source /opt/ros/jazzy/setup.bash
       source ./install/setup.bash
 
-#. Launch the Static / Camera-based Hand Landmark Estimation application.
+#. Launch the Static / Camera-Based Hand Landmark Estimation application.
 
    For hand landmark estimation on a static image, use:
 
@@ -114,7 +114,7 @@ Start the application
    The input layout file for Foxglove Studio is located at
    ``rzv_pose_estimation/config/foxglove/landmark_estimation.json`` inside the ROS 2 workspace.
 
-For more details about the Static / Camera-based Hand Landmark Estimation application, refer to the
+For more details about the Static / Camera-Based Hand Landmark Estimation application, refer to the
 `README.md in the rzv_pose_estimation package <https://github.com/renesas-rdk/rzv_pose_estimation>`_.
 
-- v1.0.0 (2026-03-31): Initial release of the Static / Camera-based Hand Landmark Estimation sample application.
+- v1.0.0 (2026-03-31): Initial release of the Static / Camera-Based Hand Landmark Estimation sample application.

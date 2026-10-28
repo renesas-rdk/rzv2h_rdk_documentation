@@ -1,4 +1,4 @@
-Other interfaces
+Other Interfaces
 ^^^^^^^^^^^^^^^^
 
 The RZ/V2H Robotic Development Kit (RDK) is equipped with several additional interfaces to enhance its functionality and connectivity options. This section provides an overview of these interfaces, including Micro-HDMI, USB-UART, and JTAG 10-pin.
@@ -64,11 +64,11 @@ The configuration settings for the serial connection are as follows:
 
    If your PC cannot recognize the USB-UART interface, **power-off then power-on** (do not use the ``sudo reboot`` command) the board and try again.
 
-JTAG 10-pin
+JTAG 10-Pin
 """""""""""
 
 The RZ/V2H RDK provides a JTAG 10-pin interface for debugging and programming CM33 and two CR8 cores.
 
 This interface is essential for low-level debugging and development tasks in Multi-Core applications.
 
-For more information on using the JTAG interface, please refer to the RZ/V2H RDK :ref:`Multi-OS Development Section <multi_os>`.
+For more information on using the JTAG interface, refer to the RZ/V2H RDK :ref:`Multi-OS Development Section <multi_os>`.

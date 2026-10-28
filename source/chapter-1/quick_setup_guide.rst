@@ -1,6 +1,6 @@
 .. _quick_setup_rdk_guide:
 
-Quick start guide for RZ/V2H RDK
+Quick Start Guide for RZ/V2H RDK
 ---------------------------------
 
 This quick start guide focuses on booting the board using a **microSD card**, which is the most straightforward method.
@@ -9,7 +9,7 @@ Other advanced boot methods, such as **xSPI flash**, are also supported.
 
 The **TFTP + NFS boot** method is supported as well but is not covered in detail here.
 
-Preparing the microSD card
+Preparing the microSD Card
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Linux image onto it.
@@ -17,7 +17,7 @@ To boot the RZ/V2H RDK using a microSD card, you must first flash a bootable Lin
 There are two options for flashing the image:
 
 - **Option 1: Flash using bmaptool (Ubuntu)** - A faster command-line tool for flashing images using block map files.
-- **Option 2: Flash using Balena Etcher** - A user-friendly GUI tool that supports multiple platforms (Windows, macOS, Linux).
+- **Option 2: Flash using balenaEtcher** - A user-friendly GUI tool that supports multiple platforms (Windows, macOS, Linux).
 
 Requirements
 """"""""""""
@@ -25,48 +25,50 @@ Requirements
 - A host machine for flashing the image:
 
   - Ubuntu with ``bmaptool``, or
-  - Windows, macOS, or Linux with Balena Etcher
+  - Windows, macOS, or Linux with balenaEtcher
 
 - **microSD card**: 16 GB or larger.
   For best performance and compatibility, we recommend using the included 64 GB SanDisk microSD card.
 
 - **Provided bootable files:**
 
- Download WS125-V2HRDKREFZ Robotic Development Kit Software from the Renesas website to your local machine using this link:
+  Download WS125-V2HRDKREFZ Robotic Development Kit Software from the Renesas website to your local machine using this link:
 
   `Renesas Official RZ/V2H RDK Website <https://www.renesas.com/ws125-v2hrdkrefz>`_
 
-  In the ``*.zip`` file, you can find the following files under the ``board_setup`` folder:
+  The ``board_setup/`` folder in the ``*.zip`` file contains one set of files per board version:
 
-  .. list-table::
-     :header-rows: 1
-     :widths: 10 50
+  .. code-block:: text
 
-     * - **File name**
-       - **Description**
-     * - ``board_image/``
-       - Board image files
+     board_setup/
+     ├── board_image/
+     │   ├── rzv2h-rdk-ver1/
+     │   │   ├── ubuntu-24.04-server-arm64-rzv2h-rdk-ver1.img.xz
+     │   │   └── ubuntu-24.04-server-arm64-rzv2h-rdk-ver1.img.bmap
+     │   └── rzv2h-rdk-ver101/
+     │       ├── ubuntu-24.04-server-arm64-rzv2h-rdk-ver101.img.xz
+     │       └── ubuntu-24.04-server-arm64-rzv2h-rdk-ver101.img.bmap
+     └── xSPI/
+         ├── rzv2h-rdk-ver1/
+         │   ├── Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
+         │   ├── bl2_bp_spi-rzv2h-rdk-ver1.srec
+         │   └── fip-rzv2h-rdk-ver1.srec
+         └── rzv2h-rdk-ver101/
+             ├── Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot
+             ├── bl2_bp_spi-rzv2h-rdk-ver101.srec
+             └── fip-rzv2h-rdk-ver101.srec
 
-         - ``ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz``: Ubuntu 24.04 Server SD card image file containing:
+  - ``*.img.xz``: Ubuntu 24.04 Server microSD card image (bootloader, Linux kernel, device tree, root filesystem). Default credentials: **ubuntu** / **ubuntu**.
+  - ``*.img.bmap``: Block map file for fast flashing with ``bmaptool``.
+  - ``xSPI/``: IPL (BL2 and FIP) and Flash Writer for xSPI boot (remoteproc mode), see `Option 2: xSPI Boot Mode`_.
 
-           - Bootloader
-           - Linux kernel image
-           - Linux device tree file
-           - Ubuntu 24.04 root filesystem
-           - Default credentials:
+  .. important::
 
-             - **Username**: **ubuntu**
-             - **Password**: **ubuntu**
+     Use the files that match your board version. The bootloader is board-specific, and the files of the other version do not boot. To identify your board, see :ref:`rdk_board_versions`.
 
-         - ``ubuntu-24.04-server-arm64-rzv2h-rdk.bmap``: Block map file for fast flashing with ``bmaptool``
-     * - ``xSPI/``
-       - Files for booting the RZ/V2H RDK from xSPI
+     In the commands below, replace ``<ver>`` with ``ver1`` or ``ver101``.
 
-         - ``Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot``: Bootloader file
-         - ``bl2_bp_spi-rzv2h-rdk.srec``: Bootloader file
-         - ``fip-rzv2h-rdk.srec``: Bootloader file
-
-Option 1: Flash using bmaptool (Ubuntu)
+Option 1: Flash Using bmaptool (Ubuntu)
 """"""""""""""""""""""""""""""""""""""""
 
 bmaptool is a faster command-line tool for flashing images to microSD cards using block map files (bmap).
@@ -94,7 +96,7 @@ It provides quicker flashing compared to traditional methods by skipping empty b
 
       .. warning::
 
-         Please confirm the microSD card device name carefully.
+         Confirm the microSD card device name carefully.
          Double-check to avoid overwriting your main disk.
 
    c. Unmount any auto-mounted partitions on the microSD card:
@@ -107,21 +109,21 @@ It provides quicker flashing compared to traditional methods by skipping empty b
 
       .. code-block:: bash
 
-         sudo bmaptool copy ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz /dev/sdX
+         sudo bmaptool copy ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz /dev/sdX
 
       Replace ``/dev/sdX`` with your actual microSD card device (e.g., ``/dev/sdb``, not ``/dev/sdb1``).
 
       .. note::
 
-         Please ensure that the ``.bmap`` file is in the same directory as the image file.
+         Ensure that the ``.bmap`` file is in the same directory as the image file.
          bmaptool automatically detects the ``.bmap`` file with the same base name.
 
          You can also specify it explicitly:
 
          .. code-block:: bash
 
-            sudo bmaptool copy --bmap ubuntu-24.04-server-arm64-rzv2h-rdk.bmap \
-              ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz /dev/sdX
+            sudo bmaptool copy --bmap ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.bmap \
+              ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz /dev/sdX
 
    e. Wait for the process to complete. bmaptool will display progress and verify the image after flashing.
 
@@ -131,17 +133,17 @@ It provides quicker flashing compared to traditional methods by skipping empty b
 
          sync
 
-Option 2: Flash using Balena Etcher
+Option 2: Flash Using balenaEtcher
 """"""""""""""""""""""""""""""""""""
 
-Balena Etcher is a user-friendly GUI tool to flash OS images to microSD cards and USB drives.
+balenaEtcher is a user-friendly GUI tool to flash OS images to microSD cards and USB drives.
 It provides a simple and safe method.
 
 It supports many OS platforms, including Windows, macOS, and Linux.
 
-#. **Install Balena Etcher**
+#. **Install balenaEtcher**
 
-   Download and install the software from the `Balena Etcher Official Website <https://etcher.balena.io/>`_.
+   Download and install the software from the `balenaEtcher Official Website <https://etcher.balena.io/>`_.
 
 #. **Decompress the image file**
 
@@ -150,7 +152,7 @@ It supports many OS platforms, including Windows, macOS, and Linux.
    .. code-block:: bash
 
       # On Linux
-      xz -dk ubuntu-24.04-server-arm64-rzv2h-rdk.img.xz
+      xz -dk ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img.xz
 
    Or use a decompression tool on Windows or macOS to extract the ``.img`` file.
 
@@ -159,18 +161,18 @@ It supports many OS platforms, including Windows, macOS, and Linux.
    - Once Etcher is open:
 
      .. figure:: ../images/balenaetcher-eye.jpg
-        :alt: Balena Etcher Application
+        :alt: balenaEtcher Application
         :width: 500px
         :align: center
 
-        Balena Etcher Application
+        balenaEtcher Application
 
-   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ``ubuntu-24.04-server-arm64-rzv2h-rdk.img``)
+   - **Select Image:** Click ``Flash from file`` and choose your image file (e.g., ``ubuntu-24.04-server-arm64-rzv2h-rdk-<ver>.img``)
    - **Select Target:** Insert your microSD card into the host machine and choose the correct device.
 
      .. note::
 
-        Please confirm the microSD card device name carefully.
+        Confirm the microSD card device name carefully.
         Double-check to avoid overwriting your main disk.
 
    - **Flashing:** Click ``Flash`` to begin. Etcher will:
@@ -274,15 +276,15 @@ The board supports two boot options, including:
 
 .. important::
 
-   The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24V / 5A.
+   The power supply for the RZ/V2H RDK should satisfy the maximum requirement of 24 V / 5 A.
 
    The common DC power adapter specifications are:
 
-   - DC power adapter 12V, 2A. (Included in the package)
+   - DC power adapter 12 V, 2 A. (Included in the package)
 
-   - DC power adapter 24V, 1A.
+   - DC power adapter 24 V, 1 A.
 
-Common hardware setup
+Common Hardware Setup
 """""""""""""""""""""
 
 The following image shows the common hardware setup for both boot modes:
@@ -300,10 +302,10 @@ The setup includes:
 - Serial connection for terminal access
 - Ethernet connection for network access
 
-Option 1: microSD card boot mode
+Option 1: microSD Card Boot Mode
 """""""""""""""""""""""""""""""""
 
-For **microSD card boot mode**, the required bootloaders components are already included in the flashed microSD card image.
+For **microSD card boot mode**, the required bootloader components are already included in the flashed microSD card image.
 
 On the RZ/V2H RDK, configure the **DSW1** switches as shown below:
 
@@ -354,7 +356,7 @@ The board will start the boot process.
 
 If you intend to use **microSD card boot mode only**, proceed to :ref:`first time boot setup <first_time_boot_setup>` to complete the setup.
 
-Option 2: xSPI boot mode
+Option 2: xSPI Boot Mode
 """""""""""""""""""""""""
 
 Follow the instructions below to set up the board.
@@ -370,7 +372,11 @@ Follow the instructions below to set up the board.
 
 #. **Write Bootloaders to the Board**
 
-   Copy the bootloaders files to your Windows PC.
+   Copy the files in ``board_setup/xSPI/rzv2h-rdk-<ver>/`` of the release package to your Windows PC. ``<ver>`` is ``ver1`` or ``ver101``, depending on the board version (see :ref:`rdk_board_versions`).
+
+   .. note::
+
+      The provided IPL uses the default remoteproc mode. For other Multi-OS modes, build the IPL as described in :ref:`build_ipl`.
 
    .. list-table::
       :header-rows: 1
@@ -380,9 +386,9 @@ Follow the instructions below to set up the board.
         - **Description**
       * - ``Flash_Writer_SCIF_RZV2H_DEV_INTERNAL_MEMORY.mot``
         - Flash writer for RZ/V2H (used in SCIF download mode)
-      * - ``bl2_bp_spi-rzv2h-rdk.srec``
-        - Boot loader stage 2 binary
-      * - ``fip-rzv2h-rdk.srec``
+      * - ``bl2_bp_spi-rzv2h-rdk-<ver>.srec``
+        - Bootloader stage 2 binary
+      * - ``fip-rzv2h-rdk-<ver>.srec``
         - Firmware Image Package for RZ/V2H
 
    - Connect the **Windows PC** and **Board** using a **USB-to-microUSB** cable.
@@ -466,7 +472,7 @@ Follow the instructions below to set up the board.
         Please Input : H'00000
         please send ! ('.' & CR stop load)
 
-   - After the "please send!" message, open **File → Send file...** and send the ``bl2_bp_spi-rzv2*.srec`` file as text from the terminal software.
+   - After the "please send!" message, open **File → Send file...** and send the ``bl2_bp_spi-rzv2h-rdk-<ver>.srec`` file as text from the terminal software.
 
    - If prompted to clear data, enter ``y``:
 
@@ -511,7 +517,7 @@ Follow the instructions below to set up the board.
         Please Input : H'60000
         please send ! ('.' & CR stop load)
 
-   - After the "please send!" message, open **File → Send file...** and send the ``fip-rzv2*.srec`` file as text from the terminal software.
+   - After the "please send!" message, open **File → Send file...** and send the ``fip-rzv2h-rdk-<ver>.srec`` file as text from the terminal software.
 
    - If prompted to clear data, enter ``y``:
 
@@ -593,15 +599,16 @@ Connect an Ethernet cable to the board and run:
 
 .. note::
 
-   The following error may occur during boot, causing no Internet connection even though the Ethernet cable is connected:
+   The following error may occur during boot, causing no internet connection even though the Ethernet cable is connected:
 
    .. code-block:: text
 
       ubuntu@ubuntu:~$ dmesg | grep error
       [   17.664297] dwc-eth-dwmac 15c30000.ethernet end0: __stmmac_open: Cannot attach to PHY (error: -110)
 
-   To resolve this issue, power off the board, unplug the Ethernet cable, power it on,
-   wait until the system fully boots, then plug the Ethernet cable back in.
+   To resolve this issue, power off the board, wait at least 5 seconds, and power it on again. The network should work correctly after the second boot.
+
+   Do not power-cycle the board too quickly. The Ethernet PHY is reset only at power-on, and the supply needs a few seconds to discharge completely. If power is restored too soon, the PHY is not reset properly and the same error occurs again.
 
 #. Perform apt update and resize the microSD card:
 
@@ -614,9 +621,9 @@ Connect an Ethernet cable to the board and run:
 
    .. note::
 
-      The above commands resize the second partition to utilize the full capacity of the microSD card.
+      The above commands resize the second partition to use the full capacity of the microSD card.
 
-      If you are using a different partition layout, please adjust the command accordingly (e.g., change the partition number).
+      If you are using a different partition layout, adjust the command accordingly (e.g., change the partition number).
 
 #. Install the ROS 2 Jazzy:
 
@@ -657,5 +664,5 @@ Reference
 
 - Advanced Boot Options (xSPI):
   `Renesas RZ/V AI SDK Developer Guide <https://renesas-rz.github.io/rzv_ai_sdk/latest/dev_guide.html#D3>`_
-- Balena Etcher Official Website:
+- balenaEtcher Official Website:
   `https://www.balena.io/etcher <https://www.balena.io/etcher>`_

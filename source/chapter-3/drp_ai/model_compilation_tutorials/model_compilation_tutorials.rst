@@ -1,9 +1,9 @@
-DRP-AI model compilation tutorials
+DRP-AI Model Compilation Tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section provides tutorials on how to compile some selected models with the DRP-AI TVM extension package for deployment on the RZ/V2H RDK platform.
 
-Make sure you have completed the steps in the :ref:`BYOM AI model support <byom_drp_ai>` section to set up the DRP-AI TVM extension package in your development machine.
+Make sure you have completed the steps in the :ref:`BYOM AI Model Support <byom_drp_ai>` section to set up the DRP-AI TVM extension package in your development machine.
 
 .. _tutorial_prerequisites:
 

@@ -11,8 +11,8 @@ Overview
 This package provides ROS 2 nodes for:
 
 - General object detection using YOLOX Pascal VOC model.
-- Hand detection using YOLOX and Gold YOLOX models.
-- Rock-Paper-Scissors hand detection using YOLOv8 models.
+- Hand detection using YOLOX and Gold-YOLO models.
+- Rock Paper Scissors hand detection using YOLOv8 models.
 - Real-time camera-based detection.
 - Static image-based detection.
 
@@ -23,7 +23,7 @@ Features
 
   - YOLOX Pascal VOC (20 classes)
   - YOLOX Hand Detection
-  - Gold YOLO Hand Detection
+  - Gold-YOLO Hand Detection
   - YOLOv8 RPS Hand Detection
 
 - Configurable detection parameters.
@@ -125,7 +125,7 @@ Launch Files
     # Hand detection on static image using YOLOX
     ros2 launch rzv_object_detection static_hand_detection_yolox.launch.py
 
-    # Hand detection on static image using Gold YOLO
+    # Hand detection on static image using Gold-YOLO
     ros2 launch rzv_object_detection static_hand_detection_gold_yolo.launch.py
 
     # RPS hand detection on static image using YOLOv8

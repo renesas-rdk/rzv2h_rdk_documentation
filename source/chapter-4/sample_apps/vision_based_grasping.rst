@@ -4,7 +4,7 @@ Vision-Based Grasping
 ^^^^^^^^^^^^^^^^^^^^^
 
 The `renesas_vision_based_grasping <https://github.com/renesas-rdk/renesas_vision_based_grasping>`_ package is the top-level launch and configuration package
-for the vision-based pick-and-place demo: an Agilex Piper arm with a dexterous hand picks objects
+for the vision-based pick-and-place demo: an AgileX Piper arm with a dexterous hand picks objects
 detected by a RealSense camera and drops them in a bin, driven by a BehaviorTree.CPP mission.
 
 Detection runs ``rzv_soft_objects_detection``, a YOLOX soft-object model accelerated by the
@@ -85,7 +85,7 @@ Hardware Setup
 
 #. Connect an Intel RealSense D4xx depth camera to the RZ/V2H RDK board.
 
-#. Set up the Agilex Piper arm and the dexterous hand using the instructions in their bringup
+#. Set up the AgileX Piper arm and the dexterous hand using the instructions in their bringup
    packages. The arm and a Ruiyan RH2 hand each attach through their own USB-to-CAN adapter; an
    Inspire hand attaches through a USB-to-serial adapter.
 
@@ -330,7 +330,7 @@ the video lines up with the detection topics on the Foxglove timeline.
 Troubleshooting
 """""""""""""""
 
-RealSense fails with ``VIDIOC_QBUF``
+RealSense Fails with ``VIDIOC_QBUF``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Errors such as the following usually mean that the ``uvcvideo`` module is using the DMA-BUF

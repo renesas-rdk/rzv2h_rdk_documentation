@@ -1,6 +1,6 @@
 .. _arm_teleoperation:
 
-Vision Based Robotic Arm Teleoperation
+Vision-Based Robotic Arm Teleoperation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
@@ -23,7 +23,7 @@ The RZ/V Demo Arm Teleoperation package provides the following features:
 - Supports simultaneous control of virtual and physical AgileX Piper Arm systems.
 - Supports visualization through Foxglove Studio and MuJoCo.
 
-Quick hardware setup instructions
+Quick Hardware Setup Instructions
 """"""""""""""""""""""""""""""""""
 
 #. Complete the :ref:`Prerequisites for Running Sample Applications <sample_apps_prerequisites>`.
@@ -35,7 +35,7 @@ Quick hardware setup instructions
    - The common setup uses a fixed camera facing upward.
    - The USB camera field of view should capture the user's hand, and the hand must remain within the camera frame.
 
-Quick software setup instructions
+Quick Software Setup Instructions
 """""""""""""""""""""""""""""""""
 
 .. note::
@@ -67,7 +67,7 @@ Quick software setup instructions
 
       arm64-chroot apt update
 
-   Install the dependencies to the target board first:
+   Install the dependencies into the target sysroot first:
 
    .. code-block:: bash
 
@@ -91,7 +91,7 @@ Quick software setup instructions
 
       Replace ``board_ip`` with the actual IP address of your board. Ensure that the ``ros2_ws`` directory exists at ``/home/ubuntu`` on the target board before running the ``scp`` command.
 
-Start the application
+Start the Application
 """""""""""""""""""""
 
 #. Install the required dependencies on the RZ/V2H RDK board.
@@ -104,7 +104,7 @@ Start the application
 
    The ``/home/ubuntu/ros2_ws`` directory is the location where you copied the cross-compiled workspace on the board.
 
-#. Launch the Vision Based Robotic Arm Teleoperation application.
+#. Launch the Vision-Based Robotic Arm Teleoperation application.
 
    Load the workspace environment:
 
@@ -167,7 +167,7 @@ Start the application
 
       Make sure to set up the MuJoCo environment on your host PC as described in the :ref:`MuJoCo Visualization <mujoco_visualization>` section before running the above command.
 
-For more details about the Vision Based Robotic Arm Teleoperation application, refer to the
+For more details about the Vision-Based Robotic Arm Teleoperation application, refer to the
 `README.md in the rzv_playground package <https://github.com/renesas-rdk/rzv_playground>`_.
 
-- v1.0.0 (2026-03-31): Initial release of the Vision Based Robotic Arm Teleoperation sample application.
+- v1.0.0 (2026-03-31): Initial release of the Vision-Based Robotic Arm Teleoperation sample application.

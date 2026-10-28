@@ -1,7 +1,7 @@
-RZ/V2H Advance Features
-================================
+RZ/V2H Advanced Features
+========================
 
-The RZ/V2H Advance Features section provides detailed documentation on the advanced functionalities available on the RZ/V2H platform, including hardware accelerators and multi-OS capabilities.
+The RZ/V2H Advanced Features section provides detailed documentation on the advanced functionalities available on the RZ/V2H platform, including hardware accelerators and Multi-OS capabilities.
 
 .. toctree::
     :maxdepth: 2

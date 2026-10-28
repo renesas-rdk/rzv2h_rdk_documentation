@@ -1,7 +1,7 @@
 Advanced Setup
 --------------
 
-This section describes the steps to boot RZ/V2H RDK with root file system stored on an SSD.
+This section describes the steps to boot RZ/V2H RDK with the root filesystem stored on an SSD.
 
 It also describes how to enable specific device tree overlays by configuring U-Boot environment variables in the ``/boot/uEnv.txt`` file.
 

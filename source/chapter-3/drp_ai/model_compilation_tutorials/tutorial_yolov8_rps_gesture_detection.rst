@@ -3,7 +3,7 @@ YOLOv8 Object Detection Tutorial
 
 This tutorial describes how to use the **YOLOv8n Rock Paper Scissors Gesture Detection** model for object detection with DRP-AI acceleration on the Renesas RZ/V2H platform.
 
-Please complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
+Complete the :ref:`Prerequisites step of the tutorial <tutorial_prerequisites>` before proceeding.
 
 Installation Requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,12 +13,12 @@ Installation Requirements
 
   You can use the `Rock-Paper-Scissors Dataset <https://universe.roboflow.com/roboflow-58fyf/rock-paper-scissors-sxsw/dataset/14>`_ from Roboflow.
 
-  Please download and prepare the dataset in YOLOv8 format for training.
+  Download and prepare the dataset in YOLOv8 format for training.
 
 Train the Model Using Ultralytics YOLOv8 and Transfer Learning
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Please download the dataset above in YOLOv8 format and locate the ``data.yaml`` file. Replace the path in the Python script below and save it as ``train_model_yolov8.py``.
+Download the dataset above in YOLOv8 format and locate the ``data.yaml`` file. Replace the path in the Python script below and save it as ``train_model_yolov8.py``.
 
 .. code-block:: python
 
@@ -48,9 +48,9 @@ The result will be located at ``<workspace-directory>/runs/detect/trainX/weights
 Export and Cut the Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since some parts of the post-processing phase of the YOLOv8 model cannot be handled by the DRP-AI hardware, certain steps need to be removed to ensure compatibility.
+Since some parts of the postprocessing phase of the YOLOv8 model cannot be handled by the DRP-AI hardware, certain steps need to be removed to ensure compatibility.
 
-Please follow this documentation to learn how to export the model to ONNX format and cut the model:
+Follow this documentation to learn how to export the model to ONNX format and cut the model:
 
 - `How to convert YOLOv8 ONNX models for V2H <https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/docs/model_list/how_to_convert/How_to_convert_yolov8_onnx_models_V2H.md>`_
 
