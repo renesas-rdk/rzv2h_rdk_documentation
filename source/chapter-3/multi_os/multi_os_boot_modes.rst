@@ -154,6 +154,9 @@ Build the CM33 Firmware
         - **Enabled**
       * - Launch CA55(core0)
         - Disabled
+   .. figure:: ../../images/ca55_clockup_1_8_GHz.png
+      :alt: CM33 Cold Boot Example
+      :width: 600px
 
 #. Click **Generate Project Content** to apply the changes to the project.
 
@@ -337,6 +340,10 @@ The CM33 firmware is written to xSPI flash and started from e² studio with the 
       * - Clock up for CA55
         - Enabled only if CA55 must run at 1.8 GHz
 
+   .. figure:: ../../images/cm33_coldboot_launch_ca55.png
+      :alt: CM33 Cold Boot Example
+      :width: 600px
+
    .. note::
 
       If you enable **Clock up for CA55**, the kernel device tree must also use the 1.8 GHz OPP table. Apply the kernel patch as described in `Update the Kernel Device Tree`_.
@@ -352,6 +359,10 @@ The CM33 firmware is written to xSPI flash and started from e² studio with the 
 #. In the **Startup** tab, change the **Load type** of the program binary to **Symbols only**.
 
 #. In the **Startup** tab, click **Add...** > **Workspace...**, select ``Debug/<project_name>.srec``, and click **OK**. Keep its load type as **Image and Symbols**.
+
+   .. figure:: ../../images/Startup.png
+      :alt: CM33 Cold Boot Example
+      :width: 600px
 
 #. Set **DSW1** on the RZ/V2H RDK as follows:
 
