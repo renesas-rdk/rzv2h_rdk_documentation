@@ -84,16 +84,16 @@ Requirements
      - Ubuntu 24.04 LTS
      - Ubuntu 24.04
    * - Python
-     - 3.12.3
-     - 3.12.3
+     - 3.12
+     - 3.12 (system Python of Ubuntu 24.04)
    * - Packages
      - None (standard library only)
      - ``mera``, ``mera2_runtime``, and ``tvm`` wheels, ``opencv-python==4.10.0.84``
    * - Tools
      - ``ssh``, ``rsync``
-     - SSH server
+     - SSH server, ``rsync``, ``python3-venv``
 
-The ``mera``, ``mera2_runtime``, and ``tvm`` wheels are provided by DRP-AI TVM. See `DRP-AI TVM - How to install and run Python API <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/main/how-to/python>`_.
+The ``mera``, ``mera2_runtime``, and ``tvm`` wheels are provided in the ``how-to/python`` directory of `DRP-AI TVM v2.8.0-hotfix2 <https://github.com/renesas-rz/rzv_drp-ai_tvm/tree/v2.8.0-hotfix2/how-to/python>`_.
 
 Set Up the Environment
 """"""""""""""""""""""
@@ -101,61 +101,50 @@ Set Up the Environment
 Set Up the RZ/V2H RDK
 ~~~~~~~~~~~~~~~~~~~~~
 
-On Ubuntu 24.04, the system Python is protected from direct ``pip`` installation (PEP 668). Install the vendor wheels into a virtual environment.
+On Ubuntu 24.04, the system Python is protected from direct ``pip`` installation (PEP 668). Install the vendor wheels into a virtual environment. The board must have internet access while ``pip`` installs the wheel dependencies.
 
-1. Create the workspace directory, and copy the ``mera``, ``mera2_runtime``, and ``tvm`` wheels into it.
+1. Install the Python ``venv`` module and ``rsync``. ``rsync`` must be installed on both the development machine and the board. Skip this step if both packages are already installed.
+
+   .. code-block:: bash
+
+      # skip if already installed
+      sudo apt update
+      sudo apt install -y python3-venv rsync
+
+2. Create the workspace directory and the virtual environment. Make sure that ``python3 --version`` reports Python 3.12.
 
    .. code-block:: bash
 
       mkdir -p ~/drpai_ws
       cd ~/drpai_ws
+      python3 --version
+      python3 -m venv .venv
+      source .venv/bin/activate
 
-2. Install the build dependencies.
-
-   .. code-block:: bash
-
-      sudo apt update
-      sudo apt install -y build-essential curl git \
-        libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
-        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
-        libffi-dev liblzma-dev ca-certificates
-
-3. Install ``pyenv``.
+3. Download the MERA and TVM wheels from DRP-AI TVM ``v2.8.0-hotfix2``.
 
    .. code-block:: bash
 
-      curl https://pyenv.run | bash
+      TVM_REF=v2.8.0-hotfix2
+      BASE=https://raw.githubusercontent.com/renesas-rz/rzv_drp-ai_tvm/${TVM_REF}/how-to/python
+      for whl in \
+          mera-2.6.0-cp312-cp312-linux_aarch64.whl \
+          mera2_runtime-2.6.0-cp312-cp312-linux_aarch64.whl \
+          tvm-0.7.0.dev1619+g57142b014-cp312-cp312-linux_aarch64.whl; do
+        curl -fL -o "$whl" "$BASE/$whl"
+      done
 
-   Add the following lines to ``~/.bashrc``:
-
-   .. code-block:: bash
-
-      export PYENV_ROOT="$HOME/.pyenv"
-      export PATH="$PYENV_ROOT/bin:$PATH"
-      eval "$(pyenv init -)"
-
-4. Install Python 3.12.3 and create the virtual environment.
-
-   .. code-block:: bash
-
-      source ~/.bashrc
-      pyenv install 3.12.3
-      pyenv local 3.12.3
-      python -m venv .venv-3.12.3
-      source .venv-3.12.3/bin/activate
-
-5. Install the MERA and TVM runtime wheels and OpenCV.
+4. Install the wheels and OpenCV into the virtual environment.
 
    .. code-block:: bash
 
-      python3 -m pip install ./*.whl
-      pip install opencv-python==4.10.0.84
+      pip install ./*.whl opencv-python==4.10.0.84
 
-Record the absolute path of the virtual environment, for example ``/home/ubuntu/drpai_ws/.venv-3.12.3``. You set it as ``board.venv`` in the settings file.
+Record the absolute path of the virtual environment, for example ``/home/ubuntu/drpai_ws/.venv``. You set it as ``board.venv`` in the settings file.
 
 .. note::
 
-   A non-interactive SSH session does not read ``~/.bashrc``, so the ``pyenv`` shims are not on ``PATH``. The tool can only find the virtual environment through ``board.venv``.
+   A non-interactive SSH session does not activate the virtual environment. The tool can only find the virtual environment through ``board.venv``.
 
 The workspace on the board has the following layout. You prepare only the virtual environment and the wheels. The tool creates the repository mirror, the model folders, and its work directory automatically.
 
@@ -163,7 +152,7 @@ The workspace on the board has the following layout. You prepare only the virtua
 
    /home/ubuntu/drpai_ws/
    ├── drp-ai-deployment/             mirrored repository
-   ├── .venv-3.12.3/                  virtual environment
+   ├── .venv/                         virtual environment
    ├── *.whl                          MERA / TVM wheels
    ├── mp_handlandmark_fhd_crop/      compiled model folders
    ├── hrnetv2_hands_fhd_crop/
@@ -205,7 +194,7 @@ The ``settings.json`` file in the repository root describes the board and the mo
        "host": "<board_ip>",
        "user": "ubuntu",
        "workspace": "/home/ubuntu/drpai_ws",
-       "venv": "/home/ubuntu/drpai_ws/.venv-3.12.3"
+       "venv": "/home/ubuntu/drpai_ws/.venv"
      },
 
      "defaults": {
