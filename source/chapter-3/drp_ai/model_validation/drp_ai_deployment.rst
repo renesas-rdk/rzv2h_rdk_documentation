@@ -12,6 +12,8 @@ The **DRP-AI Deployment** tool is a development and validation toolchain for AI 
 
 One command on the development machine drives the whole flow. The tool transfers the code, the model files, and the images to the board, runs inference on the board, retrieves the results, and then scores and profiles them on the development machine.
 
+The source code and the documentation of the tool are available in the `DRP-AI Deployment <https://github.com/renesas-rdk/drp-ai-deployment>`__ repository.
+
 .. note::
 
    This tool does not compile models. Compile the model first, as described in :ref:`DRP-AI Model Compilation Tutorials <tutorial_prerequisites>` and :ref:`How to Deploy Model Files <how_to_deploy_model_files>`.
@@ -52,7 +54,7 @@ The following models are supported. They correspond to the models compiled in th
      - ``obb_detection``
      - YOLOv8 oriented bounding box (OBB) detection
 
-To add your own model, see ``docs/ADDING_A_MODEL.md`` in the DRP-AI Deployment repository.
+To add your own model, see `Adding a Custom Model <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/ADDING_A_MODEL.md>`__ in the DRP-AI Deployment repository.
 
 System Overview
 """""""""""""""
@@ -165,11 +167,11 @@ Set Up the Development Machine
 
 1. Clone the DRP-AI Deployment repository.
 
-   .. TBD: replace with the public repository URL before release.
+   .. TODO: correct the public repository URL before release.
 
    .. code-block:: bash
 
-      git clone <drp-ai-deployment_repository_url>
+      git clone https://github.com/renesas-rdk/drp-ai-deployment.git
       cd drp-ai-deployment
 
 2. Make sure that you can log in to the board over SSH, for example:
@@ -295,7 +297,7 @@ Each entry in ``runs`` defines one model run. The entries are executed in order.
 
 The repository provides a ground-truth dataset for each supported model in the ``datasets_ground_truth/`` directory.
 
-For the complete settings reference, see ``docs/USAGE.md`` in the DRP-AI Deployment repository.
+For the complete settings reference, see `Settings File <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/USAGE.md#2-settings-file>`__ in the DRP-AI Deployment repository.
 
 Run the Tool
 """"""""""""
@@ -395,7 +397,7 @@ Add ``--verbose`` to display every remote command and the full ``rsync`` output.
 
 For more information, see the following documents in the DRP-AI Deployment repository:
 
-- ``docs/USAGE.md``: Settings file, command line, output, and troubleshooting.
-- ``docs/CONTRACTS.md``: Dataset formats, metric definitions, and dataset preparation.
-- ``docs/ARCHITECTURE.md``: Host and board architecture, measurement windows, and exit codes.
-- ``docs/ADDING_A_MODEL.md``: How to add a custom model.
+- `Usage <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/USAGE.md>`__: Settings file, command line, output, and troubleshooting.
+- `Data Contracts <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/CONTRACTS.md>`__: Dataset formats, metric definitions, and dataset preparation.
+- `Technical Architecture <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/ARCHITECTURE.md>`__: Host and board architecture, measurement windows, and exit codes.
+- `Adding a Custom Model <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/ADDING_A_MODEL.md>`__: How to add a custom model.
