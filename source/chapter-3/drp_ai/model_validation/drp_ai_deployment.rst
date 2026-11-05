@@ -156,11 +156,8 @@ The workspace on the board has the following layout. You prepare only the virtua
    ├── drp-ai-deployment/             mirrored repository
    ├── .venv/                         virtual environment
    ├── *.whl                          MERA / TVM wheels
-   ├── mp_handlandmark_fhd_crop/      compiled model folders
-   ├── hrnetv2_hands_fhd_crop/
-   ├── yolox_hand_fhd_crop/
-   ├── yolov8_rps/
-   └── yolov8n_obb_soft_objects/
+   ├── mp_handlandmark_fhd_crop/      compiled model folders, one per configured model
+   └── <your_model>/
 
 Set Up the Development Machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -180,7 +177,22 @@ Set Up the Development Machine
 
       ssh ubuntu@<board_ip>
 
-3. Copy the compiled model folders to the development machine, for example the folders generated in the ``$TVM_ROOT/data`` directory by the compilation tutorials.
+3. To validate your own models, copy the compiled model folders to the development machine, for example the folders that the compilation tutorials generate in the ``$TVM_ROOT/data`` directory. To run only the example model, skip this step.
+
+Run the Example Model
+"""""""""""""""""""""
+
+The repository includes a compiled MediaPipe Hand Landmark model in ``examples/mediapipe_hand_landmark/``. The ``settings.json`` file in the repository root runs this model against the ``mediapipe_hand_keypoints`` ground-truth dataset. Run the example model to check the tool on your board before you add your own models.
+
+1. Open ``settings.json`` and set ``board.host`` to the IP address of your board. If your board uses a different SSH login user or workspace path, also change ``board.user``, ``board.workspace``, and ``board.venv``.
+
+2. Run the tool from the repository root.
+
+   .. code-block:: bash
+
+      python3 drpai.py
+
+3. Check the reports in ``reports/mediapipe/``. For a description of the reports, see `Check the Results`_.
 
 Configure the Settings File
 """""""""""""""""""""""""""
@@ -217,16 +229,14 @@ The ``settings.json`` file in the repository root describes the board and the mo
 
      "runs": [
        {
-         "name": "yolox_eval",
-         "model": "yolox",
-         "model_key": "yolox_hand",
-         "model_path": "<path_to>/yolox_hand_fhd_crop",
+         "name": "mediapipe",
+         "model": "mediapipe",
+         "model_path": "examples/mediapipe_hand_landmark/mp_handlandmark_fhd_crop",
          "detection": {
-           "images": ["datasets_ground_truth/yolox_hand_bbox/images/IMG_00000002.jpg"]
+           "images": ["datasets_ground_truth/mediapipe_hand_keypoints/images/IMG_00000002.jpg"]
          },
          "evaluation": {
-           "dataset": "datasets_ground_truth/yolox_hand_bbox",
-           "iou_thres": 0.45
+           "dataset": "datasets_ground_truth/mediapipe_hand_keypoints"
          }
        }
      ]
