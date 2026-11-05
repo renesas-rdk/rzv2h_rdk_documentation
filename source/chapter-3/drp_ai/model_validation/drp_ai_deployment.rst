@@ -411,3 +411,19 @@ For more information, see the following documents in the DRP-AI Deployment repos
 - `Data Contracts <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/CONTRACTS.md>`__: Dataset formats, metric definitions, and dataset preparation.
 - `Technical Architecture <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/ARCHITECTURE.md>`__: Host and board architecture, measurement windows, and exit codes.
 - `Adding a Custom Model <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/docs/ADDING_A_MODEL.md>`__: How to add a custom model.
+
+License
+"""""""
+
+The following table shows the licenses of the DRP-AI Deployment tool and of the example model in the DRP-AI Deployment repository.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Component
+     - License
+   * - DRP-AI Deployment tool
+     - Apache License 2.0
+   * - `MediaPipe <https://github.com/google-ai-edge/mediapipe>`__ Hand Landmark example model in ``examples/mediapipe_hand_landmark/``
+     - Apache License 2.0
