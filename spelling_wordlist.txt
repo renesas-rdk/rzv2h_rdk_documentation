@@ -102,6 +102,7 @@ linux
 lxde
 macOS
 Makefile
+mAP
 matchTemplate
 Mbps
 MCPU
