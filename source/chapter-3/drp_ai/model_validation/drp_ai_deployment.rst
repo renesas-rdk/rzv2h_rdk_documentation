@@ -415,15 +415,35 @@ For more information, see the following documents in the DRP-AI Deployment repos
 License
 """""""
 
-The following table shows the licenses of the DRP-AI Deployment tool and of the example model in the DRP-AI Deployment repository.
+The DRP-AI Deployment tool is licensed under the Apache License 2.0.
+
+The post-processing code in ``drpai/models/`` targets third-party models that have their own licenses.
+The following table describes each model and shows the license of the original model.
+Check the license of the original model before you use or redistribute the model.
 
 .. list-table::
    :header-rows: 1
-   :widths: 40 60
+   :widths: 30 50 20
 
-   * - Component
+   * - File
+     - Description
      - License
-   * - DRP-AI Deployment tool
+   * - ``drpai/models/hrnetv2.py``
+     - `HRNetV2 (MMPose) <https://github.com/open-mmlab/mmpose>`__ heatmap-based 2D keypoint estimation
      - Apache License 2.0
-   * - `MediaPipe <https://github.com/google-ai-edge/mediapipe>`__ Hand Landmark example model in ``examples/mediapipe_hand_landmark/``
+   * - ``drpai/models/mediapipe.py``
+     - `MediaPipe Hand Landmark <https://github.com/google-ai-edge/mediapipe>`__ 21-point hand landmark estimation on a cropped hand image
      - Apache License 2.0
+   * - ``drpai/models/yolox.py``
+     - `YOLOX <https://github.com/Megvii-BaseDetection/YOLOX>`__ object detection with axis-aligned bounding boxes
+     - Apache License 2.0
+   * - ``drpai/models/yolov8_detect.py``
+     - `YOLOv8 <https://github.com/ultralytics/ultralytics>`__ object detection with axis-aligned bounding boxes
+     - AGPL-3.0
+   * - ``drpai/models/yolov8_obb.py``
+     - `YOLOv8 OBB <https://github.com/ultralytics/ultralytics>`__ object detection with oriented bounding boxes
+     - AGPL-3.0
+
+The compiled MediaPipe Hand Landmark example model in ``examples/mediapipe_hand_landmark/`` is distributed under the Apache License 2.0.
+
+For more information, see `Model Licenses <https://github.com/renesas-rdk/drp-ai-deployment/blob/main/drpai/models/LICENSE.md>`__ in the DRP-AI Deployment repository.
