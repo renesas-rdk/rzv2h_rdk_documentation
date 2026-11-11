@@ -87,7 +87,7 @@ You can also refer to the source code of these packages for implementation detai
      - License
    * - `rzv_object_detection <https://github.com/renesas-rdk/rzv_object_detection>`_
      - ROS 2 nodes for camera-based and static image object detection using YOLOX, YOLOv8, and Gold-YOLO models.
-     - Apache 2.0
+     - AGPLv3
    * - `rzv_pose_estimation <https://github.com/renesas-rdk/rzv_pose_estimation>`_
      - ROS 2 nodes for hand landmark estimation with a two-stage pipeline (detection + landmark).
      - Apache 2.0
