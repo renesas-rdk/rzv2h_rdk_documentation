@@ -415,7 +415,7 @@ For more information, see the following documents in the DRP-AI Deployment repos
 License
 """""""
 
-The DRP-AI Deployment tool is licensed under the Apache License 2.0.
+The DRP-AI Deployment tool is licensed under the GNU Affero General Public License v3.0.
 
 The post-processing code in ``drpai/models/`` targets third-party models that have their own licenses.
 The following table describes each model and shows the license of the original model.
